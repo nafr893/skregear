@@ -1293,7 +1293,9 @@ button.shopify-payment-button__button--unbranded {
   width: fit-content;
   box-shadow: inset 0 0 0 var(--button-border-width) var(--button-border-color);
   padding-block: var(--button-padding-block);
-  padding-inline: var(--button-padding-inline);
+  /*
+  padding-inline: var(--button-padding-inline);*/
+  padding-inline: 2.5rem; 
 }
 
 .button {
