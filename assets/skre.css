@@ -11,3 +11,12 @@ h4, h5, h6, p {
     font-size: 1.125rem !important;
   }
 }
+
+/* Sentence-case pill labels: first letter of each word capitalised, rest lowercase */
+.predictive-search-results__card--query .predictive-search-results__pill {
+  text-transform: capitalize;
+}
+
+.predictive-search-results__card--query .predictive-search-results__pill * {
+  text-transform: capitalize;
+}

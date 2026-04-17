@@ -2119,7 +2119,8 @@
         "type": "text",
         "id": "search_trending_keywords",
         "label": "Popular search keywords",
-        "info": "Comma-separated keywords shown in the search empty state. E.g: Jackets, Bundles, Outlet, Turkey"
+        "info": "Comma-separated keywords shown in the search empty state. E.g: Jackets, Bundles, Outlet, Turkey",
+        "default": "Hardscrabble, Turkey, Jackets, Guides, Waterfowl, Pants, Outlet, Accessories"
       },
       {
         "type": "header",
