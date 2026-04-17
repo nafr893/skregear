@@ -31,16 +31,18 @@
       {%- if has_keywords -%}
         <div class="search-empty__popular" data-testid="{{ products_test_id }}">
           <p class="search-empty__heading">Popular Searches</p>
-          <div class="search-empty__pills">
+          <div class="search-empty__pills predictive-search-results__wrapper predictive-search-results__wrapper-queries">
             {%- for keyword in trending_keywords -%}
               {%- assign kw = keyword | strip -%}
               {%- if kw != blank -%}
-                <a
-                  href="{{ routes.search_url }}?type=product&q={{ kw | url_encode }}"
-                  class="search-empty__pill"
-                >
-                  {{ kw }}
-                </a>
+                <div class="predictive-search-results__card predictive-search-results__card--query">
+                  <a
+                    href="{{ routes.search_url }}?type=product&q={{ kw | url_encode }}"
+                    class="predictive-search-results__pill"
+                  >
+                    {{ kw }}
+                  </a>
+                </div>
               {%- endif -%}
             {%- endfor -%}
           </div>
@@ -54,14 +56,16 @@
           {% if fallback_collection.products.size > 0 %}
             <div class="search-empty__popular" data-testid="{{ products_test_id }}">
               <p class="search-empty__heading">Popular Searches</p>
-              <div class="search-empty__pills">
+              <div class="search-empty__pills predictive-search-results__wrapper predictive-search-results__wrapper-queries">
                 {%- for product in fallback_collection.products limit: 8 -%}
-                  <a
-                    href="{{ routes.search_url }}?type=product&q={{ product.title | url_encode }}"
-                    class="search-empty__pill"
-                  >
-                    {{ product.title }}
-                  </a>
+                  <div class="predictive-search-results__card predictive-search-results__card--query">
+                    <a
+                      href="{{ routes.search_url }}?type=product&q={{ product.title | url_encode }}"
+                      class="predictive-search-results__pill"
+                    >
+                      {{ product.title }}
+                    </a>
+                  </div>
                 {%- endfor -%}
               </div>
             </div>
