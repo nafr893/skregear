@@ -49,13 +49,15 @@
     font-style: normal;
     font-display: swap;
   }
+
+  @font-face {
+    font-family: 'Avenir';
+    src: url('{{ "avenir.woff2" | asset_url }}') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 {%- endstyle -%}
 
-<link
-  rel="preload"
-  as="font"
-  href="{{ 'UnitedSansReg-Black.woff2' | asset_url }}"
-  type="font/woff2"
-  crossorigin
-  fetchpriority="low"
->
+{{ 'UnitedSansReg-Black.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
+{{ 'avenir.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: 'anonymous' }}
