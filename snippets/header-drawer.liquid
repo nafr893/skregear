@@ -73,16 +73,19 @@
         color-{{ block_settings.color_scheme }}
       "
     >
-      <button
-        class="button close-button menu-drawer__close-button"
-        type="button"
-        aria-label="{{ 'actions.close' | t }}"
-        on:click="/close"
-      >
-        <span class="svg-wrapper header-drawer-icon header-drawer-icon--close">
-          {{- 'icon-close.svg' | inline_asset_content -}}
-        </span>
-      </button>
+      <div class="menu-drawer__header-row">
+        <span class="menu-drawer__header-label">Menu</span>
+        <button
+          class="button close-button menu-drawer__close-button"
+          type="button"
+          aria-label="{{ 'actions.close' | t }}"
+          on:click="/close"
+        >
+          <span class="svg-wrapper header-drawer-icon header-drawer-icon--close">
+            {{- 'icon-close.svg' | inline_asset_content -}}
+          </span>
+        </button>
+      </div>
       <nav
         class="menu-drawer__navigation"
         style="
@@ -1050,6 +1053,22 @@
     }
   }
 
+  .menu-drawer__header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline-start: var(--drawer-padding);
+  }
+
+  .menu-drawer__header-label {
+    font-family: var(--menu-top-level-font-family, inherit);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-foreground);
+  }
+
   .menu-drawer__nav-buttons {
     display: flex;
     justify-content: space-between;
@@ -1426,7 +1445,7 @@
 
   .menu-drawer__promo-heading {
     margin: 0;
-    font-weight: 700;
+    font-weight: 800;
     font-size: var(--font-size--sm, 0.9375rem);
     line-height: 1.3;
   }
