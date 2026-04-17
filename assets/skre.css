@@ -5,3 +5,9 @@ font-family: 'United-Sans', sans-serif !important;
 h4, h5, h6, p {
     font-family: 'avenir', sans-serif;
 }
+
+@media screen and (max-width: 749px) {
+  .menu-drawer__menu-item--mainlist {
+    font-size: 1rem;
+  }
+}

@@ -573,7 +573,7 @@
         </ul>
       </nav>
 
-      {%- comment -%} ===== DRAWER EXTRAS: promo card, utility links, social icons ===== {%- endcomment -%}
+      {%- comment -%} ===== PROMO CARD: directly below nav with 24px gap ===== {%- endcomment -%}
       {%- liquid
         assign has_promo = block_settings.show_drawer_promo
         assign has_utility = false
@@ -585,34 +585,36 @@
           assign has_social = true
         endif
       -%}
-      {%- if has_promo or has_utility or has_social -%}
-        <div class="menu-drawer__extras">
 
-          {%- if has_promo -%}
-            <div class="menu-drawer__promo-card">
-              {%- if block_settings.drawer_promo_image -%}
-                <div class="menu-drawer__promo-image">
-                  {{- block_settings.drawer_promo_image | image_url: width: 200 | image_tag: loading: 'lazy', class: 'menu-drawer__promo-img' -}}
-                </div>
-              {%- endif -%}
-              <div class="menu-drawer__promo-content">
-                {%- if block_settings.drawer_promo_heading != blank -%}
-                  <p class="menu-drawer__promo-heading">{{ block_settings.drawer_promo_heading }}</p>
-                {%- endif -%}
-                {%- if block_settings.drawer_promo_subheading != blank -%}
-                  <p class="menu-drawer__promo-subheading">{{ block_settings.drawer_promo_subheading }}</p>
-                {%- endif -%}
-                {%- if block_settings.drawer_promo_button_text != blank -%}
-                  <a
-                    href="{{ block_settings.drawer_promo_button_link | default: '#' }}"
-                    class="button menu-drawer__promo-btn"
-                  >
-                    {{- block_settings.drawer_promo_button_text -}}
-                  </a>
-                {%- endif -%}
-              </div>
+      {%- if has_promo -%}
+        <div class="menu-drawer__promo-card">
+          {%- if block_settings.drawer_promo_image -%}
+            <div class="menu-drawer__promo-image">
+              {{- block_settings.drawer_promo_image | image_url: width: 200 | image_tag: loading: 'lazy', class: 'menu-drawer__promo-img' -}}
             </div>
           {%- endif -%}
+          <div class="menu-drawer__promo-content">
+            {%- if block_settings.drawer_promo_heading != blank -%}
+              <p class="menu-drawer__promo-heading">{{ block_settings.drawer_promo_heading }}</p>
+            {%- endif -%}
+            {%- if block_settings.drawer_promo_subheading != blank -%}
+              <p class="menu-drawer__promo-subheading">{{ block_settings.drawer_promo_subheading }}</p>
+            {%- endif -%}
+            {%- if block_settings.drawer_promo_button_text != blank -%}
+              <a
+                href="{{ block_settings.drawer_promo_button_link | default: '#' }}"
+                class="button menu-drawer__promo-btn"
+              >
+                {{- block_settings.drawer_promo_button_text -}}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} ===== DRAWER EXTRAS: utility links, social icons ===== {%- endcomment -%}
+      {%- if has_utility or has_social -%}
+        <div class="menu-drawer__extras">
 
           {%- if has_utility -%}
             <ul class="menu-drawer__icon-links list-unstyled" role="list">
@@ -1396,6 +1398,8 @@
     gap: var(--gap-md, 1rem);
     align-items: center;
     padding: 0;
+    margin-block-start: 24px;
+    margin-inline: var(--drawer-padding);
     border: 1px solid var(--color-border);
     background-color: #F5F5F5;
   }
