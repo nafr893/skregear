@@ -1282,7 +1282,7 @@ button.shopify-payment-button__button--unbranded {
   border: none;
   font-family: var(--font-paragraph--family);
   font-style: var(--font-paragraph--style);
-  font-weight: var(--font-paragraph--weight);
+  font-weight: var(--font-heading--weight);
   font-size: var(--font-paragraph--size);
   line-height: var(--font-paragraph--line-height);
   margin-block: 0;
