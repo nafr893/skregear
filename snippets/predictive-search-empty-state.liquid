@@ -31,8 +31,8 @@
       {%- if has_keywords -%}
         <div class="search-empty__popular" data-testid="{{ products_test_id }}">
           <p class="search-empty__heading">Popular Searches</p>
-          <ul class="predictive-search-results__list predictive-search-results__wrapper predictive-search-results__wrapper-queries list-unstyled">
-            {%- for keyword in trending_keywords -%}
+          <ul class="search-empty__pills predictive-search-results__list predictive-search-results__wrapper predictive-search-results__wrapper-queries list-unstyled">
+            {%- for keyword in trending_keywords limit: 8 -%}
               {%- assign kw = keyword | strip -%}
               {%- if kw != blank -%}
                 <li class="predictive-search-results__card--query">
@@ -56,7 +56,7 @@
           {% if fallback_collection.products.size > 0 %}
             <div class="search-empty__popular" data-testid="{{ products_test_id }}">
               <p class="search-empty__heading">Popular Searches</p>
-              <ul class="predictive-search-results__list predictive-search-results__wrapper predictive-search-results__wrapper-queries list-unstyled">
+              <ul class="search-empty__pills predictive-search-results__list predictive-search-results__wrapper predictive-search-results__wrapper-queries list-unstyled">
                 {%- for product in fallback_collection.products limit: 8 -%}
                   <li class="predictive-search-results__card--query">
                     <a
