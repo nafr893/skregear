@@ -572,6 +572,126 @@
           {% endif %}
         </ul>
       </nav>
+
+      {%- comment -%} ===== DRAWER EXTRAS: promo card, utility links, social icons ===== {%- endcomment -%}
+      {%- liquid
+        assign has_promo = block_settings.show_drawer_promo
+        assign has_utility = false
+        if block_settings.drawer_utility_text_1 != blank or block_settings.drawer_utility_text_2 != blank or block_settings.drawer_utility_text_3 != blank
+          assign has_utility = true
+        endif
+        assign has_social = false
+        if block_settings.drawer_social_instagram != blank or block_settings.drawer_social_facebook != blank or block_settings.drawer_social_youtube != blank or block_settings.drawer_social_tiktok != blank or block_settings.drawer_social_twitter != blank
+          assign has_social = true
+        endif
+      -%}
+      {%- if has_promo or has_utility or has_social -%}
+        <div class="menu-drawer__extras">
+
+          {%- if has_promo -%}
+            <div class="menu-drawer__promo-card">
+              {%- if block_settings.drawer_promo_image -%}
+                <div class="menu-drawer__promo-image">
+                  {{- block_settings.drawer_promo_image | image_url: width: 200 | image_tag: loading: 'lazy', class: 'menu-drawer__promo-img' -}}
+                </div>
+              {%- endif -%}
+              <div class="menu-drawer__promo-content">
+                {%- if block_settings.drawer_promo_heading != blank -%}
+                  <p class="menu-drawer__promo-heading">{{ block_settings.drawer_promo_heading }}</p>
+                {%- endif -%}
+                {%- if block_settings.drawer_promo_subheading != blank -%}
+                  <p class="menu-drawer__promo-subheading">{{ block_settings.drawer_promo_subheading }}</p>
+                {%- endif -%}
+                {%- if block_settings.drawer_promo_button_text != blank -%}
+                  <a
+                    href="{{ block_settings.drawer_promo_button_link | default: '#' }}"
+                    class="button menu-drawer__promo-btn"
+                  >
+                    {{- block_settings.drawer_promo_button_text -}}
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+
+          {%- if has_utility -%}
+            <ul class="menu-drawer__icon-links list-unstyled" role="list">
+              {%- if block_settings.drawer_utility_text_1 != blank -%}
+                <li class="menu-drawer__icon-link-item">
+                  <a href="{{ block_settings.drawer_utility_link_1 | default: '#' }}" class="menu-drawer__icon-link">
+                    {%- if block_settings.drawer_utility_icon_1 -%}
+                      {{- block_settings.drawer_utility_icon_1 | image_url: width: 48 | image_tag: loading: 'lazy', class: 'menu-drawer__icon-link-img' -}}
+                    {%- endif -%}
+                    <span class="menu-drawer__icon-link-text">{{ block_settings.drawer_utility_text_1 }}</span>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if block_settings.drawer_utility_text_2 != blank -%}
+                <li class="menu-drawer__icon-link-item">
+                  <a href="{{ block_settings.drawer_utility_link_2 | default: '#' }}" class="menu-drawer__icon-link">
+                    {%- if block_settings.drawer_utility_icon_2 -%}
+                      {{- block_settings.drawer_utility_icon_2 | image_url: width: 48 | image_tag: loading: 'lazy', class: 'menu-drawer__icon-link-img' -}}
+                    {%- endif -%}
+                    <span class="menu-drawer__icon-link-text">{{ block_settings.drawer_utility_text_2 }}</span>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if block_settings.drawer_utility_text_3 != blank -%}
+                <li class="menu-drawer__icon-link-item">
+                  <a href="{{ block_settings.drawer_utility_link_3 | default: '#' }}" class="menu-drawer__icon-link">
+                    {%- if block_settings.drawer_utility_icon_3 -%}
+                      {{- block_settings.drawer_utility_icon_3 | image_url: width: 48 | image_tag: loading: 'lazy', class: 'menu-drawer__icon-link-img' -}}
+                    {%- endif -%}
+                    <span class="menu-drawer__icon-link-text">{{ block_settings.drawer_utility_text_3 }}</span>
+                  </a>
+                </li>
+              {%- endif -%}
+            </ul>
+          {%- endif -%}
+
+          {%- if has_social -%}
+            <div class="menu-drawer__social-icons">
+              {%- if block_settings.drawer_social_instagram != blank -%}
+                <a href="{{ block_settings.drawer_social_instagram }}" class="menu-drawer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <svg class="menu-drawer__social-svg" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    {%- render 'icon', icon: 'instagram' -%}
+                  </svg>
+                </a>
+              {%- endif -%}
+              {%- if block_settings.drawer_social_facebook != blank -%}
+                <a href="{{ block_settings.drawer_social_facebook }}" class="menu-drawer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <svg class="menu-drawer__social-svg" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    {%- render 'icon', icon: 'facebook' -%}
+                  </svg>
+                </a>
+              {%- endif -%}
+              {%- if block_settings.drawer_social_youtube != blank -%}
+                <a href="{{ block_settings.drawer_social_youtube }}" class="menu-drawer__social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                  <svg class="menu-drawer__social-svg" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    {%- render 'icon', icon: 'youtube' -%}
+                  </svg>
+                </a>
+              {%- endif -%}
+              {%- if block_settings.drawer_social_tiktok != blank -%}
+                <a href="{{ block_settings.drawer_social_tiktok }}" class="menu-drawer__social-link" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                  <svg class="menu-drawer__social-svg" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    {%- render 'icon', icon: 'tiktok' -%}
+                  </svg>
+                </a>
+              {%- endif -%}
+              {%- if block_settings.drawer_social_twitter != blank -%}
+                <a href="{{ block_settings.drawer_social_twitter }}" class="menu-drawer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                  <svg class="menu-drawer__social-svg" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    {%- render 'icon', icon: 'twitter' -%}
+                  </svg>
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+        </div>
+      {%- endif -%}
+
       <div
         class="menu-drawer__utility-links menu-drawer__animated-element"
         style="--menu-drawer-animation-index: {{ linklist.links.size }};"
@@ -1237,9 +1357,145 @@
     display: flex;
     flex-direction: column;
     padding: 0;
-    margin-block: auto var(--padding-sm);
+    margin-block: 0 var(--padding-sm);
     margin-inline-start: var(--padding-xl);
     background-color: rgb(var(--color-foreground) 0.03);
+  }
+
+  /* ===== Drawer Extras: promo card, utility links, social icons ===== */
+
+  .menu-drawer__extras {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-lg, 1.5rem);
+    margin-block-start: auto;
+    padding-inline: var(--drawer-padding);
+    padding-block-end: var(--padding-xl);
+  }
+
+  /* Promo Card */
+  .menu-drawer__promo-card {
+    display: flex;
+    gap: var(--gap-md, 1rem);
+    align-items: center;
+    padding: var(--padding-md);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background);
+  }
+
+  .menu-drawer__promo-image {
+    flex: 0 0 auto;
+    width: 90px;
+    height: 90px;
+    overflow: hidden;
+  }
+
+  .menu-drawer__promo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .menu-drawer__promo-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm, 0.5rem);
+    min-width: 0;
+  }
+
+  .menu-drawer__promo-heading {
+    margin: 0;
+    font-weight: 700;
+    font-size: var(--font-size--sm, 0.9375rem);
+    line-height: 1.3;
+  }
+
+  .menu-drawer__promo-subheading {
+    margin: 0;
+    font-size: var(--font-size--sm, 0.9375rem);
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .menu-drawer__promo-btn {
+    display: inline-block;
+    padding: var(--padding-2xs) var(--padding-md);
+    font-size: var(--font-size--xs, 0.8125rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+    width: fit-content;
+  }
+
+  .menu-drawer__promo-btn:hover {
+    opacity: 0.85;
+  }
+
+  /* Icon Utility Links */
+  .menu-drawer__icon-links {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .menu-drawer__icon-link-item {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .menu-drawer__icon-link {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-sm, 0.75rem);
+    padding-block: var(--padding-sm);
+    text-decoration: none;
+    color: var(--color-foreground);
+    min-height: 44px;
+  }
+
+  .menu-drawer__icon-link:hover {
+    color: var(--color-foreground);
+    opacity: 0.75;
+  }
+
+  .menu-drawer__icon-link-img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .menu-drawer__icon-link-text {
+    font-size: var(--font-size--sm, 0.9375rem);
+  }
+
+  /* Social Icons */
+  .menu-drawer__social-icons {
+    display: flex;
+    gap: var(--gap-md, 1rem);
+    align-items: center;
+  }
+
+  .menu-drawer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-foreground);
+    text-decoration: none;
+  }
+
+  .menu-drawer__social-link:hover {
+    opacity: 0.75;
+  }
+
+  .menu-drawer__social-svg {
+    width: var(--icon-size-lg, 2rem);
+    height: var(--icon-size-lg, 2rem);
   }
 
   .menu-drawer__account {

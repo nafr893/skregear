@@ -912,6 +912,130 @@
       "id": "drawer_dividers",
       "label": "t:settings.dividers",
       "default": false
+    },
+    {
+      "type": "header",
+      "content": "Promo Card"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_drawer_promo",
+      "label": "Show promo card",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "drawer_promo_image",
+      "label": "Image",
+      "visible_if": "{{ block.settings.show_drawer_promo }}"
+    },
+    {
+      "type": "text",
+      "id": "drawer_promo_heading",
+      "label": "Heading",
+      "default": "Build and Save 15%",
+      "visible_if": "{{ block.settings.show_drawer_promo }}"
+    },
+    {
+      "type": "text",
+      "id": "drawer_promo_subheading",
+      "label": "Subheading",
+      "default": "on your layering system.",
+      "visible_if": "{{ block.settings.show_drawer_promo }}"
+    },
+    {
+      "type": "text",
+      "id": "drawer_promo_button_text",
+      "label": "Button text",
+      "default": "START HERE",
+      "visible_if": "{{ block.settings.show_drawer_promo }}"
+    },
+    {
+      "type": "url",
+      "id": "drawer_promo_button_link",
+      "label": "Button link",
+      "visible_if": "{{ block.settings.show_drawer_promo }}"
+    },
+    {
+      "type": "header",
+      "content": "Utility Links"
+    },
+    {
+      "type": "image_picker",
+      "id": "drawer_utility_icon_1",
+      "label": "Icon 1"
+    },
+    {
+      "type": "text",
+      "id": "drawer_utility_text_1",
+      "label": "Text 1",
+      "default": "Rewards"
+    },
+    {
+      "type": "url",
+      "id": "drawer_utility_link_1",
+      "label": "Link 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "drawer_utility_icon_2",
+      "label": "Icon 2"
+    },
+    {
+      "type": "text",
+      "id": "drawer_utility_text_2",
+      "label": "Text 2",
+      "default": "Login / Sign Up"
+    },
+    {
+      "type": "url",
+      "id": "drawer_utility_link_2",
+      "label": "Link 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "drawer_utility_icon_3",
+      "label": "Icon 3"
+    },
+    {
+      "type": "text",
+      "id": "drawer_utility_text_3",
+      "label": "Text 3",
+      "default": "Customer Care"
+    },
+    {
+      "type": "url",
+      "id": "drawer_utility_link_3",
+      "label": "Link 3"
+    },
+    {
+      "type": "header",
+      "content": "Social Icons"
+    },
+    {
+      "type": "url",
+      "id": "drawer_social_instagram",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "drawer_social_facebook",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "drawer_social_youtube",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "url",
+      "id": "drawer_social_tiktok",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "url",
+      "id": "drawer_social_twitter",
+      "label": "Twitter / X URL"
     }
   ]
 }
