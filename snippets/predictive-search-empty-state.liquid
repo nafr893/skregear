@@ -1,5 +1,6 @@
 {% doc %}
-  Renders the predictive search empty state
+  Renders the predictive search empty state with popular search keyword pills.
+  Falls back to product names from the configured collection if no keywords are set.
 
   @param {number} shadow_opacity - shadow opacity for the empty state container shadow
   @param {string} products_test_id - a playwright test id, used to differentiate empty state from 'real' search results
@@ -18,27 +19,55 @@
 >
   {% if load_empty_state %}
     <div class="predictive-search-results__inner">
-      {% liquid
-        assign collection = settings.empty_state_collection | default: collections.all
-        assign default_title = 'content.search_results_resource_products' | t
-        assign title = settings.empty_state_collection.title | default: default_title
-      %}
-      {% paginate collection.products by 4 %}
-        {% assign products = collection.products %}
-        {% comment %} Only show products section if there are products to display {% endcomment %}
-        {% if products.size > 0 %}
-          {% render 'predictive-search-products-list',
-            products_test_id: products_test_id,
-            title: title,
-            products: products,
-            limit: 4
-          %}
-        {% else %}
-          <div class="predictive-search-results__no-results">
-            <p>{{ 'content.no_products_found' | t }}</p>
+      {%- liquid
+        assign trending_raw = settings.search_trending_keywords | default: ''
+        assign has_keywords = false
+        if trending_raw != blank
+          assign has_keywords = true
+          assign trending_keywords = trending_raw | split: ','
+        endif
+      -%}
+
+      {%- if has_keywords -%}
+        <div class="search-empty__popular" data-testid="{{ products_test_id }}">
+          <p class="search-empty__heading">Popular Searches</p>
+          <div class="search-empty__pills">
+            {%- for keyword in trending_keywords -%}
+              {%- assign kw = keyword | strip -%}
+              {%- if kw != blank -%}
+                <a
+                  href="{{ routes.search_url }}?type=product&q={{ kw | url_encode }}"
+                  class="search-empty__pill"
+                >
+                  {{ kw }}
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
           </div>
-        {% endif %}
-      {% endpaginate %}
+        </div>
+      {%- else -%}
+        {%- comment -%} Fallback: product names from best-selling / configured collection as pills {%- endcomment -%}
+        {%- liquid
+          assign fallback_collection = settings.empty_state_collection | default: collections.all
+        -%}
+        {% paginate fallback_collection.products by 8 %}
+          {% if fallback_collection.products.size > 0 %}
+            <div class="search-empty__popular" data-testid="{{ products_test_id }}">
+              <p class="search-empty__heading">Popular Searches</p>
+              <div class="search-empty__pills">
+                {%- for product in fallback_collection.products limit: 8 -%}
+                  <a
+                    href="{{ routes.search_url }}?type=product&q={{ product.title | url_encode }}"
+                    class="search-empty__pill"
+                  >
+                    {{ product.title }}
+                  </a>
+                {%- endfor -%}
+              </div>
+            </div>
+          {% endif %}
+        {% endpaginate %}
+      {%- endif -%}
     </div>
   {% endif %}
 </div>

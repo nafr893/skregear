@@ -514,4 +514,122 @@
     --button-color: var(--color-foreground);
     --button-background-color: transparent;
   }
+
+  /* ===== Desktop: right-side search drawer ===== */
+  @media screen and (min-width: 750px) {
+    .search-modal__content {
+      --modal-width: 400px;
+
+      width: var(--modal-width);
+      height: 100dvh;
+      max-height: 100dvh;
+      margin-inline-start: auto;
+      margin-inline-end: 0;
+      margin-block: 0;
+      border-radius: 0;
+      border-top: none;
+      border-right: none;
+      border-bottom: none;
+      overflow: hidden;
+    }
+
+    .dialog-modal[open].search-modal__content {
+      transform-origin: right center;
+      animation: search-drawer-slide-in-right 300ms var(--ease-out-quad) forwards;
+      border-radius: 0;
+    }
+
+    .dialog-modal.search-modal__content.dialog-closing {
+      animation: search-drawer-slide-out-right 200ms var(--ease-out-quad) forwards;
+    }
+
+    /* Make the form fill the full drawer height */
+    .search-modal__content predictive-search-component {
+      height: 100%;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .search-modal__content .predictive-search-form {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .search-modal__content .predictive-search-form__content-wrapper {
+      position: relative;
+      top: unset;
+      flex: 1;
+      overflow-y: auto;
+      max-height: unset;
+      border-radius: 0;
+    }
+
+    .search-modal__content .predictive-search-form__content {
+      max-height: unset;
+    }
+  }
+
+  @keyframes search-drawer-slide-in-right {
+    from {
+      transform: translateX(30%);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes search-drawer-slide-out-right {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    to {
+      transform: translateX(30%);
+      opacity: 0;
+    }
+  }
+
+  /* ===== Popular searches empty state ===== */
+  .search-empty__popular {
+    padding: var(--padding-xl);
+  }
+
+  .search-empty__heading {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-foreground);
+    margin: 0 0 var(--margin-md);
+  }
+
+  .search-empty__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gap-xs, 0.5rem);
+  }
+
+  .search-empty__pill {
+    display: inline-block;
+    padding: var(--padding-xs) var(--padding-md);
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: var(--color-foreground);
+    background-color: rgb(var(--color-foreground-rgb) / 0.04);
+    border: 1px solid var(--color-border);
+    border-radius: 2px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 150ms ease;
+  }
+
+  .search-empty__pill:hover {
+    background-color: rgb(var(--color-foreground-rgb) / 0.08);
+    color: var(--color-foreground);
+  }
 {% endstylesheet %}

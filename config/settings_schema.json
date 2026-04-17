@@ -2116,6 +2116,12 @@
         "info": "t:settings.empty_state_collection_info"
       },
       {
+        "type": "text",
+        "id": "search_trending_keywords",
+        "label": "Popular search keywords",
+        "info": "Comma-separated keywords shown in the search empty state. E.g: Jackets, Bundles, Outlet, Turkey"
+      },
+      {
         "type": "header",
         "content": "t:names.predictive_search"
       },
