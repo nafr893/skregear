@@ -82,7 +82,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h1>BOSS TOMS DON'T COME EASY</h1>",
+                "text": "<h1>BOSS TOMS DON'T COME EASY.</h1>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -103,32 +103,32 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
-            },
-            "button_YAyXqf": {
-              "type": "button",
-              "name": "t:names.button",
-              "settings": {
-                "label": "Shop all",
-                "link": "shopify://collections/all",
-                "open_in_new_tab": false,
-                "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
             }
           },
           "block_order": [
             "text_a9xjNw",
-            "text_LFqbrk",
-            "button_YAyXqf"
+            "text_LFqbrk"
           ]
+        },
+        "button_iUUUJV": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "Shop all",
+            "link": "shopify://collections/all",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
         }
       },
       "block_order": [
-        "group_h3qT7Q"
+        "group_h3qT7Q",
+        "button_iUUUJV"
       ],
       "name": "t:names.hero",
       "settings": {
@@ -149,7 +149,7 @@
         "align_baseline": true,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
+        "gap": 18,
         "section_width": "page-width",
         "section_height": "large",
         "section_height_custom": 50,
