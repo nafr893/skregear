@@ -1608,7 +1608,7 @@
   /* ===== Sub-drawer Stacked Accordions ===== */
 
   .menu-drawer__sub-accordions {
-    padding-inline: var(--drawer-padding);
+    padding-inline: 0;
   }
 
   .menu-drawer__sub-accordion {
@@ -1624,6 +1624,7 @@
     justify-content: space-between;
     align-items: center;
     padding-block: var(--padding-lg);
+    padding-inline: var(--drawer-padding);
     list-style: none;
     cursor: pointer;
     font-size: 0.9375rem;
@@ -1669,6 +1670,7 @@
   .menu-drawer__sub-accordion-link {
     display: block;
     padding-block: var(--padding-sm);
+    padding-inline: var(--drawer-padding);
     text-decoration: none;
     color: var(--color-foreground);
     font-size: 0.9375rem;
