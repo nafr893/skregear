@@ -82,7 +82,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h1>BOSS TOMS DON'T COME EASY.</h1>",
+                "text": "<h1>BOSS TOMS <br/>DON'T COME EASY.</h1>",
                 "width": "fit-content",
                 "max_width": "none",
                 "alignment": "left",
