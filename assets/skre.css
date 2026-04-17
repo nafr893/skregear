@@ -13,10 +13,9 @@ h4, h5, h6, p {
 }
 
 /* Sentence-case pill labels: first letter of each word capitalised, rest lowercase */
-.predictive-search-results__card--query .predictive-search-results__pill {
+/* Consistent font weight: neutralise bold/light overrides from styled_text markup */
+.predictive-search-results__card--query .predictive-search-results__pill,
+.predictive-search-results__card--query .predictive-search-results__pill *  {
   text-transform: capitalize;
-}
-
-.predictive-search-results__card--query .predictive-search-results__pill * {
-  text-transform: capitalize;
+  font-weight: 500;
 }
