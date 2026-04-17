@@ -72,7 +72,7 @@
             "color_scheme_navigation_bar": "",
             "drawer_accordion": false,
             "drawer_accordion_expand_first": false,
-            "drawer_dividers": false,
+            "drawer_dividers": true,
             "show_drawer_promo": true,
             "drawer_promo_image": "shopify://shop_images/IMG_8188_1.webp",
             "drawer_promo_heading": "Save 15% on your layering system.",
