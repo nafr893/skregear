@@ -128,8 +128,8 @@
         "settings": {
           "background": "#000000",
           "foreground_heading": "#ffffff",
-          "foreground": "#ffffffcf",
-          "primary": "#ffffffcf",
+          "foreground": "#ffffff",
+          "primary": "#ffffff",
           "primary_hover": "#ffffff",
           "border": "#2d2d2d",
           "shadow": "rgba(0,0,0,0)",
