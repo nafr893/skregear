@@ -9,6 +9,7 @@
   @param {string} [image_aspect_ratio] - The aspect ratio to display the image. Defaults to image's natural ratio
   @param {boolean} [image_hover] - Whether to show a secondary image on hover and focus
   @param {string} [image_sizes] - The sizes attribute for responsive images. Defaults to 'auto'
+  @param {object} [swatches_product] - When provided, renders variant swatches between the image and content
 {%- enddoc -%}
 
 {% liquid
@@ -137,6 +138,12 @@
       {%- endif -%}
     {%- endif -%}
   </div>
+
+  {%- if swatches_product != blank -%}
+    <div class="predictive-search-swatches" style="--product-swatches-alignment: flex-start; --product-swatches-alignment-mobile: flex-start; --product-swatches-padding-block-start: 0; --product-swatches-padding-block-end: 0; --product-swatches-padding-inline-start: 0; --product-swatches-padding-inline-end: 0;">
+      {% render 'variant-swatches', product_resource: swatches_product %}
+    </div>
+  {%- endif -%}
 
   <div class="resource-card__content">
     <p class="resource-card__title{% if style == 'overlay' %} h5{%else %} paragraph{% endif %}">
