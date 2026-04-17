@@ -31,21 +31,21 @@
       {%- if has_keywords -%}
         <div class="search-empty__popular" data-testid="{{ products_test_id }}">
           <p class="search-empty__heading">Popular Searches</p>
-          <div class="search-empty__pills predictive-search-results__wrapper predictive-search-results__wrapper-queries">
+          <ul class="predictive-search-results__list predictive-search-results__wrapper predictive-search-results__wrapper-queries list-unstyled">
             {%- for keyword in trending_keywords -%}
               {%- assign kw = keyword | strip -%}
               {%- if kw != blank -%}
-                <div class="predictive-search-results__card predictive-search-results__card--query">
+                <li class="predictive-search-results__card--query">
                   <a
                     href="{{ routes.search_url }}?type=product&q={{ kw | url_encode }}"
-                    class="predictive-search-results__pill"
+                    class="pills__pill predictive-search-results__pill"
                   >
                     {{ kw }}
                   </a>
-                </div>
+                </li>
               {%- endif -%}
             {%- endfor -%}
-          </div>
+          </ul>
         </div>
       {%- else -%}
         {%- comment -%} Fallback: product names from best-selling / configured collection as pills {%- endcomment -%}
@@ -56,18 +56,18 @@
           {% if fallback_collection.products.size > 0 %}
             <div class="search-empty__popular" data-testid="{{ products_test_id }}">
               <p class="search-empty__heading">Popular Searches</p>
-              <div class="search-empty__pills predictive-search-results__wrapper predictive-search-results__wrapper-queries">
+              <ul class="predictive-search-results__list predictive-search-results__wrapper predictive-search-results__wrapper-queries list-unstyled">
                 {%- for product in fallback_collection.products limit: 8 -%}
-                  <div class="predictive-search-results__card predictive-search-results__card--query">
+                  <li class="predictive-search-results__card--query">
                     <a
                       href="{{ routes.search_url }}?type=product&q={{ product.title | url_encode }}"
-                      class="predictive-search-results__pill"
+                      class="pills__pill predictive-search-results__pill"
                     >
                       {{ product.title }}
                     </a>
-                  </div>
+                  </li>
                 {%- endfor -%}
-              </div>
+              </ul>
             </div>
           {% endif %}
         {% endpaginate %}
