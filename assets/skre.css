@@ -12,6 +12,13 @@ h4, h5, h6, p {
   }
 }
 
+/* Swatches in predictive search product cards */
+.predictive-search-swatches {
+  position: relative;
+  z-index: 2;
+  margin-block-start: var(--padding-xs);
+}
+
 /* Sentence-case pill labels: first letter of each word capitalised, rest lowercase */
 /* Consistent font weight: neutralise bold/light overrides from styled_text markup */
 .predictive-search-results__card--query .predictive-search-results__pill,

@@ -75,6 +75,9 @@
                 image_hover: true,
                 image_aspect_ratio: '4 / 5'
               %}
+              <div class="predictive-search-swatches" style="--product-swatches-alignment: flex-start; --product-swatches-alignment-mobile: flex-start; --product-swatches-padding-block-start: 0; --product-swatches-padding-block-end: 0; --product-swatches-padding-inline-start: 0; --product-swatches-padding-inline-end: 0;">
+                {% render 'variant-swatches', product_resource: product %}
+              </div>
             </li>
           {% endfor %}
         {% endif %}
@@ -102,6 +105,9 @@
             image_hover: true,
             image_aspect_ratio: '4 / 5'
           %}
+          <div class="predictive-search-swatches" style="--product-swatches-alignment: flex-start; --product-swatches-alignment-mobile: flex-start; --product-swatches-padding-block-start: 0; --product-swatches-padding-block-end: 0; --product-swatches-padding-inline-start: 0; --product-swatches-padding-inline-end: 0;">
+            {% render 'variant-swatches', product_resource: product %}
+          </div>
         </li>
       {% endfor %}
     </ul>
