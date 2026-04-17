@@ -1,8 +1,3 @@
-@font-face {
-  font-family: 'United-Sans';
-  src: url('{{ "UnitedSansReg-Black.woff2" | asset_url }}') format('woff2');
-}
-
 h1 {
 font-family: 'United-Sans', sans-serif !important;
 }
