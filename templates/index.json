@@ -84,7 +84,7 @@
               "settings": {
                 "text": "<h1>BOSS TOMS DON'T COME EASY.</h1>",
                 "width": "fit-content",
-                "max_width": "normal",
+                "max_width": "none",
                 "alignment": "left",
                 "type_preset": "h2",
                 "font": "var(--font-body--family)",
