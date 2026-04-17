@@ -11,18 +11,3 @@ h4, h5, h6, p {
     font-size: 1.125rem !important;
   }
 }
-
-/* Caret on every top-level drawer nav item */
-.menu-drawer__menu-item--mainlist:not(:has(.icon-caret))::after {
-  content: '';
-  display: block;
-  flex-shrink: 0;
-  width: 6px;
-  height: 6px;
-  border-right: 1.5px solid currentColor;
-  border-top: 1.5px solid currentColor;
-  transform: rotate(45deg);
-  padding-inline-start: var(--padding-xl);
-  margin-inline-start: auto;
-  align-self: center;
-}
