@@ -1093,6 +1093,15 @@
     border-block-end: 1px solid var(--color-border);
   }
 
+  /* Always show dividers on top-level nav items regardless of customizer setting */
+  .menu-drawer__menu.has-submenu > .menu-drawer__list-item {
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  .menu-drawer__menu.has-submenu > .menu-drawer__list-item:last-child {
+    border-block-end: 1px solid var(--color-border);
+  }
+
   .menu-drawer__list-item--deep:not(.menu-drawer__list-item--divider) .menu-drawer__menu {
     margin-block-start: -0.3rem;
   }
@@ -1450,11 +1459,10 @@
     padding: 0;
     margin: 0;
     list-style: none;
-    border-top: 1px solid var(--color-border);
   }
 
   .menu-drawer__icon-link-item {
-    border-bottom: 1px solid var(--color-border);
+    border: none;
   }
 
   .menu-drawer__icon-link {
