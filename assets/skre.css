@@ -8,6 +8,6 @@ h4, h5, h6, p {
 
 @media screen and (max-width: 749px) {
   .menu-drawer__menu-item--mainlist {
-    font-size: 0.8125rem !important;
+    font-size: 1rem !important;
   }
 }
