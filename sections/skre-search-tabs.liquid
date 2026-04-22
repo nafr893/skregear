@@ -4,6 +4,7 @@
   Remove the default "Search Results" section to avoid paginate conflicts.
 {% endcomment %}
 
+{%- render 'skre-search-synonyms' -%}
 {% paginate search.results by 100 %}
 
 {%- assign product_results  = search.results | where: 'object_type', 'product' -%}
@@ -278,16 +279,24 @@
 
 <script>
   (function () {
-    /* ── Ensure URL includes all result types ─────────────── */
+    /* ── Normalise URL: types + fields + prefix + synonyms ── */
     var url = new URL(window.location.href);
-    var currentType = url.searchParams.get('type') || '';
     if (url.searchParams.get('q') && !url.searchParams.has('_typefix')) {
-      if (!currentType.includes('article') || !currentType.includes('page')) {
-        url.searchParams.set('type', 'product,article,page');
-        url.searchParams.set('_typefix', '1');
-        window.location.replace(url.toString());
-        return;
+      /* Synonym expansion */
+      var rawQ = url.searchParams.get('q');
+      var map = window.SkreSearchSynonyms;
+      if (map) {
+        var lower = rawQ.toLowerCase().trim();
+        var synonyms = map[lower];
+        if (synonyms && synonyms.length > 0) rawQ = synonyms.join(' OR ');
       }
+      url.searchParams.set('q', rawQ);
+      url.searchParams.set('type', 'product,article,page');
+      url.searchParams.set('options[prefix]', 'last');
+      url.searchParams.set('options[fields]', 'title,body,tag,product_type,vendor,variants.title');
+      url.searchParams.set('_typefix', '1');
+      window.location.replace(url.toString());
+      return;
     }
 
     /* ── Tab switching ────────────────────────────────────── */
