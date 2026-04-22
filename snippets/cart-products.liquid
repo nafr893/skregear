@@ -46,14 +46,14 @@
 
     <div class="cart-empty">
       {%- liquid
-        assign btn_1_text = block_settings.empty_btn_1_text
-        assign btn_1_url  = block_settings.empty_btn_1_url  | default: routes.all_products_collection_url
-        assign btn_2_text = block_settings.empty_btn_2_text
-        assign btn_2_url  = block_settings.empty_btn_2_url  | default: routes.all_products_collection_url
-        assign btn_3_text = block_settings.empty_btn_3_text
-        assign btn_3_url  = block_settings.empty_btn_3_url  | default: routes.all_products_collection_url
-        assign btn_4_text = block_settings.empty_btn_4_text
-        assign btn_4_url  = block_settings.empty_btn_4_url  | default: routes.all_products_collection_url
+        assign btn_1_text = settings.empty_cart_btn_1_text
+        assign btn_1_url  = settings.empty_cart_btn_1_url  | default: routes.all_products_collection_url
+        assign btn_2_text = settings.empty_cart_btn_2_text
+        assign btn_2_url  = settings.empty_cart_btn_2_url  | default: routes.all_products_collection_url
+        assign btn_3_text = settings.empty_cart_btn_3_text
+        assign btn_3_url  = settings.empty_cart_btn_3_url  | default: routes.all_products_collection_url
+        assign btn_4_text = settings.empty_cart_btn_4_text
+        assign btn_4_url  = settings.empty_cart_btn_4_url  | default: routes.all_products_collection_url
         assign has_any_button = false
         if btn_1_text != blank or btn_2_text != blank or btn_3_text != blank or btn_4_text != blank
           assign has_any_button = true
@@ -92,7 +92,7 @@
         </a>
       {%- endif -%}
 
-      {%- assign trending = block_settings.empty_trending_collection -%}
+      {%- assign trending = settings.empty_cart_trending_collection -%}
       {%- if trending != blank and trending.products.size > 0 -%}
         <div class="cart-empty__trending">
           <p class="cart-empty__trending-title">Trending</p>

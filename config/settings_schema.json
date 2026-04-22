@@ -1770,6 +1770,59 @@
       },
       {
         "type": "header",
+        "content": "Empty Cart Drawer"
+      },
+      {
+        "type": "text",
+        "id": "empty_cart_btn_1_text",
+        "label": "Button 1 - Text",
+        "default": "New Arrivals"
+      },
+      {
+        "type": "url",
+        "id": "empty_cart_btn_1_url",
+        "label": "Button 1 - Link"
+      },
+      {
+        "type": "text",
+        "id": "empty_cart_btn_2_text",
+        "label": "Button 2 - Text",
+        "default": "Best Sellers"
+      },
+      {
+        "type": "url",
+        "id": "empty_cart_btn_2_url",
+        "label": "Button 2 - Link"
+      },
+      {
+        "type": "text",
+        "id": "empty_cart_btn_3_text",
+        "label": "Button 3 - Text",
+        "default": "On Sale"
+      },
+      {
+        "type": "url",
+        "id": "empty_cart_btn_3_url",
+        "label": "Button 3 - Link"
+      },
+      {
+        "type": "text",
+        "id": "empty_cart_btn_4_text",
+        "label": "Button 4 - Text",
+        "default": "Shop Bundles"
+      },
+      {
+        "type": "url",
+        "id": "empty_cart_btn_4_url",
+        "label": "Button 4 - Link"
+      },
+      {
+        "type": "collection",
+        "id": "empty_cart_trending_collection",
+        "label": "Trending Products Collection"
+      },
+      {
+        "type": "header",
         "content": "t:content.product_media"
       },
       {
