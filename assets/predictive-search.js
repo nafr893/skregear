@@ -232,7 +232,9 @@ class PredictiveSearchComponent extends Component {
         } else {
           const searchUrl = new URL(Theme.routes.search_url, location.origin);
           searchUrl.searchParams.set('q', this.refs.searchInput.value);
-          window.location.href = searchUrl.toString();
+          searchUrl.searchParams.set('type', 'product,article,page');
+          searchUrl.searchParams.set('_typefix', '1');
+          window.location.href = searchUrl.toString() + '#products';
         }
         break;
       }

@@ -1,0 +1,411 @@
+{% comment %}
+  SKRE Search Tabs — Custom search results section with tabbed navigation.
+  Add this to the Search page template in the theme editor.
+  Remove the default "Search Results" section to avoid paginate conflicts.
+{% endcomment %}
+
+{% paginate search.results by 100 %}
+
+{%- assign product_results  = search.results | where: 'object_type', 'product' -%}
+{%- assign article_results  = search.results | where: 'object_type', 'article' -%}
+{%- assign page_results     = search.results | where: 'object_type', 'page' -%}
+
+<section
+  class="skre-search-results section spacing-style color-{{ section.settings.color_scheme }}"
+  style="--padding-block-start: {{ section.settings['padding-block-start'] }}px; --padding-block-end: {{ section.settings['padding-block-end'] }}px;"
+>
+  {% if search.performed %}
+
+    <nav class="skre-search-results__tabs" role="tablist" aria-label="Search result types">
+      <button class="skre-search-results__tab" role="tab" data-tab="products" aria-selected="true" aria-controls="panel-products">
+        Products
+      </button>
+      <button class="skre-search-results__tab" role="tab" data-tab="blogs" aria-selected="false" aria-controls="panel-blogs">
+        Blog Posts
+      </button>
+      <button class="skre-search-results__tab" role="tab" data-tab="collections" aria-selected="false" aria-controls="panel-collections">
+        Collections
+      </button>
+      <button class="skre-search-results__tab" role="tab" data-tab="pages" aria-selected="false" aria-controls="panel-pages">
+        Pages
+      </button>
+    </nav>
+
+    <div class="skre-search-results__content">
+
+      {%- comment -%} Products panel {%- endcomment -%}
+      <div class="skre-search-results__panel" id="panel-products" role="tabpanel">
+        {% if product_results.size > 0 %}
+          <ul class="skre-search-results__product-grid list-unstyled">
+            {% for product in product_results %}
+              <li class="skre-search-results__product-item">
+                {%- render 'resource-card',
+                  resource_type: 'product',
+                  resource: product,
+                  image_width: 500,
+                  image_aspect_ratio: '4 / 5',
+                  swatches_product: product,
+                  product_card_wrapper: true
+                -%}
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="skre-search-results__empty">No products found for &ldquo;{{ search.terms }}&rdquo;.</p>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Blog Posts panel {%- endcomment -%}
+      <div class="skre-search-results__panel skre-search-results__panel--hidden" id="panel-blogs" role="tabpanel">
+        {% if article_results.size > 0 %}
+          <ul class="skre-search-results__article-grid list-unstyled">
+            {% for article in article_results %}
+              <li class="skre-search-results__article-item">
+                {%- render 'resource-card',
+                  resource_type: 'article',
+                  resource: article,
+                  image_width: 800,
+                  image_aspect_ratio: '3 / 2'
+                -%}
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="skre-search-results__empty">No blog posts found for &ldquo;{{ search.terms }}&rdquo;.</p>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Collections panel — fetched client-side via Predictive Search API {%- endcomment -%}
+      <div
+        class="skre-search-results__panel skre-search-results__panel--hidden"
+        id="panel-collections"
+        role="tabpanel"
+        data-collections-query="{{ search.terms | escape }}"
+      >
+        <p class="skre-search-results__loading">Loading collections&hellip;</p>
+      </div>
+
+      {%- comment -%} Pages panel {%- endcomment -%}
+      <div class="skre-search-results__panel skre-search-results__panel--hidden" id="panel-pages" role="tabpanel">
+        {% if page_results.size > 0 %}
+          <ul class="skre-search-results__page-list list-unstyled">
+            {% for page in page_results %}
+              <li class="skre-search-results__page-item">
+                <a href="{{ page.url }}" class="skre-search-results__page-link">
+                  <span class="skre-search-results__page-title">{{ page.title }}</span>
+                  {% if page.content != blank %}
+                    <span class="skre-search-results__page-excerpt">
+                      {{- page.content | strip_html | truncate: 140 -}}
+                    </span>
+                  {% endif %}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="skre-search-results__empty">No pages found for &ldquo;{{ search.terms }}&rdquo;.</p>
+        {% endif %}
+      </div>
+
+    </div>
+
+    {% if paginate.pages > 1 %}
+      <div class="skre-search-results__pagination">
+        {{ paginate | default_pagination }}
+      </div>
+    {% endif %}
+
+  {% else %}
+    <p class="skre-search-results__empty">Enter a search term to find products, blogs, collections, and pages.</p>
+  {% endif %}
+</section>
+
+{% endpaginate %}
+
+{% stylesheet %}
+  .skre-search-results {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-gutter);
+  }
+
+  /* ── Tabs ─────────────────────────────────────────────────── */
+  .skre-search-results__tabs {
+    display: flex;
+    gap: var(--gap-lg);
+    border-bottom: 1px solid var(--color-border);
+    margin-block-end: var(--margin-2xl);
+    padding-block-end: 0;
+  }
+
+  .skre-search-results__tab {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding-block: var(--padding-sm);
+    padding-inline: 0;
+    margin-block-end: -1px;
+    font-size: var(--font-size--sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    color: rgb(var(--color-foreground-rgb) / 0.35);
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .skre-search-results__tab[aria-selected='true'] {
+    color: var(--color-foreground);
+    border-bottom-color: var(--color-foreground);
+  }
+
+  .skre-search-results__tab:hover:not([aria-selected='true']) {
+    color: rgb(var(--color-foreground-rgb) / 0.65);
+  }
+
+  /* ── Panels ───────────────────────────────────────────────── */
+  .skre-search-results__panel--hidden {
+    display: none;
+  }
+
+  /* ── Product grid ─────────────────────────────────────────── */
+  .skre-search-results__product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap-lg);
+
+    @media screen and (min-width: 750px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* ── Article grid ─────────────────────────────────────────── */
+  .skre-search-results__article-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: var(--gap-xl);
+
+    @media screen and (min-width: 750px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* ── Collections grid (populated by JS) ──────────────────── */
+  .skre-search-results__collection-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap-lg);
+
+    @media screen and (min-width: 750px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .skre-search-results__collection-item a {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xs);
+    text-decoration: none;
+    color: var(--color-foreground);
+  }
+
+  .skre-search-results__collection-thumb {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: var(--card-corner-radius);
+    background-color: rgb(var(--color-foreground-rgb) / 0.05);
+  }
+
+  .skre-search-results__collection-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .skre-search-results__collection-name {
+    font-size: var(--font-size--sm);
+    font-weight: 500;
+  }
+
+  /* ── Page list ────────────────────────────────────────────── */
+  .skre-search-results__page-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .skre-search-results__page-link {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-2xs);
+    padding-block: var(--padding-md);
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+    color: var(--color-foreground);
+    transition: opacity 0.15s ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .skre-search-results__page-title {
+    font-size: var(--font-size--md);
+    font-weight: 600;
+  }
+
+  .skre-search-results__page-excerpt {
+    font-size: var(--font-size--sm);
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+    line-height: 1.5;
+  }
+
+  /* ── Empty / loading states ───────────────────────────────── */
+  .skre-search-results__empty,
+  .skre-search-results__loading {
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+    font-size: var(--font-size--sm);
+    padding-block: var(--padding-2xl);
+  }
+
+  /* ── Pagination ───────────────────────────────────────────── */
+  .skre-search-results__pagination {
+    display: flex;
+    justify-content: center;
+    margin-block-start: var(--margin-2xl);
+  }
+{% endstylesheet %}
+
+<script>
+  (function () {
+    /* ── Ensure URL includes all result types ─────────────── */
+    var url = new URL(window.location.href);
+    var currentType = url.searchParams.get('type') || '';
+    if (url.searchParams.get('q') && !url.searchParams.has('_typefix')) {
+      if (!currentType.includes('article') || !currentType.includes('page')) {
+        url.searchParams.set('type', 'product,article,page');
+        url.searchParams.set('_typefix', '1');
+        window.location.replace(url.toString());
+        return;
+      }
+    }
+
+    /* ── Tab switching ────────────────────────────────────── */
+    var tabs   = document.querySelectorAll('.skre-search-results__tab');
+    var panels = document.querySelectorAll('.skre-search-results__panel');
+
+    function activateTab(name) {
+      tabs.forEach(function (t) {
+        var active = t.dataset.tab === name;
+        t.setAttribute('aria-selected', active ? 'true' : 'false');
+      });
+      panels.forEach(function (p) {
+        p.classList.toggle('skre-search-results__panel--hidden', p.id !== 'panel-' + name);
+      });
+
+      /* Update hash without scrolling */
+      history.replaceState(null, '', '#' + name);
+
+      /* Lazy-load collections when that tab is first activated */
+      if (name === 'collections') loadCollections();
+    }
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        activateTab(tab.dataset.tab);
+      });
+    });
+
+    /* Activate from URL hash on load */
+    var initialTab = (window.location.hash || '#products').replace('#', '');
+    activateTab(initialTab);
+
+    /* ── Collections: fetch from Predictive Search API ───── */
+    var collectionsLoaded = false;
+
+    function loadCollections() {
+      if (collectionsLoaded) return;
+      collectionsLoaded = true;
+
+      var panel = document.getElementById('panel-collections');
+      if (!panel) return;
+      var query = panel.dataset.collectionsQuery;
+      if (!query) {
+        panel.innerHTML = '<p class="skre-search-results__empty">No collections found.</p>';
+        return;
+      }
+
+      var apiUrl = new URL('/search/suggest.json', location.origin);
+      apiUrl.searchParams.set('q', query);
+      apiUrl.searchParams.set('resources[type]', 'collection');
+      apiUrl.searchParams.set('resources[limit]', '20');
+
+      fetch(apiUrl.toString())
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          var collections = (data.resources && data.resources.results && data.resources.results.collections) || [];
+
+          if (collections.length === 0) {
+            panel.innerHTML = '<p class="skre-search-results__empty">No collections found for &ldquo;' + query + '&rdquo;.</p>';
+            return;
+          }
+
+          var html = '<ul class="skre-search-results__collection-grid list-unstyled">';
+          collections.forEach(function (col) {
+            var thumb = col.featured_image && col.featured_image.url
+              ? '<div class="skre-search-results__collection-thumb"><img src="' + col.featured_image.url + '" alt="" loading="lazy"></div>'
+              : '<div class="skre-search-results__collection-thumb"></div>';
+            html += '<li class="skre-search-results__collection-item"><a href="' + col.url + '">'
+              + thumb
+              + '<span class="skre-search-results__collection-name">' + col.title + '</span>'
+              + '</a></li>';
+          });
+          html += '</ul>';
+          panel.innerHTML = html;
+        })
+        .catch(function () {
+          panel.innerHTML = '<p class="skre-search-results__empty">Could not load collections.</p>';
+        });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Search Tabs",
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1" },
+        { "value": "scheme-2", "label": "Scheme 2" },
+        { "value": "scheme-3", "label": "Scheme 3" }
+      ],
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "default": 40
+    }
+  ],
+  "presets": [
+    { "name": "Search Tabs" }
+  ]
+}
+{% endschema %}

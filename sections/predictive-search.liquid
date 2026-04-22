@@ -73,7 +73,7 @@
           <div class="predictive-search-see-all-wrap">
             <a
               class="button button-secondary predictive-search-see-all"
-              href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}"
+              href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&type=product,article,page&_typefix=1#products"
             >
               <span class="button-text">See All Results</span>
             </a>
@@ -105,7 +105,7 @@
               </ul>
               <a
                 class="predictive-search-secondary-section__see-all"
-                href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&type=article"
+                href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&type=product,article,page&_typefix=1#blogs"
               >
                 See all &rsaquo;
               </a>
@@ -138,7 +138,7 @@
               </ul>
               <a
                 class="predictive-search-secondary-section__see-all"
-                href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&type=product&options[prefix]=last"
+                href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&type=product,article,page&_typefix=1#collections"
               >
                 See all &rsaquo;
               </a>
@@ -162,7 +162,7 @@
               </ul>
               <a
                 class="predictive-search-secondary-section__see-all"
-                href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&type=page"
+                href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&type=product,article,page&_typefix=1#pages"
               >
                 See all &rsaquo;
               </a>
