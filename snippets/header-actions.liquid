@@ -107,6 +107,9 @@
 
     {% capture empty_cart_drawer_content %}
       <div class="cart-drawer__header">
+        <h2 class="cart-drawer__heading h4" id="cart-drawer-heading-empty-title">
+          {{ 'content.cart_title' | t }}
+        </h2>
         <button
           ref="closeButton"
           on:click="cart-drawer-component/close"
@@ -384,7 +387,7 @@
   }
 
   .cart-drawer--empty .cart-drawer__content {
-    text-align: center;
+    text-align: left;
     min-height: auto;
   }
 
@@ -456,8 +459,8 @@
   }
 
   .cart-drawer__heading--empty {
-    display: flex;
-    justify-content: center;
+    display: block;
+    text-align: left;
   }
 
   .cart-drawer__items {
@@ -514,13 +517,13 @@
   }
 
   .cart-drawer--empty .cart-drawer__header {
-    justify-content: right;
-    border-bottom: none;
-    padding-bottom: 0;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--padding-md);
   }
 
   .cart-drawer--empty .cart-drawer__heading {
-    text-align: center;
+    text-align: left;
   }
 
   header-actions {
