@@ -1205,7 +1205,23 @@
 
       list.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', update, { passive: true });
-      /* Wait two animation frames so the browser has finished layout before measuring */
+
+      /* Re-measure whenever the list gains real dimensions (e.g. drawer becomes visible) */
+      if (typeof ResizeObserver !== 'undefined') {
+        var ro = new ResizeObserver(function () {
+          requestAnimationFrame(update);
+        });
+        ro.observe(list);
+      }
+
+      /* Also re-measure when the cart drawer dialog opens */
+      var drawer = list.closest('dialog-component');
+      if (drawer) {
+        drawer.addEventListener('dialog:open', function () {
+          requestAnimationFrame(function () { requestAnimationFrame(update); });
+        });
+      }
+
       requestAnimationFrame(function () { requestAnimationFrame(update); });
     }
 
@@ -1216,6 +1232,5 @@
     }
 
     document.addEventListener('shopify:section:load', initTrendingCarousel);
-    document.addEventListener('cart-drawer:open', initTrendingCarousel);
   })();
 </script>
