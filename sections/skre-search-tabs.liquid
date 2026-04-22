@@ -89,16 +89,17 @@
       {%- comment -%} Pages panel {%- endcomment -%}
       <div class="skre-search-results__panel skre-search-results__panel--hidden" id="panel-pages" role="tabpanel">
         {% if page_results.size > 0 %}
-          <ul class="skre-search-results__page-list list-unstyled">
+          <ul class="skre-search-results__page-grid list-unstyled">
             {% for page in page_results %}
               <li class="skre-search-results__page-item">
-                <a href="{{ page.url }}" class="skre-search-results__page-link">
+                <a href="{{ page.url }}" class="skre-search-results__page-card">
                   <span class="skre-search-results__page-title">{{ page.title }}</span>
                   {% if page.content != blank %}
                     <span class="skre-search-results__page-excerpt">
-                      {{- page.content | strip_html | truncate: 140 -}}
+                      {{- page.content | strip_html | truncate: 120 -}}
                     </span>
                   {% endif %}
+                  <span class="skre-search-results__page-cta">View page &rsaquo;</span>
                 </a>
               </li>
             {% endfor %}
@@ -228,37 +229,52 @@
     font-weight: 500;
   }
 
-  /* ── Page list ────────────────────────────────────────────── */
-  .skre-search-results__page-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+  /* ── Page grid ────────────────────────────────────────────── */
+  .skre-search-results__page-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: var(--gap-md);
+
+    @media screen and (min-width: 750px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
-  .skre-search-results__page-link {
+  .skre-search-results__page-card {
     display: flex;
     flex-direction: column;
-    gap: var(--gap-2xs);
-    padding-block: var(--padding-md);
-    border-bottom: 1px solid var(--color-border);
+    gap: var(--gap-xs);
+    padding: var(--padding-lg);
+    background-color: rgb(var(--color-foreground-rgb) / 0.04);
+    border-radius: var(--card-corner-radius);
+    border: 1px solid var(--color-border);
     text-decoration: none;
     color: var(--color-foreground);
-    transition: opacity 0.15s ease;
+    transition: background-color 0.15s ease;
 
     &:hover {
-      opacity: 0.7;
+      background-color: rgb(var(--color-foreground-rgb) / 0.08);
     }
   }
 
   .skre-search-results__page-title {
     font-size: var(--font-size--md);
     font-weight: 600;
+    line-height: 1.3;
   }
 
   .skre-search-results__page-excerpt {
     font-size: var(--font-size--sm);
     color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
     line-height: 1.5;
+    flex: 1;
+  }
+
+  .skre-search-results__page-cta {
+    font-size: var(--font-size--sm);
+    font-weight: 600;
+    margin-block-start: var(--margin-xs);
+    opacity: 0.6;
   }
 
   /* ── Empty / loading states ───────────────────────────────── */
