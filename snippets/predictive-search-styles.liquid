@@ -698,29 +698,17 @@
   }
 
   .predictive-search-secondary-section__see-all {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+    display: inline-block;
     margin-block-start: var(--margin-sm);
     font-size: var(--font-size--sm);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    text-decoration: none;
-    /* Match .button.button-secondary appearance */
-    padding-block: var(--button-padding-block, 0.75em);
-    padding-inline: var(--button-padding-inline, 1.5em);
-    border: var(--style-border-width) solid var(--color-border);
-    border-radius: var(--style-border-radius-buttons-secondary);
+    font-weight: 500;
     color: var(--color-foreground);
-    background-color: transparent;
-    transition: background-color var(--animation-speed-medium) var(--animation-timing-hover),
-      border-color var(--animation-speed-medium) var(--animation-timing-hover);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity var(--animation-speed-medium) var(--animation-timing-hover);
 
     &:hover {
-      background-color: var(--card-bg-hover);
-      border-color: var(--card-border-hover);
+      opacity: 1;
     }
   }
 {% endstylesheet %}
