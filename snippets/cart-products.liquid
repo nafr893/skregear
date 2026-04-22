@@ -38,12 +38,6 @@
   {% endif %}
 >
   {% if cart.empty? or force_empty %}
-    {%- if shop.customer_accounts_enabled and customer == null -%}
-      <p>
-        {{ 'actions.log_in_html' | t: link: routes.account_login_url }}
-      </p>
-    {%- endif -%}
-
     <div class="cart-empty">
       {%- liquid
         assign btn_1_text = settings.empty_cart_btn_1_text
@@ -96,6 +90,10 @@
       {%- if trending != blank and trending.products.size > 0 -%}
         <div class="cart-empty__trending">
           <p class="cart-empty__trending-title">Trending</p>
+          <div class="cart-empty__trending-carousel">
+          <button class="cart-empty__trending-arrow cart-empty__trending-arrow--prev" aria-label="Previous products" type="button">
+            {{- 'icon-chevron-left.svg' | inline_asset_content -}}
+          </button>
           <ul class="cart-empty__trending-list list-unstyled" id="cart-trending-list">
             {%- for product in trending.products limit: 8 -%}
               <li class="cart-empty__trending-item">
@@ -110,6 +108,10 @@
               </li>
             {%- endfor -%}
           </ul>
+          <button class="cart-empty__trending-arrow cart-empty__trending-arrow--next" aria-label="Next products" type="button">
+            {{- 'icon-chevron-right.svg' | inline_asset_content -}}
+          </button>
+          </div>
           <div class="cart-empty__scroll-track" aria-hidden="true">
             <div class="cart-empty__scroll-thumb"></div>
           </div>
@@ -777,11 +779,56 @@
     scroll-snap-align: start;
   }
 
+  .cart-empty__trending-carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .cart-empty__trending-arrow {
+    display: none;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    background: var(--color-background);
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    color: var(--color-foreground);
+    box-shadow: 0 1px 4px rgb(0 0 0 / 0.08);
+    transition: opacity 0.2s;
+    z-index: 2;
+
+    svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+  }
+
+  @media screen and (min-width: 750px) {
+    .cart-empty__trending-arrow {
+      display: flex;
+    }
+
+    .cart-empty__trending-list {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
   .cart-empty__scroll-track {
     position: relative;
     height: 2px;
     background-color: rgb(var(--color-foreground-rgb) / 0.12);
-    border-radius: 1px;
+    border-radius: 2px;
     margin-block-start: var(--margin-md);
     overflow: hidden;
   }
@@ -792,7 +839,7 @@
     left: 0;
     height: 100%;
     background-color: var(--color-foreground);
-    border-radius: 1px;
+    border-radius: 2px;
     transition: left 0.1s linear, width 0.1s linear;
   }
 
@@ -1079,14 +1126,26 @@
 
 <script>
   (function () {
-    function initTrendingScrollBar() {
+    function initTrendingCarousel() {
       var list = document.getElementById('cart-trending-list');
       if (!list) return;
-      var track = list.parentElement.querySelector('.cart-empty__scroll-track');
-      var thumb = list.parentElement.querySelector('.cart-empty__scroll-thumb');
-      if (!track || !thumb) return;
 
-      function update() {
+      var carousel = list.closest('.cart-empty__trending-carousel');
+      var trending = list.closest('.cart-empty__trending');
+      var track = trending && trending.querySelector('.cart-empty__scroll-track');
+      var thumb = trending && trending.querySelector('.cart-empty__scroll-thumb');
+      var prevBtn = carousel && carousel.querySelector('.cart-empty__trending-arrow--prev');
+      var nextBtn = carousel && carousel.querySelector('.cart-empty__trending-arrow--next');
+
+      function cardWidth() {
+        var item = list.querySelector('.cart-empty__trending-item');
+        if (!item) return list.clientWidth;
+        var gap = parseFloat(getComputedStyle(list).columnGap) || 0;
+        return item.offsetWidth + gap;
+      }
+
+      function updateBar() {
+        if (!track || !thumb) return;
         var scrollable = list.scrollWidth - list.clientWidth;
         if (scrollable <= 0) {
           track.style.display = 'none';
@@ -1099,19 +1158,41 @@
         thumb.style.left = leftPct + '%';
       }
 
+      function updateArrows() {
+        if (!prevBtn || !nextBtn) return;
+        prevBtn.disabled = list.scrollLeft <= 0;
+        nextBtn.disabled = list.scrollLeft >= list.scrollWidth - list.clientWidth - 1;
+      }
+
+      function update() {
+        updateBar();
+        updateArrows();
+      }
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', function () {
+          list.scrollBy({ left: -cardWidth(), behavior: 'smooth' });
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', function () {
+          list.scrollBy({ left: cardWidth(), behavior: 'smooth' });
+        });
+      }
+
       list.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', update, { passive: true });
       update();
     }
 
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initTrendingScrollBar);
+      document.addEventListener('DOMContentLoaded', initTrendingCarousel);
     } else {
-      initTrendingScrollBar();
+      initTrendingCarousel();
     }
 
-    /* Re-initialise when the cart drawer opens (Shopify fires this event) */
-    document.addEventListener('shopify:section:load', initTrendingScrollBar);
-    document.addEventListener('cart-drawer:open', initTrendingScrollBar);
+    document.addEventListener('shopify:section:load', initTrendingCarousel);
+    document.addEventListener('cart-drawer:open', initTrendingCarousel);
   })();
 </script>
