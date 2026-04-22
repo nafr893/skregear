@@ -184,8 +184,10 @@
         {{- 'content.search_results_resource_products_count' | t: count: resource.all_products_count -}}
       </p>
     {% else %}
+      {%- assign _excerpt_raw = resource.excerpt | default: resource.content | strip_html | strip -%}
+      {%- assign _excerpt_short = _excerpt_raw | truncatewords: 10, '' -%}
       <p class="resource-card__subtext paragraph">
-        {{- resource.excerpt | default: resource.content | strip_html | truncate: 65 -}}
+        {{- _excerpt_short -}}{%- if _excerpt_short != _excerpt_raw -%}<span class="resource-card__read-more"> read more</span>{%- endif -%}
       </p>
     {% endif %}
   </div>
@@ -331,6 +333,12 @@
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: calc(var(--card-corner-radius) - (var(--padding-xs) / 2));
+  }
+
+  .resource-card__read-more {
+    text-decoration: underline;
+    opacity: 0.75;
+    font-size: inherit;
   }
 
   .resource-card__subtext {

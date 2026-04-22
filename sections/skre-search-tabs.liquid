@@ -111,11 +111,6 @@
 
     </div>
 
-    {% if paginate.pages > 1 %}
-      <div class="skre-search-results__pagination">
-        {{ paginate | default_pagination }}
-      </div>
-    {% endif %}
 
   {% else %}
     <p class="skre-search-results__empty">Enter a search term to find products, blogs, collections, and pages.</p>
@@ -285,11 +280,30 @@
     padding-block: var(--padding-2xl);
   }
 
-  /* ── Pagination ───────────────────────────────────────────── */
-  .skre-search-results__pagination {
-    display: flex;
-    justify-content: center;
-    margin-block-start: var(--margin-2xl);
+  /* ── Load more ────────────────────────────────────────────── */
+  .skre-search-results__item--hidden {
+    display: none !important;
+  }
+
+  .skre-search-results__load-more {
+    display: block;
+    width: 100%;
+    margin-block-start: var(--margin-xl);
+    padding-block: var(--padding-sm);
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--button-corner-radius);
+    font-size: var(--font-size--sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    color: var(--color-foreground);
+    transition: background-color 0.15s ease;
+  }
+
+  .skre-search-results__load-more:hover {
+    background-color: rgb(var(--color-foreground-rgb) / 0.06);
   }
 {% endstylesheet %}
 
@@ -345,6 +359,50 @@
     var initialTab = (window.location.hash || '#products').replace('#', '');
     activateTab(initialTab);
 
+    /* ── Load More ───────────────────────────────────────── */
+    var BATCH = 10;
+
+    function initLoadMore(panelId, listSelector) {
+      var panel = document.getElementById(panelId);
+      if (!panel) return;
+      var items = Array.from(panel.querySelectorAll(listSelector + ' > li'));
+      if (items.length <= BATCH) return;
+
+      items.slice(BATCH).forEach(function (item) {
+        item.classList.add('skre-search-results__item--hidden');
+      });
+
+      var btn = document.createElement('button');
+      btn.className = 'skre-search-results__load-more';
+      updateBtnText(btn, items);
+      panel.appendChild(btn);
+
+      btn.addEventListener('click', function () {
+        var hidden = items.filter(function (i) {
+          return i.classList.contains('skre-search-results__item--hidden');
+        });
+        hidden.slice(0, BATCH).forEach(function (i) {
+          i.classList.remove('skre-search-results__item--hidden');
+        });
+        if (hidden.length <= BATCH) {
+          btn.remove();
+        } else {
+          updateBtnText(btn, items);
+        }
+      });
+    }
+
+    function updateBtnText(btn, items) {
+      var remaining = items.filter(function (i) {
+        return i.classList.contains('skre-search-results__item--hidden');
+      }).length;
+      btn.textContent = 'Load More (' + remaining + ' remaining)';
+    }
+
+    initLoadMore('panel-products', '.skre-search-results__product-grid');
+    initLoadMore('panel-blogs', '.skre-search-results__article-grid');
+    initLoadMore('panel-pages', '.skre-search-results__page-grid');
+
     /* ── Collections: fetch from Predictive Search API ───── */
     var collectionsLoaded = false;
 
@@ -387,6 +445,7 @@
           });
           html += '</ul>';
           panel.innerHTML = html;
+          initLoadMore('panel-collections', '.skre-search-results__collection-grid');
         })
         .catch(function () {
           panel.innerHTML = '<p class="skre-search-results__empty">Could not load collections.</p>';
