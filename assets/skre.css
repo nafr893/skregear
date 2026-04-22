@@ -19,6 +19,16 @@ h4, h5, h6, p {
   margin-block-start: var(--padding-xs);
 }
 
+/* Remove hover/focus effects on empty state popular search pills */
+.search-empty__pills .predictive-search-results__pill:hover,
+.search-empty__pills .predictive-search-results__pill:focus {
+  transform: none;
+  box-shadow: none;
+  background-color: var(--pills-pill-background-color);
+  outline: none;
+  border: none;
+}
+
 /* Sentence-case pill labels: first letter of each word capitalised, rest lowercase */
 /* Consistent font weight: neutralise bold/light overrides from styled_text markup */
 .predictive-search-results__card--query .predictive-search-results__pill,
