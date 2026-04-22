@@ -44,14 +44,74 @@
       </p>
     {%- endif -%}
 
-    <a
-      class="button cart-items__empty-button"
-      href="{{ settings.empty_cart_button_link | default: routes.all_products_collection_url }}"
-    >
-      <span class="button-text">
-        {{ 'actions.continue_shopping' | t }}
-      </span>
-    </a>
+    <div class="cart-empty">
+      {%- liquid
+        assign btn_1_text = block_settings.empty_btn_1_text
+        assign btn_1_url  = block_settings.empty_btn_1_url  | default: routes.all_products_collection_url
+        assign btn_2_text = block_settings.empty_btn_2_text
+        assign btn_2_url  = block_settings.empty_btn_2_url  | default: routes.all_products_collection_url
+        assign btn_3_text = block_settings.empty_btn_3_text
+        assign btn_3_url  = block_settings.empty_btn_3_url  | default: routes.all_products_collection_url
+        assign btn_4_text = block_settings.empty_btn_4_text
+        assign btn_4_url  = block_settings.empty_btn_4_url  | default: routes.all_products_collection_url
+        assign has_any_button = false
+        if btn_1_text != blank or btn_2_text != blank or btn_3_text != blank or btn_4_text != blank
+          assign has_any_button = true
+        endif
+      -%}
+
+      {%- if has_any_button -%}
+        <div class="cart-empty__buttons">
+          {%- if btn_1_text != blank -%}
+            <a class="button cart-empty__button" href="{{ btn_1_url }}">
+              <span class="button-text">{{ btn_1_text }}</span>
+            </a>
+          {%- endif -%}
+          {%- if btn_2_text != blank -%}
+            <a class="button cart-empty__button" href="{{ btn_2_url }}">
+              <span class="button-text">{{ btn_2_text }}</span>
+            </a>
+          {%- endif -%}
+          {%- if btn_3_text != blank -%}
+            <a class="button cart-empty__button" href="{{ btn_3_url }}">
+              <span class="button-text">{{ btn_3_text }}</span>
+            </a>
+          {%- endif -%}
+          {%- if btn_4_text != blank -%}
+            <a class="button cart-empty__button" href="{{ btn_4_url }}">
+              <span class="button-text">{{ btn_4_text }}</span>
+            </a>
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <a
+          class="button cart-items__empty-button"
+          href="{{ settings.empty_cart_button_link | default: routes.all_products_collection_url }}"
+        >
+          <span class="button-text">{{ 'actions.continue_shopping' | t }}</span>
+        </a>
+      {%- endif -%}
+
+      {%- assign trending = block_settings.empty_trending_collection -%}
+      {%- if trending != blank and trending.products.size > 0 -%}
+        <div class="cart-empty__trending">
+          <p class="cart-empty__trending-title">Trending</p>
+          <ul class="cart-empty__trending-list list-unstyled">
+            {%- for product in trending.products limit: 8 -%}
+              <li class="cart-empty__trending-item">
+                {%- render 'resource-card',
+                  resource_type: 'product',
+                  resource: product,
+                  image_width: 300,
+                  image_aspect_ratio: '4 / 5',
+                  swatches_product: product
+                -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+    </div>
   {%- else -%}
     <span
       class="visually-hidden"
@@ -649,6 +709,68 @@
     margin-top: var(--margin-md);
     padding-inline: var(--padding-4xl);
     padding-block: var(--padding-lg);
+  }
+
+  /* Empty cart state */
+  .cart-drawer:not(:has(.cart-form)) .cart-items__wrapper:has(.cart-empty) {
+    align-items: stretch;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  .cart-empty {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .cart-empty__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-2xs);
+    padding: var(--padding-xl);
+  }
+
+  .cart-empty__button {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    font-size: var(--font-size--sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .cart-empty__trending {
+    padding-inline: var(--padding-xl);
+    padding-block-end: var(--padding-xl);
+  }
+
+  .cart-empty__trending-title {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-block: var(--margin-lg) var(--margin-md);
+  }
+
+  .cart-empty__trending-list {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    gap: var(--gap-md);
+    padding-block-end: var(--padding-xs);
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .cart-empty__trending-item {
+    flex: 0 0 calc(50% - var(--gap-md) / 2);
+    min-width: 0;
+    scroll-snap-align: start;
   }
 
   /* Error message */
