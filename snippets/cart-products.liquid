@@ -96,7 +96,7 @@
       {%- if trending != blank and trending.products.size > 0 -%}
         <div class="cart-empty__trending">
           <p class="cart-empty__trending-title">Trending</p>
-          <ul class="cart-empty__trending-list list-unstyled">
+          <ul class="cart-empty__trending-list list-unstyled" id="cart-trending-list">
             {%- for product in trending.products limit: 8 -%}
               <li class="cart-empty__trending-item">
                 {%- render 'resource-card',
@@ -110,6 +110,9 @@
               </li>
             {%- endfor -%}
           </ul>
+          <div class="cart-empty__scroll-track" aria-hidden="true">
+            <div class="cart-empty__scroll-thumb"></div>
+          </div>
         </div>
       {%- endif -%}
     </div>
@@ -774,6 +777,25 @@
     scroll-snap-align: start;
   }
 
+  .cart-empty__scroll-track {
+    position: relative;
+    height: 2px;
+    background-color: rgb(var(--color-foreground-rgb) / 0.12);
+    border-radius: 1px;
+    margin-block-start: var(--margin-md);
+    overflow: hidden;
+  }
+
+  .cart-empty__scroll-thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: var(--color-foreground);
+    border-radius: 1px;
+    transition: left 0.1s linear, width 0.1s linear;
+  }
+
   /* Error message */
   .cart-items__error {
     display: flex;
@@ -1054,3 +1076,42 @@
     }
   }
 {% endstylesheet %}
+
+<script>
+  (function () {
+    function initTrendingScrollBar() {
+      var list = document.getElementById('cart-trending-list');
+      if (!list) return;
+      var track = list.parentElement.querySelector('.cart-empty__scroll-track');
+      var thumb = list.parentElement.querySelector('.cart-empty__scroll-thumb');
+      if (!track || !thumb) return;
+
+      function update() {
+        var scrollable = list.scrollWidth - list.clientWidth;
+        if (scrollable <= 0) {
+          track.style.display = 'none';
+          return;
+        }
+        track.style.display = '';
+        var widthPct = (list.clientWidth / list.scrollWidth) * 100;
+        var leftPct = (list.scrollLeft / scrollable) * (100 - widthPct);
+        thumb.style.width = widthPct + '%';
+        thumb.style.left = leftPct + '%';
+      }
+
+      list.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
+      update();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTrendingScrollBar);
+    } else {
+      initTrendingScrollBar();
+    }
+
+    /* Re-initialise when the cart drawer opens (Shopify fires this event) */
+    document.addEventListener('shopify:section:load', initTrendingScrollBar);
+    document.addEventListener('cart-drawer:open', initTrendingScrollBar);
+  })();
+</script>
