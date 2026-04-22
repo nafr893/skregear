@@ -66,38 +66,49 @@
             {%- liquid
               assign title = 'content.search_results_resource_products' | t
               assign products = predictive_search.resources.products
-              render 'predictive-search-products-list', title: title, products: products
+              render 'predictive-search-products-list', title: title, products: products, limit: 4
             -%}
-          {% endif %}
-
-          {% if predictive_search.resources.collections.size > 0 %}
-            {% assign resource_title = 'content.search_results_resource_collections' | t %}
-
-            {% render 'predictive-search-resource-carousel',
-              title: resource_title,
-              resource_type: 'collection',
-              resources: predictive_search.resources.collections
-            %}
-          {% endif %}
-
-          {% if predictive_search.resources.pages.size > 0 %}
-            {% assign resource_title = 'content.search_results_resource_pages' | t %}
-
-            {% render 'predictive-search-resource-carousel',
-              title: resource_title,
-              resource_type: 'page',
-              resources: predictive_search.resources.pages
-            %}
+            <div class="predictive-search-see-all-wrap">
+              <a
+                class="button button-secondary predictive-search-see-all"
+                href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&type=product"
+              >
+                <span class="button-text">See All Results</span>
+              </a>
+            </div>
           {% endif %}
 
           {% if predictive_search.resources.articles.size > 0 %}
-            {% assign resource_title = 'content.search_results_resource_articles' | t %}
-
-            {% render 'predictive-search-resource-carousel',
-              title: resource_title,
-              resource_type: 'article',
-              resources: predictive_search.resources.articles
-            %}
+            <div class="predictive-search-blogs">
+              <hr class="predictive-search-blogs__divider">
+              <p class="predictive-search-blogs__heading">Blogs</p>
+              <ul class="predictive-search-blogs__list list-unstyled">
+                {%- for article in predictive_search.resources.articles limit: 3 -%}
+                  <li class="predictive-search-blogs__item" ref="resultsItems[]" on:keydown="/onSearchKeyDown">
+                    <a class="predictive-search-blogs__link" href="{{ article.url }}">
+                      {%- if article.image != blank -%}
+                        <div class="predictive-search-blogs__thumb">
+                          {{
+                            article.image
+                            | image_url: width: 80
+                            | image_tag: loading: 'lazy', class: 'predictive-search-blogs__thumb-img', widths: '80, 160'
+                          }}
+                        </div>
+                      {%- endif -%}
+                      <span class="predictive-search-blogs__title">
+                        {{- article.title | truncate: 30 -}}
+                      </span>
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+              <a
+                class="predictive-search-blogs__see-all"
+                href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&type=article"
+              >
+                See all &rsaquo;
+              </a>
+            </div>
           {% endif %}
         {%- elsif predictive_search.resources.queries.size == 0 -%}
           <p class="predictive-search-results__no-results">
