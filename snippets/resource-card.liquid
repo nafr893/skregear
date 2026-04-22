@@ -10,6 +10,7 @@
   @param {boolean} [image_hover] - Whether to show a secondary image on hover and focus
   @param {string} [image_sizes] - The sizes attribute for responsive images. Defaults to 'auto'
   @param {object} [swatches_product] - When provided, renders variant swatches between the image and content
+  @param {boolean} [product_card_wrapper] - When true, wraps the card in a product-card custom element for full swatch interactivity
 {%- enddoc -%}
 
 {% liquid
@@ -34,7 +35,16 @@
   endif
 %}
 
-{%- if resource_type == 'product' and settings.transition_to_main_product -%}
+{%- if product_card_wrapper and resource_type == 'product' -%}
+  <product-card
+    data-product-id="{{ resource.id }}"
+    {%- if settings.transition_to_main_product %}
+      data-featured-media-url="{{ featured_media_url }}"
+      data-product-transition="true"
+      on:click="/handleViewTransition"
+    {%- endif %}
+  >
+{%- elsif resource_type == 'product' and settings.transition_to_main_product -%}
   <product-card-link
     data-product-id="{{ resource.id }}"
     data-featured-media-url="{{ featured_media_url }}"
@@ -49,6 +59,7 @@
   <a
     class="resource-card__link"
     href="{{ resource.url }}"
+    {%- if product_card_wrapper %}ref="productCardLink"{% endif %}
   >
     <span class="visually-hidden">
       {{ resource.title }}
@@ -163,7 +174,9 @@
     {% endif %}
   </div>
 </div>
-{%- if resource_type == 'product' and settings.transition_to_main_product -%}
+{%- if product_card_wrapper and resource_type == 'product' -%}
+  </product-card>
+{%- elsif resource_type == 'product' and settings.transition_to_main_product -%}
   </product-card-link>
 {%- endif -%}
 
