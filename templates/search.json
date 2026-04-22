@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "search": {
       "type": "search-header",
@@ -51,6 +52,15 @@
         "color_scheme": "scheme-1",
         "padding-block-start": 40,
         "padding-block-end": 0
+      }
+    },
+    "skre_search_tabs_kcMtBj": {
+      "type": "skre-search-tabs",
+      "name": "Search Tabs",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding-block-start": 40,
+        "padding-block-end": 40
       }
     },
     "main": {
@@ -168,10 +178,13 @@
           ]
         }
       },
+      "disabled": true,
       "settings": {
         "layout_type": "grid",
         "product_card_size": "medium",
         "mobile_product_card_size": "small",
+        "enable_infinite_scroll": true,
+        "products_per_page": 24,
         "product_grid_width": "centered",
         "full_width_on_mobile": true,
         "columns_gap_horizontal": 16,
@@ -186,6 +199,7 @@
   },
   "order": [
     "search",
+    "skre_search_tabs_kcMtBj",
     "main"
   ]
 }
