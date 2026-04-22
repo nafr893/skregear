@@ -310,14 +310,33 @@ class PredictiveSearchComponent extends Component {
    * Fetch search results using the section renderer and update the results container.
    * @param {string} searchTerm - The term to search for
    */
+  /**
+   * Expand a search term using the synonym map defined in skre-search-synonyms.liquid.
+   * If the typed term matches a key exactly, returns an OR-joined expansion.
+   * @param {string} term
+   * @returns {string}
+   */
+  #expandSearchTerm(term) {
+    const map = window.SkreSearchSynonyms;
+    if (!map) return term;
+    const lower = term.toLowerCase().trim();
+    const synonyms = map[lower];
+    if (synonyms && synonyms.length > 0) {
+      return synonyms.join(' OR ');
+    }
+    return term;
+  }
+
   async #getSearchResults(searchTerm) {
     if (!this.dataset.sectionId) return;
 
     const url = new URL(Theme.routes.predictive_search_url, location.origin);
-    url.searchParams.set('q', searchTerm);
+    url.searchParams.set('q', this.#expandSearchTerm(searchTerm));
     url.searchParams.set('resources[type]', 'product,article,collection,page,query');
     url.searchParams.set('resources[limit_scope]', 'each');
     url.searchParams.set('resources[limit]', '8');
+    url.searchParams.set('resources[options][fields]', 'title,tag,product_type,body,vendor,variants.title');
+    url.searchParams.set('resources[options][unavailable_products]', 'last');
 
     const { predictiveSearchResults } = this.refs;
 
