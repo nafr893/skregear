@@ -36,11 +36,6 @@ h4, h5, h6, p {
   margin-block-start: 0;
 }
 
-/* Smaller heading for empty cart drawer state */
-.cart-drawer__heading--empty {
-  font-size: 24px !important;
-}
-
 /* Remove hover/focus effects on empty state popular search pills */
 .search-empty__pills .predictive-search-results__pill:hover,
 .search-empty__pills .predictive-search-results__pill:focus {
