@@ -38,7 +38,7 @@ h4, h5, h6, p {
 
 /* Smaller heading for empty cart drawer state */
 .cart-drawer__heading--empty {
-  font-size: var(--font-h4--size) !important;
+  font-size: 24px !important;
 }
 
 /* Remove hover/focus effects on empty state popular search pills */
