@@ -22,7 +22,7 @@
         Products
       </button>
       <button class="skre-search-results__tab" role="tab" data-tab="blogs" aria-selected="false" aria-controls="panel-blogs">
-        Blog Posts
+        Blogs
       </button>
       <button class="skre-search-results__tab" role="tab" data-tab="collections" aria-selected="false" aria-controls="panel-collections">
         Collections
@@ -290,20 +290,20 @@
     width: 100%;
     margin-block-start: var(--margin-xl);
     padding-block: var(--padding-sm);
-    background: none;
-    border: 1px solid var(--color-border);
+    background: #000;
+    border: 1px solid #000;
     border-radius: var(--button-corner-radius);
     font-size: var(--font-size--sm);
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     cursor: pointer;
-    color: var(--color-foreground);
-    transition: background-color 0.15s ease;
+    color: #fff;
+    transition: opacity 0.15s ease;
   }
 
   .skre-search-results__load-more:hover {
-    background-color: rgb(var(--color-foreground-rgb) / 0.06);
+    opacity: 0.8;
   }
 {% endstylesheet %}
 
@@ -396,7 +396,7 @@
       var remaining = items.filter(function (i) {
         return i.classList.contains('skre-search-results__item--hidden');
       }).length;
-      btn.textContent = 'Load More (' + remaining + ' remaining)';
+      btn.textContent = 'Load More (' + remaining + ')';
     }
 
     initLoadMore('panel-products', '.skre-search-results__product-grid');
