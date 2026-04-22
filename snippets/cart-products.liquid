@@ -1205,7 +1205,8 @@
 
       list.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', update, { passive: true });
-      update();
+      /* Wait two animation frames so the browser has finished layout before measuring */
+      requestAnimationFrame(function () { requestAnimationFrame(update); });
     }
 
     if (document.readyState === 'loading') {
