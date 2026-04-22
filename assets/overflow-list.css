@@ -4,6 +4,10 @@
   align-items: center;
   justify-content: var(--overflow-list-alignment);
   column-gap: 1rem;
+  margin: 0;
+  list-style: none;
+  /* Reset first, then apply custom-property overrides so they win the cascade */
+  padding: 0;
   padding-block: var(--overflow-list-padding-block, 0);
   padding-inline: var(--overflow-list-padding-inline, 0);
   height: 100%;
@@ -22,7 +26,6 @@
   }
 }
 
-[part='list'],
 [part='overflow-list'],
 [part='placeholder'] {
   margin: 0;
