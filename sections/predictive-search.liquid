@@ -68,15 +68,16 @@
               assign products = predictive_search.resources.products
               render 'predictive-search-products-list', title: title, products: products, limit: 4
             -%}
-            <div class="predictive-search-see-all-wrap">
-              <a
-                class="button button-secondary predictive-search-see-all"
-                href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}&type=product"
-              >
-                <span class="button-text">See All Results</span>
-              </a>
-            </div>
           {% endif %}
+
+          <div class="predictive-search-see-all-wrap">
+            <a
+              class="button button-secondary predictive-search-see-all"
+              href="{{ routes.search_url }}?q={{ predictive_search.terms | url_encode }}"
+            >
+              <span class="button-text">See All Results</span>
+            </a>
+          </div>
 
           {% if predictive_search.resources.articles.size > 0 %}
             <div class="predictive-search-blogs">
