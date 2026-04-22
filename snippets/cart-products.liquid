@@ -90,10 +90,6 @@
       {%- if trending != blank and trending.products.size > 0 -%}
         <div class="cart-empty__trending">
           <p class="cart-empty__trending-title">Trending</p>
-          <div class="cart-empty__trending-carousel">
-          <button class="cart-empty__trending-arrow cart-empty__trending-arrow--prev" aria-label="Previous products" type="button">
-            {{- 'icon-chevron-left.svg' | inline_asset_content -}}
-          </button>
           <ul class="cart-empty__trending-list list-unstyled" id="cart-trending-list">
             {%- for product in trending.products limit: 8 -%}
               <li class="cart-empty__trending-item">
@@ -108,12 +104,19 @@
               </li>
             {%- endfor -%}
           </ul>
-          <button class="cart-empty__trending-arrow cart-empty__trending-arrow--next" aria-label="Next products" type="button">
-            {{- 'icon-chevron-right.svg' | inline_asset_content -}}
-          </button>
-          </div>
-          <div class="cart-empty__scroll-track" aria-hidden="true">
-            <div class="cart-empty__scroll-thumb"></div>
+          <div class="cart-empty__carousel-footer">
+            <div class="cart-empty__scroll-track" aria-hidden="true">
+              <div class="cart-empty__scroll-thumb"></div>
+            </div>
+            <div class="cart-empty__carousel-nav">
+              <button class="cart-empty__nav-btn cart-empty__nav-btn--prev" aria-label="Previous" type="button">
+                {{- 'icon-chevron-left.svg' | inline_asset_content -}}
+              </button>
+              <span class="cart-empty__nav-counter"><span class="cart-empty__nav-current">1</span>/<span class="cart-empty__nav-total">1</span></span>
+              <button class="cart-empty__nav-btn cart-empty__nav-btn--next" aria-label="Next" type="button">
+                {{- 'icon-chevron-right.svg' | inline_asset_content -}}
+              </button>
+            </div>
           </div>
         </div>
       {%- endif -%}
@@ -779,57 +782,19 @@
     scroll-snap-align: start;
   }
 
-  .cart-empty__trending-carousel {
-    position: relative;
+  .cart-empty__carousel-footer {
     display: flex;
     align-items: center;
-  }
-
-  .cart-empty__trending-arrow {
-    display: none;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 2rem;
-    background: var(--color-background);
-    border: 1px solid var(--color-border);
-    border-radius: 50%;
-    cursor: pointer;
-    padding: 0;
-    color: var(--color-foreground);
-    box-shadow: 0 1px 4px rgb(0 0 0 / 0.08);
-    transition: opacity 0.2s;
-    z-index: 2;
-
-    svg {
-      width: 1rem;
-      height: 1rem;
-    }
-
-    &:disabled {
-      opacity: 0.3;
-      cursor: default;
-    }
-  }
-
-  @media screen and (min-width: 750px) {
-    .cart-empty__trending-arrow {
-      display: flex;
-    }
-
-    .cart-empty__trending-list {
-      flex: 1;
-      min-width: 0;
-    }
+    gap: var(--gap-md);
+    margin-block-start: var(--margin-md);
   }
 
   .cart-empty__scroll-track {
     position: relative;
+    flex: 1;
     height: 2px;
-    background-color: rgb(var(--color-foreground-rgb) / 0.12);
+    background-color: rgb(var(--color-foreground-rgb) / 0.15);
     border-radius: 2px;
-    margin-block-start: var(--margin-md);
     overflow: hidden;
   }
 
@@ -840,7 +805,46 @@
     height: 100%;
     background-color: var(--color-foreground);
     border-radius: 2px;
-    transition: left 0.1s linear, width 0.1s linear;
+    transition: left 0.15s ease, width 0.15s ease;
+  }
+
+  .cart-empty__carousel-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .cart-empty__nav-counter {
+    font-size: var(--font-size--sm);
+    font-weight: 500;
+    min-width: 2.5rem;
+    text-align: center;
+    color: var(--color-foreground);
+    letter-spacing: 0.02em;
+  }
+
+  .cart-empty__nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--color-foreground);
+
+    svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
   }
 
   /* Error message */
@@ -1130,56 +1134,74 @@
       var list = document.getElementById('cart-trending-list');
       if (!list) return;
 
-      var carousel = list.closest('.cart-empty__trending-carousel');
-      var trending = list.closest('.cart-empty__trending');
-      var track = trending && trending.querySelector('.cart-empty__scroll-track');
-      var thumb = trending && trending.querySelector('.cart-empty__scroll-thumb');
-      var prevBtn = carousel && carousel.querySelector('.cart-empty__trending-arrow--prev');
-      var nextBtn = carousel && carousel.querySelector('.cart-empty__trending-arrow--next');
+      var trending  = list.closest('.cart-empty__trending');
+      var track     = trending && trending.querySelector('.cart-empty__scroll-track');
+      var thumb     = trending && trending.querySelector('.cart-empty__scroll-thumb');
+      var prevBtn   = trending && trending.querySelector('.cart-empty__nav-btn--prev');
+      var nextBtn   = trending && trending.querySelector('.cart-empty__nav-btn--next');
+      var elCurrent = trending && trending.querySelector('.cart-empty__nav-current');
+      var elTotal   = trending && trending.querySelector('.cart-empty__nav-total');
 
-      function cardWidth() {
+      /* How many cards fit in view at once */
+      function pageSize() {
         var item = list.querySelector('.cart-empty__trending-item');
-        if (!item) return list.clientWidth;
+        if (!item) return 1;
         var gap = parseFloat(getComputedStyle(list).columnGap) || 0;
-        return item.offsetWidth + gap;
+        return Math.max(1, Math.round(list.clientWidth / (item.offsetWidth + gap)));
       }
 
-      function updateBar() {
-        if (!track || !thumb) return;
+      /* Total number of pages */
+      function totalPages() {
+        var items = list.querySelectorAll('.cart-empty__trending-item').length;
+        return Math.max(1, Math.ceil(items / pageSize()));
+      }
+
+      /* Current page (1-based) based on scroll position */
+      function currentPage() {
         var scrollable = list.scrollWidth - list.clientWidth;
-        if (scrollable <= 0) {
-          track.style.display = 'none';
-          return;
-        }
-        track.style.display = '';
-        var widthPct = (list.clientWidth / list.scrollWidth) * 100;
-        var leftPct = (list.scrollLeft / scrollable) * (100 - widthPct);
-        thumb.style.width = widthPct + '%';
-        thumb.style.left = leftPct + '%';
+        if (scrollable <= 0) return 1;
+        var ratio = list.scrollLeft / scrollable;
+        var pages = totalPages();
+        return Math.min(pages, Math.max(1, Math.round(ratio * (pages - 1)) + 1));
       }
 
-      function updateArrows() {
-        if (!prevBtn || !nextBtn) return;
-        prevBtn.disabled = list.scrollLeft <= 0;
-        nextBtn.disabled = list.scrollLeft >= list.scrollWidth - list.clientWidth - 1;
+      /* Scroll to a given page (1-based) */
+      function goToPage(page) {
+        var pages = totalPages();
+        page = Math.min(pages, Math.max(1, page));
+        var scrollable = list.scrollWidth - list.clientWidth;
+        var target = (page - 1) / Math.max(1, pages - 1) * scrollable;
+        list.scrollTo({ left: target, behavior: 'smooth' });
       }
 
       function update() {
-        updateBar();
-        updateArrows();
+        var pages = totalPages();
+        var page  = currentPage();
+
+        /* Progress bar: thumb covers 1/pages of the track */
+        if (track && thumb) {
+          if (pages <= 1) {
+            track.closest('.cart-empty__carousel-footer').style.display = 'none';
+            return;
+          }
+          track.closest('.cart-empty__carousel-footer').style.display = '';
+          var widthPct = 100 / pages;
+          var leftPct  = (page - 1) * widthPct;
+          thumb.style.width = widthPct + '%';
+          thumb.style.left  = leftPct + '%';
+        }
+
+        /* Counter */
+        if (elCurrent) elCurrent.textContent = page;
+        if (elTotal)   elTotal.textContent   = pages;
+
+        /* Arrow states */
+        if (prevBtn) prevBtn.disabled = page <= 1;
+        if (nextBtn) nextBtn.disabled = page >= pages;
       }
 
-      if (prevBtn) {
-        prevBtn.addEventListener('click', function () {
-          list.scrollBy({ left: -cardWidth(), behavior: 'smooth' });
-        });
-      }
-
-      if (nextBtn) {
-        nextBtn.addEventListener('click', function () {
-          list.scrollBy({ left: cardWidth(), behavior: 'smooth' });
-        });
-      }
+      if (prevBtn) prevBtn.addEventListener('click', function () { goToPage(currentPage() - 1); });
+      if (nextBtn) nextBtn.addEventListener('click', function () { goToPage(currentPage() + 1); });
 
       list.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', update, { passive: true });
