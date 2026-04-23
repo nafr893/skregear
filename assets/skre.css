@@ -1,4 +1,4 @@
-h1, h2, h3 {
+h1, h2, h3, h4 {
 font-family: 'United-Sans', sans-serif !important;
 }
 
@@ -19,18 +19,15 @@ h4, h5, h6, p {
   margin-block-start: var(--padding-xs);
 }
 
-/* Fix swatch hover/selected outline being clipped by overflow-list's overflow-y:hidden.
-   When overflow-list[disabled], variant-swatches.liquid forces --overflow-list-padding-block:0px
-   on the element itself, collapsing the shadow-DOM padding to 0. Targeting ::part(list) from
-   the outer document wins in the cascade over shadow-DOM author styles at the same specificity. */
+/* Fix swatch hover/selected */
 .predictive-search-swatches overflow-list::part(list),
 .cart-empty__trending overflow-list::part(list) {
   padding-block: calc(var(--focus-outline-offset) + var(--focus-outline-width) + 2px);
   padding-inline: calc(var(--focus-outline-offset) + var(--focus-outline-width) + 2px);
 }
 
-/* Cancel the margin that variant-swatches.liquid adds for the disabled state —
-   the ::part(list) padding above now provides that spacing instead. */
+/* Cancel the margin that variant-swatches.liquid adds for the disabled state
+   */
 .predictive-search-swatches swatches-variant-picker-component overflow-list[disabled='true'],
 .cart-empty__trending swatches-variant-picker-component overflow-list[disabled='true'] {
   margin-block-start: 0;
