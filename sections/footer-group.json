@@ -383,6 +383,7 @@
         "currency_selector_hL4m7G": {
           "type": "currency-selector",
           "name": "Currency Selector",
+          "disabled": true,
           "settings": {
             "padding-block-start": 0,
             "padding-block-end": 0,
