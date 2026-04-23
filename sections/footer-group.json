@@ -360,6 +360,49 @@
     },
     "section_RdLNg4": {
       "type": "section",
+      "blocks": {
+        "footer_copyright_AmncM9": {
+          "type": "footer-copyright",
+          "settings": {
+            "show_powered_by": true,
+            "font_size": "0.75rem",
+            "case": "none"
+          },
+          "blocks": {}
+        },
+        "footer_policy_list_EA3LJc": {
+          "type": "footer-policy-list",
+          "settings": {
+            "font_size": "0.75rem",
+            "case": "none"
+          },
+          "blocks": {}
+        },
+        "social_links_xrCfiQ": {
+          "type": "social-links",
+          "settings": {
+            "facebook_url": "https://www.facebook.com/skregear/",
+            "instagram_url": "https://www.instagram.com/skregear/",
+            "youtube_url": "https://www.youtube.com/c/Skregear",
+            "tiktok_url": "https://www.tiktok.com/",
+            "twitter_url": "https://x.com/",
+            "threads_url": "",
+            "linkedin_url": "",
+            "bluesky_url": "",
+            "snapchat_url": "",
+            "pinterest_url": "",
+            "tumblr_url": "",
+            "vimeo_url": "",
+            "custom_url": ""
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "footer_copyright_AmncM9",
+        "footer_policy_list_EA3LJc",
+        "social_links_xrCfiQ"
+      ],
       "name": "t:names.custom_section",
       "settings": {
         "content_direction": "column",
