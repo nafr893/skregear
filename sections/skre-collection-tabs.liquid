@@ -39,7 +39,7 @@
           aria-labelledby="skre-col-tab-{{ forloop.index0 }}"
         >
           <ul class="skre-col-tabs__grid list-unstyled">
-            {% for i in (1..6) %}
+            {% for i in (1..8) %}
               {%- assign col_key = 'collection_' | append: i -%}
               {%- assign col = block.settings[col_key] -%}
               {%- if col != blank -%}
@@ -322,6 +322,16 @@
           "type": "collection",
           "id": "collection_6",
           "label": "Collection 6"
+        },
+        {
+          "type": "collection",
+          "id": "collection_7",
+          "label": "Collection 7"
+        },
+        {
+          "type": "collection",
+          "id": "collection_8",
+          "label": "Collection 8"
         }
       ]
     }
