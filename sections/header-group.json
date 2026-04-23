@@ -92,7 +92,11 @@
             "drawer_social_facebook": "",
             "drawer_social_youtube": "",
             "drawer_social_tiktok": "",
-            "drawer_social_twitter": ""
+            "drawer_social_twitter": "",
+            "drawer_sub_hero_1_text": "Shop Bundles",
+            "drawer_sub_hero_1_link": "",
+            "drawer_sub_hero_2_text": "Shop by Hunt",
+            "drawer_sub_hero_2_link": ""
           },
           "blocks": {}
         }
@@ -106,7 +110,7 @@
         "search_position": "right",
         "search_row": "top",
         "show_country": true,
-        "country_selector_style": false,
+        "country_selector_style": true,
         "show_language": true,
         "localization_font": "heading",
         "localization_font_size": "0.875rem",
