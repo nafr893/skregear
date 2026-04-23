@@ -171,12 +171,14 @@
           "type": "tab",
           "settings": {
             "label": "Hunt",
-            "collection_1": "",
-            "collection_2": "",
-            "collection_3": "",
+            "collection_1": "whitetail-gear",
+            "collection_2": "insulation",
+            "collection_3": "new-arrivals",
             "collection_4": "",
             "collection_5": "",
-            "collection_6": ""
+            "collection_6": "",
+            "collection_7": "",
+            "collection_8": ""
           }
         },
         "tab_GBkBYa": {
@@ -188,7 +190,9 @@
             "collection_3": "",
             "collection_4": "",
             "collection_5": "",
-            "collection_6": ""
+            "collection_6": "",
+            "collection_7": "",
+            "collection_8": ""
           }
         }
       },
