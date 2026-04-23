@@ -38,7 +38,7 @@
           role="tabpanel"
           aria-labelledby="skre-col-tab-{{ forloop.index0 }}"
         >
-          <ul class="skre-col-tabs__grid list-unstyled">
+          <ul class="skre-col-tabs__grid list-unstyled" data-col-carousel-list>
             {% for i in (1..8) %}
               {%- assign col_key = 'collection_' | append: i -%}
               {%- assign col = block.settings[col_key] -%}
@@ -54,7 +54,7 @@
                             loading: 'lazy',
                             class: 'skre-col-tabs__img',
                             widths: '400, 600, 900',
-                            sizes: '(min-width: 750px) 33vw, 50vw'
+                            sizes: '(min-width: 750px) 25vw, 50vw'
                         }}
                       {%- else -%}
                         <div class="skre-col-tabs__img-placeholder">{{ col.title }}</div>
@@ -68,6 +68,24 @@
               {%- endif -%}
             {% endfor %}
           </ul>
+
+          <div class="skre-col-tabs__carousel-footer" data-col-carousel-footer>
+            <div class="skre-col-tabs__scroll-track" aria-hidden="true">
+              <div class="skre-col-tabs__scroll-thumb"></div>
+            </div>
+            <div class="skre-col-tabs__carousel-nav">
+              <button class="skre-col-tabs__nav-btn skre-col-tabs__nav-btn--prev" aria-label="Previous" type="button">
+                {{- 'icon-chevron-left.svg' | inline_asset_content -}}
+              </button>
+              <span class="skre-col-tabs__nav-counter">
+                <span class="skre-col-tabs__nav-current">1</span>/<span class="skre-col-tabs__nav-total">1</span>
+              </span>
+              <button class="skre-col-tabs__nav-btn skre-col-tabs__nav-btn--next" aria-label="Next" type="button">
+                {{- 'icon-chevron-right.svg' | inline_asset_content -}}
+              </button>
+            </div>
+          </div>
+
         </div>
       {% endfor %}
     </div>
@@ -130,8 +148,11 @@
     display: none;
   }
 
-  /* ── Collection grid / carousel ──────────────────────────── */
-  .skre-col-tabs__panel {
+  /* ── Carousel ─────────────────────────────────────────────── */
+  .skre-col-tabs__grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--gap-sm);
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
@@ -140,24 +161,85 @@
     &::-webkit-scrollbar {
       display: none;
     }
-  }
-
-  .skre-col-tabs__grid {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: calc(50% - var(--gap-sm) / 2);
-    gap: var(--gap-sm);
-    width: max-content;
-    min-width: 100%;
 
     @media screen and (min-width: 750px) {
-      grid-auto-columns: calc(25% - var(--gap-md) * 3 / 4);
       gap: var(--gap-md);
     }
   }
 
   .skre-col-tabs__item {
+    flex: 0 0 calc(50% - var(--gap-sm) / 2);
     scroll-snap-align: start;
+
+    @media screen and (min-width: 750px) {
+      flex: 0 0 calc(25% - var(--gap-md) * 3 / 4);
+    }
+  }
+
+  /* ── Carousel footer (progress bar + nav) ─────────────────── */
+  .skre-col-tabs__carousel-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-md);
+    margin-block-start: var(--margin-md);
+  }
+
+  .skre-col-tabs__scroll-track {
+    position: relative;
+    flex: 1;
+    height: 2px;
+    background-color: rgb(var(--color-foreground-rgb) / 0.15);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .skre-col-tabs__scroll-thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: var(--color-foreground);
+    border-radius: 2px;
+    transition: left 0.15s ease, width 0.15s ease;
+  }
+
+  .skre-col-tabs__carousel-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .skre-col-tabs__nav-counter {
+    font-size: var(--font-size--sm);
+    font-weight: 500;
+    min-width: 2.5rem;
+    text-align: center;
+    color: var(--color-foreground);
+    letter-spacing: 0.02em;
+  }
+
+  .skre-col-tabs__nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--color-foreground);
+
+    svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
   }
 
   /* ── Collection card ──────────────────────────────────────── */
@@ -242,22 +324,99 @@
 
 <script>
   (function () {
+    /* ── Tab switching ──────────────────────────────────────── */
     var tabs   = document.querySelectorAll('.skre-col-tabs__tab');
     var panels = document.querySelectorAll('.skre-col-tabs__panel');
 
     tabs.forEach(function (tab) {
       tab.addEventListener('click', function () {
         var index = tab.dataset.tab;
-
         tabs.forEach(function (t) {
           t.setAttribute('aria-selected', t.dataset.tab === index ? 'true' : 'false');
         });
-
         panels.forEach(function (p) {
           p.classList.toggle('skre-col-tabs__panel--hidden', p.id !== 'skre-col-panel-' + index);
         });
       });
     });
+
+    /* ── Carousel logic (one instance per panel) ────────────── */
+    function initCarousel(panel) {
+      var list     = panel.querySelector('[data-col-carousel-list]');
+      var footer   = panel.querySelector('[data-col-carousel-footer]');
+      if (!list || !footer) return;
+
+      var track     = footer.querySelector('.skre-col-tabs__scroll-track');
+      var thumb     = footer.querySelector('.skre-col-tabs__scroll-thumb');
+      var prevBtn   = footer.querySelector('.skre-col-tabs__nav-btn--prev');
+      var nextBtn   = footer.querySelector('.skre-col-tabs__nav-btn--next');
+      var elCurrent = footer.querySelector('.skre-col-tabs__nav-current');
+      var elTotal   = footer.querySelector('.skre-col-tabs__nav-total');
+
+      function pageSize() {
+        var item = list.querySelector('.skre-col-tabs__item');
+        if (!item) return 1;
+        var gap = parseFloat(getComputedStyle(list).columnGap) || 0;
+        return Math.max(1, Math.round(list.clientWidth / (item.offsetWidth + gap)));
+      }
+
+      function totalPages() {
+        var items = list.querySelectorAll('.skre-col-tabs__item').length;
+        return Math.max(1, Math.ceil(items / pageSize()));
+      }
+
+      function currentPage() {
+        var scrollable = list.scrollWidth - list.clientWidth;
+        if (scrollable <= 0) return 1;
+        var ratio = list.scrollLeft / scrollable;
+        var pages = totalPages();
+        return Math.min(pages, Math.max(1, Math.round(ratio * (pages - 1)) + 1));
+      }
+
+      function goToPage(page) {
+        var pages = totalPages();
+        page = Math.min(pages, Math.max(1, page));
+        var scrollable = list.scrollWidth - list.clientWidth;
+        var target = (page - 1) / Math.max(1, pages - 1) * scrollable;
+        list.scrollTo({ left: target, behavior: 'smooth' });
+      }
+
+      function update() {
+        var pages = totalPages();
+        var page  = currentPage();
+
+        if (pages <= 1) {
+          footer.style.display = 'none';
+          return;
+        }
+        footer.style.display = '';
+
+        var widthPct = 100 / pages;
+        var leftPct  = (page - 1) * widthPct;
+        thumb.style.width = widthPct + '%';
+        thumb.style.left  = leftPct + '%';
+
+        if (elCurrent) elCurrent.textContent = page;
+        if (elTotal)   elTotal.textContent   = pages;
+        if (prevBtn)   prevBtn.disabled = page <= 1;
+        if (nextBtn)   nextBtn.disabled = page >= pages;
+      }
+
+      if (prevBtn) prevBtn.addEventListener('click', function () { goToPage(currentPage() - 1); });
+      if (nextBtn) nextBtn.addEventListener('click', function () { goToPage(currentPage() + 1); });
+
+      list.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
+
+      if (typeof ResizeObserver !== 'undefined') {
+        var ro = new ResizeObserver(function () { requestAnimationFrame(update); });
+        ro.observe(list);
+      }
+
+      requestAnimationFrame(function () { requestAnimationFrame(update); });
+    }
+
+    panels.forEach(function (panel) { initCarousel(panel); });
   })();
 </script>
 
