@@ -164,6 +164,45 @@
         "padding-block-end": 72
       }
     },
+    "skre_collection_tabs_7keEHh": {
+      "type": "skre-collection-tabs",
+      "blocks": {
+        "tab_EKiCVN": {
+          "type": "tab",
+          "settings": {
+            "label": "Hunt",
+            "collection_1": "",
+            "collection_2": "",
+            "collection_3": "",
+            "collection_4": "",
+            "collection_5": "",
+            "collection_6": ""
+          }
+        },
+        "tab_GBkBYa": {
+          "type": "tab",
+          "settings": {
+            "label": "Sale",
+            "collection_1": "",
+            "collection_2": "",
+            "collection_3": "",
+            "collection_4": "",
+            "collection_5": "",
+            "collection_6": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_EKiCVN",
+        "tab_GBkBYa"
+      ],
+      "name": "Collection Tabs",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
+    },
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
@@ -376,6 +415,7 @@
   },
   "order": [
     "hero_jVaWmY",
+    "skre_collection_tabs_7keEHh",
     "product_list_fa6P9H"
   ]
 }
