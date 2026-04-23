@@ -53,6 +53,12 @@ h4, h5, h6, p {
   transform: none;
 }
 
+/* Remove hover background colour on product cards in the search modal */
+.predictive-search-results__card--product:hover,
+.recently-viewed-wrapper .predictive-search-results__card--product:hover {
+  background-color: transparent !important;
+}
+
 /* Sentence-case pill labels: first letter of each word capitalised, rest lowercase */
 /* Consistent font weight: neutralise bold/light overrides from styled_text markup */
 .predictive-search-results__card--query .predictive-search-results__pill,
