@@ -228,6 +228,21 @@
         </div>
       </dialog>
     </cart-drawer-component>
+    <script>
+      (function () {
+        var dialog = document.currentScript.closest('.cart-drawer-wrapper, [data-section-id]')?.querySelector('dialog')
+          || document.querySelector('cart-drawer-component dialog');
+        if (!dialog) return;
+        new MutationObserver(function (mutations) {
+          for (var i = 0; i < mutations.length; i++) {
+            if (mutations[i].attributeName === 'open' && dialog.hasAttribute('open')) {
+              var content = dialog.querySelector('.cart-drawer__content');
+              if (content) content.scrollTop = 0;
+            }
+          }
+        }).observe(dialog, { attributes: true });
+      })();
+    </script>
   {% else %}
     <a
       href="{{ routes.cart_url }}"
