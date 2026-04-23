@@ -1,0 +1,449 @@
+{% comment %}
+  SKRE Blog Carousel — Horizontal blog article carousel with date badge,
+  excerpt, Read More link, progress bar, and View All header link.
+{% endcomment %}
+
+{%- assign blog = section.settings.blog -%}
+{%- assign view_all_url = blog.url | default: routes.root_url -%}
+
+<section
+  class="skre-blog-carousel section spacing-style color-{{ section.settings.color_scheme }}"
+  style="--padding-block-start: {{ section.settings['padding-block-start'] }}px; --padding-block-end: {{ section.settings['padding-block-end'] }}px;"
+>
+
+  <div class="skre-blog-carousel__header">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="skre-blog-carousel__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    <a href="{{ view_all_url }}" class="skre-blog-carousel__view-all">View All</a>
+  </div>
+
+  {%- if blog != blank and blog.articles_count > 0 -%}
+
+    <ul class="skre-blog-carousel__grid list-unstyled" data-blog-carousel-list>
+      {%- for article in blog.articles limit: 20 -%}
+        {%- assign excerpt_raw = article.excerpt | default: article.content | strip_html | strip -%}
+        {%- assign excerpt_short = excerpt_raw | truncatewords: 6, '' -%}
+        <li class="skre-blog-carousel__item">
+          <div class="skre-blog-carousel__card">
+
+            <a href="{{ article.url }}" class="skre-blog-carousel__image-link">
+              <div class="skre-blog-carousel__media">
+                {%- if article.image != blank -%}
+                  {{
+                    article.image
+                    | image_url: width: 800
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'skre-blog-carousel__img',
+                      widths: '400, 600, 800',
+                      sizes: '(min-width: 750px) 25vw, 50vw'
+                  }}
+                {%- else -%}
+                  <div class="skre-blog-carousel__img-placeholder"></div>
+                {%- endif -%}
+
+                <span class="skre-blog-carousel__date-badge">
+                  {{- article.published_at | date: '%-m-%-d-%Y' -}}
+                </span>
+              </div>
+            </a>
+
+            <div class="skre-blog-carousel__body">
+              <a href="{{ article.url }}" class="skre-blog-carousel__title-link">
+                <h3 class="skre-blog-carousel__title">{{ article.title }}</h3>
+              </a>
+              {%- if excerpt_raw != blank -%}
+                <p class="skre-blog-carousel__excerpt">
+                  {{- excerpt_short -}}{%- if excerpt_short != excerpt_raw -%}...{%- endif -%}
+                </p>
+              {%- endif -%}
+              <a href="{{ article.url }}" class="skre-blog-carousel__read-more">Read More</a>
+            </div>
+
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    <div class="skre-blog-carousel__carousel-footer" data-blog-carousel-footer>
+      <div class="skre-blog-carousel__scroll-track" aria-hidden="true">
+        <div class="skre-blog-carousel__scroll-thumb"></div>
+      </div>
+      <div class="skre-blog-carousel__carousel-nav">
+        <button class="skre-blog-carousel__nav-btn skre-blog-carousel__nav-btn--prev" aria-label="Previous" type="button">
+          {{- 'icon-chevron-left.svg' | inline_asset_content -}}
+        </button>
+        <span class="skre-blog-carousel__nav-counter">
+          <span class="skre-blog-carousel__nav-current">1</span>/<span class="skre-blog-carousel__nav-total">1</span>
+        </span>
+        <button class="skre-blog-carousel__nav-btn skre-blog-carousel__nav-btn--next" aria-label="Next" type="button">
+          {{- 'icon-chevron-right.svg' | inline_asset_content -}}
+        </button>
+      </div>
+    </div>
+
+  {%- else -%}
+    <p class="skre-blog-carousel__empty">Select a blog in the theme editor to display articles.</p>
+  {%- endif -%}
+
+</section>
+
+{% stylesheet %}
+  .skre-blog-carousel {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-gutter);
+  }
+
+  /* ── Header row ───────────────────────────────────────────── */
+  .skre-blog-carousel__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-block-end: var(--margin-xl);
+  }
+
+  .skre-blog-carousel__heading {
+    font-size: var(--font-size--xl);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+
+  .skre-blog-carousel__view-all {
+    font-size: var(--font-size--sm);
+    font-weight: 500;
+    color: var(--color-foreground);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    opacity: 0.75;
+    transition: opacity 0.15s ease;
+    white-space: nowrap;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  /* ── Carousel ─────────────────────────────────────────────── */
+  .skre-blog-carousel__grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--gap-sm);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @media screen and (min-width: 750px) {
+      gap: var(--gap-md);
+    }
+  }
+
+  .skre-blog-carousel__item {
+    flex: 0 0 calc(50% - var(--gap-sm) / 2);
+    scroll-snap-align: start;
+
+    @media screen and (min-width: 750px) {
+      flex: 0 0 calc(25% - var(--gap-md) * 3 / 4);
+    }
+  }
+
+  /* ── Card ─────────────────────────────────────────────────── */
+  .skre-blog-carousel__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .skre-blog-carousel__image-link {
+    display: block;
+    text-decoration: none;
+  }
+
+  .skre-blog-carousel__media {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: var(--card-corner-radius);
+  }
+
+  .skre-blog-carousel__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .skre-blog-carousel__image-link:hover .skre-blog-carousel__img {
+    transform: scale(1.04);
+  }
+
+  .skre-blog-carousel__img-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(var(--color-foreground-rgb) / 0.08);
+  }
+
+  /* ── Date badge ───────────────────────────────────────────── */
+  .skre-blog-carousel__date-badge {
+    position: absolute;
+    top: var(--padding-sm);
+    left: var(--padding-sm);
+    background-color: rgb(0 0 0 / 0.65);
+    color: #fff;
+    font-size: var(--font-size--xs);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 0.25rem 0.5rem;
+    border-radius: 2px;
+    line-height: 1.4;
+  }
+
+  /* ── Body ─────────────────────────────────────────────────── */
+  .skre-blog-carousel__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-2xs);
+    padding-block-start: var(--padding-sm);
+    flex: 1;
+  }
+
+  .skre-blog-carousel__title-link {
+    text-decoration: none;
+    color: var(--color-foreground);
+  }
+
+  .skre-blog-carousel__title {
+    font-size: var(--font-size--md);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  .skre-blog-carousel__excerpt {
+    font-size: var(--font-size--sm);
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .skre-blog-carousel__read-more {
+    font-size: var(--font-size--sm);
+    font-weight: 500;
+    color: var(--color-foreground);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    margin-block-start: auto;
+    padding-block-start: var(--padding-2xs);
+  }
+
+  /* ── Carousel footer ──────────────────────────────────────── */
+  .skre-blog-carousel__carousel-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-md);
+    margin-block-start: var(--margin-xl);
+  }
+
+  .skre-blog-carousel__scroll-track {
+    position: relative;
+    flex: 1;
+    height: 2px;
+    background-color: rgb(var(--color-foreground-rgb) / 0.15);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .skre-blog-carousel__scroll-thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: var(--color-foreground);
+    border-radius: 2px;
+    transition: left 0.15s ease, width 0.15s ease;
+  }
+
+  .skre-blog-carousel__carousel-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .skre-blog-carousel__nav-counter {
+    font-size: var(--font-size--sm);
+    font-weight: 500;
+    min-width: 2.5rem;
+    text-align: center;
+    color: var(--color-foreground);
+    letter-spacing: 0.02em;
+  }
+
+  .skre-blog-carousel__nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--color-foreground);
+
+    svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+  }
+
+  /* ── Empty ────────────────────────────────────────────────── */
+  .skre-blog-carousel__empty {
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+    font-size: var(--font-size--sm);
+    padding-block: var(--padding-2xl);
+  }
+{% endstylesheet %}
+
+<script>
+  (function () {
+    var list   = document.querySelector('[data-blog-carousel-list]');
+    var footer = document.querySelector('[data-blog-carousel-footer]');
+    if (!list || !footer) return;
+
+    var thumb     = footer.querySelector('.skre-blog-carousel__scroll-thumb');
+    var prevBtn   = footer.querySelector('.skre-blog-carousel__nav-btn--prev');
+    var nextBtn   = footer.querySelector('.skre-blog-carousel__nav-btn--next');
+    var elCurrent = footer.querySelector('.skre-blog-carousel__nav-current');
+    var elTotal   = footer.querySelector('.skre-blog-carousel__nav-total');
+
+    function visibleCount() {
+      var item = list.querySelector('.skre-blog-carousel__item');
+      if (!item) return 1;
+      var gap = parseFloat(getComputedStyle(list).columnGap) || 0;
+      return Math.max(1, Math.round(list.clientWidth / (item.offsetWidth + gap)));
+    }
+
+    function totalCards() {
+      return list.querySelectorAll('.skre-blog-carousel__item').length;
+    }
+
+    function firstVisibleIndex() {
+      var total   = totalCards();
+      var visible = visibleCount();
+      var scrollable = list.scrollWidth - list.clientWidth;
+      if (scrollable <= 0) return 0;
+      return Math.round((list.scrollLeft / scrollable) * (total - visible));
+    }
+
+    function scrollToCard(index) {
+      var total   = totalCards();
+      var visible = visibleCount();
+      index = Math.min(total - visible, Math.max(0, index));
+      var scrollable = list.scrollWidth - list.clientWidth;
+      list.scrollTo({ left: (index / Math.max(1, total - visible)) * scrollable, behavior: 'smooth' });
+    }
+
+    function update() {
+      var total   = totalCards();
+      var visible = visibleCount();
+      var first   = firstVisibleIndex();
+      var last    = Math.min(total, first + visible);
+
+      if (total <= visible) {
+        footer.style.display = 'none';
+        return;
+      }
+      footer.style.display = '';
+
+      var thumbWidthPct = (visible / total) * 100;
+      var thumbLeftPct  = (first / (total - visible)) * (100 - thumbWidthPct);
+      thumb.style.width = thumbWidthPct + '%';
+      thumb.style.left  = thumbLeftPct + '%';
+
+      if (elCurrent) elCurrent.textContent = last;
+      if (elTotal)   elTotal.textContent   = total;
+      if (prevBtn)   prevBtn.disabled = first <= 0;
+      if (nextBtn)   nextBtn.disabled = last >= total;
+    }
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { scrollToCard(firstVisibleIndex() - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { scrollToCard(firstVisibleIndex() + 1); });
+
+    list.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+
+    if (typeof ResizeObserver !== 'undefined') {
+      new ResizeObserver(function () { requestAnimationFrame(update); }).observe(list);
+    }
+
+    requestAnimationFrame(function () { requestAnimationFrame(update); });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Blog Carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Field Guides"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1" },
+        { "value": "scheme-2", "label": "Scheme 2" },
+        { "value": "scheme-3", "label": "Scheme 3" }
+      ],
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "default": 40
+    }
+  ],
+  "presets": [
+    { "name": "Blog Carousel" }
+  ]
+}
+{% endschema %}
