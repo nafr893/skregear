@@ -181,7 +181,7 @@
     display: flex;
     align-items: center;
     gap: var(--gap-md);
-    margin-block-start: var(--margin-md);
+    margin-block-start: var(--margin-xl);
   }
 
   .skre-col-tabs__scroll-track {
@@ -353,57 +353,62 @@
       var elCurrent = footer.querySelector('.skre-col-tabs__nav-current');
       var elTotal   = footer.querySelector('.skre-col-tabs__nav-total');
 
-      function pageSize() {
+      function visibleCount() {
         var item = list.querySelector('.skre-col-tabs__item');
         if (!item) return 1;
         var gap = parseFloat(getComputedStyle(list).columnGap) || 0;
         return Math.max(1, Math.round(list.clientWidth / (item.offsetWidth + gap)));
       }
 
-      function totalPages() {
-        var items = list.querySelectorAll('.skre-col-tabs__item').length;
-        return Math.max(1, Math.ceil(items / pageSize()));
+      function totalCards() {
+        return list.querySelectorAll('.skre-col-tabs__item').length;
       }
 
-      function currentPage() {
+      function firstVisibleIndex() {
+        var total   = totalCards();
+        var visible = visibleCount();
         var scrollable = list.scrollWidth - list.clientWidth;
-        if (scrollable <= 0) return 1;
+        if (scrollable <= 0) return 0;
         var ratio = list.scrollLeft / scrollable;
-        var pages = totalPages();
-        return Math.min(pages, Math.max(1, Math.round(ratio * (pages - 1)) + 1));
+        return Math.round(ratio * (total - visible));
       }
 
-      function goToPage(page) {
-        var pages = totalPages();
-        page = Math.min(pages, Math.max(1, page));
+      function scrollToCard(index) {
+        var total   = totalCards();
+        var visible = visibleCount();
+        index = Math.min(total - visible, Math.max(0, index));
         var scrollable = list.scrollWidth - list.clientWidth;
-        var target = (page - 1) / Math.max(1, pages - 1) * scrollable;
+        var target = index / Math.max(1, total - visible) * scrollable;
         list.scrollTo({ left: target, behavior: 'smooth' });
       }
 
       function update() {
-        var pages = totalPages();
-        var page  = currentPage();
+        var total   = totalCards();
+        var visible = visibleCount();
+        var first   = firstVisibleIndex();
+        var last    = Math.min(total, first + visible);
 
-        if (pages <= 1) {
+        if (total <= visible) {
           footer.style.display = 'none';
           return;
         }
         footer.style.display = '';
 
-        var widthPct = 100 / pages;
-        var leftPct  = (page - 1) * widthPct;
-        thumb.style.width = widthPct + '%';
-        thumb.style.left  = leftPct + '%';
+        /* Thumb: width = visible/total, left = scroll ratio * remaining track */
+        var thumbWidthPct = (visible / total) * 100;
+        var thumbLeftPct  = (first / (total - visible)) * (100 - thumbWidthPct);
+        thumb.style.width = thumbWidthPct + '%';
+        thumb.style.left  = thumbLeftPct + '%';
 
-        if (elCurrent) elCurrent.textContent = page;
-        if (elTotal)   elTotal.textContent   = pages;
-        if (prevBtn)   prevBtn.disabled = page <= 1;
-        if (nextBtn)   nextBtn.disabled = page >= pages;
+        /* Counter: last visible card / total */
+        if (elCurrent) elCurrent.textContent = last;
+        if (elTotal)   elTotal.textContent   = total;
+        if (prevBtn)   prevBtn.disabled = first <= 0;
+        if (nextBtn)   nextBtn.disabled = last >= total;
       }
 
-      if (prevBtn) prevBtn.addEventListener('click', function () { goToPage(currentPage() - 1); });
-      if (nextBtn) nextBtn.addEventListener('click', function () { goToPage(currentPage() + 1); });
+      if (prevBtn) prevBtn.addEventListener('click', function () { scrollToCard(firstVisibleIndex() - 1); });
+      if (nextBtn) nextBtn.addEventListener('click', function () { scrollToCard(firstVisibleIndex() + 1); });
 
       list.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', update, { passive: true });
