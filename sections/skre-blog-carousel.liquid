@@ -30,12 +30,17 @@
         {%- if excerpt_raw.size > 125 -%}
           {%- assign lg_truncated = true -%}
           {%- assign _cut = excerpt_raw | truncate: 125, '' -%}
-          {%- if _cut | slice: -1 == ' ' -%}
+          {%- assign _last = _cut | slice: -1 -%}
+          {%- if _last == ' ' -%}
             {%- assign excerpt_lg = _cut | strip -%}
           {%- else -%}
             {%- assign _words = _cut | split: ' ' -%}
             {%- assign excerpt_lg = '' -%}
-            {%- for _w in _words -%}{%- unless forloop.last -%}{%- if forloop.first -%}{%- assign excerpt_lg = _w -%}{%- else -%}{%- assign excerpt_lg = excerpt_lg | append: ' ' | append: _w -%}{%- endif -%}{%- endunless -%}{%- endfor -%}
+            {%- for _w in _words -%}
+              {%- unless forloop.last -%}
+                {%- if forloop.first -%}{%- assign excerpt_lg = _w -%}{%- else -%}{%- assign excerpt_lg = excerpt_lg | append: ' ' | append: _w -%}{%- endif -%}
+              {%- endunless -%}
+            {%- endfor -%}
           {%- endif -%}
         {%- endif -%}
 
@@ -45,12 +50,17 @@
         {%- if excerpt_raw.size > 75 -%}
           {%- assign sm_truncated = true -%}
           {%- assign _cut = excerpt_raw | truncate: 75, '' -%}
-          {%- if _cut | slice: -1 == ' ' -%}
+          {%- assign _last = _cut | slice: -1 -%}
+          {%- if _last == ' ' -%}
             {%- assign excerpt_sm = _cut | strip -%}
           {%- else -%}
             {%- assign _words = _cut | split: ' ' -%}
             {%- assign excerpt_sm = '' -%}
-            {%- for _w in _words -%}{%- unless forloop.last -%}{%- if forloop.first -%}{%- assign excerpt_sm = _w -%}{%- else -%}{%- assign excerpt_sm = excerpt_sm | append: ' ' | append: _w -%}{%- endif -%}{%- endunless -%}{%- endfor -%}
+            {%- for _w in _words -%}
+              {%- unless forloop.last -%}
+                {%- if forloop.first -%}{%- assign excerpt_sm = _w -%}{%- else -%}{%- assign excerpt_sm = excerpt_sm | append: ' ' | append: _w -%}{%- endif -%}
+              {%- endunless -%}
+            {%- endfor -%}
           {%- endif -%}
         {%- endif -%}
         <li class="skre-blog-carousel__item">
