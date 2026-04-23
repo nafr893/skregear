@@ -19,7 +19,7 @@
           "name": "t:names.heading",
           "settings": {
             "text": "<h4>Get the latest news and offers.</h4>",
-            "width": "fit-content",
+            "width": "100%",
             "max_width": "none",
             "alignment": "left",
             "type_preset": "rte",
@@ -80,7 +80,7 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
+        "gap": 14,
         "section_width": "page-width",
         "section_height": "small",
         "section_height_custom": 50,
