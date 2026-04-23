@@ -1,0 +1,339 @@
+{% comment %}
+  SKRE Collection Tabs — Tabbed collection grid with theme-editor-configurable tabs.
+  Each block = one tab. Add up to 6 collections per tab via the theme editor.
+{% endcomment %}
+
+<section
+  class="skre-col-tabs section spacing-style color-{{ section.settings.color_scheme }}"
+  style="--padding-block-start: {{ section.settings['padding-block-start'] }}px; --padding-block-end: {{ section.settings['padding-block-end'] }}px;"
+>
+
+  {% if section.blocks.size > 0 %}
+
+    {%- comment -%} Tab navigation {%- endcomment -%}
+    <nav class="skre-col-tabs__nav" role="tablist" aria-label="Collection categories">
+      {% for block in section.blocks %}
+        <button
+          class="skre-col-tabs__tab"
+          role="tab"
+          data-tab="{{ forloop.index0 }}"
+          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          aria-controls="skre-col-panel-{{ forloop.index0 }}"
+          {{ block.shopify_attributes }}
+        >
+          {{- block.settings.label | default: 'Tab' -}}
+        </button>
+        {%- unless forloop.last -%}
+          <span class="skre-col-tabs__sep" aria-hidden="true">|</span>
+        {%- endunless -%}
+      {% endfor %}
+    </nav>
+
+    {%- comment -%} Panels {%- endcomment -%}
+    <div class="skre-col-tabs__content">
+      {% for block in section.blocks %}
+        <div
+          class="skre-col-tabs__panel{% unless forloop.first %} skre-col-tabs__panel--hidden{% endunless %}"
+          id="skre-col-panel-{{ forloop.index0 }}"
+          role="tabpanel"
+          aria-labelledby="skre-col-tab-{{ forloop.index0 }}"
+        >
+          <ul class="skre-col-tabs__grid list-unstyled">
+            {% for i in (1..6) %}
+              {%- assign col_key = 'collection_' | append: i -%}
+              {%- assign col = block.settings[col_key] -%}
+              {%- if col != blank -%}
+                <li class="skre-col-tabs__item">
+                  <a href="{{ col.url }}" class="skre-col-tabs__card">
+                    <div class="skre-col-tabs__media">
+                      {%- if col.featured_image != blank -%}
+                        {{
+                          col.featured_image
+                          | image_url: width: 900
+                          | image_tag:
+                            loading: 'lazy',
+                            class: 'skre-col-tabs__img',
+                            widths: '400, 600, 900',
+                            sizes: '(min-width: 750px) 33vw, 50vw'
+                        }}
+                      {%- else -%}
+                        <div class="skre-col-tabs__img-placeholder">{{ col.title }}</div>
+                      {%- endif -%}
+                    </div>
+                    <div class="skre-col-tabs__overlay">
+                      <span class="skre-col-tabs__label">{{ col.title }}</span>
+                    </div>
+                  </a>
+                </li>
+              {%- endif -%}
+            {% endfor %}
+          </ul>
+        </div>
+      {% endfor %}
+    </div>
+
+  {% else %}
+    <p class="skre-col-tabs__empty">Add tabs and collections in the theme editor to get started.</p>
+  {% endif %}
+
+</section>
+
+{% stylesheet %}
+  .skre-col-tabs {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-gutter);
+  }
+
+  /* ── Tab nav ──────────────────────────────────────────────── */
+  .skre-col-tabs__nav {
+    display: flex;
+    align-items: baseline;
+    gap: var(--gap-sm);
+    margin-block-end: var(--margin-xl);
+  }
+
+  .skre-col-tabs__tab {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: var(--font-size--lg);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    color: rgb(var(--color-foreground-rgb) / 0.3);
+    transition: color 0.15s ease;
+    font-family: var(--font-heading--family);
+  }
+
+  .skre-col-tabs__tab[aria-selected='true'] {
+    color: var(--color-foreground);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+  }
+
+  .skre-col-tabs__tab:hover:not([aria-selected='true']) {
+    color: rgb(var(--color-foreground-rgb) / 0.6);
+  }
+
+  .skre-col-tabs__sep {
+    color: rgb(var(--color-foreground-rgb) / 0.25);
+    font-size: var(--font-size--lg);
+    font-weight: 300;
+    user-select: none;
+  }
+
+  /* ── Panel visibility ─────────────────────────────────────── */
+  .skre-col-tabs__panel--hidden {
+    display: none;
+  }
+
+  /* ── Collection grid ──────────────────────────────────────── */
+  .skre-col-tabs__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap-sm);
+
+    @media screen and (min-width: 750px) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap-md);
+    }
+
+    @media screen and (min-width: 1200px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* ── Collection card ──────────────────────────────────────── */
+  .skre-col-tabs__card {
+    display: block;
+    position: relative;
+    text-decoration: none;
+    overflow: hidden;
+    border-radius: var(--card-corner-radius);
+  }
+
+  .skre-col-tabs__media {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+  }
+
+  .skre-col-tabs__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .skre-col-tabs__card:hover .skre-col-tabs__img {
+    transform: scale(1.04);
+  }
+
+  .skre-col-tabs__img-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(var(--color-foreground-rgb) / 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--padding-md);
+    color: var(--color-foreground);
+    font-size: var(--font-size--sm);
+    text-align: center;
+  }
+
+  /* ── Overlay text ─────────────────────────────────────────── */
+  .skre-col-tabs__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgb(0 0 0 / 0.55) 0%,
+      rgb(0 0 0 / 0.2) 40%,
+      transparent 70%
+    );
+    display: flex;
+    align-items: flex-end;
+    padding: var(--padding-md);
+
+    @media screen and (min-width: 750px) {
+      padding: var(--padding-lg);
+    }
+  }
+
+  .skre-col-tabs__label {
+    color: #fff;
+    font-size: var(--font-size--md);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    font-family: var(--font-heading--family);
+
+    @media screen and (min-width: 750px) {
+      font-size: var(--font-size--lg);
+    }
+  }
+
+  /* ── Empty placeholder ────────────────────────────────────── */
+  .skre-col-tabs__empty {
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+    font-size: var(--font-size--sm);
+    padding-block: var(--padding-2xl);
+  }
+{% endstylesheet %}
+
+<script>
+  (function () {
+    var tabs   = document.querySelectorAll('.skre-col-tabs__tab');
+    var panels = document.querySelectorAll('.skre-col-tabs__panel');
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var index = tab.dataset.tab;
+
+        tabs.forEach(function (t) {
+          t.setAttribute('aria-selected', t.dataset.tab === index ? 'true' : 'false');
+        });
+
+        panels.forEach(function (p) {
+          p.classList.toggle('skre-col-tabs__panel--hidden', p.id !== 'skre-col-panel-' + index);
+        });
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Collection Tabs",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1" },
+        { "value": "scheme-2", "label": "Scheme 2" },
+        { "value": "scheme-3", "label": "Scheme 3" }
+      ],
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tab label",
+          "default": "Hunt"
+        },
+        {
+          "type": "collection",
+          "id": "collection_1",
+          "label": "Collection 1"
+        },
+        {
+          "type": "collection",
+          "id": "collection_2",
+          "label": "Collection 2"
+        },
+        {
+          "type": "collection",
+          "id": "collection_3",
+          "label": "Collection 3"
+        },
+        {
+          "type": "collection",
+          "id": "collection_4",
+          "label": "Collection 4"
+        },
+        {
+          "type": "collection",
+          "id": "collection_5",
+          "label": "Collection 5"
+        },
+        {
+          "type": "collection",
+          "id": "collection_6",
+          "label": "Collection 6"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Tabs",
+      "blocks": [
+        { "type": "tab", "settings": { "label": "Hunt" } },
+        { "type": "tab", "settings": { "label": "Sale" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
