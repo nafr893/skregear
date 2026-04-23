@@ -1,8 +1,16 @@
 
 
-<div class="section-background color-{{ section.settings.color_scheme }}"></div>
+{%- liquid
+  assign _vis_class = ''
+  if section.settings.visibility == 'desktop_only'
+    assign _vis_class = 'mobile:hidden'
+  elsif section.settings.visibility == 'mobile_only'
+    assign _vis_class = 'desktop:hidden'
+  endif
+-%}
+<div class="section-background color-{{ section.settings.color_scheme }} {{ _vis_class }}"></div>
 <div
-  class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }}"
+  class="section section--{{ section.settings.section_width }} color-{{ section.settings.color_scheme }} {{ _vis_class }}"
 >
   {% liquid
     assign total_blocks = section.blocks.size
@@ -198,6 +206,21 @@
       "step": 1,
       "unit": "px",
       "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "label": "Show on",
+      "options": [
+        { "value": "both", "label": "All devices" },
+        { "value": "desktop_only", "label": "Desktop only" },
+        { "value": "mobile_only", "label": "Mobile only" }
+      ],
+      "default": "both"
     }
   ],
   "presets": [
