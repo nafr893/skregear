@@ -25,14 +25,14 @@
         {%- assign excerpt_raw = article.excerpt | default: article.content | strip_html | strip -%}
         {%- assign was_truncated = false -%}
         {%- assign excerpt_short = excerpt_raw -%}
-        {%- if excerpt_raw.size > 100 -%}
+        {%- if excerpt_raw.size > 125 -%}
           {%- assign was_truncated = true -%}
-          {%- assign excerpt_50 = excerpt_raw | truncate: 100, '' -%}
-          {%- assign last_char = excerpt_50 | slice: -1 -%}
+          {%- assign excerpt_cut = excerpt_raw | truncate: 125, '' -%}
+          {%- assign last_char = excerpt_cut | slice: -1 -%}
           {%- if last_char == ' ' -%}
-            {%- assign excerpt_short = excerpt_50 | strip -%}
+            {%- assign excerpt_short = excerpt_cut | strip -%}
           {%- else -%}
-            {%- assign words = excerpt_50 | split: ' ' -%}
+            {%- assign words = excerpt_cut | split: ' ' -%}
             {%- assign excerpt_short = '' -%}
             {%- for word in words -%}
               {%- unless forloop.last -%}
