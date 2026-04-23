@@ -361,6 +361,17 @@
     "section_RdLNg4": {
       "type": "section",
       "blocks": {
+        "currency_selector_hL4m7G": {
+          "type": "currency-selector",
+          "name": "Currency Selector",
+          "settings": {
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
         "footer_copyright_AmncM9": {
           "type": "footer-copyright",
           "settings": {
@@ -399,6 +410,7 @@
         }
       },
       "block_order": [
+        "currency_selector_hL4m7G",
         "footer_copyright_AmncM9",
         "footer_policy_list_EA3LJc",
         "social_links_xrCfiQ"
