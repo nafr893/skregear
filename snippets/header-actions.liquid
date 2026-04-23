@@ -385,11 +385,6 @@
 
   .cart-drawer__close-button {
     margin-right: calc(var(--padding-sm) * -1);
-    top: var(--margin-sm);
-
-    @media screen and (max-width: 749px) {
-      top: var(--margin-2xs);
-    }
   }
 
   .cart-drawer--empty .cart-drawer__content {
@@ -398,7 +393,7 @@
   }
 
   .cart-drawer--empty .cart-drawer__heading {
-    margin-bottom: var(--margin-md);
+    margin-bottom: 0;
   }
 
   .cart-drawer__items .cart-items__table-row {
@@ -472,6 +467,7 @@
 
     @media screen and (min-width: 750px) {
       padding-inline: var(--cart-drawer-padding-desktop);
+      padding-block-start: var(--padding-3xl) !important;
     }
   }
 
