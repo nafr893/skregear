@@ -655,6 +655,17 @@
         "padding-block-start": 40,
         "padding-block-end": 40
       }
+    },
+    "skre_blog_carousel_pnN8WW": {
+      "type": "skre-blog-carousel",
+      "name": "Blog Carousel",
+      "settings": {
+        "heading": "Field Guides",
+        "blog": "resources",
+        "color_scheme": "scheme-1",
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
     }
   },
   "order": [
@@ -663,6 +674,7 @@
     "hero_qkqBhp",
     "section_eVBXeP",
     "skre_product_tabs_DrtFwq",
-    "section_FXptDL"
+    "section_FXptDL",
+    "skre_blog_carousel_pnN8WW"
   ]
 }
