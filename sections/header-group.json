@@ -102,7 +102,7 @@
         }
       },
       "settings": {
-        "logo_position": "left",
+        "logo_position": "center",
         "menu_position": "left",
         "menu_row": "top",
         "customer_account_menu": "customer-account-main-menu",
