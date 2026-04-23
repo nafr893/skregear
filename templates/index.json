@@ -385,7 +385,7 @@
         "blurred_reflection": false,
         "reflection_opacity": 75,
         "padding-block-start": 40,
-        "padding-block-end": 40
+        "padding-block-end": 72
       }
     },
     "section_eVBXeP": {
@@ -622,7 +622,7 @@
                   "settings": {
                     "text": "<p><strong>Stay warm and protected from the elements.<br/>Choose your base, insulation and protective layers.</strong></p>",
                     "width": "fit-content",
-                    "max_width": "narrow",
+                    "max_width": "none",
                     "alignment": "left",
                     "type_preset": "rte",
                     "font": "var(--font-body--family)",
@@ -889,7 +889,7 @@
         "blurred_reflection": false,
         "reflection_opacity": 75,
         "padding-block-start": 40,
-        "padding-block-end": 40
+        "padding-block-end": 72
       }
     }
   },
