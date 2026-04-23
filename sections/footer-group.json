@@ -394,6 +394,7 @@
         "group_8kQccC",
         "group_H6VpwJ"
       ],
+      "disabled": true,
       "name": "Mobile Footer",
       "settings": {
         "section_width": "page-width",
