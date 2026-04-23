@@ -361,6 +361,25 @@
     "section_RdLNg4": {
       "type": "section",
       "blocks": {
+        "social_links_xrCfiQ": {
+          "type": "social-links",
+          "settings": {
+            "facebook_url": "https://www.facebook.com/skregear/",
+            "instagram_url": "https://www.instagram.com/skregear/",
+            "youtube_url": "https://www.youtube.com/c/Skregear",
+            "tiktok_url": "https://www.tiktok.com/",
+            "twitter_url": "https://x.com/",
+            "threads_url": "",
+            "linkedin_url": "",
+            "bluesky_url": "",
+            "snapchat_url": "",
+            "pinterest_url": "",
+            "tumblr_url": "",
+            "vimeo_url": "",
+            "custom_url": ""
+          },
+          "blocks": {}
+        },
         "currency_selector_hL4m7G": {
           "type": "currency-selector",
           "name": "Currency Selector",
@@ -388,32 +407,13 @@
             "case": "none"
           },
           "blocks": {}
-        },
-        "social_links_xrCfiQ": {
-          "type": "social-links",
-          "settings": {
-            "facebook_url": "https://www.facebook.com/skregear/",
-            "instagram_url": "https://www.instagram.com/skregear/",
-            "youtube_url": "https://www.youtube.com/c/Skregear",
-            "tiktok_url": "https://www.tiktok.com/",
-            "twitter_url": "https://x.com/",
-            "threads_url": "",
-            "linkedin_url": "",
-            "bluesky_url": "",
-            "snapchat_url": "",
-            "pinterest_url": "",
-            "tumblr_url": "",
-            "vimeo_url": "",
-            "custom_url": ""
-          },
-          "blocks": {}
         }
       },
       "block_order": [
+        "social_links_xrCfiQ",
         "currency_selector_hL4m7G",
         "footer_copyright_AmncM9",
-        "footer_policy_list_EA3LJc",
-        "social_links_xrCfiQ"
+        "footer_policy_list_EA3LJc"
       ],
       "name": "t:names.custom_section",
       "settings": {
