@@ -91,7 +91,9 @@
         {% if page_results.size > 0 %}
           <ul class="skre-search-results__page-grid list-unstyled">
             {% for page in page_results %}
-              {%- if page.template_suffix == 'sitemap' or page.handle contains 'sitemap' -%}{%- continue -%}{%- endif -%}
+              {%- assign _page_handle = page.handle | downcase -%}
+              {%- assign _page_title = page.title | downcase -%}
+              {%- if _page_handle contains 'sitemap' or _page_handle contains 'html' or _page_title contains 'sitemap' or _page_title contains 'html' or page.template_suffix == 'sitemap' -%}{%- continue -%}{%- endif -%}
               <li class="skre-search-results__page-item">
                 <a href="{{ page.url }}" class="skre-search-results__page-card">
                   <span class="skre-search-results__page-title">{{ page.title }}</span>

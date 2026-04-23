@@ -151,6 +151,9 @@
               <p class="predictive-search-secondary-section__heading">Pages</p>
               <ul class="predictive-search-secondary-section__list list-unstyled">
                 {%- for page in predictive_search.resources.pages limit: 3 -%}
+                  {%- assign _ph = page.handle | downcase -%}
+                  {%- assign _pt = page.title | downcase -%}
+                  {%- if _ph contains 'sitemap' or _ph contains 'html' or _pt contains 'sitemap' or _pt contains 'html' -%}{%- continue -%}{%- endif -%}
                   <li class="predictive-search-secondary-section__item" ref="resultsItems[]" on:keydown="/onSearchKeyDown">
                     <a class="predictive-search-secondary-section__link" href="{{ page.url }}">
                       <span class="predictive-search-secondary-section__title">
