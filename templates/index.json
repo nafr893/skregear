@@ -169,6 +169,7 @@
       "blocks": {
         "tab_EKiCVN": {
           "type": "tab",
+          "name": "Hunt",
           "settings": {
             "label": "Hunt",
             "collection_1": "whitetail-gear",
@@ -183,13 +184,14 @@
         },
         "tab_GBkBYa": {
           "type": "tab",
+          "name": "Sale",
           "settings": {
             "label": "Sale",
-            "collection_1": "",
-            "collection_2": "",
-            "collection_3": "",
-            "collection_4": "",
-            "collection_5": "",
+            "collection_1": "whitetail-rain-gear",
+            "collection_2": "whitetail-pants-and-bottoms",
+            "collection_3": "whitetail-merino-wool",
+            "collection_4": "whitetail-headwear",
+            "collection_5": "whitetail-jackets-amp-vests",
             "collection_6": "",
             "collection_7": "",
             "collection_8": ""
