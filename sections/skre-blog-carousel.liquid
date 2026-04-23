@@ -13,7 +13,7 @@
 
   <div class="skre-blog-carousel__header">
     {%- if section.settings.heading != blank -%}
-      <h2 class="skre-blog-carousel__heading">{{ section.settings.heading }}</h2>
+      <h3 class="skre-blog-carousel__heading">{{ section.settings.heading }}</h3>
     {%- endif -%}
     <a href="{{ view_all_url }}" class="skre-blog-carousel__view-all">View All</a>
   </div>
@@ -105,7 +105,7 @@
   }
 
   .skre-blog-carousel__heading {
-    font-size: var(--font-size--xl);
+    font-size: var(--font-h3--size);
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.04em;
