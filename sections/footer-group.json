@@ -361,23 +361,6 @@
     "section_RdLNg4": {
       "type": "section",
       "blocks": {
-        "footer_copyright_AmncM9": {
-          "type": "footer-copyright",
-          "settings": {
-            "show_powered_by": true,
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
-        },
-        "footer_policy_list_EA3LJc": {
-          "type": "footer-policy-list",
-          "settings": {
-            "font_size": "0.75rem",
-            "case": "none"
-          },
-          "blocks": {}
-        },
         "social_links_xrCfiQ": {
           "type": "social-links",
           "settings": {
@@ -396,12 +379,41 @@
             "custom_url": ""
           },
           "blocks": {}
+        },
+        "currency_selector_hL4m7G": {
+          "type": "currency-selector",
+          "name": "Currency Selector",
+          "settings": {
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "footer_copyright_AmncM9": {
+          "type": "footer-copyright",
+          "settings": {
+            "show_powered_by": true,
+            "font_size": "0.75rem",
+            "case": "none"
+          },
+          "blocks": {}
+        },
+        "footer_policy_list_EA3LJc": {
+          "type": "footer-policy-list",
+          "settings": {
+            "font_size": "0.75rem",
+            "case": "none"
+          },
+          "blocks": {}
         }
       },
       "block_order": [
+        "social_links_xrCfiQ",
+        "currency_selector_hL4m7G",
         "footer_copyright_AmncM9",
-        "footer_policy_list_EA3LJc",
-        "social_links_xrCfiQ"
+        "footer_policy_list_EA3LJc"
       ],
       "name": "t:names.custom_section",
       "settings": {
@@ -416,7 +428,7 @@
         "section_width": "page-width",
         "section_height": "small",
         "section_height_custom": 50,
-        "color_scheme": "",
+        "color_scheme": "scheme-2",
         "background_media": "none",
         "video_position": "cover",
         "background_image_position": "cover",
