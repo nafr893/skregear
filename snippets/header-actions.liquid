@@ -234,11 +234,14 @@
         if (!dialog) return;
 
         function resetScroll() {
-          var content = dialog.querySelector('.cart-drawer__content');
-          if (content) {
-            content.scrollTop = 0;
-            requestAnimationFrame(function () { content.scrollTop = 0; });
-          }
+          var scrollables = dialog.querySelectorAll('.cart-drawer__content, .cart-drawer__items');
+          scrollables.forEach(function (el) { el.scrollTop = 0; });
+          requestAnimationFrame(function () {
+            scrollables.forEach(function (el) { el.scrollTop = 0; });
+            setTimeout(function () {
+              scrollables.forEach(function (el) { el.scrollTop = 0; });
+            }, 50);
+          });
         }
 
         new MutationObserver(function (mutations) {

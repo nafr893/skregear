@@ -64,6 +64,11 @@ h4, h5, h6, p {
   font-weight: 500;
 }
 
+/* Keep cart drawer content top-aligned (theme default centers it when empty) */
+.cart-drawer:not(:has(.cart-form)) .cart-drawer__content {
+  justify-content: flex-start !important;
+}
+
 /* Remove circle hover/active/focus highlight from cart drawer close button */
 .cart-drawer__close-button {
   -webkit-tap-highlight-color: transparent;
