@@ -96,7 +96,7 @@
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
-        "padding-block-start": 0,
+        "padding-block-start": 30,
         "padding-block-end": 0
       }
     },
@@ -354,8 +354,8 @@
         "section_width": "page-width",
         "gap": 0,
         "color_scheme": "scheme-2",
-        "padding-block-start": 42,
-        "padding-block-end": 42
+        "padding-block-start": 30,
+        "padding-block-end": 30
       }
     },
     "footer_utilities_jLGE8U": {
