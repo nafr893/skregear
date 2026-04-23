@@ -1,0 +1,410 @@
+{% comment %}
+  SKRE Product Tabs — Tabbed product carousel. Each tab picks one collection
+  and renders its products as swatchable product cards.
+{% endcomment %}
+
+<section
+  class="skre-prod-tabs section spacing-style color-{{ section.settings.color_scheme }}"
+  style="--padding-block-start: {{ section.settings['padding-block-start'] }}px; --padding-block-end: {{ section.settings['padding-block-end'] }}px;"
+>
+
+  {% if section.blocks.size > 0 %}
+
+    {%- comment -%} Tab navigation {%- endcomment -%}
+    <nav class="skre-prod-tabs__nav" role="tablist" aria-label="Product categories">
+      {% for block in section.blocks %}
+        <button
+          class="skre-prod-tabs__tab"
+          role="tab"
+          data-tab="{{ forloop.index0 }}"
+          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          aria-controls="skre-prod-panel-{{ forloop.index0 }}"
+          {{ block.shopify_attributes }}
+        >
+          {{- block.settings.label | default: 'Tab' -}}
+        </button>
+        {%- unless forloop.last -%}
+          <span class="skre-prod-tabs__sep" aria-hidden="true">|</span>
+        {%- endunless -%}
+      {% endfor %}
+    </nav>
+
+    {%- comment -%} Panels {%- endcomment -%}
+    <div class="skre-prod-tabs__content">
+      {% for block in section.blocks %}
+        {%- assign col = block.settings.collection -%}
+        <div
+          class="skre-prod-tabs__panel{% unless forloop.first %} skre-prod-tabs__panel--hidden{% endunless %}"
+          id="skre-prod-panel-{{ forloop.index0 }}"
+          role="tabpanel"
+          aria-labelledby="skre-prod-tab-{{ forloop.index0 }}"
+        >
+          {% if col != blank and col.products.size > 0 %}
+            <ul class="skre-prod-tabs__grid list-unstyled" data-prod-carousel-list>
+              {% for product in col.products limit: 20 %}
+                <li class="skre-prod-tabs__item">
+                  {%- render 'resource-card',
+                    resource_type: 'product',
+                    resource: product,
+                    image_width: 600,
+                    image_aspect_ratio: '1 / 1',
+                    swatches_product: product,
+                    product_card_wrapper: true
+                  -%}
+                </li>
+              {% endfor %}
+            </ul>
+
+            <div class="skre-prod-tabs__carousel-footer" data-prod-carousel-footer>
+              <div class="skre-prod-tabs__scroll-track" aria-hidden="true">
+                <div class="skre-prod-tabs__scroll-thumb"></div>
+              </div>
+              <div class="skre-prod-tabs__carousel-nav">
+                <button class="skre-prod-tabs__nav-btn skre-prod-tabs__nav-btn--prev" aria-label="Previous" type="button">
+                  {{- 'icon-chevron-left.svg' | inline_asset_content -}}
+                </button>
+                <span class="skre-prod-tabs__nav-counter">
+                  <span class="skre-prod-tabs__nav-current">1</span>/<span class="skre-prod-tabs__nav-total">1</span>
+                </span>
+                <button class="skre-prod-tabs__nav-btn skre-prod-tabs__nav-btn--next" aria-label="Next" type="button">
+                  {{- 'icon-chevron-right.svg' | inline_asset_content -}}
+                </button>
+              </div>
+            </div>
+
+          {% else %}
+            <p class="skre-prod-tabs__empty">
+              {%- if col == blank -%}
+                Select a collection in the theme editor.
+              {%- else -%}
+                No products found in this collection.
+              {%- endif -%}
+            </p>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+  {% else %}
+    <p class="skre-prod-tabs__empty">Add tabs in the theme editor to get started.</p>
+  {% endif %}
+
+</section>
+
+{% stylesheet %}
+  .skre-prod-tabs {
+    max-width: var(--page-width);
+    margin-inline: auto;
+    padding-inline: var(--page-gutter);
+  }
+
+  /* ── Tab nav ──────────────────────────────────────────────── */
+  .skre-prod-tabs__nav {
+    display: flex;
+    align-items: baseline;
+    gap: var(--gap-sm);
+    margin-block-end: var(--margin-xl);
+  }
+
+  .skre-prod-tabs__tab {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: var(--font-size--lg);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    color: rgb(var(--color-foreground-rgb) / 0.3);
+    transition: color 0.15s ease;
+    font-family: var(--font-heading--family);
+  }
+
+  .skre-prod-tabs__tab[aria-selected='true'] {
+    color: var(--color-foreground);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+  }
+
+  .skre-prod-tabs__tab:hover:not([aria-selected='true']) {
+    color: rgb(var(--color-foreground-rgb) / 0.6);
+  }
+
+  .skre-prod-tabs__sep {
+    color: rgb(var(--color-foreground-rgb) / 0.25);
+    font-size: var(--font-size--lg);
+    font-weight: 300;
+    user-select: none;
+  }
+
+  /* ── Panel visibility ─────────────────────────────────────── */
+  .skre-prod-tabs__panel--hidden {
+    display: none;
+  }
+
+  /* ── Carousel ─────────────────────────────────────────────── */
+  .skre-prod-tabs__grid {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--gap-sm);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    @media screen and (min-width: 750px) {
+      gap: var(--gap-md);
+    }
+  }
+
+  .skre-prod-tabs__item {
+    flex: 0 0 calc(50% - var(--gap-sm) / 2);
+    scroll-snap-align: start;
+
+    @media screen and (min-width: 750px) {
+      flex: 0 0 calc(25% - var(--gap-md) * 3 / 4);
+    }
+  }
+
+  /* ── Carousel footer ──────────────────────────────────────── */
+  .skre-prod-tabs__carousel-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-md);
+    margin-block-start: var(--margin-xl);
+  }
+
+  .skre-prod-tabs__scroll-track {
+    position: relative;
+    flex: 1;
+    height: 2px;
+    background-color: rgb(var(--color-foreground-rgb) / 0.15);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .skre-prod-tabs__scroll-thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: var(--color-foreground);
+    border-radius: 2px;
+    transition: left 0.15s ease, width 0.15s ease;
+  }
+
+  .skre-prod-tabs__carousel-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .skre-prod-tabs__nav-counter {
+    font-size: var(--font-size--sm);
+    font-weight: 500;
+    min-width: 2.5rem;
+    text-align: center;
+    color: var(--color-foreground);
+    letter-spacing: 0.02em;
+  }
+
+  .skre-prod-tabs__nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--color-foreground);
+
+    svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+  }
+
+  /* ── Empty state ──────────────────────────────────────────── */
+  .skre-prod-tabs__empty {
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+    font-size: var(--font-size--sm);
+    padding-block: var(--padding-2xl);
+  }
+{% endstylesheet %}
+
+<script>
+  (function () {
+    /* ── Tab switching ──────────────────────────────────────── */
+    var tabs   = document.querySelectorAll('.skre-prod-tabs__tab');
+    var panels = document.querySelectorAll('.skre-prod-tabs__panel');
+
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var index = tab.dataset.tab;
+        tabs.forEach(function (t) {
+          t.setAttribute('aria-selected', t.dataset.tab === index ? 'true' : 'false');
+        });
+        panels.forEach(function (p) {
+          p.classList.toggle('skre-prod-tabs__panel--hidden', p.id !== 'skre-prod-panel-' + index);
+        });
+      });
+    });
+
+    /* ── Carousel (one instance per panel) ──────────────────── */
+    function initCarousel(panel) {
+      var list   = panel.querySelector('[data-prod-carousel-list]');
+      var footer = panel.querySelector('[data-prod-carousel-footer]');
+      if (!list || !footer) return;
+
+      var track     = footer.querySelector('.skre-prod-tabs__scroll-track');
+      var thumb     = footer.querySelector('.skre-prod-tabs__scroll-thumb');
+      var prevBtn   = footer.querySelector('.skre-prod-tabs__nav-btn--prev');
+      var nextBtn   = footer.querySelector('.skre-prod-tabs__nav-btn--next');
+      var elCurrent = footer.querySelector('.skre-prod-tabs__nav-current');
+      var elTotal   = footer.querySelector('.skre-prod-tabs__nav-total');
+
+      function visibleCount() {
+        var item = list.querySelector('.skre-prod-tabs__item');
+        if (!item) return 1;
+        var gap = parseFloat(getComputedStyle(list).columnGap) || 0;
+        return Math.max(1, Math.round(list.clientWidth / (item.offsetWidth + gap)));
+      }
+
+      function totalCards() {
+        return list.querySelectorAll('.skre-prod-tabs__item').length;
+      }
+
+      function firstVisibleIndex() {
+        var total   = totalCards();
+        var visible = visibleCount();
+        var scrollable = list.scrollWidth - list.clientWidth;
+        if (scrollable <= 0) return 0;
+        return Math.round((list.scrollLeft / scrollable) * (total - visible));
+      }
+
+      function scrollToCard(index) {
+        var total   = totalCards();
+        var visible = visibleCount();
+        index = Math.min(total - visible, Math.max(0, index));
+        var scrollable = list.scrollWidth - list.clientWidth;
+        list.scrollTo({ left: (index / Math.max(1, total - visible)) * scrollable, behavior: 'smooth' });
+      }
+
+      function update() {
+        var total   = totalCards();
+        var visible = visibleCount();
+        var first   = firstVisibleIndex();
+        var last    = Math.min(total, first + visible);
+
+        if (total <= visible) {
+          footer.style.display = 'none';
+          return;
+        }
+        footer.style.display = '';
+
+        var thumbWidthPct = (visible / total) * 100;
+        var thumbLeftPct  = (first / (total - visible)) * (100 - thumbWidthPct);
+        thumb.style.width = thumbWidthPct + '%';
+        thumb.style.left  = thumbLeftPct + '%';
+
+        if (elCurrent) elCurrent.textContent = last;
+        if (elTotal)   elTotal.textContent   = total;
+        if (prevBtn)   prevBtn.disabled = first <= 0;
+        if (nextBtn)   nextBtn.disabled = last >= total;
+      }
+
+      if (prevBtn) prevBtn.addEventListener('click', function () { scrollToCard(firstVisibleIndex() - 1); });
+      if (nextBtn) nextBtn.addEventListener('click', function () { scrollToCard(firstVisibleIndex() + 1); });
+
+      list.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
+
+      if (typeof ResizeObserver !== 'undefined') {
+        new ResizeObserver(function () { requestAnimationFrame(update); }).observe(list);
+      }
+
+      requestAnimationFrame(function () { requestAnimationFrame(update); });
+    }
+
+    panels.forEach(function (panel) { initCarousel(panel); });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product Tabs",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "options": [
+        { "value": "scheme-1", "label": "Scheme 1" },
+        { "value": "scheme-2", "label": "Scheme 2" },
+        { "value": "scheme-3", "label": "Scheme 3" }
+      ],
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Tab label",
+          "default": "Featured"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Tabs",
+      "blocks": [
+        { "type": "tab", "settings": { "label": "Featured" } },
+        { "type": "tab", "settings": { "label": "New Arrivals" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
