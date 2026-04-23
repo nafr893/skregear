@@ -83,7 +83,7 @@
         "gap": 16,
         "section_width": "page-width",
         "section_height": "custom",
-        "section_height_custom": 20,
+        "section_height_custom": 25,
         "color_scheme": "scheme-2",
         "background_media": "none",
         "video_position": "cover",
