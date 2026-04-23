@@ -23,26 +23,34 @@
     <ul class="skre-blog-carousel__grid list-unstyled" data-blog-carousel-list>
       {%- for article in blog.articles limit: 20 -%}
         {%- assign excerpt_raw = article.excerpt | default: article.content | strip_html | strip -%}
-        {%- assign was_truncated = false -%}
-        {%- assign excerpt_short = excerpt_raw -%}
+
+        {%- comment -%} Desktop: 125 chars {%- endcomment -%}
+        {%- assign excerpt_lg = excerpt_raw -%}
+        {%- assign lg_truncated = false -%}
         {%- if excerpt_raw.size > 125 -%}
-          {%- assign was_truncated = true -%}
-          {%- assign excerpt_cut = excerpt_raw | truncate: 125, '' -%}
-          {%- assign last_char = excerpt_cut | slice: -1 -%}
-          {%- if last_char == ' ' -%}
-            {%- assign excerpt_short = excerpt_cut | strip -%}
+          {%- assign lg_truncated = true -%}
+          {%- assign _cut = excerpt_raw | truncate: 125, '' -%}
+          {%- if _cut | slice: -1 == ' ' -%}
+            {%- assign excerpt_lg = _cut | strip -%}
           {%- else -%}
-            {%- assign words = excerpt_cut | split: ' ' -%}
-            {%- assign excerpt_short = '' -%}
-            {%- for word in words -%}
-              {%- unless forloop.last -%}
-                {%- if forloop.first -%}
-                  {%- assign excerpt_short = word -%}
-                {%- else -%}
-                  {%- assign excerpt_short = excerpt_short | append: ' ' | append: word -%}
-                {%- endif -%}
-              {%- endunless -%}
-            {%- endfor -%}
+            {%- assign _words = _cut | split: ' ' -%}
+            {%- assign excerpt_lg = '' -%}
+            {%- for _w in _words -%}{%- unless forloop.last -%}{%- if forloop.first -%}{%- assign excerpt_lg = _w -%}{%- else -%}{%- assign excerpt_lg = excerpt_lg | append: ' ' | append: _w -%}{%- endif -%}{%- endunless -%}{%- endfor -%}
+          {%- endif -%}
+        {%- endif -%}
+
+        {%- comment -%} Mobile: 75 chars {%- endcomment -%}
+        {%- assign excerpt_sm = excerpt_raw -%}
+        {%- assign sm_truncated = false -%}
+        {%- if excerpt_raw.size > 75 -%}
+          {%- assign sm_truncated = true -%}
+          {%- assign _cut = excerpt_raw | truncate: 75, '' -%}
+          {%- if _cut | slice: -1 == ' ' -%}
+            {%- assign excerpt_sm = _cut | strip -%}
+          {%- else -%}
+            {%- assign _words = _cut | split: ' ' -%}
+            {%- assign excerpt_sm = '' -%}
+            {%- for _w in _words -%}{%- unless forloop.last -%}{%- if forloop.first -%}{%- assign excerpt_sm = _w -%}{%- else -%}{%- assign excerpt_sm = excerpt_sm | append: ' ' | append: _w -%}{%- endif -%}{%- endunless -%}{%- endfor -%}
           {%- endif -%}
         {%- endif -%}
         <li class="skre-blog-carousel__item">
@@ -75,8 +83,11 @@
                 <h3 class="skre-blog-carousel__title">{{ article.title }}</h3>
               </a>
               {%- if excerpt_raw != blank -%}
-                <p class="skre-blog-carousel__excerpt">
-                  {{- excerpt_short -}}{%- if was_truncated -%}...{%- endif -%}
+                <p class="skre-blog-carousel__excerpt skre-blog-carousel__excerpt--mobile">
+                  {{- excerpt_sm -}}{%- if sm_truncated -%}...{%- endif -%}
+                </p>
+                <p class="skre-blog-carousel__excerpt skre-blog-carousel__excerpt--desktop">
+                  {{- excerpt_lg -}}{%- if lg_truncated -%}...{%- endif -%}
                 </p>
               {%- endif -%}
               <a href="{{ article.url }}" class="skre-blog-carousel__read-more">Read More</a>
@@ -249,6 +260,20 @@
     letter-spacing: 0.04em;
     line-height: 1.2;
     margin: 0;
+  }
+
+  .skre-blog-carousel__excerpt--desktop {
+    display: none;
+
+    @media screen and (min-width: 750px) {
+      display: block;
+    }
+  }
+
+  .skre-blog-carousel__excerpt--mobile {
+    @media screen and (min-width: 750px) {
+      display: none;
+    }
   }
 
   .skre-blog-carousel__excerpt {
