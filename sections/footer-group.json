@@ -20,7 +20,7 @@
           "settings": {
             "text": "<h4>Get the latest news and offers.</h4>",
             "width": "fit-content",
-            "max_width": "normal",
+            "max_width": "none",
             "alignment": "left",
             "type_preset": "rte",
             "font": "var(--font-body--family)",
