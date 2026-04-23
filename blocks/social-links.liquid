@@ -1,7 +1,15 @@
 
+{%- liquid
+  assign _vis_class = ''
+  if block.settings.visibility == 'desktop_only'
+    assign _vis_class = 'mobile:hidden'
+  elsif block.settings.visibility == 'mobile_only'
+    assign _vis_class = 'desktop:hidden'
+  endif
+-%}
 
 <div
-  class="social-icons__wrapper"
+  class="social-icons__wrapper {{ _vis_class }}"
   {{ block.shopify_attributes }}
 >
   {% liquid
@@ -230,6 +238,21 @@
       "type": "url",
       "id": "custom_url",
       "label": "t:settings.custom_link"
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "label": "Show on",
+      "options": [
+        { "value": "both", "label": "All devices" },
+        { "value": "desktop_only", "label": "Desktop only" },
+        { "value": "mobile_only", "label": "Mobile only" }
+      ],
+      "default": "both"
     }
   ],
   "presets": [

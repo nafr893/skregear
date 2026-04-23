@@ -1,5 +1,14 @@
 
 
+{%- liquid
+  assign _vis_class = ''
+  if block.settings.visibility == 'desktop_only'
+    assign _vis_class = 'mobile:hidden'
+  elsif block.settings.visibility == 'mobile_only'
+    assign _vis_class = 'desktop:hidden'
+  endif
+-%}
+
 {% liquid
   assign block_settings = block.settings
   assign menu = block_settings.menu
@@ -32,6 +41,7 @@
       class="
         menu__details
         spacing-style
+        {{ _vis_class }}
         {% if block_settings.inherit_color_scheme == false %} color-{{ color_scheme }}{% endif %}
       "
       data-testid="menu-details"
@@ -347,6 +357,21 @@
       "step": 1,
       "unit": "px",
       "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "label": "Show on",
+      "options": [
+        { "value": "both", "label": "All devices" },
+        { "value": "desktop_only", "label": "Desktop only" },
+        { "value": "mobile_only", "label": "Mobile only" }
+      ],
+      "default": "both"
     }
   ],
   "presets": [

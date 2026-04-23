@@ -1,5 +1,14 @@
 
 
+{%- liquid
+  assign _vis_class = ''
+  if block.settings.visibility == 'desktop_only'
+    assign _vis_class = 'mobile:hidden'
+  elsif block.settings.visibility == 'mobile_only'
+    assign _vis_class = 'desktop:hidden'
+  endif
+-%}
+
 {% liquid
   assign block_settings = block.settings
   assign image = settings.logo
@@ -29,6 +38,7 @@
   class="
     logo-block
     spacing-style
+    {{ _vis_class }}
   "
   style="
     {% if block_settings.unit == 'percent' %}
@@ -276,6 +286,21 @@
       "step": 1,
       "unit": "px",
       "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "label": "Show on",
+      "options": [
+        { "value": "both", "label": "All devices" },
+        { "value": "desktop_only", "label": "Desktop only" },
+        { "value": "mobile_only", "label": "Mobile only" }
+      ],
+      "default": "both"
     }
   ],
   "presets": [

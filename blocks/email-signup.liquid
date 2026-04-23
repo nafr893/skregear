@@ -1,8 +1,16 @@
 
 
-{% assign block_settings = block.settings %}
+{%- liquid
+  assign block_settings = block.settings
+  assign _vis_class = ''
+  if block_settings.visibility == 'desktop_only'
+    assign _vis_class = 'mobile:hidden'
+  elsif block_settings.visibility == 'mobile_only'
+    assign _vis_class = 'desktop:hidden'
+  endif
+-%}
 <div
-  class="email-signup-block size-style spacing-style"
+  class="email-signup-block size-style spacing-style {{ _vis_class }}"
   style="{% render 'size-style', settings: block_settings %}{% render 'spacing-style', settings: block_settings %}"
   {{ block.shopify_attributes }}
 >
@@ -690,6 +698,21 @@
       "step": 1,
       "unit": "px",
       "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "label": "Show on",
+      "options": [
+        { "value": "both", "label": "All devices" },
+        { "value": "desktop_only", "label": "Desktop only" },
+        { "value": "mobile_only", "label": "Mobile only" }
+      ],
+      "default": "both"
     }
   ],
   "presets": [

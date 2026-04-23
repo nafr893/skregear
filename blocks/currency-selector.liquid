@@ -5,11 +5,18 @@
   endif
 
   assign color_shadow = '--color-shadow: rgb(var(--color-foreground-rgb) / var(--opacity-10-25));'
+
+  assign _vis_class = ''
+  if block.settings.visibility == 'desktop_only'
+    assign _vis_class = 'mobile:hidden'
+  elsif block.settings.visibility == 'mobile_only'
+    assign _vis_class = 'desktop:hidden'
+  endif
 -%}
 
 {%- if show_country -%}
   <div
-    class="skre-currency-selector spacing-style"
+    class="skre-currency-selector spacing-style {{ _vis_class }}"
     style="{% render 'spacing-padding', settings: block.settings %}"
     {{ block.shopify_attributes }}
   >
@@ -166,6 +173,21 @@
       "step": 1,
       "unit": "px",
       "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "label": "Show on",
+      "options": [
+        { "value": "both", "label": "All devices" },
+        { "value": "desktop_only", "label": "Desktop only" },
+        { "value": "mobile_only", "label": "Mobile only" }
+      ],
+      "default": "both"
     }
   ],
   "presets": [
