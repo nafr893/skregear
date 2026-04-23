@@ -4,8 +4,6 @@
     assign show_country = false
   endif
 
-  assign show_language = false
-
   assign background_brightness = section.settings.color_scheme.settings.background | color_brightness
   if background_brightness < 64
     assign shadow_size = 4
@@ -18,15 +16,16 @@
 
 {%- if show_country -%}
   <div
-    class="skre-currency-selector section spacing-style color-{{ section.settings.color_scheme }}"
-    style="--padding-block-start: {{ section.settings['padding-block-start'] }}px; --padding-block-end: {{ section.settings['padding-block-end'] }}px;"
+    class="skre-currency-selector spacing-style"
+    style="{% render 'spacing-padding', settings: block.settings %}"
+    {{ block.shopify_attributes }}
   >
     <dropdown-localization-component class="skre-currency-selector__dropdown">
       <button
         type="button"
-        class="skre-currency-selector__trigger button"
+        class="skre-currency-selector__trigger"
         aria-expanded="false"
-        aria-controls="skre-currency-selector-panel"
+        aria-controls="skre-currency-selector-panel-{{ block.id }}"
         ref="button"
         on:click="/toggleSelector"
       >
@@ -38,7 +37,7 @@
             --color-shadow: rgb(var(--color-foreground-rgb) / var(--opacity-30-60));
           "
         ></span>
-        <span class="skre-currency-selector__code currency-code">
+        <span class="currency-code skre-currency-selector__code">
           {{- localization.country.currency.iso_code -}}
         </span>
         <span class="svg-wrapper icon-caret skre-currency-selector__caret">
@@ -50,7 +49,7 @@
       </button>
 
       <div
-        id="skre-currency-selector-panel"
+        id="skre-currency-selector-panel-{{ block.id }}"
         class="skre-currency-selector__panel localization-wrapper color-{{ settings.popover_color_scheme }}"
         style="{{ color_shadow }}"
         hidden
@@ -61,7 +60,7 @@
           show_language: false,
           localization_style: 'dropdown',
           form_style: color_shadow,
-          form_id: section.id
+          form_id: block.id
         -%}
       </div>
     </dropdown-localization-component>
@@ -70,9 +69,7 @@
 
 {% stylesheet %}
   .skre-currency-selector {
-    max-width: var(--page-width);
-    margin-inline: auto;
-    padding-inline: var(--page-gutter);
+    display: inline-block;
   }
 
   .skre-currency-selector__dropdown {
@@ -86,15 +83,16 @@
     gap: 0.375rem;
     background: none;
     border: none;
-    padding: 0.5rem 0.75rem;
+    padding: 0.25rem 0;
     cursor: pointer;
     font-size: var(--font-size--sm);
     font-weight: 500;
     color: var(--color-foreground);
     letter-spacing: 0.04em;
+    font-family: inherit;
   }
 
-  /* Square flag — override theme's circle clip-path */
+  /* Square flag — override theme's circular clip-path */
   .skre-currency-selector__flag.icon-flag {
     width: 1.25rem;
     height: 1.25rem;
@@ -142,46 +140,57 @@
 {% schema %}
 {
   "name": "Currency Selector",
+  "tag": null,
   "settings": [
     {
-      "type": "select",
-      "id": "color_scheme",
-      "label": "Color scheme",
-      "options": [
-        { "value": "scheme-1", "label": "Scheme 1" },
-        { "value": "scheme-2", "label": "Scheme 2" },
-        { "value": "scheme-3", "label": "Scheme 3" }
-      ],
-      "default": "scheme-1"
-    },
-    {
       "type": "header",
-      "content": "Padding"
+      "content": "t:content.padding"
     },
     {
       "type": "range",
       "id": "padding-block-start",
-      "label": "Top",
+      "label": "t:settings.top",
       "min": 0,
       "max": 100,
-      "step": 4,
+      "step": 1,
       "unit": "px",
       "default": 0
     },
     {
       "type": "range",
       "id": "padding-block-end",
-      "label": "Bottom",
+      "label": "t:settings.bottom",
       "min": 0,
       "max": 100,
-      "step": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "t:settings.left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "t:settings.right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
       "unit": "px",
       "default": 0
     }
   ],
   "presets": [
     {
-      "name": "Currency Selector"
+      "name": "Currency Selector",
+      "category": "t:categories.footer"
     }
   ]
 }
