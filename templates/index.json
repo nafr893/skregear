@@ -388,6 +388,43 @@
         "padding-block-end": 40
       }
     },
+    "skre_product_tabs_DrtFwq": {
+      "type": "skre-product-tabs",
+      "blocks": {
+        "tab_qmmLab": {
+          "type": "tab",
+          "settings": {
+            "label": "EARLY SEASON",
+            "collection": "early-fall-bundle"
+          }
+        },
+        "tab_ikETyw": {
+          "type": "tab",
+          "settings": {
+            "label": "MID SEASON",
+            "collection": "mid-season-antelope"
+          }
+        },
+        "tab_yTtNTh": {
+          "type": "tab",
+          "settings": {
+            "label": "LATE SEASON",
+            "collection": "late-fall-bundle"
+          }
+        }
+      },
+      "block_order": [
+        "tab_qmmLab",
+        "tab_ikETyw",
+        "tab_yTtNTh"
+      ],
+      "name": "Product Tabs",
+      "settings": {
+        "color_scheme": "scheme-1",
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
+    },
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
@@ -602,6 +639,7 @@
     "hero_jVaWmY",
     "skre_collection_tabs_7keEHh",
     "hero_qkqBhp",
+    "skre_product_tabs_DrtFwq",
     "product_list_fa6P9H"
   ]
 }
