@@ -36,14 +36,21 @@ h4, h5, h6, p {
   margin-block-start: 0;
 }
 
-/* Remove hover/focus effects on empty state popular search pills */
+/* Remove hover/focus/active scale effects on search pills (empty + populated) */
 .search-empty__pills .predictive-search-results__pill:hover,
-.search-empty__pills .predictive-search-results__pill:focus {
+.search-empty__pills .predictive-search-results__pill:focus,
+.predictive-search-results__wrapper-queries .predictive-search-results__pill:hover,
+.predictive-search-results__wrapper-queries .predictive-search-results__pill:focus,
+.predictive-search-results__card--query:is([aria-selected='true'], :focus-within) .predictive-search-results__pill {
   transform: none;
   box-shadow: none;
   background-color: var(--pills-pill-background-color);
   outline: none;
   border: none;
+}
+
+.predictive-search-results__wrapper-queries .predictive-search-results__card--query:active {
+  transform: none;
 }
 
 /* Sentence-case pill labels: first letter of each word capitalised, rest lowercase */

@@ -291,6 +291,7 @@
     width: 100%;
     margin-block-start: var(--margin-xl);
     padding-block: var(--padding-sm);
+    padding-inline: var(--padding-lg);
     background: #000;
     border: 1px solid #000;
     border-radius: var(--button-corner-radius);
@@ -301,6 +302,10 @@
     cursor: pointer;
     color: #fff;
     transition: opacity 0.15s ease;
+
+    @media screen and (min-width: 750px) {
+      width: auto;
+    }
   }
 
   .skre-search-results__load-more:hover {

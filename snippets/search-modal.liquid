@@ -242,16 +242,10 @@
     padding-block-end: var(--padding-md);
 
     @media screen and (min-width: 750px) {
-      --to-top-gradient-background: linear-gradient(
-        to top,
-        rgb(var(--color-background-rgb) / var(--opacity-90)),
-        rgb(var(--color-background-rgb) / var(--opacity-80)),
-        rgb(var(--color-background-rgb) / var(--opacity-40)),
-        transparent
-      );
-
-      padding-block: var(--padding-xs) var(--padding-lg);
-      background-image: var(--to-top-gradient-background);
+      position: static;
+      padding-block: var(--padding-sm) var(--padding-lg);
+      background-image: none;
+      border-top: 1px solid var(--color-border);
     }
   }
 
@@ -303,10 +297,12 @@
     }
   }
 
-  /* Add new rule to apply bottom padding only when search button exists */
-  .predictive-search-form__content-wrapper:has([data-search-results]):not(:has(.predictive-search-results__no-results))
-    > .predictive-search-form__content {
-    padding-block-end: var(--padding-6xl);
+  /* Bottom padding for the floating footer on mobile only */
+  @media screen and (max-width: 749px) {
+    .predictive-search-form__content-wrapper:has([data-search-results]):not(:has(.predictive-search-results__no-results))
+      > .predictive-search-form__content {
+      padding-block-end: var(--padding-6xl);
+    }
   }
 
   .predictive-search-form__header-inner {
