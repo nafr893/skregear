@@ -173,3 +173,8 @@ h4, h5, h6, p {
   border-radius: var(--style-border-radius-buttons, 0);
   align-self: flex-start;
 }
+
+.close-button:focus,
+.close-button:focus-visible {
+  outline: none;
+}
