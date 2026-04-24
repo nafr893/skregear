@@ -145,7 +145,8 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 30,
-        "padding-block-end": 0
+        "padding-block-end": 0,
+        "visibility": "both"
       }
     },
     "footer_m9NzUG": {
@@ -991,7 +992,8 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 42,
-        "padding-block-end": 0
+        "padding-block-end": 0,
+        "visibility": "mobile_only"
       }
     },
     "footer_utilities_jLGE8U": {
