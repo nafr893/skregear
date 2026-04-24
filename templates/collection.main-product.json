@@ -285,11 +285,16 @@
               },
               "blocks": {}
             },
-            "custom_liquid_mKF8H8": {
-              "type": "custom-liquid",
-              "name": "t:names.custom_liquid",
+            "review_pWhadU": {
+              "type": "review",
+              "name": "t:names.product_review_stars",
               "settings": {
-                "custom_liquid": ""
+                "stars_style": "shaded",
+                "show_number": true,
+                "rating_color": "primary",
+                "type_preset": "paragraph",
+                "width": "100%",
+                "alignment": "left"
               },
               "blocks": {}
             },
@@ -321,7 +326,7 @@
             "swatches_nkmCHh",
             "product_title_4nY4eT",
             "text_eHjXRQ",
-            "custom_liquid_mKF8H8",
+            "review_pWhadU",
             "price_EzJzMm"
           ]
         }
