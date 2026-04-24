@@ -218,9 +218,9 @@
               "type": "social-links",
               "name": "t:names.social_media_links",
               "settings": {
-                "facebook_url": "",
-                "instagram_url": "",
-                "youtube_url": "",
+                "facebook_url": "https://www.facebook.com/skregear/",
+                "instagram_url": "https://www.instagram.com/skregear/",
+                "youtube_url": "https://www.youtube.com/c/Skregear",
                 "tiktok_url": "",
                 "twitter_url": "",
                 "threads_url": "",
