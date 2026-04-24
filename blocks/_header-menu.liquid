@@ -723,9 +723,15 @@
   }
 
   /* ── Mega menu promo card (desktop only) ─────────────────── */
+  .menu-list__submenu-inner--has-promo {
+    @media screen and (min-width: 990px) {
+      gap: var(--menu-horizontal-gap);
+    }
+  }
+
   .menu-list__submenu-inner--has-promo > .mega-menu {
     @media screen and (min-width: 990px) {
-      flex: 1 1 0;
+      flex: 5 1 0;
       min-width: 0;
     }
   }
@@ -736,7 +742,9 @@
     @media screen and (min-width: 990px) {
       display: flex;
       flex-direction: column;
-      flex: 0 0 clamp(200px, 18vw, 280px);
+      flex: 1 1 0;
+      min-width: 0;
+      margin-inline-end: var(--page-margin);
       align-self: flex-start;
     }
   }

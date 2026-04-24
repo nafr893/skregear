@@ -192,3 +192,8 @@ h4, h5, h6, p {
     font-weight: 700 !important;
   }
 }
+
+/* Default (unselected) swatch border */
+.variant-option .swatch {
+  --color-border: #ededed;
+}
