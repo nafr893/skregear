@@ -193,9 +193,13 @@ h4, h5, h6, p {
   }
 }
 
-/* Default (unselected) swatch border */
-.variant-option .swatch {
-  --style-border-swatch-width: 1px;
-  --style-border-swatch-style: solid;
-  --color-border: #ededed;
+/* Default (unselected) swatch ring — matches activated outline position */
+.variant-option__button-label--has-swatch {
+  outline: var(--focus-outline-width) solid #ededed;
+  outline-offset: var(--focus-outline-offset);
+}
+
+/* Hover: solid black ring */
+.variant-option__button-label--has-swatch:hover {
+  outline: var(--focus-outline-width) solid #000 !important;
 }
