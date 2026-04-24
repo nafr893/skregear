@@ -137,8 +137,8 @@
 
                 {%- if block_settings.show_mega_promo -%}
                   <div class="mega-menu-promo">
-                    {%- if block_settings.mega_promo_image -%}
-                      <div class="mega-menu-promo__image-wrap">
+                    <div class="mega-menu-promo__card">
+                      {%- if block_settings.mega_promo_image -%}
                         <img
                           src="{{ block_settings.mega_promo_image | image_url: width: 600 }}"
                           alt="{{ block_settings.mega_promo_image.alt | escape }}"
@@ -147,23 +147,26 @@
                           width="{{ block_settings.mega_promo_image.width }}"
                           height="{{ block_settings.mega_promo_image.height }}"
                         >
+                      {%- else -%}
+                        <div class="mega-menu-promo__placeholder"></div>
+                      {%- endif -%}
+                      <div class="mega-menu-promo__overlay" aria-hidden="true"></div>
+                      <div class="mega-menu-promo__content">
+                        {%- if block_settings.mega_promo_paragraph != blank -%}
+                          <p class="mega-menu-promo__paragraph">{{ block_settings.mega_promo_paragraph }}</p>
+                        {%- endif -%}
+                        {%- if block_settings.mega_promo_heading != blank -%}
+                          <p class="mega-menu-promo__heading">{{ block_settings.mega_promo_heading }}</p>
+                        {%- endif -%}
+                        {%- if block_settings.mega_promo_btn_label != blank -%}
+                          <a
+                            href="{{ block_settings.mega_promo_btn_link | default: '#' }}"
+                            class="mega-menu-promo__btn"
+                          >
+                            {{- block_settings.mega_promo_btn_label -}}
+                          </a>
+                        {%- endif -%}
                       </div>
-                    {%- endif -%}
-                    <div class="mega-menu-promo__content">
-                      {%- if block_settings.mega_promo_paragraph != blank -%}
-                        <p class="mega-menu-promo__paragraph">{{ block_settings.mega_promo_paragraph }}</p>
-                      {%- endif -%}
-                      {%- if block_settings.mega_promo_heading != blank -%}
-                        <p class="mega-menu-promo__heading">{{ block_settings.mega_promo_heading }}</p>
-                      {%- endif -%}
-                      {%- if block_settings.mega_promo_btn_label != blank -%}
-                        <a
-                          href="{{ block_settings.mega_promo_btn_link | default: '#' }}"
-                          class="mega-menu-promo__btn"
-                        >
-                          {{- block_settings.mega_promo_btn_label -}}
-                        </a>
-                      {%- endif -%}
                     </div>
                   </div>
                 {%- endif -%}
@@ -733,62 +736,80 @@
     @media screen and (min-width: 990px) {
       display: flex;
       flex-direction: column;
-      flex: 0 0 240px;
-      gap: 0;
+      flex: 0 0 clamp(200px, 18vw, 280px);
+      align-self: flex-start;
     }
   }
 
-  .mega-menu-promo__image-wrap {
+  .mega-menu-promo__card {
+    position: relative;
     width: 100%;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 1 / 1;
     overflow: hidden;
     border-radius: var(--style-border-radius-cards, 0);
-    flex-shrink: 0;
+  }
+
+  .mega-menu-promo__placeholder {
+    position: absolute;
+    inset: 0;
+    background: rgb(var(--color-foreground-rgb) / 0.08);
   }
 
   .mega-menu-promo__image {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.4s ease;
+    transition: transform 0.45s ease;
   }
 
-  .mega-menu-promo:hover .mega-menu-promo__image {
-    transform: scale(1.03);
+  .mega-menu-promo__card:hover .mega-menu-promo__image {
+    transform: scale(1.04);
+  }
+
+  .mega-menu-promo__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0) 100%);
+    pointer-events: none;
   }
 
   .mega-menu-promo__content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.1rem 1.25rem 1.25rem;
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    padding-block-start: 14px;
-    flex: 1;
+    gap: 5px;
+    color: #fff;
   }
 
   .mega-menu-promo__paragraph {
     font-size: var(--font-size--sm);
-    color: rgb(var(--color-foreground-rgb) / 0.55);
+    color: rgba(255,255,255,0.75);
     margin: 0;
     line-height: 1.4;
   }
 
   .mega-menu-promo__heading {
     font-family: var(--font-heading--family);
-    font-size: var(--font-size--lg, 1.125rem);
+    font-size: clamp(0.875rem, 1.1vw, 1.1rem);
     font-weight: 700;
-    color: var(--color-foreground);
+    color: #fff;
     margin: 0;
     line-height: 1.2;
   }
 
   .mega-menu-promo__btn {
     display: inline-block;
-    margin-top: auto;
-    padding-block-start: 14px;
-    padding: 9px 20px;
-    background-color: var(--color-foreground);
-    color: var(--color-background);
+    margin-top: 8px;
+    padding: 7px 16px;
+    background-color: #fff;
+    color: #000;
     font-size: var(--font-size--sm);
     font-weight: 600;
     letter-spacing: 0.05em;
