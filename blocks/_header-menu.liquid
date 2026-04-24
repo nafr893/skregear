@@ -112,7 +112,7 @@
             <div class="menu-list__submenu{{ color_scheme_classes }}" ref="submenu[]">
               <div
                 id="submenu-{{ forloop.index }}"
-                class="menu-list__submenu-inner"
+                class="menu-list__submenu-inner{% if block_settings.show_mega_promo %} menu-list__submenu-inner--has-promo{% endif %}"
                 style="{% render 'submenu-font-styles', settings: block_settings %}"
               >
                 {% assign list_id = 'MegaMenuList-' | append: forloop.index %}
@@ -134,6 +134,39 @@
                     %}
                   </div>
                 </div>
+
+                {%- if block_settings.show_mega_promo -%}
+                  <div class="mega-menu-promo">
+                    {%- if block_settings.mega_promo_image -%}
+                      <div class="mega-menu-promo__image-wrap">
+                        <img
+                          src="{{ block_settings.mega_promo_image | image_url: width: 600 }}"
+                          alt="{{ block_settings.mega_promo_image.alt | escape }}"
+                          class="mega-menu-promo__image"
+                          loading="lazy"
+                          width="{{ block_settings.mega_promo_image.width }}"
+                          height="{{ block_settings.mega_promo_image.height }}"
+                        >
+                      </div>
+                    {%- endif -%}
+                    <div class="mega-menu-promo__content">
+                      {%- if block_settings.mega_promo_paragraph != blank -%}
+                        <p class="mega-menu-promo__paragraph">{{ block_settings.mega_promo_paragraph }}</p>
+                      {%- endif -%}
+                      {%- if block_settings.mega_promo_heading != blank -%}
+                        <p class="mega-menu-promo__heading">{{ block_settings.mega_promo_heading }}</p>
+                      {%- endif -%}
+                      {%- if block_settings.mega_promo_btn_label != blank -%}
+                        <a
+                          href="{{ block_settings.mega_promo_btn_link | default: '#' }}"
+                          class="mega-menu-promo__btn"
+                        >
+                          {{- block_settings.mega_promo_btn_label -}}
+                        </a>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                {%- endif -%}
               </div>
             </div>
           {%- endif -%}
@@ -685,6 +718,90 @@
     /* preserves the inherited grid layout when this submenu wrapper is used */
     display: contents;
   }
+
+  /* ── Mega menu promo card (desktop only) ─────────────────── */
+  .menu-list__submenu-inner--has-promo > .mega-menu {
+    @media screen and (min-width: 990px) {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+  }
+
+  .mega-menu-promo {
+    display: none;
+
+    @media screen and (min-width: 990px) {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 240px;
+      gap: 0;
+    }
+  }
+
+  .mega-menu-promo__image-wrap {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: var(--style-border-radius-cards, 0);
+    flex-shrink: 0;
+  }
+
+  .mega-menu-promo__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .mega-menu-promo:hover .mega-menu-promo__image {
+    transform: scale(1.03);
+  }
+
+  .mega-menu-promo__content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-block-start: 14px;
+    flex: 1;
+  }
+
+  .mega-menu-promo__paragraph {
+    font-size: var(--font-size--sm);
+    color: rgb(var(--color-foreground-rgb) / 0.55);
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  .mega-menu-promo__heading {
+    font-family: var(--font-heading--family);
+    font-size: var(--font-size--lg, 1.125rem);
+    font-weight: 700;
+    color: var(--color-foreground);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .mega-menu-promo__btn {
+    display: inline-block;
+    margin-top: auto;
+    padding-block-start: 14px;
+    padding: 9px 20px;
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+    font-size: var(--font-size--sm);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    align-self: flex-start;
+    border-radius: var(--style-border-radius-buttons, 0);
+    transition: opacity 0.15s ease;
+  }
+
+  .mega-menu-promo__btn:hover {
+    opacity: 0.85;
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -877,6 +994,49 @@
       "unit": "px",
       "default": 0,
       "visible_if": "{{ block.settings.menu_style != 'text' }}"
+    },
+    {
+      "type": "header",
+      "content": "Mega Menu Promo Card (Desktop)"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mega_promo",
+      "label": "Show promo card",
+      "default": false
+    },
+    {
+      "type": "image_picker",
+      "id": "mega_promo_image",
+      "label": "Image",
+      "visible_if": "{{ block.settings.show_mega_promo }}"
+    },
+    {
+      "type": "textarea",
+      "id": "mega_promo_paragraph",
+      "label": "Paragraph text",
+      "default": "Built to Stop Bites",
+      "visible_if": "{{ block.settings.show_mega_promo }}"
+    },
+    {
+      "type": "text",
+      "id": "mega_promo_heading",
+      "label": "Heading",
+      "default": "How We Lab Tested Equinox Guard",
+      "visible_if": "{{ block.settings.show_mega_promo }}"
+    },
+    {
+      "type": "text",
+      "id": "mega_promo_btn_label",
+      "label": "Button label",
+      "default": "Learn More",
+      "visible_if": "{{ block.settings.show_mega_promo }}"
+    },
+    {
+      "type": "url",
+      "id": "mega_promo_btn_link",
+      "label": "Button link",
+      "visible_if": "{{ block.settings.show_mega_promo }}"
     },
     {
       "type": "header",
