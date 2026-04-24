@@ -1,10 +1,18 @@
 
+{%- liquid
+  assign _vis_class = ''
+  if section.settings.visibility == 'desktop_only'
+    assign _vis_class = 'mobile:hidden'
+  elsif section.settings.visibility == 'mobile_only'
+    assign _vis_class = 'desktop:hidden'
+  endif
+-%}
 
 {% capture children %}
   {% content_for 'blocks' %}
 {% endcapture %}
 
-{% render 'section', section: section, children: children %}
+{% render 'section', section: section, children: children, visibility_class: _vis_class %}
 
 {% schema %}
 {
@@ -418,6 +426,21 @@
       "step": 1,
       "unit": "px",
       "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "label": "Show on",
+      "options": [
+        { "value": "both", "label": "All devices" },
+        { "value": "desktop_only", "label": "Desktop only" },
+        { "value": "mobile_only", "label": "Mobile only" }
+      ],
+      "default": "both"
     }
   ],
   "presets": [

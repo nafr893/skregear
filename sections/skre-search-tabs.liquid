@@ -11,8 +11,17 @@
 {%- assign article_results  = search.results | where: 'object_type', 'article' -%}
 {%- assign page_results     = search.results | where: 'object_type', 'page' -%}
 
+{%- liquid
+  assign _vis_class = ''
+  if section.settings.visibility == 'desktop_only'
+    assign _vis_class = 'mobile:hidden'
+  elsif section.settings.visibility == 'mobile_only'
+    assign _vis_class = 'desktop:hidden'
+  endif
+-%}
+
 <section
-  class="skre-search-results section spacing-style color-{{ section.settings.color_scheme }}"
+  class="skre-search-results section spacing-style color-{{ section.settings.color_scheme }} {{ _vis_class }}"
   style="--padding-block-start: {{ section.settings['padding-block-start'] }}px; --padding-block-end: {{ section.settings['padding-block-end'] }}px;"
 >
   {% if search.performed %}

@@ -3,8 +3,17 @@
   Each block = one tab. Add up to 6 collections per tab via the theme editor.
 {% endcomment %}
 
+{%- liquid
+  assign _vis_class = ''
+  if section.settings.visibility == 'desktop_only'
+    assign _vis_class = 'mobile:hidden'
+  elsif section.settings.visibility == 'mobile_only'
+    assign _vis_class = 'desktop:hidden'
+  endif
+-%}
+
 <section
-  class="skre-col-tabs section spacing-style color-{{ section.settings.color_scheme }}"
+  class="skre-col-tabs section spacing-style color-{{ section.settings.color_scheme }} {{ _vis_class }}"
   style="--padding-block-start: {{ section.settings['padding-block-start'] }}px; --padding-block-end: {{ section.settings['padding-block-end'] }}px;"
 >
 
@@ -458,6 +467,21 @@
       "label": "Bottom",
       "min": 0, "max": 100, "step": 4, "unit": "px",
       "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "label": "Show on",
+      "options": [
+        { "value": "both", "label": "All devices" },
+        { "value": "desktop_only", "label": "Desktop only" },
+        { "value": "mobile_only", "label": "Mobile only" }
+      ],
+      "default": "both"
     }
   ],
   "blocks": [
