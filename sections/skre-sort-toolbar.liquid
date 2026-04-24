@@ -1,8 +1,6 @@
 {%- comment -%}
   SKRE Sort Toolbar — grid density | filter | sort-by
-  Add this as a section to the collection template above the main-collection section.
-  Sort By opens a bottom-sheet dialog with radio options.
-  Filter button triggers the existing #filters-drawer from the Filters block.
+  Add as a section to the collection template above main-collection.
 {%- endcomment -%}
 
 {%- liquid
@@ -16,11 +14,10 @@
 -%}
 
 <div
-  class="skre-sort-toolbar {{ _vis_class }}"
+  class="skre-sort-toolbar skre-sort-toolbar--{{ section.settings.section_width }} {{ _vis_class }}"
   style="
     --padding-block-start: {{ section.settings['padding-block-start'] }}px;
     --padding-block-end: {{ section.settings['padding-block-end'] }}px;
-    --padding-inline: {{ section.settings.padding_inline }}px;
   "
 >
 
@@ -32,7 +29,7 @@
     {%- render 'grid-density-controls', viewport: 'desktop' -%}
   </div>
 
-  {%- comment -%} Filter button — opens the filter drawer from the Filters block {%- endcomment -%}
+  {%- comment -%} Filter button {%- endcomment -%}
   {% if section.settings.show_filter %}
     <button
       class="skre-sort-toolbar__btn"
@@ -135,7 +132,10 @@
     align-items: center;
     gap: var(--gap-sm);
     padding-block: var(--padding-block-start) var(--padding-block-end);
-    padding-inline: var(--padding-inline);
+    padding-inline: var(--page-gutter);
+  }
+
+  .skre-sort-toolbar--page-width {
     max-width: var(--page-width);
     margin-inline: auto;
   }
@@ -180,42 +180,45 @@
     display: block;
   }
 
-  /* ── Sort dialog (bottom sheet) ───────────────────────────── */
+  /* ── Sort dialog — bottom sheet ───────────────────────────── */
   .skre-sort-dialog {
     position: fixed;
     inset: auto 0 0 0;
     margin: 0;
     width: 100%;
     max-width: 100%;
-    max-height: 85svh;
+    max-height: 90svh;
     padding: 0;
     border: none;
-    border-radius: 16px 16px 0 0;
+    border-radius: 0;
     background-color: var(--color-background);
     color: var(--color-foreground);
     overflow-y: auto;
-    box-shadow: 0 -4px 24px rgb(var(--color-foreground-rgb) / 0.12);
-
-    @media screen and (min-width: 750px) {
-      max-width: 420px;
-      inset: 50% auto auto 50%;
-      transform: translate(-50%, -50%);
-      border-radius: var(--style-border-radius-popover, 12px);
-    }
   }
 
   .skre-sort-dialog::backdrop {
-    background-color: rgb(0 0 0 / 0.4);
+    background-color: rgb(0 0 0 / 0.5);
   }
 
+  /* Slide up from bottom */
   @media screen and (max-width: 749px) {
     .skre-sort-dialog[open] {
-      animation: skre-sort-slide-up 0.25s ease forwards;
+      animation: skre-sort-slide-up 0.28s cubic-bezier(0.32, 0.72, 0, 1) forwards;
     }
+  }
 
-    @keyframes skre-sort-slide-up {
-      from { transform: translateY(100%); }
-      to   { transform: translateY(0); }
+  @keyframes skre-sort-slide-up {
+    from { transform: translateY(100%); }
+    to   { transform: translateY(0); }
+  }
+
+  /* Desktop: centered popover */
+  @media screen and (min-width: 750px) {
+    .skre-sort-dialog {
+      max-width: 440px;
+      inset: 50% auto auto 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 8px;
     }
   }
 
@@ -224,7 +227,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 20px 16px;
+    padding: 24px 20px 20px;
     position: sticky;
     top: 0;
     background-color: var(--color-background);
@@ -233,10 +236,11 @@
 
   .skre-sort-dialog__title {
     font-family: var(--font-heading--family);
-    font-size: var(--font-h4--size);
+    font-size: var(--font-h3--size);
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     color: var(--color-foreground);
+    line-height: 1;
   }
 
   .skre-sort-dialog__close {
@@ -248,57 +252,51 @@
     padding: 0;
     color: var(--color-foreground);
     cursor: pointer;
-    border-radius: 50%;
-    transition: background-color var(--animation-speed) var(--animation-easing);
-  }
-
-  .skre-sort-dialog__close:hover {
-    background-color: rgb(var(--color-foreground-rgb) / var(--opacity-5-15));
+    background: none;
+    border: none;
+    flex-shrink: 0;
   }
 
   .skre-sort-dialog__close svg {
-    width: 1.1rem;
-    height: 1.1rem;
+    width: 1.25rem;
+    height: 1.25rem;
   }
 
-  /* ── Sort options list ────────────────────────────────────── */
+  /* ── Sort options ─────────────────────────────────────────── */
   .skre-sort-dialog__options {
     display: flex;
     flex-direction: column;
-    padding: 0 20px 28px;
+    padding: 4px 20px 32px;
   }
 
   .skre-sort-dialog__option {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 14px 0;
+    gap: 18px;
+    padding: 16px 0;
     cursor: pointer;
-    border-bottom: 1px solid rgb(var(--color-foreground-rgb) / 0.08);
   }
 
-  .skre-sort-dialog__option:last-child {
-    border-bottom: none;
-  }
-
+  /* Hide native radio */
   .skre-sort-dialog__radio {
     position: absolute;
     opacity: 0;
-    pointer-events: none;
     width: 0;
     height: 0;
+    pointer-events: none;
   }
 
+  /* Custom radio circle — matches screenshot */
   .skre-sort-dialog__radio-ui {
     flex-shrink: 0;
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    border: 2px solid rgb(var(--color-foreground-rgb) / 0.35);
+    border: 2px solid rgb(var(--color-foreground-rgb) / 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color var(--animation-speed) var(--animation-easing);
+    transition: border-color 0.15s ease;
   }
 
   .skre-sort-dialog__radio-ui::after {
@@ -308,9 +306,8 @@
     border-radius: 50%;
     background-color: var(--color-foreground);
     opacity: 0;
-    transform: scale(0.5);
-    transition: opacity var(--animation-speed) var(--animation-easing),
-                transform var(--animation-speed) var(--animation-easing);
+    transform: scale(0.4);
+    transition: opacity 0.15s ease, transform 0.15s ease;
   }
 
   .skre-sort-dialog__radio:checked ~ .skre-sort-dialog__radio-ui {
@@ -323,13 +320,10 @@
   }
 
   .skre-sort-dialog__label {
-    font-size: var(--font-size--md, 1rem);
+    font-size: 1rem;
     color: var(--color-foreground);
     cursor: pointer;
-  }
-
-  .skre-sort-dialog__radio:checked ~ .skre-sort-dialog__radio-ui ~ .skre-sort-dialog__label {
-    font-weight: 600;
+    line-height: 1.3;
   }
 {% endstylesheet %}
 
@@ -341,11 +335,21 @@
   },
   "settings": [
     {
+      "type": "select",
+      "id": "section_width",
+      "label": "Width",
+      "options": [
+        { "value": "page-width", "label": "Page" },
+        { "value": "full-width", "label": "Full" }
+      ],
+      "default": "page-width"
+    },
+    {
       "type": "checkbox",
       "id": "show_filter",
       "label": "Show filter button",
       "default": true,
-      "info": "Opens the Filter drawer — requires the Filters block to be present in this collection"
+      "info": "Opens the Filter drawer — requires the Filters block in this collection"
     },
     {
       "type": "text",
@@ -376,13 +380,6 @@
       "label": "Bottom",
       "min": 0, "max": 60, "step": 2, "unit": "px",
       "default": 8
-    },
-    {
-      "type": "range",
-      "id": "padding_inline",
-      "label": "Side",
-      "min": 0, "max": 60, "step": 2, "unit": "px",
-      "default": 0
     },
     {
       "type": "header",
