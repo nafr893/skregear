@@ -4,212 +4,187 @@
  Hides itself if there are 0 or 1 unique filter groups.
 {%- enddoc -%}
 
-
 {% liquid
- assign unique_filters = ''
- assign product_filter_map = ''
- assign filter_count = 0
+  assign unique_filters = ''
+  assign product_filter_map = ''
+  assign filter_count = 0
 
+  for product in collection.products
+    assign filter_group = product.metafields.custom.filter_group | strip
 
- for product in collection.products
-   assign filter_group = product.metafields.custom.filter_group | strip
+    if filter_group != blank
+      # Build product -> filter map entry
+      if product_filter_map != ''
+        assign product_filter_map = product_filter_map | append: ','
+      endif
+      assign map_entry = '"' | append: product.id | append: '":"' | append: filter_group | append: '"'
+      assign product_filter_map = product_filter_map | append: map_entry
 
+      # Track unique filters
+      assign filter_exists = false
+      assign filters_array = unique_filters | split: '|||'
 
-   if filter_group != blank
-     # Build product -> filter map entry
-     if product_filter_map != ''
-       assign product_filter_map = product_filter_map | append: ','
-     endif
-     assign map_entry = '"' | append: product.id | append: '":"' | append: filter_group | append: '"'
-     assign product_filter_map = product_filter_map | append: map_entry
+      for existing_filter in filters_array
+        if existing_filter == filter_group
+          assign filter_exists = true
+          break
+        endif
+      endfor
 
+      unless filter_exists
+        if unique_filters != ''
+          assign unique_filters = unique_filters | append: '|||'
+        endif
+        assign unique_filters = unique_filters | append: filter_group
+        assign filter_count = filter_count | plus: 1
+      endunless
+    endif
+  endfor
 
-     # Track unique filters
-     assign filter_exists = false
-     assign filters_array = unique_filters | split: '|||'
-
-
-     for existing_filter in filters_array
-       if existing_filter == filter_group
-         assign filter_exists = true
-         break
-       endif
-     endfor
-
-
-     unless filter_exists
-       if unique_filters != ''
-         assign unique_filters = unique_filters | append: '|||'
-       endif
-       assign unique_filters = unique_filters | append: filter_group
-       assign filter_count = filter_count | plus: 1
-     endunless
-   endif
- endfor
-
-
- assign filters_array = unique_filters | split: '|||'
+  assign filters_array = unique_filters | split: '|||'
 %}
 
-
 {% if filter_count > 1 %}
- <script src="{{ 'quick-filter.js' | asset_url }}" defer></script>
+  <script src="{{ 'quick-filter.js' | asset_url }}" defer></script>
 
+  <div
+    class="quick-filter"
+    {{ block.shopify_attributes }}
+    style="--quick-filter-gap: {{ block.settings.button_gap }}px;"
+  >
+    <div class="quick-filter__buttons" role="tablist" aria-label="Quick filter">
+      <button
+        type="button"
+        class="quick-filter__button quick-filter__button--active"
+        data-filter="all"
+        aria-pressed="true"
+      >
+        {{- block.settings.all_button_label | default: 'All' -}}
+      </button>
 
- <div
-   class="quick-filter"
-   {{ block.shopify_attributes }}
-   style="
-     --quick-filter-gap: {{ block.settings.button_gap }}px;
-   "
- >
-   <div class="quick-filter__buttons" role="tablist" aria-label="Quick filter">
-     <button
-       type="button"
-       class="quick-filter__button quick-filter__button--active"
-       data-filter="all"
-       aria-pressed="true"
-     >
-       {{ block.settings.all_button_label | default: 'All' }}
-     </button>
+      {% for filter in filters_array %}
+        {%- assign count = 0 -%}
+        {%- for product in collection.products -%}
+          {%- assign fg = product.metafields.custom.filter_group | strip -%}
+          {%- if fg == filter -%}
+            {%- assign count = count | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+        <button
+          type="button"
+          class="quick-filter__button"
+          data-filter="{{ filter | escape }}"
+          aria-pressed="false"
+        >
+          {{- filter }} ({{ count -}})
+        </button>
+      {% endfor %}
+    </div>
 
-
-     {% for filter in filters_array %}
-       <button
-         type="button"
-         class="quick-filter__button"
-         data-filter="{{ filter | escape }}"
-         aria-pressed="false"
-       >
-         {{ filter }}
-       </button>
-     {% endfor %}
-   </div>
-
-
-   <script type="application/json" id="quick-filter-map">
-     { {{ product_filter_map }} }
-   </script>
- </div>
+    <script type="application/json" id="quick-filter-map">
+      { {{ product_filter_map }} }
+    </script>
+  </div>
 {% endif %}
 
-
 {% stylesheet %}
- /* Wrapper should NOT clip the scroll container */
- .quick-filter {
-width: 100%;
- overflow: visible;
- }
+  .quick-filter {
+    width: 100%;
+    overflow: visible;
+  }
 
+  .quick-filter__buttons {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--quick-filter-gap, var(--gap-sm));
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    padding-block-end: 2px;
+  }
 
- 
-.quick-filter__buttons {
-   display: flex;
-   flex-wrap: nowrap;
-   z-index: 99;
-   width: 100vw;
-   overflow-x: scroll;
-   overflow-y: hidden;
-   font-size: 13px;
-   gap: 10px;
-   padding-bottom: 15px;
-   box-sizing: border-box;
-   scrollbar-width: thin;
-   scrollbar-color: rgba(244, 244, 244, .541) transparent;
-}
+  .quick-filter__buttons::-webkit-scrollbar {
+    display: none;
+  }
 
+  /* Desktop: wrap instead of scroll */
+  @media screen and (min-width: 750px) {
+    .quick-filter__buttons {
+      flex-wrap: wrap;
+      overflow-x: visible;
+    }
+  }
 
+  /* Pills — match search modal chip style exactly */
+  .quick-filter__button {
+    --pills-pill-background-color: rgb(var(--color-foreground-rgb) / var(--opacity-5-15));
 
+    appearance: none;
+    display: flex;
+    align-items: center;
+    gap: var(--gap-sm);
+    padding: 6px 12px;
+    border: none;
+    border-radius: var(--style-border-radius-pills);
+    background-color: var(--pills-pill-background-color);
+    color: var(--color-foreground);
+    font-family: inherit;
+    font-size: var(--font-size--sm);
+    font-weight: 500;
+    text-transform: capitalize;
+    letter-spacing: normal;
+    cursor: pointer;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    transition: background-color var(--animation-speed) var(--animation-easing);
+  }
 
+  .quick-filter__button:hover {
+    --pills-pill-background-color: rgb(var(--color-foreground-rgb) / var(--opacity-10-25));
+  }
 
+  .quick-filter__button--active {
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+  }
 
+  .quick-filter__button--active:hover {
+    background-color: var(--color-foreground);
+  }
 
-
- .quick-filter__button {
-   appearance: none;
-   background: rgba(187,187,187,0.25);
-   border: 1px solid #f9f9f9;
-   padding: var(--padding-sm) var(--padding-md);
-   font-family: inherit;
-   font-size: var(--font-size-sm);
-   text-transform: uppercase;
-   letter-spacing: 0.05em;
-   cursor: pointer;
-   transition: background-color 0.2s ease, color 0.2s ease;
-color: #ffffff;
-   flex: 0 0 auto; /* prevents shrinking so scrolling actually happens */
-   white-space: nowrap;
- }
-
-
- .quick-filter__button:hover {
-   background: rgba(187, 187, 187, 0.5);
- }
-
-
- .quick-filter__button--active {
-   background: var(--color-foreground, #000);
-   color: var(--color-background, #fff);
- }
-
-
- .quick-filter__button--active:hover {
-   background: var(--color-foreground, #000);
- }
-
-
- /* Hide filtered products */
- .product-grid__item.quick-filter-hidden {
-   display: none;
- }
-
-
-/* Desktop Wrapping */
-@media (min-width: 480px) {
-.quick-filter__buttons {
-display: flex !important;
-flex-wrap: wrap !important;
-width: 100%;
-overflow-x: visible;
-}
-}
-
-
-
-
+  /* Hide filtered products */
+  .product-grid__item.quick-filter-hidden {
+    display: none;
+  }
 {% endstylesheet %}
-
 
 {% schema %}
 {
- "name": "Quick Filter",
- "tag": "div",
- "class": "quick-filter-block",
- "settings": [
-   {
-     "type": "text",
-     "id": "all_button_label",
-     "label": "\"All\" button label",
-     "default": "All"
-   },
-   {
-     "type": "range",
-     "id": "button_gap",
-     "label": "Button gap",
-     "min": 0,
-     "max": 32,
-     "step": 2,
-     "unit": "px",
-     "default": 8
-   }
- ],
- "presets": [
-   {
-     "name": "Quick Filter"
-   }
- ]
+  "name": "Quick Filter",
+  "tag": "div",
+  "class": "quick-filter-block",
+  "settings": [
+    {
+      "type": "text",
+      "id": "all_button_label",
+      "label": "\"All\" button label",
+      "default": "All"
+    },
+    {
+      "type": "range",
+      "id": "button_gap",
+      "label": "Button gap",
+      "min": 0,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quick Filter"
+    }
+  ]
 }
 {% endschema %}
-
-
-
