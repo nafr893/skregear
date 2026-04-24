@@ -13,6 +13,8 @@
       {{ 'content.grid_view.grid_fieldset' | t }}
     </legend>
 
+    {%- assign layout_target = on_change | default: 'results-list/updateLayout' -%}
+
     {% if viewport == 'mobile' %}
       <label class="column-options__option">
         <input
@@ -21,7 +23,7 @@
           value="mobile-single"
           class="column-options__option-input"
           aria-label="{{ 'content.grid_view.single_item' | t }}"
-          on:change="results-list/updateLayout"
+          on:change="{{ layout_target }}"
         >
         <span class="column-picker column-picker-mobile--single">
           {{- 'icon-one-col-mobile.svg' | inline_asset_content -}}
@@ -37,7 +39,7 @@
           checked
           aria-label="{{ 'content.grid_view.default_view' | t }}"
           data-grid-layout="mobile-option"
-          on:change="results-list/updateLayout"
+          on:change="{{ layout_target }}"
         >
         <span class="column-picker column-picker-mobile--double">
           {{- 'icon-grid-default.svg' | inline_asset_content -}}
@@ -54,7 +56,7 @@
           checked
           aria-label="{{ 'content.grid_view.default_view' | t }}"
           data-grid-layout="desktop-default-option"
-          on:change="results-list/updateLayout"
+          on:change="{{ layout_target }}"
           data-skip-node-update
         >
         <span class="column-picker column-picker--default">
@@ -69,7 +71,7 @@
           value="zoom-out"
           class="column-options__option-input"
           aria-label="{{ 'content.grid_view.zoom_out' | t }}"
-          on:change="results-list/updateLayout"
+          on:change="{{ layout_target }}"
           data-skip-node-update
         >
         <span class="column-picker column-picker--zoom-out">

@@ -23,7 +23,7 @@
 
   {%- comment -%} Grid density controls — mobile only {%- endcomment -%}
   <div class="skre-sort-toolbar__density desktop:hidden">
-    {%- render 'grid-density-controls', viewport: 'mobile' -%}
+    {%- render 'grid-density-controls', viewport: 'mobile', on_change: '#skre-results-list/updateLayout' -%}
   </div>
 
   {%- comment -%} Breadcrumbs — desktop only {%- endcomment -%}
