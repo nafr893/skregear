@@ -21,13 +21,25 @@
   "
 >
 
-  {%- comment -%} Grid density controls {%- endcomment -%}
+  {%- comment -%} Grid density controls — mobile only {%- endcomment -%}
   <div class="skre-sort-toolbar__density desktop:hidden">
     {%- render 'grid-density-controls', viewport: 'mobile' -%}
   </div>
-  <div class="skre-sort-toolbar__density mobile:hidden">
-    {%- render 'grid-density-controls', viewport: 'desktop' -%}
-  </div>
+
+  {%- comment -%} Breadcrumbs — desktop only {%- endcomment -%}
+  <nav class="skre-sort-toolbar__breadcrumbs mobile:hidden" aria-label="Breadcrumb">
+    <ol class="skre-breadcrumbs">
+      <li class="skre-breadcrumbs__item">
+        <a href="{{ section.settings.breadcrumb_parent_url | default: '/collections' }}" class="skre-breadcrumbs__link">
+          {{- section.settings.breadcrumb_parent_label | default: 'Shop' -}}
+        </a>
+      </li>
+      <li class="skre-breadcrumbs__sep" aria-hidden="true">/</li>
+      <li class="skre-breadcrumbs__item skre-breadcrumbs__item--current" aria-current="page">
+        {{- collection.title -}}
+      </li>
+    </ol>
+  </nav>
 
   {%- comment -%} Filter button — mobile only (desktop uses the vertical sidebar) {%- endcomment -%}
   {% if section.settings.show_filter %}
@@ -174,6 +186,43 @@
   .skre-sort-toolbar__density {
     display: flex;
     align-items: center;
+  }
+
+  /* ── Breadcrumbs ──────────────────────────────────────────── */
+  .skre-sort-toolbar__breadcrumbs {
+    display: flex;
+    align-items: center;
+  }
+
+  .skre-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .skre-breadcrumbs__item,
+  .skre-breadcrumbs__sep {
+    font-size: var(--font-size--sm);
+    color: rgb(var(--color-foreground-rgb) / 0.5);
+    line-height: 1;
+  }
+
+  .skre-breadcrumbs__link {
+    color: rgb(var(--color-foreground-rgb) / 0.5);
+    text-decoration: none;
+    transition: color var(--animation-speed) var(--animation-easing);
+  }
+
+  .skre-breadcrumbs__link:hover {
+    color: var(--color-foreground);
+  }
+
+  .skre-breadcrumbs__item--current {
+    color: var(--color-foreground);
+    font-weight: 500;
   }
 
   /* ── Filter / Sort By buttons ─────────────────────────────── */
@@ -445,6 +494,21 @@
       "id": "sort_label",
       "label": "Sort By button label",
       "default": "Sort By"
+    },
+    {
+      "type": "header",
+      "content": "Breadcrumbs (desktop)"
+    },
+    {
+      "type": "text",
+      "id": "breadcrumb_parent_label",
+      "label": "Parent label",
+      "default": "Shop"
+    },
+    {
+      "type": "url",
+      "id": "breadcrumb_parent_url",
+      "label": "Parent link"
     },
     {
       "type": "header",
