@@ -285,6 +285,14 @@
               },
               "blocks": {}
             },
+            "custom_liquid_mKF8H8": {
+              "type": "custom-liquid",
+              "name": "t:names.custom_liquid",
+              "settings": {
+                "custom_liquid": "<div class=\"yotpo bottomLine\"\n  data-product-id=\"{{ product.id }}\">\n</div>"
+              },
+              "blocks": {}
+            },
             "price_EzJzMm": {
               "type": "price",
               "settings": {
@@ -313,6 +321,7 @@
             "swatches_nkmCHh",
             "product_title_4nY4eT",
             "text_eHjXRQ",
+            "custom_liquid_mKF8H8",
             "price_EzJzMm"
           ]
         }
