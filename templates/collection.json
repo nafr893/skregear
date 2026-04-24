@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "section": {
       "type": "section",
@@ -33,7 +34,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "visibility": "both"
           },
           "blocks": {}
         },
@@ -59,7 +61,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "visibility": "both"
           },
           "blocks": {}
         }
@@ -94,7 +97,8 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 48,
-        "padding-block-end": 48
+        "padding-block-end": 48,
+        "visibility": "both"
       }
     },
     "main": {
@@ -180,6 +184,19 @@
               },
               "blocks": {}
             },
+            "review_jWnTz6": {
+              "type": "review",
+              "name": "t:names.product_review_stars",
+              "settings": {
+                "stars_style": "shaded",
+                "show_number": true,
+                "rating_color": "primary",
+                "type_preset": "paragraph",
+                "width": "100%",
+                "alignment": "left"
+              },
+              "blocks": {}
+            },
             "price_EzJzMm": {
               "type": "price",
               "settings": {
@@ -206,6 +223,7 @@
           "block_order": [
             "card-gallery",
             "product_title_4nY4eT",
+            "review_jWnTz6",
             "price_EzJzMm"
           ]
         }
@@ -214,6 +232,8 @@
         "layout_type": "grid",
         "product_card_size": "medium",
         "mobile_product_card_size": "small",
+        "enable_infinite_scroll": true,
+        "products_per_page": 24,
         "product_grid_width": "centered",
         "full_width_on_mobile": true,
         "columns_gap_horizontal": 16,
@@ -222,7 +242,19 @@
         "padding-inline-end": 0,
         "color_scheme": "scheme-1",
         "padding-block-start": 0,
-        "padding-block-end": 32
+        "padding-block-end": 32,
+        "promo_1_label": "",
+        "promo_1_heading": "",
+        "promo_1_btn_label": "",
+        "promo_1_btn_link": "",
+        "promo_2_label": "",
+        "promo_2_heading": "",
+        "promo_2_btn_label": "",
+        "promo_2_btn_link": "",
+        "promo_3_label": "",
+        "promo_3_heading": "",
+        "promo_3_btn_label": "",
+        "promo_3_btn_link": ""
       }
     }
   },
