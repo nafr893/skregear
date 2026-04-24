@@ -289,7 +289,7 @@
               "type": "custom-liquid",
               "name": "t:names.custom_liquid",
               "settings": {
-                "custom_liquid": "<div class=\"yotpo-widget-instance\"\n  data-yotpo-instance-id=\"YOUR_INSTANCE_ID\"\n  data-yotpo-product-id=\"{{ product.id }}\"\n  data-yotpo-name=\"{{ product.title | escape }}\"\n  data-yotpo-url=\"{{ shop.url }}{{ product.url }}\"\n  data-yotpo-image-url=\"{{ product.featured_image | image_url: width: 600 }}\"\n  data-yotpo-description=\"{{ product.description | strip_html | escape }}\">\n</div>"
+                "custom_liquid": ""
               },
               "blocks": {}
             },
