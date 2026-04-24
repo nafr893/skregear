@@ -51,7 +51,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "visibility": "both"
           },
           "blocks": {
             "text_YeTjmd": {
@@ -76,7 +77,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             },
@@ -102,7 +104,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             }
@@ -185,7 +188,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "visibility": "both"
           },
           "blocks": {
             "divider_DWh9pE": {
@@ -217,7 +221,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             },
@@ -238,7 +243,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             },
@@ -259,7 +265,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             },
@@ -280,7 +287,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             }
@@ -330,7 +338,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "visibility": "both"
           },
           "blocks": {
             "text_LWt8Pz": {
@@ -354,7 +363,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             },
@@ -379,7 +389,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             }
@@ -401,7 +412,8 @@
         "gap": 0,
         "color_scheme": "scheme-2",
         "padding-block-start": 30,
-        "padding-block-end": 0
+        "padding-block-end": 0,
+        "visibility": "both"
       }
     },
     "footer_rU99nX": {
@@ -444,7 +456,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "visibility": "both"
           },
           "blocks": {
             "divider_KECjpJ": {
@@ -476,7 +489,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             },
@@ -497,7 +511,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             },
@@ -518,7 +533,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             },
@@ -539,7 +555,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             }
@@ -589,7 +606,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "visibility": "both"
           },
           "blocks": {
             "text_fcK7dU": {
@@ -613,7 +631,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             },
@@ -638,7 +657,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             }
@@ -653,14 +673,14 @@
         "group_NggaLx",
         "group_wGPHxM"
       ],
-      "disabled": true,
       "name": "Mobile Footer",
       "settings": {
         "section_width": "page-width",
         "gap": 0,
         "color_scheme": "scheme-2",
         "padding-block-start": 30,
-        "padding-block-end": 0
+        "padding-block-end": 0,
+        "visibility": "mobile_only"
       }
     },
     "section_RdLNg4": {
@@ -681,7 +701,8 @@
             "pinterest_url": "",
             "tumblr_url": "",
             "vimeo_url": "",
-            "custom_url": ""
+            "custom_url": "",
+            "visibility": "both"
           },
           "blocks": {}
         },
@@ -693,7 +714,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "visibility": "both"
           },
           "blocks": {}
         },
@@ -785,7 +807,8 @@
             "pinterest_url": "",
             "tumblr_url": "",
             "vimeo_url": "",
-            "custom_url": ""
+            "custom_url": "",
+            "visibility": "both"
           },
           "blocks": {}
         }
