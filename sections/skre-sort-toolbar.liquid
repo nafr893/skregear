@@ -108,7 +108,21 @@
     var dialog   = document.querySelector('[data-skre-sort-dialog="' + id + '"]');
     var closeBtn = dialog.querySelector('[data-skre-sort-close="' + id + '"]');
 
-    openBtn.addEventListener('click', function () { dialog.showModal(); });
+    function openDialog() {
+      if (window.innerWidth >= 750) {
+        var rect = openBtn.getBoundingClientRect();
+        dialog.style.top    = (rect.bottom + 6) + 'px';
+        dialog.style.right  = (window.innerWidth - rect.right) + 'px';
+        dialog.style.left   = 'auto';
+        dialog.style.bottom = 'auto';
+        dialog.style.margin = '0';
+      } else {
+        dialog.style.cssText = '';
+      }
+      dialog.showModal();
+    }
+
+    openBtn.addEventListener('click', openDialog);
     closeBtn.addEventListener('click', function () { dialog.close(); });
 
     dialog.addEventListener('click', function (e) {
@@ -212,14 +226,59 @@
     to   { transform: translateY(0); }
   }
 
-  /* Desktop: centered popover */
+  /* Desktop: dropdown anchored below Sort By button */
   @media screen and (min-width: 750px) {
     .skre-sort-dialog {
-      max-width: 440px;
-      inset: 50% auto auto 50%;
-      transform: translate(-50%, -50%);
+      position: fixed; /* top/right set by JS */
+      inset: auto;
+      max-width: 280px;
+      min-width: 200px;
+      width: auto;
+      max-height: none;
+      border: 1px solid rgb(var(--color-foreground-rgb) / 0.14);
       border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
+
+    .skre-sort-dialog::backdrop {
+      background: transparent;
+    }
+
+    .skre-sort-dialog[open] {
+      animation: skre-sort-dropdown-in 0.14s ease forwards;
+    }
+
+    .skre-sort-dialog__header {
+      display: none;
+    }
+
+    .skre-sort-dialog__options {
+      padding: 6px 0 6px;
+    }
+
+    .skre-sort-dialog__option {
+      padding: 10px 16px;
+      gap: 12px;
+    }
+
+    .skre-sort-dialog__radio-ui {
+      width: 18px;
+      height: 18px;
+    }
+
+    .skre-sort-dialog__radio-ui::after {
+      width: 9px;
+      height: 9px;
+    }
+
+    .skre-sort-dialog__label {
+      font-size: var(--font-size--sm);
+    }
+  }
+
+  @keyframes skre-sort-dropdown-in {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   /* ── Dialog header ────────────────────────────────────────── */
