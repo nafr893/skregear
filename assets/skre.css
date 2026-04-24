@@ -195,5 +195,7 @@ h4, h5, h6, p {
 
 /* Default (unselected) swatch border */
 .variant-option .swatch {
+  --style-border-swatch-width: 1px;
+  --style-border-swatch-style: solid;
   --color-border: #ededed;
 }
