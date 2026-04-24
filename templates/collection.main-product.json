@@ -155,7 +155,6 @@
         "sort_label": "Sort By",
         "padding-block-start": 8,
         "padding-block-end": 8,
-        "padding_inline": 0,
         "visibility": "both"
       }
     },
