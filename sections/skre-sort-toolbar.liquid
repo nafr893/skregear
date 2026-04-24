@@ -35,7 +35,7 @@
       class="skre-sort-toolbar__btn skre-sort-toolbar__btn--filter mobile-filter-btn"
       type="button"
       aria-haspopup="dialog"
-      data-skre-filter-open
+      on:click="#filters-drawer/showDialog"
     >
       <span class="svg-wrapper skre-sort-toolbar__icon">
         {{- 'icon-filter.svg' | inline_asset_content -}}
@@ -114,20 +114,6 @@
     var dialog   = document.querySelector('[data-skre-sort-dialog="' + id + '"]');
     var closeBtn = dialog.querySelector('[data-skre-sort-close="' + id + '"]');
 
-    function openDialog() {
-      if (window.innerWidth >= 750) {
-        var rect = openBtn.getBoundingClientRect();
-        dialog.style.top    = (rect.bottom + 6) + 'px';
-        dialog.style.right  = (window.innerWidth - rect.right) + 'px';
-        dialog.style.left   = 'auto';
-        dialog.style.bottom = 'auto';
-        dialog.style.margin = '0';
-      } else {
-        dialog.style.cssText = '';
-      }
-      dialog.showModal();
-    }
-
     function positionDropdown() {
       var rect = openBtn.getBoundingClientRect();
       dialog.style.top    = (rect.bottom + 6) + 'px';
@@ -150,17 +136,6 @@
       if (window.innerWidth >= 750 && dialog.open) {
         positionDropdown();
       }
-    }
-
-    // Filter drawer button — calls showDialog() on dialog-component#filters-drawer
-    var filterBtn = document.querySelector('[data-skre-filter-open]');
-    if (filterBtn) {
-      filterBtn.addEventListener('click', function () {
-        var drawer = document.querySelector('#filters-drawer');
-        if (drawer && typeof drawer.showDialog === 'function') {
-          drawer.showDialog();
-        }
-      });
     }
 
     openBtn.addEventListener('click', openDialog);
