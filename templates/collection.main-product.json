@@ -285,6 +285,19 @@
               },
               "blocks": {}
             },
+            "review_pWhadU": {
+              "type": "review",
+              "name": "t:names.product_review_stars",
+              "settings": {
+                "stars_style": "shaded",
+                "show_number": true,
+                "rating_color": "primary",
+                "type_preset": "paragraph",
+                "width": "100%",
+                "alignment": "left"
+              },
+              "blocks": {}
+            },
             "price_EzJzMm": {
               "type": "price",
               "settings": {
@@ -313,6 +326,7 @@
             "swatches_nkmCHh",
             "product_title_4nY4eT",
             "text_eHjXRQ",
+            "review_pWhadU",
             "price_EzJzMm"
           ]
         }
