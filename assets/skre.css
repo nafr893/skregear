@@ -81,3 +81,11 @@ h4, h5, h6, p {
   outline: none !important;
   box-shadow: none !important;
 }
+
+/* Footer desktop: first block (brand group) fills remaining space,
+   menu columns shrink to their actual content width */
+@media screen and (min-width: 990px) {
+  .footer-content:not([style*='--grid-columns: 1']) {
+    grid-template-columns: 1fr repeat(calc(var(--grid-columns) - 1), max-content);
+  }
+}
