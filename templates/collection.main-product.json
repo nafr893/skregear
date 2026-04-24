@@ -146,6 +146,19 @@
         "visibility": "both"
       }
     },
+    "skre_sort_toolbar_BQX3tV": {
+      "type": "skre-sort-toolbar",
+      "name": "Sort Toolbar",
+      "settings": {
+        "show_filter": true,
+        "filter_label": "Filter",
+        "sort_label": "Sort By",
+        "padding-block-start": 8,
+        "padding-block-end": 8,
+        "padding_inline": 0,
+        "visibility": "both"
+      }
+    },
     "main": {
       "type": "main-collection",
       "blocks": {
@@ -280,6 +293,7 @@
   "order": [
     "hero_HnB8L9",
     "section",
+    "skre_sort_toolbar_BQX3tV",
     "main"
   ]
 }
