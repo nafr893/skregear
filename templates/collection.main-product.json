@@ -150,6 +150,7 @@
       "type": "skre-sort-toolbar",
       "name": "Sort Toolbar",
       "settings": {
+        "section_width": "page-width",
         "show_filter": true,
         "filter_label": "Filter",
         "sort_label": "Sort By",
@@ -286,7 +287,20 @@
         "padding-inline-end": 0,
         "color_scheme": "scheme-1",
         "padding-block-start": 0,
-        "padding-block-end": 32
+        "padding-block-end": 32,
+        "promo_1_image": "shopify://shop_images/Skre-14_058df362-71d5-4837-9822-163c95c59c88.webp",
+        "promo_1_label": "20% OFF",
+        "promo_1_heading": "SHOP WINTER GEAR",
+        "promo_1_btn_label": "EXPLORE",
+        "promo_1_btn_link": "",
+        "promo_2_label": "",
+        "promo_2_heading": "",
+        "promo_2_btn_label": "",
+        "promo_2_btn_link": "",
+        "promo_3_label": "",
+        "promo_3_heading": "",
+        "promo_3_btn_label": "",
+        "promo_3_btn_link": ""
       }
     }
   },
