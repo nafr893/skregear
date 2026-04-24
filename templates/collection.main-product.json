@@ -285,6 +285,12 @@
               },
               "blocks": {}
             },
+            "yotpo_product_reviews_promoted_products_CHMYF7": {
+              "type": "shopify://apps/yotpo-product-reviews/blocks/promoted_products/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
+              "settings": {
+                "product": "{{closest.product}}"
+              }
+            },
             "price_EzJzMm": {
               "type": "price",
               "settings": {
@@ -313,6 +319,7 @@
             "swatches_nkmCHh",
             "product_title_4nY4eT",
             "text_eHjXRQ",
+            "yotpo_product_reviews_promoted_products_CHMYF7",
             "price_EzJzMm"
           ]
         }
