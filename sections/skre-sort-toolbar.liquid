@@ -5,16 +5,16 @@
 
 {%- liquid
   assign sort_by = collection.sort_by | default: collection.default_sort_by
-  assign _vis_class = ''
+  assign vis_class = ''
   if section.settings.visibility == 'desktop_only'
-    assign _vis_class = 'mobile:hidden'
+    assign vis_class = 'mobile:hidden'
   elsif section.settings.visibility == 'mobile_only'
-    assign _vis_class = 'desktop:hidden'
+    assign vis_class = 'desktop:hidden'
   endif
 -%}
 
 <div
-  class="skre-sort-toolbar skre-sort-toolbar--{{ section.settings.section_width }} {{ _vis_class }}"
+  class="skre-sort-toolbar skre-sort-toolbar--{{ section.settings.section_width }} {{ vis_class }}"
   style="
     --padding-block-start: {{ section.settings['padding-block-start'] }}px;
     --padding-block-end: {{ section.settings['padding-block-end'] }}px;
@@ -84,7 +84,13 @@
   </div>
 
   <div class="skre-sort-dialog__options" role="radiogroup" aria-label="{{ section.settings.sort_label | default: 'Sort By' }}">
+    {%- assign hide_sorts = 'title-ascending,title-descending,created-ascending' | split: ',' -%}
     {% for option in collection.sort_options %}
+      {%- assign skip_sort = false -%}
+      {%- for hide_val in hide_sorts -%}
+        {%- if option.value == hide_val -%}{%- assign skip_sort = true -%}{%- break -%}{%- endif -%}
+      {%- endfor -%}
+      {%- if skip_sort -%}{%- continue -%}{%- endif -%}
       <label class="skre-sort-dialog__option">
         <input
           class="skre-sort-dialog__radio"
@@ -122,8 +128,33 @@
       dialog.showModal();
     }
 
+    function positionDropdown() {
+      var rect = openBtn.getBoundingClientRect();
+      dialog.style.top    = (rect.bottom + 6) + 'px';
+      dialog.style.right  = (window.innerWidth - rect.right) + 'px';
+      dialog.style.left   = 'auto';
+      dialog.style.bottom = 'auto';
+      dialog.style.margin = '0';
+    }
+
+    function openDialog() {
+      if (window.innerWidth >= 750) {
+        positionDropdown();
+      } else {
+        dialog.style.cssText = '';
+      }
+      dialog.showModal();
+    }
+
+    function onScroll() {
+      if (window.innerWidth >= 750 && dialog.open) {
+        positionDropdown();
+      }
+    }
+
     openBtn.addEventListener('click', openDialog);
     closeBtn.addEventListener('click', function () { dialog.close(); });
+    window.addEventListener('scroll', onScroll, { passive: true });
 
     dialog.addEventListener('click', function (e) {
       if (e.target === dialog) { dialog.close(); }
@@ -146,7 +177,7 @@
     align-items: center;
     gap: var(--gap-sm);
     padding-block: var(--padding-block-start) var(--padding-block-end);
-    padding-inline: var(--page-gutter);
+    padding-inline: var(--page-margin);
   }
 
   .skre-sort-toolbar--page-width {
@@ -295,7 +326,7 @@
 
   .skre-sort-dialog__title {
     font-family: var(--font-heading--family);
-    font-size: var(--font-h3--size);
+    font-size: var(--font-size--base);
     font-weight: 700;
     letter-spacing: 0.04em;
     color: var(--color-foreground);
@@ -325,14 +356,14 @@
   .skre-sort-dialog__options {
     display: flex;
     flex-direction: column;
-    padding: 4px 20px 32px;
+    padding: 4px 20px 20px;
   }
 
   .skre-sort-dialog__option {
     display: flex;
     align-items: center;
-    gap: 18px;
-    padding: 16px 0;
+    gap: 14px;
+    padding: 10px 0;
     cursor: pointer;
   }
 
@@ -345,11 +376,11 @@
     pointer-events: none;
   }
 
-  /* Custom radio circle — matches screenshot */
+  /* Custom radio circle */
   .skre-sort-dialog__radio-ui {
     flex-shrink: 0;
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     border: 2px solid rgb(var(--color-foreground-rgb) / 0.4);
     display: flex;
@@ -360,8 +391,8 @@
 
   .skre-sort-dialog__radio-ui::after {
     content: '';
-    width: 12px;
-    height: 12px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background-color: var(--color-foreground);
     opacity: 0;
@@ -379,7 +410,7 @@
   }
 
   .skre-sort-dialog__label {
-    font-size: 1rem;
+    font-size: var(--font-size--sm);
     color: var(--color-foreground);
     cursor: pointer;
     line-height: 1.3;
