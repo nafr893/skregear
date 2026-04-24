@@ -62,6 +62,45 @@
             {% content_for 'block', type: '_product-card', id: 'product-card', closest.product: product %}
             {% # theme-check-enable %}
           </li>
+
+          {%- comment -%}
+            Promo card injection: first at product 6, then every 10 after.
+            Slots cycle through the 3 configured promo cards.
+          {%- endcomment -%}
+          {%- if forloop.index >= 6 -%}
+            {%- assign _promo_remainder = forloop.index | minus: 6 | modulo: 10 -%}
+            {%- if _promo_remainder == 0 -%}
+              {%- assign _promo_slot = forloop.index | minus: 6 | divided_by: 10 | modulo: 3 -%}
+              {%- if _promo_slot == 0 -%}
+                {%- assign _pi = section.settings.promo_1_image -%}
+                {%- assign _pl = section.settings.promo_1_label -%}
+                {%- assign _ph = section.settings.promo_1_heading -%}
+                {%- assign _pb = section.settings.promo_1_btn_label -%}
+                {%- assign _pu = section.settings.promo_1_btn_link -%}
+              {%- elsif _promo_slot == 1 -%}
+                {%- assign _pi = section.settings.promo_2_image -%}
+                {%- assign _pl = section.settings.promo_2_label -%}
+                {%- assign _ph = section.settings.promo_2_heading -%}
+                {%- assign _pb = section.settings.promo_2_btn_label -%}
+                {%- assign _pu = section.settings.promo_2_btn_link -%}
+              {%- elsif _promo_slot == 2 -%}
+                {%- assign _pi = section.settings.promo_3_image -%}
+                {%- assign _pl = section.settings.promo_3_label -%}
+                {%- assign _ph = section.settings.promo_3_heading -%}
+                {%- assign _pb = section.settings.promo_3_btn_label -%}
+                {%- assign _pu = section.settings.promo_3_btn_link -%}
+              {%- endif -%}
+              {%- if _pi != blank or _ph != blank -%}
+                {%- render 'skre-promo-card',
+                  image: _pi,
+                  label: _pl,
+                  heading: _ph,
+                  btn_label: _pb,
+                  btn_link: _pu
+                -%}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endif -%}
         {% endfor %}
       {% endcapture %}
 

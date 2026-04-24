@@ -1,0 +1,50 @@
+{%- doc -%}
+  Editorial promo card — injected into the collection product grid.
+
+  @param {image}  image     - Background image
+  @param {string} label     - Small paragraph label (e.g. "The Outlet")
+  @param {string} heading   - Large heading text
+  @param {string} btn_label - Button label
+  @param {string} btn_link  - Button URL
+{%- enddoc -%}
+
+<li class="product-grid__item skre-promo-card-wrapper">
+  <a
+    class="skre-promo-card"
+    href="{{ btn_link | default: '#' }}"
+    {% if btn_link == blank %}aria-hidden="true" tabindex="-1"{% endif %}
+  >
+    {%- if image != blank -%}
+      <img
+        class="skre-promo-card__img"
+        src="{{ image | image_url: width: 800 }}"
+        srcset="
+          {{ image | image_url: width: 400 }} 400w,
+          {{ image | image_url: width: 600 }} 600w,
+          {{ image | image_url: width: 800 }} 800w
+        "
+        sizes="(min-width: 750px) 25vw, 50vw"
+        alt="{{ image.alt | escape }}"
+        width="{{ image.width }}"
+        height="{{ image.height }}"
+        loading="lazy"
+      >
+    {%- else -%}
+      <div class="skre-promo-card__placeholder"></div>
+    {%- endif -%}
+
+    <div class="skre-promo-card__overlay"></div>
+
+    <div class="skre-promo-card__content">
+      {%- if label != blank -%}
+        <p class="skre-promo-card__label">{{ label }}</p>
+      {%- endif -%}
+      {%- if heading != blank -%}
+        <p class="skre-promo-card__heading">{{ heading }}</p>
+      {%- endif -%}
+      {%- if btn_label != blank -%}
+        <span class="skre-promo-card__btn">{{ btn_label }}</span>
+      {%- endif -%}
+    </div>
+  </a>
+</li>
