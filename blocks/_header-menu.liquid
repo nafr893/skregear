@@ -826,11 +826,6 @@
     text-decoration: none;
     align-self: flex-start;
     border-radius: var(--style-border-radius-buttons, 0);
-    transition: opacity 0.15s ease;
-  }
-
-  .mega-menu-promo__btn:hover {
-    opacity: 0.85;
   }
 {% endstylesheet %}
 
@@ -1237,7 +1232,7 @@
       "visible_if": "{{ block.settings.show_mega_promo }}"
     },
     {
-      "type": "textarea",
+      "type": "inline_richtext",
       "id": "mega_promo_paragraph",
       "label": "Paragraph text",
       "default": "Built to Stop Bites",
