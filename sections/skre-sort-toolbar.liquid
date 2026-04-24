@@ -29,13 +29,13 @@
     {%- render 'grid-density-controls', viewport: 'desktop' -%}
   </div>
 
-  {%- comment -%} Filter button {%- endcomment -%}
+  {%- comment -%} Filter button — mobile only (desktop uses the vertical sidebar) {%- endcomment -%}
   {% if section.settings.show_filter %}
     <button
-      class="skre-sort-toolbar__btn"
+      class="skre-sort-toolbar__btn skre-sort-toolbar__btn--filter mobile-filter-btn"
       type="button"
-      on:click="#filters-drawer/showDialog"
       aria-haspopup="dialog"
+      data-skre-filter-open
     >
       <span class="svg-wrapper skre-sort-toolbar__icon">
         {{- 'icon-filter.svg' | inline_asset_content -}}
@@ -152,6 +152,17 @@
       }
     }
 
+    // Filter drawer button — calls showDialog() on dialog-component#filters-drawer
+    var filterBtn = document.querySelector('[data-skre-filter-open]');
+    if (filterBtn) {
+      filterBtn.addEventListener('click', function () {
+        var drawer = document.querySelector('#filters-drawer');
+        if (drawer && typeof drawer.showDialog === 'function') {
+          drawer.showDialog();
+        }
+      });
+    }
+
     openBtn.addEventListener('click', openDialog);
     closeBtn.addEventListener('click', function () { dialog.close(); });
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -217,6 +228,13 @@
 
   .skre-sort-toolbar__btn--sort {
     margin-left: auto;
+  }
+
+  /* Filter button: mobile only — desktop uses the vertical sidebar */
+  @media screen and (min-width: 750px) {
+    .skre-sort-toolbar__btn--filter {
+      display: none;
+    }
   }
 
   .skre-sort-toolbar__icon svg {

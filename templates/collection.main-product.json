@@ -151,7 +151,7 @@
       "name": "Sort Toolbar",
       "settings": {
         "section_width": "page-width",
-        "show_filter": false,
+        "show_filter": true,
         "filter_label": "Filter",
         "sort_label": "Sort By",
         "padding-block-start": 8,
