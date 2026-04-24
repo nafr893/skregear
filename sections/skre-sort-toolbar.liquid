@@ -1,14 +1,28 @@
-{%- doc -%}
-  Custom collection toolbar: grid density | filter | sort-by.
+{%- comment -%}
+  SKRE Sort Toolbar — grid density | filter | sort-by
+  Add this as a section to the collection template above the main-collection section.
   Sort By opens a bottom-sheet dialog with radio options.
-  Filter button triggers the existing #filters-drawer dialog.
-{%- enddoc -%}
+  Filter button triggers the existing #filters-drawer from the Filters block.
+{%- endcomment -%}
 
 {%- liquid
   assign sort_by = collection.sort_by | default: collection.default_sort_by
+  assign _vis_class = ''
+  if section.settings.visibility == 'desktop_only'
+    assign _vis_class = 'mobile:hidden'
+  elsif section.settings.visibility == 'mobile_only'
+    assign _vis_class = 'desktop:hidden'
+  endif
 -%}
 
-<div class="skre-sort-toolbar spacing-style" {{ block.shopify_attributes }}>
+<div
+  class="skre-sort-toolbar {{ _vis_class }}"
+  style="
+    --padding-block-start: {{ section.settings['padding-block-start'] }}px;
+    --padding-block-end: {{ section.settings['padding-block-end'] }}px;
+    --padding-inline: {{ section.settings.padding_inline }}px;
+  "
+>
 
   {%- comment -%} Grid density controls {%- endcomment -%}
   <div class="skre-sort-toolbar__density desktop:hidden">
@@ -18,8 +32,8 @@
     {%- render 'grid-density-controls', viewport: 'desktop' -%}
   </div>
 
-  {%- comment -%} Filter button — opens existing filter drawer {%- endcomment -%}
-  {% if block.settings.show_filter %}
+  {%- comment -%} Filter button — opens the filter drawer from the Filters block {%- endcomment -%}
+  {% if section.settings.show_filter %}
     <button
       class="skre-sort-toolbar__btn"
       type="button"
@@ -29,7 +43,7 @@
       <span class="svg-wrapper skre-sort-toolbar__icon">
         {{- 'icon-filter.svg' | inline_asset_content -}}
       </span>
-      {{- block.settings.filter_label | default: 'Filter' | upcase -}}
+      {{- section.settings.filter_label | default: 'Filter' | upcase -}}
     </button>
   {% endif %}
 
@@ -38,13 +52,13 @@
     class="skre-sort-toolbar__btn skre-sort-toolbar__btn--sort"
     type="button"
     aria-haspopup="dialog"
-    aria-controls="skre-sort-dialog-{{ block.id }}"
-    data-skre-sort-open="{{ block.id }}"
+    aria-controls="skre-sort-dialog-{{ section.id }}"
+    data-skre-sort-open="{{ section.id }}"
   >
     <span class="svg-wrapper skre-sort-toolbar__icon">
       {{- 'icon-sort.svg' | inline_asset_content -}}
     </span>
-    {{- block.settings.sort_label | default: 'Sort By' | upcase -}}
+    {{- section.settings.sort_label | default: 'Sort By' | upcase -}}
   </button>
 
 </div>
@@ -52,19 +66,19 @@
 {%- comment -%} Sort By bottom-sheet dialog {%- endcomment -%}
 <dialog
   class="skre-sort-dialog"
-  id="skre-sort-dialog-{{ block.id }}"
-  aria-label="{{ block.settings.sort_label | default: 'Sort By' }}"
-  data-skre-sort-dialog="{{ block.id }}"
+  id="skre-sort-dialog-{{ section.id }}"
+  aria-label="{{ section.settings.sort_label | default: 'Sort By' }}"
+  data-skre-sort-dialog="{{ section.id }}"
 >
   <div class="skre-sort-dialog__header">
     <span class="skre-sort-dialog__title">
-      {{- block.settings.sort_label | default: 'Sort By' | upcase -}}
+      {{- section.settings.sort_label | default: 'Sort By' | upcase -}}
     </span>
     <button
       class="skre-sort-dialog__close button-unstyled"
       type="button"
       aria-label="{{ 'actions.close' | t }}"
-      data-skre-sort-close="{{ block.id }}"
+      data-skre-sort-close="{{ section.id }}"
     >
       <span class="svg-wrapper">
         {{- 'icon-close.svg' | inline_asset_content -}}
@@ -72,7 +86,7 @@
     </button>
   </div>
 
-  <div class="skre-sort-dialog__options" role="radiogroup" aria-label="{{ block.settings.sort_label | default: 'Sort By' }}">
+  <div class="skre-sort-dialog__options" role="radiogroup" aria-label="{{ section.settings.sort_label | default: 'Sort By' }}">
     {% for option in collection.sort_options %}
       <label class="skre-sort-dialog__option">
         <input
@@ -80,7 +94,7 @@
           type="radio"
           name="sort_by"
           value="{{ option.value }}"
-          data-skre-sort-option="{{ block.id }}"
+          data-skre-sort-option="{{ section.id }}"
           {% if option.value == sort_by %}checked{% endif %}
         >
         <span class="skre-sort-dialog__radio-ui" aria-hidden="true"></span>
@@ -92,9 +106,9 @@
 
 <script>
   (function () {
-    var id      = '{{ block.id }}';
-    var openBtn = document.querySelector('[data-skre-sort-open="' + id + '"]');
-    var dialog  = document.querySelector('[data-skre-sort-dialog="' + id + '"]');
+    var id       = '{{ section.id }}';
+    var openBtn  = document.querySelector('[data-skre-sort-open="' + id + '"]');
+    var dialog   = document.querySelector('[data-skre-sort-dialog="' + id + '"]');
     var closeBtn = dialog.querySelector('[data-skre-sort-close="' + id + '"]');
 
     openBtn.addEventListener('click', function () { dialog.showModal(); });
@@ -120,7 +134,10 @@
     display: flex;
     align-items: center;
     gap: var(--gap-sm);
-    padding-block: var(--padding-xs);
+    padding-block: var(--padding-block-start) var(--padding-block-end);
+    padding-inline: var(--padding-inline);
+    max-width: var(--page-width);
+    margin-inline: auto;
   }
 
   .skre-sort-toolbar__density {
@@ -157,14 +174,10 @@
     margin-left: auto;
   }
 
-  .skre-sort-toolbar__icon {
-    display: flex;
-    align-items: center;
-  }
-
   .skre-sort-toolbar__icon svg {
     width: 1rem;
     height: 1rem;
+    display: block;
   }
 
   /* ── Sort dialog (bottom sheet) ───────────────────────────── */
@@ -195,7 +208,6 @@
     background-color: rgb(0 0 0 / 0.4);
   }
 
-  /* Slide-up animation on mobile */
   @media screen and (max-width: 749px) {
     .skre-sort-dialog[open] {
       animation: skre-sort-slide-up 0.25s ease forwards;
@@ -254,7 +266,6 @@
     display: flex;
     flex-direction: column;
     padding: 0 20px 28px;
-    gap: 0;
   }
 
   .skre-sort-dialog__option {
@@ -270,7 +281,6 @@
     border-bottom: none;
   }
 
-  /* Hide native radio */
   .skre-sort-dialog__radio {
     position: absolute;
     opacity: 0;
@@ -279,7 +289,6 @@
     height: 0;
   }
 
-  /* Custom radio circle */
   .skre-sort-dialog__radio-ui {
     flex-shrink: 0;
     width: 22px;
@@ -327,15 +336,16 @@
 {% schema %}
 {
   "name": "Sort Toolbar",
-  "tag": "div",
-  "class": "skre-sort-toolbar-block",
+  "enabled_on": {
+    "templates": ["collection"]
+  },
   "settings": [
     {
       "type": "checkbox",
       "id": "show_filter",
       "label": "Show filter button",
       "default": true,
-      "info": "Opens the Filter drawer from the Filters block"
+      "info": "Opens the Filter drawer — requires the Filters block to be present in this collection"
     },
     {
       "type": "text",
@@ -348,6 +358,46 @@
       "id": "sort_label",
       "label": "Sort By button label",
       "default": "Sort By"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0, "max": 60, "step": 2, "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0, "max": 60, "step": 2, "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "padding_inline",
+      "label": "Side",
+      "min": 0, "max": 60, "step": 2, "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Visibility"
+    },
+    {
+      "type": "select",
+      "id": "visibility",
+      "label": "Show on",
+      "options": [
+        { "value": "both", "label": "All devices" },
+        { "value": "desktop_only", "label": "Desktop only" },
+        { "value": "mobile_only", "label": "Mobile only" }
+      ],
+      "default": "both"
     }
   ],
   "presets": [
