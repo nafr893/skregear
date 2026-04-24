@@ -119,6 +119,7 @@
       "block_order": [
         "group_mHHxMP"
       ],
+      "disabled": true,
       "name": "t:names.custom_section",
       "settings": {
         "content_direction": "column",
@@ -145,7 +146,8 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 30,
-        "padding-block-end": 0
+        "padding-block-end": 0,
+        "visibility": "both"
       }
     },
     "footer_m9NzUG": {
@@ -162,9 +164,9 @@
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fit-content",
-            "custom_width": 100,
+            "gap": 18,
+            "width": "custom",
+            "custom_width": 60,
             "width_mobile": "fill",
             "custom_width_mobile": 100,
             "height": "fit",
@@ -200,7 +202,7 @@
                 "font": "heading",
                 "unit": "pixel",
                 "percent_width": 100,
-                "pixel_height": 48,
+                "pixel_height": 64,
                 "custom_mobile_size": false,
                 "unit_mobile": "percent",
                 "percent_width_mobile": 100,
@@ -217,9 +219,9 @@
               "type": "social-links",
               "name": "t:names.social_media_links",
               "settings": {
-                "facebook_url": "",
-                "instagram_url": "",
-                "youtube_url": "",
+                "facebook_url": "https://www.facebook.com/skregear/",
+                "instagram_url": "https://www.instagram.com/skregear/",
+                "youtube_url": "https://www.youtube.com/c/Skregear",
                 "tiktok_url": "",
                 "twitter_url": "",
                 "threads_url": "",
@@ -252,13 +254,115 @@
                 "case": "none"
               },
               "blocks": {}
+            },
+            "group_QWJRUN": {
+              "type": "group",
+              "name": "t:names.group",
+              "settings": {
+                "content_direction": "column",
+                "vertical_on_mobile": true,
+                "horizontal_alignment": "flex-start",
+                "vertical_alignment": "center",
+                "align_baseline": false,
+                "horizontal_alignment_flex_direction_column": "flex-start",
+                "vertical_alignment_flex_direction_column": "center",
+                "gap": 16,
+                "width": "fill",
+                "custom_width": 40,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
+                "custom_height": 100,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "background_media": "none",
+                "video_position": "cover",
+                "background_image_position": "cover",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
+                "placeholder": "",
+                "padding-block-start": 16,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "visibility": "both"
+              },
+              "blocks": {
+                "text_k8rL8L": {
+                  "type": "text",
+                  "name": "t:names.heading",
+                  "settings": {
+                    "text": "<h4>Get the latest news and offers.</h4>",
+                    "width": "100%",
+                    "max_width": "none",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "visibility": "both"
+                  },
+                  "blocks": {}
+                },
+                "email_signup_6VWhME": {
+                  "type": "email-signup",
+                  "name": "t:names.email_signup",
+                  "settings": {
+                    "width": "fill",
+                    "custom_width": 100,
+                    "inherit_color_scheme": true,
+                    "color_scheme": "",
+                    "heading": "",
+                    "heading_preset": "h3",
+                    "border_style": "all",
+                    "border_width": 1,
+                    "border_radius": 0,
+                    "input_type_preset": "paragraph",
+                    "style_class": "button-unstyled",
+                    "display_type": "arrow",
+                    "label": "Sign up",
+                    "integrated_button": true,
+                    "button_type_preset": "paragraph",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "visibility": "both"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_k8rL8L",
+                "email_signup_6VWhME"
+              ]
             }
           },
           "block_order": [
             "logo_ENXYLX",
             "social_links_yVT7yk",
             "footer_copyright_TG7jLe",
-            "footer_policy_list_4w3TpK"
+            "footer_policy_list_4w3TpK",
+            "group_QWJRUN"
           ]
         },
         "group_8kQccC": {
@@ -267,13 +371,13 @@
           "settings": {
             "content_direction": "row",
             "vertical_on_mobile": true,
-            "horizontal_alignment": "flex-start",
+            "horizontal_alignment": "space-between",
             "vertical_alignment": "center",
             "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
-            "gap": 0,
-            "width": "fill",
+            "gap": 100,
+            "width": "custom",
             "custom_width": 100,
             "width_mobile": "fill",
             "custom_width_mobile": 100,
@@ -305,6 +409,7 @@
             "divider_DWh9pE": {
               "type": "_divider",
               "name": "t:names.divider",
+              "disabled": true,
               "settings": {
                 "thickness": 1,
                 "corner_radius": "square",
@@ -522,7 +627,7 @@
         "gap": 0,
         "color_scheme": "scheme-2",
         "padding-block-start": 30,
-        "padding-block-end": 0,
+        "padding-block-end": 60,
         "visibility": "desktop_only"
       }
     },
@@ -991,7 +1096,8 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 42,
-        "padding-block-end": 0
+        "padding-block-end": 0,
+        "visibility": "mobile_only"
       }
     },
     "footer_utilities_jLGE8U": {
