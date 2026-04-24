@@ -88,9 +88,16 @@
 {% endif %}
 
 {% stylesheet %}
+  /* Block wrapper: force full width regardless of parent align-items setting */
+  .quick-filter-block {
+    width: 100%;
+    min-width: 0;
+  }
+
   .quick-filter {
     width: 100%;
-    overflow: visible;
+    min-width: 0;
+    overflow: hidden;
   }
 
   .quick-filter__buttons {
@@ -100,7 +107,12 @@
     overflow-x: auto;
     overflow-y: hidden;
     scrollbar-width: none;
+    -ms-overflow-style: none;
+    /* Match search modal: padding at both ends so first/last pill isn't flush */
+    padding-inline: 2px;
     padding-block-end: 2px;
+    /* Prevent pills from ever making the row wider than the container */
+    min-width: 0;
   }
 
   .quick-filter__buttons::-webkit-scrollbar {
@@ -112,6 +124,7 @@
     .quick-filter__buttons {
       flex-wrap: wrap;
       overflow-x: visible;
+      padding-inline: 0;
     }
   }
 
