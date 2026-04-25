@@ -225,3 +225,9 @@ h5, h6, p {
 .variant-option__button-label--has-swatch:hover {
   outline: var(--focus-outline-width) solid #000 !important;
 }
+
+div.collection-card__content.layout-panel-flex--column {
+  p {
+    font-family: 'United-Sans', sans-serif !important;
+  }
+}
