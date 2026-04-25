@@ -224,9 +224,17 @@ h5, h6, p {
   font-family: 'United-Sans', sans-serif !important;
 }
 
-/* Hide the X icon in the search bar clear button — keep "Clear" text */
-.search__reset-button-icon {
-  display: none;
+/* Hide the X icon in search clear buttons — keep "Clear" text only */
+.search__reset-button-icon,
+.predictive-search__reset-button-icon {
+  display: none !important;
+}
+
+/* Hide the native browser × on <input type="search"> */
+input[type='search']::-webkit-search-cancel-button,
+input[type='search']::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 /* Hover: solid black ring */
