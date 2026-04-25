@@ -9,6 +9,12 @@
   {% render 'text', fallback_text: collection_title, block: block %}
 {% endif %}
 
+{% style %}
+  .text-block--{{ block.id }} {
+    font-family: 'United-Sans', sans-serif !important;
+  }
+{% endstyle %}
+
 {%- if block.settings.font_size_mobile != blank and block.settings.type_preset == 'custom' -%}
   {% style %}
     @media screen and (max-width: 749px) {
