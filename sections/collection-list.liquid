@@ -76,6 +76,13 @@
       <div class="skre-coll-pb__track">
         <div class="skre-coll-pb__thumb"></div>
       </div>
+      <div class="skre-coll-pb__nav">
+        <button class="skre-coll-pb__btn skre-coll-pb__btn--prev" type="button" aria-label="Previous">&#8249;</button>
+        <span class="skre-coll-pb__counter">
+          <span class="skre-coll-pb__current">1</span>/<span class="skre-coll-pb__total">1</span>
+        </span>
+        <button class="skre-coll-pb__btn skre-coll-pb__btn--next" type="button" aria-label="Next">&#8250;</button>
+      </div>
     </div>
     <script>
       (function () {
@@ -83,28 +90,65 @@
         var pb        = document.getElementById('skre-coll-pb-{{ section.id }}');
         if (!sectionEl || !pb) return;
 
-        var scroller = sectionEl.querySelector('slideshow-slides[ref="scroller"]');
+        var scroller  = sectionEl.querySelector('slideshow-slides[ref="scroller"]');
         if (!scroller) return;
 
-        var thumb = pb.querySelector('.skre-coll-pb__thumb');
+        var thumb     = pb.querySelector('.skre-coll-pb__thumb');
+        var elCurrent = pb.querySelector('.skre-coll-pb__current');
+        var elTotal   = pb.querySelector('.skre-coll-pb__total');
+        var prevBtn   = pb.querySelector('.skre-coll-pb__btn--prev');
+        var nextBtn   = pb.querySelector('.skre-coll-pb__btn--next');
+
+        function getSlides()   { return scroller.querySelectorAll('slideshow-slide'); }
+        function totalCards()  { return getSlides().length; }
+
+        function visibleCount() {
+          var total = totalCards();
+          if (total === 0) return 1;
+          var slideW = scroller.scrollWidth / total;
+          return Math.max(1, Math.round(scroller.clientWidth / slideW));
+        }
+
+        function firstVisible() {
+          var total     = totalCards();
+          var visible   = visibleCount();
+          var scrollable = scroller.scrollWidth - scroller.clientWidth;
+          if (scrollable <= 0) return 0;
+          return Math.round((scroller.scrollLeft / scrollable) * (total - visible));
+        }
+
+        function scrollToCard(index) {
+          var total     = totalCards();
+          var visible   = visibleCount();
+          index = Math.min(total - visible, Math.max(0, index));
+          var scrollable = scroller.scrollWidth - scroller.clientWidth;
+          scroller.scrollTo({ left: (index / Math.max(1, total - visible)) * scrollable, behavior: 'smooth' });
+        }
 
         function update() {
+          var total     = totalCards();
+          var visible   = visibleCount();
+          var first     = firstVisible();
+          var last      = Math.min(total, first + visible);
           var scrollable = scroller.scrollWidth - scroller.clientWidth;
+
           if (scrollable <= 0) { pb.hidden = true; return; }
           pb.hidden = false;
 
-          var slides  = scroller.querySelectorAll('slideshow-slide');
-          var total   = slides.length;
-          if (total === 0) return;
-          var slideW  = scroller.scrollWidth / total;
-          var visible = Math.max(1, Math.round(scroller.clientWidth / slideW));
-          var ratio   = scroller.scrollLeft / scrollable;
-
+          var ratio    = scroller.scrollLeft / scrollable;
           var thumbPct = Math.max(10, (visible / total) * 100);
           var leftPct  = ratio * (100 - thumbPct);
           thumb.style.width = thumbPct + '%';
           thumb.style.left  = leftPct + '%';
+
+          if (elCurrent) elCurrent.textContent = last;
+          if (elTotal)   elTotal.textContent   = total;
+          if (prevBtn)   prevBtn.disabled = first <= 0;
+          if (nextBtn)   nextBtn.disabled = last >= total;
         }
+
+        if (prevBtn) prevBtn.addEventListener('click', function () { scrollToCard(firstVisible() - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', function () { scrollToCard(firstVisible() + 1); });
 
         scroller.addEventListener('scroll', update, { passive: true });
         window.addEventListener('resize', update, { passive: true });
@@ -119,6 +163,9 @@
 
 {% stylesheet %}
   .skre-coll-pb {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-md, 1rem);
     padding-inline: var(--util-page-margin-offset, 0px);
     margin-block-start: 1.25rem;
     padding-block-end: 0.25rem;
@@ -126,7 +173,7 @@
 
   .skre-coll-pb__track {
     position: relative;
-    width: 100%;
+    flex: 1;
     height: 2px;
     background-color: rgb(var(--color-foreground-rgb) / 0.15);
     border-radius: 2px;
@@ -141,6 +188,42 @@
     background-color: var(--color-foreground);
     border-radius: 2px;
     transition: left 0.15s ease, width 0.15s ease;
+  }
+
+  .skre-coll-pb__nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-shrink: 0;
+  }
+
+  .skre-coll-pb__counter {
+    font-size: var(--font-size--sm);
+    font-weight: 500;
+    min-width: 2.5rem;
+    text-align: center;
+    color: var(--color-foreground);
+    letter-spacing: 0.02em;
+  }
+
+  .skre-coll-pb__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--color-foreground);
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .skre-coll-pb__btn:disabled {
+    opacity: 0.3;
+    cursor: default;
   }
 {% endstylesheet %}
 
