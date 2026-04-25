@@ -77,11 +77,15 @@
         <div class="skre-coll-pb__thumb"></div>
       </div>
       <div class="skre-coll-pb__nav">
-        <button class="skre-coll-pb__btn skre-coll-pb__btn--prev" type="button" aria-label="Previous">&#8249;</button>
+        <button class="skre-coll-pb__btn skre-coll-pb__btn--prev" type="button" aria-label="Previous">
+          {{- 'icon-chevron-left.svg' | inline_asset_content -}}
+        </button>
         <span class="skre-coll-pb__counter">
           <span class="skre-coll-pb__current">1</span>/<span class="skre-coll-pb__total">1</span>
         </span>
-        <button class="skre-coll-pb__btn skre-coll-pb__btn--next" type="button" aria-label="Next">&#8250;</button>
+        <button class="skre-coll-pb__btn skre-coll-pb__btn--next" type="button" aria-label="Next">
+          {{- 'icon-chevron-right.svg' | inline_asset_content -}}
+        </button>
       </div>
     </div>
     <script>
@@ -165,10 +169,8 @@
   .skre-coll-pb {
     display: flex;
     align-items: center;
-    gap: var(--gap-md, 1rem);
-    padding-inline: var(--util-page-margin-offset, 0px);
-    margin-block-start: 1.25rem;
-    padding-block-end: 0.25rem;
+    gap: var(--gap-md);
+    margin-block-start: var(--margin-xl);
   }
 
   .skre-coll-pb__track {
@@ -217,13 +219,16 @@
     padding: 0;
     cursor: pointer;
     color: var(--color-foreground);
-    font-size: 1.25rem;
-    line-height: 1;
-  }
 
-  .skre-coll-pb__btn:disabled {
-    opacity: 0.3;
-    cursor: default;
+    svg {
+      width: 0.75rem;
+      height: 0.75rem;
+    }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
   }
 {% endstylesheet %}
 
