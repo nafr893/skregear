@@ -200,6 +200,14 @@ h5, h6, p {
   border-bottom: 1px solid #ededed;
 }
 
+/* Extra top padding inside the mega menu drawer — desktop only */
+@media screen and (min-width: 990px) {
+  .menu-list__submenu,
+  .overflow-menu::part(overflow) {
+    --submenu-padding-block-start: calc(var(--padding-3xl) + 1.5rem);
+  }
+}
+
 /* Scale review block (stars + count) to 75% */
 .rating-wrapper {
   zoom: 0.75;
