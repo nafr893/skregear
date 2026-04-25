@@ -158,6 +158,11 @@
       this.#lastPage    = parseInt(this.dataset.lastPage);
       this.#sectionId   = this.dataset.sectionId;
 
+      /* Hide immediately if everything is already visible */
+      const allPagesFetched = this.#nextPage > this.#lastPage;
+      if (!this.#isMobile && allPagesFetched) { this.remove(); return; }
+      if (this.#isMobile && allPagesFetched && this.#fetched <= this.#mobileLimit) { this.remove(); return; }
+
       this.querySelector('.skre-lm__btn')?.addEventListener('click', () => this.#handleClick());
     }
 
