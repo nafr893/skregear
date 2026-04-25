@@ -103,30 +103,45 @@
         var prevBtn   = pb.querySelector('.skre-coll-pb__btn--prev');
         var nextBtn   = pb.querySelector('.skre-coll-pb__btn--next');
 
-        function getSlides()   { return scroller.querySelectorAll('slideshow-slide'); }
-        function totalCards()  { return getSlides().length; }
+        function totalCards() { return scroller.querySelectorAll('slideshow-slide').length; }
 
         function visibleCount() {
-          var total = totalCards();
-          if (total === 0) return 1;
-          var slideW = scroller.scrollWidth / total;
-          return Math.max(1, Math.round(scroller.clientWidth / slideW));
+          var slide = scroller.querySelector('slideshow-slide');
+          if (!slide || !slide.offsetWidth) return 1;
+          var cs  = getComputedStyle(scroller);
+          var gap = parseFloat(cs.columnGap) || parseFloat(cs.gap) || 0;
+          return Math.max(1, Math.round(scroller.clientWidth / (slide.offsetWidth + gap)));
         }
 
         function firstVisible() {
-          var total     = totalCards();
-          var visible   = visibleCount();
           var scrollable = scroller.scrollWidth - scroller.clientWidth;
           if (scrollable <= 0) return 0;
-          return Math.round((scroller.scrollLeft / scrollable) * (total - visible));
+          return Math.round((scroller.scrollLeft / scrollable) * (totalCards() - visibleCount()));
         }
 
         function scrollToCard(index) {
-          var total     = totalCards();
-          var visible   = visibleCount();
+          var total      = totalCards();
+          var visible    = visibleCount();
           index = Math.min(total - visible, Math.max(0, index));
           var scrollable = scroller.scrollWidth - scroller.clientWidth;
-          scroller.scrollTo({ left: (index / Math.max(1, total - visible)) * scrollable, behavior: 'instant' });
+          var targetLeft = (index / Math.max(1, total - visible)) * scrollable;
+          var from       = scroller.scrollLeft;
+          var startTime  = null;
+
+          function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+          scroller.style.scrollSnapType = 'none';
+          (function step(now) {
+            if (!startTime) startTime = now;
+            var progress = Math.min((now - startTime) / 350, 1);
+            scroller.scrollLeft = from + (targetLeft - from) * ease(progress);
+            if (progress < 1) {
+              requestAnimationFrame(step);
+            } else {
+              scroller.scrollLeft = targetLeft;
+              scroller.style.scrollSnapType = '';
+            }
+          })(performance.now());
         }
 
         function update() {
