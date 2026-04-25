@@ -44,8 +44,12 @@
     %}
 
     {% assign products_per_page = 24 %}
+    {% assign load_more_mode = false %}
 
-    {% if section.settings.enable_infinite_scroll == false %}
+    {% if section.settings.enable_load_more %}
+      {% assign products_per_page = section.settings.load_more_per_page %}
+      {% assign load_more_mode = true %}
+    {% elsif section.settings.enable_infinite_scroll == false %}
       {% assign products_per_page = section.settings.products_per_page %}
     {% endif %}
 
@@ -110,7 +114,8 @@
         children: children,
         products: collection.products,
         paginate: paginate,
-        enable_infinite_scroll: section.settings.enable_infinite_scroll
+        enable_infinite_scroll: section.settings.enable_infinite_scroll,
+        load_more_mode: load_more_mode
       %}
     {% endpaginate %}
   </div>
@@ -182,9 +187,26 @@
     },
     {
       "type": "checkbox",
+      "id": "enable_load_more",
+      "label": "Show load more button",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "load_more_per_page",
+      "label": "Products per batch",
+      "min": 8,
+      "max": 32,
+      "step": 4,
+      "default": 16,
+      "visible_if": "{{ section.settings.enable_load_more }}"
+    },
+    {
+      "type": "checkbox",
       "id": "enable_infinite_scroll",
       "label": "t:settings.auto_load_products",
-      "default": true
+      "default": true,
+      "visible_if": "{{ section.settings.enable_load_more == false }}"
     },
     {
       "type": "range",

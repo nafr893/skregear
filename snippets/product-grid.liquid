@@ -118,7 +118,7 @@
         <h4 class="main-collection-grid__title">{{ title }}</h4>
       {% endif %}
       <ul
-        class="product-grid product-grid--{{ section.id }} product-grid--{{ section.settings.layout_type }} {% if section.settings.mobile_product_card_size == 'large' %} product-grid-mobile--large{% endif %}"
+        class="product-grid product-grid--{{ section.id }} product-grid--{{ section.settings.layout_type }}{% if section.settings.mobile_product_card_size == 'large' %} product-grid-mobile--large{% endif %}{% if load_more_mode %} product-grid--lm-init{% endif %}"
         data-testid="product-grid"
         product-grid-view="default"
         ref="grid"
@@ -159,7 +159,9 @@
 
         {{ children }}
       </ul>
-      {% if enable_infinite_scroll != false %}
+      {% if load_more_mode %}
+        {% render 'skre-load-more', paginate: paginate, section: section %}
+      {% elsif enable_infinite_scroll != false %}
         <span ref="viewMoreNext"></span>
       {% else %}
         {% render 'pagination-controls', paginate: paginate %}

@@ -1,0 +1,252 @@
+{%- doc -%}
+  Progress bar + Load More button for collection pages.
+  @param {object} paginate - Shopify paginate object
+  @param {object} section  - Section object (for section ID)
+{%- enddoc -%}
+
+{%- assign _fetched   = paginate.current_offset | plus: paginate.page_size -%}
+{%- assign _displayed = _fetched | at_most: paginate.items -%}
+{%- assign _total     = paginate.items -%}
+{%- assign _pct_desk  = _displayed | times: 100.0 | divided_by: _total | round -%}
+{%- comment -%} Mobile shows 6 rows × 2 cols = 12 initially {%- endcomment -%}
+{%- assign _mobile_limit = 12 -%}
+{%- assign _mobile_shown = _mobile_limit | at_most: _total -%}
+{%- assign _pct_mob   = _mobile_shown | times: 100.0 | divided_by: _total | round -%}
+
+<skre-load-more
+  class="skre-lm"
+  data-section-id="{{ section.id }}"
+  data-total="{{ _total }}"
+  data-fetched="{{ _displayed }}"
+  data-mobile-limit="{{ _mobile_limit }}"
+  data-next-page="{{ paginate.current_page | plus: 1 }}"
+  data-last-page="{{ paginate.pages }}"
+  data-pct-desk="{{ _pct_desk }}"
+  data-pct-mob="{{ _pct_mob }}"
+  data-shown-desk="{{ _displayed }}"
+  data-shown-mob="{{ _mobile_shown }}"
+>
+  <div
+    class="skre-lm__track"
+    role="progressbar"
+    aria-valuemin="0"
+    aria-valuemax="{{ _total }}"
+    aria-valuenow="{{ _displayed }}"
+  >
+    <div class="skre-lm__fill skre-lm__fill--desk" style="width: {{ _pct_desk }}%"></div>
+    <div class="skre-lm__fill skre-lm__fill--mob"  style="width: {{ _pct_mob }}%"></div>
+  </div>
+
+  <p class="skre-lm__label">
+    Showing <span class="skre-lm__count skre-lm__count--desk">{{ _displayed }}</span
+    ><span class="skre-lm__count skre-lm__count--mob">{{ _mobile_shown }}</span> of {{ _total }} products
+  </p>
+
+  {%- if paginate.next or _displayed > _mobile_limit -%}
+    <button class="skre-lm__btn" type="button">Load More</button>
+  {%- endif -%}
+</skre-load-more>
+
+{% stylesheet %}
+  /* Mobile: hide products 13+ on first render */
+  .product-grid--lm-init .product-grid__item:nth-child(n+13) {
+    display: none;
+  }
+  @media screen and (min-width: 750px) {
+    .product-grid--lm-init .product-grid__item:nth-child(n+13) {
+      display: revert;
+    }
+  }
+
+  .skre-lm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 2.5rem var(--page-margin) 2rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .skre-lm__track {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    height: 2px;
+    background-color: #ededed;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .skre-lm__fill {
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    height: 100%;
+    background-color: #000;
+    border-radius: 2px;
+    transition: width 0.45s ease;
+  }
+
+  /* Show correct fill per viewport */
+  .skre-lm__fill--desk { display: none; }
+  .skre-lm__fill--mob  { display: block; }
+  @media screen and (min-width: 750px) {
+    .skre-lm__fill--desk { display: block; }
+    .skre-lm__fill--mob  { display: none; }
+  }
+
+  /* Show correct count per viewport */
+  .skre-lm__count--desk { display: none; }
+  .skre-lm__count--mob  { display: inline; }
+  @media screen and (min-width: 750px) {
+    .skre-lm__count--desk { display: inline; }
+    .skre-lm__count--mob  { display: none; }
+  }
+
+  .skre-lm__label {
+    font-size: var(--font-size--sm);
+    color: rgb(var(--color-foreground-rgb) / 0.55);
+    margin: 0;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .skre-lm__btn {
+    margin-top: 0.1rem;
+    padding: 0.65rem 2.25rem;
+    background: transparent;
+    border: 1px solid currentColor;
+    color: var(--color-foreground);
+    font-family: inherit;
+    font-size: var(--font-size--sm);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: var(--style-border-radius-buttons, 0);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .skre-lm__btn:hover:not(:disabled) {
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+  }
+
+  .skre-lm__btn:disabled {
+    opacity: 0.45;
+    cursor: wait;
+  }
+{% endstylesheet %}
+
+{% javascript %}
+  class SkrreLoadMore extends HTMLElement {
+    #total;
+    #fetched;
+    #mobileLimit;
+    #nextPage;
+    #lastPage;
+    #sectionId;
+    #mobileUnlocked = false;
+
+    connectedCallback() {
+      this.#total       = parseInt(this.dataset.total);
+      this.#fetched     = parseInt(this.dataset.fetched);
+      this.#mobileLimit = parseInt(this.dataset.mobileLimit);
+      this.#nextPage    = parseInt(this.dataset.nextPage);
+      this.#lastPage    = parseInt(this.dataset.lastPage);
+      this.#sectionId   = this.dataset.sectionId;
+
+      this.querySelector('.skre-lm__btn')?.addEventListener('click', () => this.#handleClick());
+    }
+
+    get #isMobile() {
+      return !window.matchMedia('(min-width: 750px)').matches;
+    }
+
+    async #handleClick() {
+      const btn  = this.querySelector('.skre-lm__btn');
+      const grid = document.querySelector('[ref="grid"]');
+      if (!btn || !grid) return;
+
+      /* ── Step 1: On mobile, reveal the hidden items first ── */
+      if (this.#isMobile && !this.#mobileUnlocked) {
+        this.#mobileUnlocked = true;
+        grid.classList.remove('product-grid--lm-init');
+
+        /* Update the mobile count + bar to show all fetched items */
+        this.#updateUI(this.#fetched, this.#fetched);
+
+        /* If there are still more pages, show the button again */
+        if (this.#nextPage <= this.#lastPage) {
+          btn.disabled = false;
+          return;
+        }
+
+        btn.remove();
+        return;
+      }
+
+      /* ── Step 2: AJAX-load the next page ── */
+      grid.classList.remove('product-grid--lm-init');
+      btn.disabled = true;
+      btn.textContent = 'Loading…';
+
+      try {
+        const url = new URL(window.location.href);
+        url.searchParams.set('page', this.#nextPage);
+        url.searchParams.set('section_id', this.#sectionId);
+
+        const res = await fetch(url.toString());
+        if (!res.ok) throw new Error('fetch failed');
+
+        const doc  = new DOMParser().parseFromString(await res.text(), 'text/html');
+        const items = doc.querySelectorAll('[ref="cards[]"]');
+        grid.append(...items);
+
+        /* Push a clean URL */
+        const cleanUrl = new URL(window.location.href);
+        cleanUrl.searchParams.set('page', this.#nextPage);
+        cleanUrl.searchParams.delete('section_id');
+        history.pushState({}, '', cleanUrl.toString());
+
+        const newFetched = Math.min(this.#fetched + items.length, this.#total);
+        this.#fetched  = newFetched;
+        this.#nextPage += 1;
+
+        this.#updateUI(newFetched, newFetched);
+
+        if (this.#nextPage > this.#lastPage) {
+          btn.remove();
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Load More';
+        }
+      } catch {
+        btn.disabled = false;
+        btn.textContent = 'Load More';
+      }
+    }
+
+    /* Update progress bar + count label for both viewports */
+    #updateUI(deskShown, mobShown) {
+      const total = this.#total;
+
+      const fillDesk  = this.querySelector('.skre-lm__fill--desk');
+      const fillMob   = this.querySelector('.skre-lm__fill--mob');
+      const countDesk = this.querySelector('.skre-lm__count--desk');
+      const countMob  = this.querySelector('.skre-lm__count--mob');
+      const track     = this.querySelector('.skre-lm__track');
+
+      if (fillDesk)  fillDesk.style.width  = `${Math.round(deskShown / total * 100)}%`;
+      if (fillMob)   fillMob.style.width   = `${Math.round(mobShown  / total * 100)}%`;
+      if (countDesk) countDesk.textContent = deskShown;
+      if (countMob)  countMob.textContent  = mobShown;
+      if (track)     track.setAttribute('aria-valuenow', this.#isMobile ? mobShown : deskShown);
+    }
+  }
+
+  if (!customElements.get('skre-load-more')) {
+    customElements.define('skre-load-more', SkrreLoadMore);
+  }
+{% endjavascript %}
