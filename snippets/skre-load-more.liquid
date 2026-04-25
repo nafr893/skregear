@@ -13,6 +13,7 @@
 {%- assign _mobile_shown = _mobile_limit | at_most: _total -%}
 {%- assign _pct_mob   = _mobile_shown | times: 100.0 | divided_by: _total | round -%}
 
+{%- if paginate.next or _displayed > _mobile_limit -%}
 <skre-load-more
   class="skre-lm"
   data-section-id="{{ section.id }}"
@@ -42,10 +43,9 @@
     ><span class="skre-lm__count skre-lm__count--mob">{{ _mobile_shown }}</span> of {{ _total }} products
   </p>
 
-  {%- if paginate.next or _displayed > _mobile_limit -%}
-    <button class="skre-lm__btn" type="button">Load More</button>
-  {%- endif -%}
+  <button class="skre-lm__btn" type="button">Load More</button>
 </skre-load-more>
+{%- endif -%}
 
 {% stylesheet %}
   /* Mobile: hide products 13+ on first render */
@@ -184,7 +184,7 @@
           return;
         }
 
-        btn.remove();
+        this.remove();
         return;
       }
 
@@ -218,7 +218,7 @@
         this.#updateUI(newFetched, newFetched);
 
         if (this.#nextPage > this.#lastPage) {
-          btn.remove();
+          this.remove();
         } else {
           btn.disabled = false;
           btn.textContent = 'Load More';
