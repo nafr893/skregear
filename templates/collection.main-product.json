@@ -522,6 +522,7 @@
         "max_collections": 4,
         "icons_style": "arrow",
         "icons_shape": "square",
+        "show_progress_bar": true,
         "section_width": "page-width",
         "gap": 12,
         "color_scheme": "",
