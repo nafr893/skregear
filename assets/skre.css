@@ -228,8 +228,9 @@ h5, h6, p {
 
 div.collection-card__content.layout-panel-flex--column {
   p {
+     text-transform: uppercase !important;
     font-family: 'United-Sans', sans-serif !important;
-    text-transform: uppercase !important;
-    
+
+
   }
 }
