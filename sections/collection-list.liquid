@@ -126,7 +126,7 @@
           var visible   = visibleCount();
           index = Math.min(total - visible, Math.max(0, index));
           var scrollable = scroller.scrollWidth - scroller.clientWidth;
-          scroller.scrollTo({ left: (index / Math.max(1, total - visible)) * scrollable, behavior: 'smooth' });
+          scroller.scrollTo({ left: (index / Math.max(1, total - visible)) * scrollable, behavior: 'instant' });
         }
 
         function update() {
