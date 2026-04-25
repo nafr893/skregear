@@ -210,6 +210,11 @@ h5, h6, p {
   outline-offset: var(--focus-outline-offset);
 }
 
+/* Hide the X icon in the search bar clear button — keep "Clear" text */
+.search__reset-button-icon {
+  display: none;
+}
+
 /* Hover: solid black ring */
 .variant-option__button-label--has-swatch:hover {
   outline: var(--focus-outline-width) solid #000 !important;
