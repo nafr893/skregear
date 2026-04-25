@@ -18,6 +18,7 @@
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 
 <div
+  id="section-{{ section.id }}"
   class="
     section
     section--{{ section.settings.section_width }}
@@ -69,7 +70,79 @@
     content_type: 'collections',
     test_id: 'collections-list-grid'
   %}
+
+  {%- if section.settings.show_progress_bar and section.settings.layout_type == 'carousel' -%}
+    <div class="skre-coll-pb" id="skre-coll-pb-{{ section.id }}" aria-hidden="true">
+      <div class="skre-coll-pb__track">
+        <div class="skre-coll-pb__thumb"></div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var sectionEl = document.getElementById('section-{{ section.id }}');
+        var pb        = document.getElementById('skre-coll-pb-{{ section.id }}');
+        if (!sectionEl || !pb) return;
+
+        var scroller = sectionEl.querySelector('slideshow-slides[ref="scroller"]');
+        if (!scroller) return;
+
+        var thumb = pb.querySelector('.skre-coll-pb__thumb');
+
+        function update() {
+          var scrollable = scroller.scrollWidth - scroller.clientWidth;
+          if (scrollable <= 0) { pb.hidden = true; return; }
+          pb.hidden = false;
+
+          var slides  = scroller.querySelectorAll('slideshow-slide');
+          var total   = slides.length;
+          if (total === 0) return;
+          var slideW  = scroller.scrollWidth / total;
+          var visible = Math.max(1, Math.round(scroller.clientWidth / slideW));
+          var ratio   = scroller.scrollLeft / scrollable;
+
+          var thumbPct = Math.max(10, (visible / total) * 100);
+          var leftPct  = ratio * (100 - thumbPct);
+          thumb.style.width = thumbPct + '%';
+          thumb.style.left  = leftPct + '%';
+        }
+
+        scroller.addEventListener('scroll', update, { passive: true });
+        window.addEventListener('resize', update, { passive: true });
+        if (typeof ResizeObserver !== 'undefined') {
+          new ResizeObserver(function () { requestAnimationFrame(update); }).observe(scroller);
+        }
+        requestAnimationFrame(function () { requestAnimationFrame(update); });
+      })();
+    </script>
+  {%- endif -%}
 </div>
+
+{% stylesheet %}
+  .skre-coll-pb {
+    padding-inline: var(--util-page-margin-offset, 0px);
+    margin-block-start: 1.25rem;
+    padding-block-end: 0.25rem;
+  }
+
+  .skre-coll-pb__track {
+    position: relative;
+    width: 100%;
+    height: 2px;
+    background-color: rgb(var(--color-foreground-rgb) / 0.15);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .skre-coll-pb__thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: var(--color-foreground);
+    border-radius: 2px;
+    transition: left 0.15s ease, width 0.15s ease;
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
@@ -292,6 +365,13 @@
       ],
       "default": "none",
       "visible_if": "{{ section.settings.icons_style != 'none' and section.settings.layout_type == 'carousel' or section.settings.carousel_on_mobile == true }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_progress_bar",
+      "label": "Show scroll progress bar",
+      "default": false,
+      "visible_if": "{{ section.settings.layout_type == 'carousel' }}"
     },
     {
       "type": "header",
