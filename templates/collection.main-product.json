@@ -484,7 +484,7 @@
               "name": "t:names.collection_card_image",
               "static": true,
               "settings": {
-                "image_ratio": "adapt",
+                "image_ratio": "square",
                 "toggle_overlay": false,
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
@@ -510,7 +510,7 @@
         "collection_list": "{{ collection.metafields.custom.similar_collections.value }}",
         "layout_type": "carousel",
         "carousel_on_mobile": false,
-        "columns": 3,
+        "columns": 5,
         "mobile_columns": "2",
         "mobile_card_size": "44cqw",
         "columns_gap": 8,
