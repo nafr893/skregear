@@ -211,6 +211,11 @@ h5, h6, p {
   outline-offset: var(--focus-outline-offset);
 }
 
+/* Collection carousel card title — force United-Sans */
+.collection-card .text-block {
+  font-family: 'United-Sans', sans-serif !important;
+}
+
 /* Hide the X icon in the search bar clear button — keep "Clear" text */
 .search__reset-button-icon {
   display: none;
