@@ -126,11 +126,11 @@
             {%- if matched_slot > 0 -%}{%- assign show_promo = true -%}{%- endif -%}
 
             {%- if show_promo -%}
-              {%- assign promo_img      = block_settings['mega_promo_' | append: matched_slot | append: '_image'] -%}
-              {%- assign promo_para     = block_settings['mega_promo_' | append: matched_slot | append: '_paragraph'] -%}
-              {%- assign promo_heading  = block_settings['mega_promo_' | append: matched_slot | append: '_heading'] -%}
-              {%- assign promo_btn_lbl  = block_settings['mega_promo_' | append: matched_slot | append: '_btn_label'] -%}
-              {%- assign promo_btn_url  = block_settings['mega_promo_' | append: matched_slot | append: '_btn_link'] -%}
+              {%- assign promo_img     = block_settings['mega_promo_' | append: matched_slot | append: '_image'] -%}
+              {%- assign promo_para    = block_settings['mega_promo_' | append: matched_slot | append: '_paragraph'] -%}
+              {%- assign promo_heading = block_settings['mega_promo_' | append: matched_slot | append: '_heading'] -%}
+              {%- assign promo_btn_lbl = block_settings['mega_promo_' | append: matched_slot | append: '_btn_label'] -%}
+              {%- assign promo_btn_url = block_settings['mega_promo_' | append: matched_slot | append: '_btn_link'] -%}
             {%- endif -%}
 
             <div class="menu-list__submenu{{ color_scheme_classes }}" ref="submenu[]">
@@ -1246,13 +1246,7 @@
       "default": false
     },
     { "type": "header", "content": "Promo 1" },
-    {
-      "type": "text",
-      "id": "mega_promo_1_identifier",
-      "label": "Menu name (must match nav item exactly)",
-      "placeholder": "Shop",
-      "visible_if": "{{ block.settings.show_mega_promo }}"
-    },
+    { "type": "text", "id": "mega_promo_1_identifier", "label": "Menu name (must match nav item exactly)", "placeholder": "Shop", "visible_if": "{{ block.settings.show_mega_promo }}" },
     { "type": "image_picker", "id": "mega_promo_1_image", "label": "Image", "visible_if": "{{ block.settings.show_mega_promo }}" },
     { "type": "inline_richtext", "id": "mega_promo_1_paragraph", "label": "Paragraph text", "visible_if": "{{ block.settings.show_mega_promo }}" },
     { "type": "text", "id": "mega_promo_1_heading", "label": "Heading", "visible_if": "{{ block.settings.show_mega_promo }}" },
@@ -1260,13 +1254,7 @@
     { "type": "url", "id": "mega_promo_1_btn_link", "label": "Button link", "visible_if": "{{ block.settings.show_mega_promo }}" },
 
     { "type": "header", "content": "Promo 2" },
-    {
-      "type": "text",
-      "id": "mega_promo_2_identifier",
-      "label": "Menu name (must match nav item exactly)",
-      "placeholder": "Resources",
-      "visible_if": "{{ block.settings.show_mega_promo }}"
-    },
+    { "type": "text", "id": "mega_promo_2_identifier", "label": "Menu name (must match nav item exactly)", "placeholder": "Resources", "visible_if": "{{ block.settings.show_mega_promo }}" },
     { "type": "image_picker", "id": "mega_promo_2_image", "label": "Image", "visible_if": "{{ block.settings.show_mega_promo }}" },
     { "type": "inline_richtext", "id": "mega_promo_2_paragraph", "label": "Paragraph text", "visible_if": "{{ block.settings.show_mega_promo }}" },
     { "type": "text", "id": "mega_promo_2_heading", "label": "Heading", "visible_if": "{{ block.settings.show_mega_promo }}" },
@@ -1274,13 +1262,7 @@
     { "type": "url", "id": "mega_promo_2_btn_link", "label": "Button link", "visible_if": "{{ block.settings.show_mega_promo }}" },
 
     { "type": "header", "content": "Promo 3" },
-    {
-      "type": "text",
-      "id": "mega_promo_3_identifier",
-      "label": "Menu name (must match nav item exactly)",
-      "placeholder": "Outlet",
-      "visible_if": "{{ block.settings.show_mega_promo }}"
-    },
+    { "type": "text", "id": "mega_promo_3_identifier", "label": "Menu name (must match nav item exactly)", "placeholder": "Outlet", "visible_if": "{{ block.settings.show_mega_promo }}" },
     { "type": "image_picker", "id": "mega_promo_3_image", "label": "Image", "visible_if": "{{ block.settings.show_mega_promo }}" },
     { "type": "inline_richtext", "id": "mega_promo_3_paragraph", "label": "Paragraph text", "visible_if": "{{ block.settings.show_mega_promo }}" },
     { "type": "text", "id": "mega_promo_3_heading", "label": "Heading", "visible_if": "{{ block.settings.show_mega_promo }}" },
@@ -1288,13 +1270,7 @@
     { "type": "url", "id": "mega_promo_3_btn_link", "label": "Button link", "visible_if": "{{ block.settings.show_mega_promo }}" },
 
     { "type": "header", "content": "Promo 4" },
-    {
-      "type": "text",
-      "id": "mega_promo_4_identifier",
-      "label": "Menu name (must match nav item exactly)",
-      "placeholder": "Rewards",
-      "visible_if": "{{ block.settings.show_mega_promo }}"
-    },
+    { "type": "text", "id": "mega_promo_4_identifier", "label": "Menu name (must match nav item exactly)", "placeholder": "Rewards", "visible_if": "{{ block.settings.show_mega_promo }}" },
     { "type": "image_picker", "id": "mega_promo_4_image", "label": "Image", "visible_if": "{{ block.settings.show_mega_promo }}" },
     { "type": "inline_richtext", "id": "mega_promo_4_paragraph", "label": "Paragraph text", "visible_if": "{{ block.settings.show_mega_promo }}" },
     { "type": "text", "id": "mega_promo_4_heading", "label": "Heading", "visible_if": "{{ block.settings.show_mega_promo }}" },
@@ -1302,12 +1278,7 @@
     { "type": "url", "id": "mega_promo_4_btn_link", "label": "Button link", "visible_if": "{{ block.settings.show_mega_promo }}" },
 
     { "type": "header", "content": "Promo 5" },
-    {
-      "type": "text",
-      "id": "mega_promo_5_identifier",
-      "label": "Menu name (must match nav item exactly)",
-      "visible_if": "{{ block.settings.show_mega_promo }}"
-    },
+    { "type": "text", "id": "mega_promo_5_identifier", "label": "Menu name (must match nav item exactly)", "visible_if": "{{ block.settings.show_mega_promo }}" },
     { "type": "image_picker", "id": "mega_promo_5_image", "label": "Image", "visible_if": "{{ block.settings.show_mega_promo }}" },
     { "type": "inline_richtext", "id": "mega_promo_5_paragraph", "label": "Paragraph text", "visible_if": "{{ block.settings.show_mega_promo }}" },
     { "type": "text", "id": "mega_promo_5_heading", "label": "Heading", "visible_if": "{{ block.settings.show_mega_promo }}" },
