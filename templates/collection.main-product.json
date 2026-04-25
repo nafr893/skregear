@@ -409,7 +409,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<h3>Shop by collection</h3>",
+                "text": "<h3>SIMILAR CATEGORIES</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -443,8 +443,8 @@
           "static": true,
           "settings": {
             "placement": "on_image",
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-end",
+            "horizontal_alignment": "center",
+            "vertical_alignment": "center",
             "collection_card_gap": 8,
             "inherit_color_scheme": false,
             "color_scheme": "scheme-2",
