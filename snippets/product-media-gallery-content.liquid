@@ -717,8 +717,16 @@
           }
           function loadProducts() {
             var pid = simBtn.dataset.productId;
-            fetch('/recommendations/products.json?product_id=' + pid + '&limit=10&intent=related')
+            var base = '/recommendations/products.json?product_id=' + pid + '&limit=10';
+            fetch(base + '&intent=related')
               .then(function(r){ return r.json(); })
+              .then(function(data){
+                /* If related comes back empty, try complementary (manually curated) */
+                if (!data.products || !data.products.length) {
+                  return fetch(base + '&intent=complementary').then(function(r){ return r.json(); });
+                }
+                return data;
+              })
               .then(function(data){
                 loaded = true;
                 var prods = data.products || [];
@@ -1202,12 +1210,17 @@
 
     /* Counter: nudged up (more bottom padding) and right (more left padding) */
     .skre-pmg-mob__ctr {
-      padding: 0.6rem 0.875rem 0.85rem 1.25rem;
+      padding: 0.45rem 0.8rem;
+      margin: 0.5rem 0 0.5rem 0.875rem;
       font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      color: rgb(var(--color-foreground-rgb) / 0.55);
+      color: #fff;
       line-height: 1;
+      background: rgb(0 0 0 / 0.42);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      border-radius: 0;
     }
 
     .skre-pmg-mob__sep {
@@ -1225,7 +1238,7 @@
       -webkit-backdrop-filter: blur(6px);
       color: #fff;
       border: none;
-      border-radius: 2rem;
+      border-radius: 0;
       padding: 0.45rem 0.8rem;
       margin: 0.5rem 0.875rem 0.5rem 0;
       font-size: 0.7rem;
