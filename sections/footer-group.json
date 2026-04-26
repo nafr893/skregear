@@ -119,7 +119,6 @@
       "block_order": [
         "group_mHHxMP"
       ],
-      "disabled": true,
       "name": "t:names.custom_section",
       "settings": {
         "content_direction": "column",
@@ -147,7 +146,7 @@
         "gradient_direction": "to top",
         "padding-block-start": 30,
         "padding-block-end": 0,
-        "visibility": "both"
+        "visibility": "mobile_only"
       }
     },
     "footer_m9NzUG": {
