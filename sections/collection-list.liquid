@@ -15,6 +15,14 @@
   endif
 %}
 
+{%- if section.settings.layout_type == 'carousel' -%}
+  {% style %}
+    #section-{{ section.id }} {
+      overflow-x: clip;
+    }
+  {% endstyle %}
+{%- endif -%}
+
 <div class="section-background color-{{ section.settings.color_scheme }}"></div>
 
 <div
@@ -126,22 +134,24 @@
           var scrollable = scroller.scrollWidth - scroller.clientWidth;
           var targetLeft = (index / Math.max(1, total - visible)) * scrollable;
           var from       = scroller.scrollLeft;
-          var startTime  = null;
 
           function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
 
           scroller.style.scrollSnapType = 'none';
-          (function step(now) {
-            if (!startTime) startTime = now;
-            var progress = Math.min((now - startTime) / 350, 1);
-            scroller.scrollLeft = from + (targetLeft - from) * ease(progress);
-            if (progress < 1) {
-              requestAnimationFrame(step);
-            } else {
-              scroller.scrollLeft = targetLeft;
-              scroller.style.scrollSnapType = '';
-            }
-          })(performance.now());
+          /* defer one frame so the snap-type:none CSS recalculates before we animate */
+          requestAnimationFrame(function () {
+            var startTime = performance.now();
+            (function step(now) {
+              var progress = Math.min((now - startTime) / 260, 1);
+              scroller.scrollLeft = from + (targetLeft - from) * ease(progress);
+              if (progress < 1) {
+                requestAnimationFrame(step);
+              } else {
+                scroller.scrollLeft = targetLeft;
+                scroller.style.scrollSnapType = '';
+              }
+            })(startTime);
+          });
         }
 
         function update() {
