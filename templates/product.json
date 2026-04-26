@@ -155,8 +155,8 @@
                       "name": "Product title",
                       "settings": {
                         "text": "<h1>{{ closest.product.title }}</h1>",
-                        "width": "100%",
-                        "max_width": "normal",
+                        "width": "fit-content",
+                        "max_width": "narrow",
                         "alignment": "left",
                         "type_preset": "h4",
                         "font": "var(--font-primary--family)",
