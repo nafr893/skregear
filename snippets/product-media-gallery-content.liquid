@@ -680,41 +680,8 @@
         var sc = mg.querySelector('slideshow-container');
         if (sc) sc.appendChild(mob);
 
-        /* ── Adaptive badge theme (light/dark based on image brightness) ── */
-        var slideEls = Array.from(mg.querySelectorAll('slideshow-slides > *'));
-        function sampleBrightness(img, cb) {
-          if (!img) { cb(null); return; }
-          var src = (img.currentSrc || img.src || '').split('?')[0];
-          if (!src) { cb(null); return; }
-          var probe = new Image();
-          probe.crossOrigin = 'anonymous';
-          probe.onload = function() {
-            try {
-              var c = document.createElement('canvas');
-              c.width = 40; c.height = 15;
-              var ctx = c.getContext('2d');
-              var sh = probe.naturalHeight, sw = probe.naturalWidth;
-              /* Sample the bottom quarter of the image — where badges sit */
-              ctx.drawImage(probe, 0, Math.floor(sh * 0.75), sw, Math.ceil(sh * 0.25), 0, 0, 40, 15);
-              var d = ctx.getImageData(0, 0, 40, 15).data;
-              var lum = 0, n = d.length / 4;
-              for (var i = 0; i < d.length; i += 4) {
-                lum += 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
-              }
-              cb(n ? lum / n : null);
-            } catch (e2) { cb(null); }
-          };
-          probe.onerror = function() { cb(null); };
-          probe.src = src + '?width=80';
-        }
-        function applyThemeForSlide(idx) {
-          var sl = slideEls[idx];
-          var img = sl ? sl.querySelector('img') : null;
-          sampleBrightness(img, function(lum) {
-            mob.classList.toggle('skre-pmg-mob--light', lum !== null && lum > 210);
-          });
-        }
-        applyThemeForSlide(0);
+        /* First slide uses white frosted glass; all others use dark */
+        mob.classList.add('skre-pmg-mob--light');
 
         {%- if _has_multi -%}
         var total = {{ sorted_media.size }};
@@ -724,7 +691,7 @@
           var n = e.detail.index + 1;
           if (cur)  cur.textContent  = n;
           if (fill) fill.style.width = (n / total * 100) + '%';
-          applyThemeForSlide(e.detail.index);
+          mob.classList.toggle('skre-pmg-mob--light', e.detail.index === 0);
         });
         {%- endif -%}
 
@@ -1389,7 +1356,7 @@
 
   .skre-sim__title {
     font-family: 'United-Sans', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
