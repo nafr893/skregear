@@ -635,6 +635,34 @@
         window.ProductModel.loadShopifyXR();
       </script>
     {%- endif -%}
+
+    {%- if sorted_media.size > 1 -%}
+      {%- assign _pmg_pct = 100.0 | divided_by: sorted_media.size | round -%}
+      <div class="skre-pmg-mob" id="skre-pmg-mob-{{ block_id }}" aria-hidden="true">
+        <div class="skre-pmg-mob__ctr">
+          <span class="skre-pmg-mob__cur">1</span><span class="skre-pmg-mob__sep">/</span><span>{{ sorted_media.size }}</span>
+        </div>
+        <div class="skre-pmg-mob__track"><div class="skre-pmg-mob__fill" style="width:{{ _pmg_pct }}%"></div></div>
+      </div>
+      <script>
+      (function(){
+        var mob = document.getElementById('skre-pmg-mob-{{ block_id }}');
+        if (!mob) return;
+        var mg = mob.closest('media-gallery');
+        if (!mg) return;
+        var sc = mg.querySelector('slideshow-container');
+        if (sc) sc.appendChild(mob);
+        var total = {{ sorted_media.size }};
+        var cur  = mob.querySelector('.skre-pmg-mob__cur');
+        var fill = mob.querySelector('.skre-pmg-mob__fill');
+        mg.addEventListener('slideshow:select', function(e){
+          var n = e.detail.index + 1;
+          if (cur)  cur.textContent  = n;
+          if (fill) fill.style.width = (n / total * 100) + '%';
+        });
+      })();
+      </script>
+    {%- endif -%}
   </media-gallery>
 {% endif %}
 
@@ -1047,5 +1075,49 @@
 
   slideshow-slide.product-media-container--tallest {
     content-visibility: visible;
+  }
+
+  /* ── Mobile product gallery: image counter + progress bar ── */
+  .skre-pmg-mob {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .skre-pmg-mob {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .skre-pmg-mob__ctr {
+      padding: 0.4rem 0.875rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: rgb(var(--color-foreground-rgb) / 0.55);
+      line-height: 1;
+    }
+
+    .skre-pmg-mob__sep {
+      opacity: 0.5;
+      margin-inline: 2px;
+    }
+
+    .skre-pmg-mob__track {
+      width: 100%;
+      height: 2px;
+      background-color: rgb(var(--color-foreground-rgb) / 0.12);
+    }
+
+    .skre-pmg-mob__fill {
+      height: 100%;
+      background-color: #000;
+      transition: width 0.3s ease;
+    }
   }
 {% endstylesheet %}
