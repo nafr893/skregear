@@ -680,41 +680,8 @@
         var sc = mg.querySelector('slideshow-container');
         if (sc) sc.appendChild(mob);
 
-        /* Badge theme: sample bottom 40% of each slide image via canvas.
-           Default to light (white frosted glass) while async detection runs —
-           covers the common case of white-bg product photos with no flicker. */
+        /* First slide: white frosted glass + black text */
         mob.classList.add('skre-pmg-mob--light');
-        var allSlides = Array.from(mg.querySelectorAll('slideshow-slides > *'));
-
-        function detectTheme(idx) {
-          var sl = allSlides[idx];
-          var img = sl && sl.querySelector('img');
-          if (!img) return;
-          var rawSrc = (img.currentSrc || img.src || '').split('?')[0];
-          if (!rawSrc || rawSrc.startsWith('data:')) return;
-          try {
-            var probe = new Image();
-            probe.crossOrigin = 'anonymous';
-            probe.onload = function() {
-              try {
-                var c = document.createElement('canvas');
-                c.width = 20; c.height = 10;
-                var ctx = c.getContext('2d');
-                var sh = probe.naturalHeight, sw = probe.naturalWidth;
-                ctx.drawImage(probe, 0, sh * 0.6, sw, sh * 0.4, 0, 0, 20, 10);
-                var d = ctx.getImageData(0, 0, 20, 10).data;
-                var lum = 0, n = d.length / 4;
-                for (var i = 0; i < d.length; i += 4) {
-                  lum += 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
-                }
-                /* > 200 luminance = white / light gray background */
-                mob.classList.toggle('skre-pmg-mob--light', n > 0 && lum / n > 200);
-              } catch (e2) { /* tainted canvas — leave class unchanged */ }
-            };
-            probe.src = rawSrc + '?width=60';
-          } catch (e3) { /* leave class unchanged */ }
-        }
-        detectTheme(0);
 
         {%- if _has_multi -%}
         var total = {{ sorted_media.size }};
@@ -724,9 +691,7 @@
           var n = e.detail.index + 1;
           if (cur)  cur.textContent  = n;
           if (fill) fill.style.width = (n / total * 100) + '%';
-          /* Reset to dark while detection runs; correct to light if bright */
-          mob.classList.remove('skre-pmg-mob--light');
-          detectTheme(e.detail.index);
+          mob.classList.toggle('skre-pmg-mob--light', e.detail.index === 0);
         });
         {%- endif -%}
 
