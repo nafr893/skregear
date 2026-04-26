@@ -56,7 +56,7 @@
   if block_settings.slideshow_controls_style != block_settings.slideshow_mobile_controls_style
     assign slideshow_controls_class = 'mobile:hidden'
 
-    if block_settings.slideshow_mobile_controls_style != 'hint'
+    if block_settings.slideshow_mobile_controls_style != 'hint' and block_settings.slideshow_mobile_controls_style != 'none'
       assign render_mobile_slideshow_controls = true
     endif
   endif
@@ -636,13 +636,40 @@
       </script>
     {%- endif -%}
 
-    {%- if sorted_media.size > 1 -%}
-      {%- assign _pmg_pct = 100.0 | divided_by: sorted_media.size | round -%}
+    {%- liquid
+      assign _has_multi = false
+      if sorted_media.size > 1
+        assign _has_multi = true
+        assign _pmg_pct = 100.0 | divided_by: sorted_media.size | round
+      endif
+      assign _has_sim = false
+      if selected_product != blank
+        assign _has_sim = true
+      endif
+    -%}
+    {%- if _has_multi or _has_sim -%}
       <div class="skre-pmg-mob" id="skre-pmg-mob-{{ block_id }}" aria-hidden="true">
-        <div class="skre-pmg-mob__ctr">
-          <span class="skre-pmg-mob__cur">1</span><span class="skre-pmg-mob__sep">/</span><span>{{ sorted_media.size }}</span>
+        <div class="skre-pmg-mob__row">
+          {%- if _has_multi -%}
+            <div class="skre-pmg-mob__ctr">
+              <span class="skre-pmg-mob__cur">1</span><span class="skre-pmg-mob__sep">/</span><span>{{ sorted_media.size }}</span>
+            </div>
+          {%- else -%}
+            <span></span>
+          {%- endif -%}
+          {%- if _has_sim -%}
+            <button class="skre-pmg-mob__sim-btn" type="button"
+              data-product-id="{{ selected_product.id }}"
+              aria-controls="skre-sim-{{ block_id }}">
+              Similar Products {{- 'icon-similar.svg' | inline_asset_content -}}
+            </button>
+          {%- endif -%}
         </div>
-        <div class="skre-pmg-mob__track"><div class="skre-pmg-mob__fill" style="width:{{ _pmg_pct }}%"></div></div>
+        {%- if _has_multi -%}
+          <div class="skre-pmg-mob__track">
+            <div class="skre-pmg-mob__fill" style="width:{{ _pmg_pct }}%"></div>
+          </div>
+        {%- endif -%}
       </div>
       <script>
       (function(){
@@ -652,6 +679,8 @@
         if (!mg) return;
         var sc = mg.querySelector('slideshow-container');
         if (sc) sc.appendChild(mob);
+
+        {%- if _has_multi -%}
         var total = {{ sorted_media.size }};
         var cur  = mob.querySelector('.skre-pmg-mob__cur');
         var fill = mob.querySelector('.skre-pmg-mob__fill');
@@ -660,11 +689,82 @@
           if (cur)  cur.textContent  = n;
           if (fill) fill.style.width = (n / total * 100) + '%';
         });
+        {%- endif -%}
+
+        {%- if _has_sim -%}
+        var simBtn  = mob.querySelector('.skre-pmg-mob__sim-btn');
+        var sheet   = document.getElementById('skre-sim-{{ block_id }}');
+        if (simBtn && sheet) {
+          var backdrop = sheet.querySelector('.skre-sim__backdrop');
+          var closeBtn = sheet.querySelector('.skre-sim__close');
+          var body     = sheet.querySelector('.skre-sim__body');
+          var loaded   = false;
+
+          function openSheet() {
+            sheet.setAttribute('aria-hidden', 'false');
+            sheet.classList.add('skre-sim--open');
+            document.documentElement.style.overflow = 'hidden';
+            if (!loaded) loadProducts();
+          }
+          function closeSheet() {
+            sheet.setAttribute('aria-hidden', 'true');
+            sheet.classList.remove('skre-sim--open');
+            document.documentElement.style.overflow = '';
+          }
+          function fmtMoney(cents) {
+            var s = (cents / 100).toFixed(2);
+            return '$' + s.replace(/\.00$/, '');
+          }
+          function loadProducts() {
+            var pid = simBtn.dataset.productId;
+            fetch('/recommendations/products.json?product_id=' + pid + '&limit=10&intent=related')
+              .then(function(r){ return r.json(); })
+              .then(function(data){
+                loaded = true;
+                var prods = data.products || [];
+                if (!prods.length) {
+                  body.innerHTML = '<p class="skre-sim__empty">No similar products found.</p>';
+                  return;
+                }
+                body.innerHTML = prods.map(function(p){
+                  var imgSrc = p.featured_image && p.featured_image.src ? p.featured_image.src : '';
+                  var imgTag = imgSrc ? '<img class="skre-sim-card__img" src="' + imgSrc + '" alt="" loading="lazy">' : '';
+                  return '<a class="skre-sim-card" href="' + p.url + '">'
+                    + '<div class="skre-sim-card__media">' + imgTag + '</div>'
+                    + '<p class="skre-sim-card__title">' + p.title + '</p>'
+                    + '<p class="skre-sim-card__price">' + fmtMoney(p.price_min) + '</p>'
+                    + '</a>';
+                }).join('');
+              })
+              .catch(function(){
+                body.innerHTML = '<p class="skre-sim__empty">Could not load recommendations.</p>';
+              });
+          }
+          simBtn.addEventListener('click', openSheet);
+          if (backdrop) backdrop.addEventListener('click', closeSheet);
+          if (closeBtn) closeBtn.addEventListener('click', closeSheet);
+        }
+        {%- endif -%}
       })();
       </script>
     {%- endif -%}
   </media-gallery>
 {% endif %}
+
+{%- if selected_product != blank -%}
+  <div class="skre-sim" id="skre-sim-{{ block_id }}" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="skre-sim__backdrop"></div>
+    <div class="skre-sim__panel">
+      <div class="skre-sim__header">
+        <span class="skre-sim__title">Similar Products</span>
+        <button class="skre-sim__close" type="button" aria-label="Close">
+          {{- 'icon-close.svg' | inline_asset_content -}}
+        </button>
+      </div>
+      <div class="skre-sim__body"></div>
+    </div>
+  </div>
+{%- endif -%}
 
 {% render 'product-media-gallery-content-styles' %}
 
@@ -1077,7 +1177,7 @@
     content-visibility: visible;
   }
 
-  /* ── Mobile product gallery: image counter + progress bar ── */
+  /* ── Mobile product gallery: counter + progress bar + Similar Products ── */
   .skre-pmg-mob {
     display: none;
   }
@@ -1094,8 +1194,15 @@
       pointer-events: none;
     }
 
+    .skre-pmg-mob__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Counter: nudged up (more bottom padding) and right (more left padding) */
     .skre-pmg-mob__ctr {
-      padding: 0.4rem 0.875rem;
+      padding: 0.6rem 0.875rem 0.85rem 1.25rem;
       font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.04em;
@@ -1106,6 +1213,35 @@
     .skre-pmg-mob__sep {
       opacity: 0.5;
       margin-inline: 2px;
+    }
+
+    .skre-pmg-mob__sim-btn {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgb(0 0 0 / 0.42);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: #fff;
+      border: none;
+      border-radius: 2rem;
+      padding: 0.45rem 0.8rem;
+      margin: 0.5rem 0.875rem 0.5rem 0;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      white-space: nowrap;
+      font-family: inherit;
+
+      svg {
+        width: 1rem;
+        height: 1rem;
+        fill: currentColor;
+        flex-shrink: 0;
+      }
     }
 
     .skre-pmg-mob__track {
@@ -1119,5 +1255,135 @@
       background-color: #000;
       transition: width 0.3s ease;
     }
+  }
+
+  /* ── Similar Products bottom sheet ── */
+  .skre-sim {
+    position: fixed;
+    inset: 0;
+    z-index: 800;
+    pointer-events: none;
+  }
+
+  .skre-sim--open {
+    pointer-events: auto;
+  }
+
+  .skre-sim__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 0.45);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .skre-sim--open .skre-sim__backdrop {
+    opacity: 1;
+  }
+
+  .skre-sim__panel {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-height: 60dvh;
+    background-color: var(--color-background);
+    border-radius: 1rem 1rem 0 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .skre-sim--open .skre-sim__panel {
+    transform: translateY(0);
+  }
+
+  .skre-sim__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1rem 0.875rem;
+    border-bottom: 1px solid #ededed;
+    flex-shrink: 0;
+  }
+
+  .skre-sim__title {
+    font-family: 'United-Sans', sans-serif;
+    font-size: var(--font-h4--size, 1.1rem);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .skre-sim__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    color: var(--color-foreground);
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+
+  .skre-sim__body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    flex: 1;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    align-content: start;
+  }
+
+  .skre-sim__empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: rgb(var(--color-foreground-rgb) / 0.5);
+    padding-block: 2rem;
+    margin: 0;
+    font-size: var(--font-size--sm);
+  }
+
+  .skre-sim-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .skre-sim-card__media {
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: var(--style-border-radius-cards, 4px);
+    background: rgb(var(--color-foreground-rgb) / 0.05);
+  }
+
+  .skre-sim-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .skre-sim-card__title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .skre-sim-card__price {
+    font-size: 0.875rem;
+    color: rgb(var(--color-foreground-rgb) / 0.65);
+    margin: 0;
   }
 {% endstylesheet %}
