@@ -59,7 +59,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h4>Get the latest news and offers.</h4>",
+                "text": "<h4>Stay In The Loop</h4>",
                 "width": "100%",
                 "max_width": "none",
                 "alignment": "left",
@@ -299,7 +299,7 @@
                   "type": "text",
                   "name": "t:names.heading",
                   "settings": {
-                    "text": "<h4>Get the latest news and offers.</h4>",
+                    "text": "<h4>Stay In The Loop</h4>",
                     "width": "100%",
                     "max_width": "none",
                     "alignment": "left",
