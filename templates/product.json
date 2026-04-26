@@ -181,7 +181,7 @@
                       "type": "product-share",
                       "name": "Share Button",
                       "settings": {
-                        "show_label": true,
+                        "show_label": false,
                         "label": "Share",
                         "padding-block-start": 0,
                         "padding-block-end": 0,
