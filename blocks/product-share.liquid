@@ -1,0 +1,324 @@
+{%- liquid
+  assign _product = closest.product
+  assign _share_url = shop.url | append: _product.url
+  assign _share_title = _product.title | default: shop.name
+-%}
+
+<div {{ block.shopify_attributes }} id="skre-share-{{ block.id }}">
+  <button class="skre-share__btn" type="button"
+    data-share-url="{{ _share_url | escape }}"
+    data-share-title="{{ _share_title | escape }}"
+    data-overlay="skre-share-overlay-{{ block.id }}"
+    aria-label="Share this product">
+    {{- 'icon-share.svg' | inline_asset_content -}}
+    {%- if block.settings.show_label -%}
+      <span class="skre-share__label">{{ block.settings.label }}</span>
+    {%- endif -%}
+  </button>
+
+  <div class="skre-share__overlay" id="skre-share-overlay-{{ block.id }}"
+    aria-hidden="true" role="dialog" aria-modal="true" aria-label="Share product">
+    <div class="skre-share__backdrop"></div>
+    <div class="skre-share__panel">
+      <div class="skre-share__header">
+        <span class="skre-share__title">Share</span>
+        <button class="skre-share__close" type="button" aria-label="Close">
+          {{- 'icon-close.svg' | inline_asset_content -}}
+        </button>
+      </div>
+      <div class="skre-share__body">
+        <p class="skre-share__product-name">{{ _share_title }}</p>
+        <div class="skre-share__url-row">
+          <input class="skre-share__url-input" type="text" readonly
+            value="{{ _share_url | escape }}" aria-label="Product URL">
+          <button class="skre-share__copy-btn" type="button">Copy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var wrap    = document.getElementById('skre-share-{{ block.id }}');
+  var btn     = wrap.querySelector('.skre-share__btn');
+  var overlay = wrap.querySelector('.skre-share__overlay');
+  var backdrop = overlay.querySelector('.skre-share__backdrop');
+  var closeBtn = overlay.querySelector('.skre-share__close');
+  var copyBtn  = overlay.querySelector('.skre-share__copy-btn');
+  var urlInput = overlay.querySelector('.skre-share__url-input');
+
+  var shareUrl   = btn.dataset.shareUrl;
+  var shareTitle = btn.dataset.shareTitle;
+
+  function openOverlay() {
+    overlay.setAttribute('aria-hidden', 'false');
+    overlay.classList.add('skre-share__overlay--open');
+    document.documentElement.style.overflow = 'hidden';
+    urlInput.select();
+  }
+  function closeOverlay() {
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.classList.remove('skre-share__overlay--open');
+    document.documentElement.style.overflow = '';
+  }
+
+  btn.addEventListener('click', function () {
+    if (navigator.share) {
+      navigator.share({ title: shareTitle, url: shareUrl }).catch(function () {});
+    } else {
+      openOverlay();
+    }
+  });
+
+  backdrop.addEventListener('click', closeOverlay);
+  closeBtn.addEventListener('click', closeOverlay);
+
+  copyBtn.addEventListener('click', function () {
+    var original = copyBtn.textContent;
+    function markCopied() {
+      copyBtn.textContent = 'Copied!';
+      setTimeout(function () { copyBtn.textContent = original; }, 2000);
+    }
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(shareUrl).then(markCopied).catch(function () {
+        urlInput.select();
+        document.execCommand('copy');
+        markCopied();
+      });
+    } else {
+      urlInput.select();
+      document.execCommand('copy');
+      markCopied();
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('skre-share__overlay--open')) {
+      closeOverlay();
+    }
+  });
+})();
+</script>
+
+{% stylesheet %}
+  .skre-share__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: var(--color-foreground);
+    font-family: inherit;
+    font-size: var(--font-size--sm, 0.875rem);
+    font-weight: 500;
+  }
+
+  .skre-share__btn svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .skre-share__overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 800;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .skre-share__overlay--open {
+    pointer-events: auto;
+  }
+
+  .skre-share__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 0.5);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .skre-share__overlay--open .skre-share__backdrop {
+    opacity: 1;
+  }
+
+  .skre-share__panel {
+    position: relative;
+    background: var(--color-background);
+    border-radius: 0;
+    width: min(400px, 100%);
+    opacity: 0;
+    transform: scale(0.96);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .skre-share__overlay--open .skre-share__panel {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .skre-share__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1rem 0.75rem;
+    border-bottom: 1px solid #ededed;
+  }
+
+  .skre-share__title {
+    font-family: 'United-Sans', sans-serif;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .skre-share__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    color: var(--color-foreground);
+  }
+
+  .skre-share__close svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .skre-share__body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .skre-share__product-name {
+    margin: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgb(var(--color-foreground-rgb) / 0.6);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .skre-share__url-row {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .skre-share__url-input {
+    flex: 1;
+    min-width: 0;
+    border: 1px solid #ededed;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    color: var(--color-foreground);
+    background: var(--color-background);
+    border-radius: 0;
+    outline: none;
+    font-family: inherit;
+  }
+
+  .skre-share__copy-btn {
+    padding: 0.5rem 1rem;
+    background: var(--color-foreground);
+    color: var(--color-background);
+    border: none;
+    border-radius: 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: inherit;
+    transition: opacity 0.15s ease;
+  }
+
+  .skre-share__copy-btn:hover {
+    opacity: 0.85;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Share Button",
+  "tag": null,
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_label",
+      "label": "Show label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "Share",
+      "visible_if": "{{ block.settings.show_label }}"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Share Button",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}
