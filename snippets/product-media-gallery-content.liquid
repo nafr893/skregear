@@ -692,9 +692,11 @@
         {%- endif -%}
 
         {%- if _has_sim -%}
-        var simBtn  = mob.querySelector('.skre-pmg-mob__sim-btn');
-        var sheet   = document.getElementById('skre-sim-{{ block_id }}');
-        if (simBtn && sheet) {
+        /* Drawer div is after </media-gallery> in the HTML, so defer lookup until DOM is ready */
+        function initSimSheet() {
+          var simBtn  = mob.querySelector('.skre-pmg-mob__sim-btn');
+          var sheet   = document.getElementById('skre-sim-{{ block_id }}');
+          if (!simBtn || !sheet) return;
           var backdrop = sheet.querySelector('.skre-sim__backdrop');
           var closeBtn = sheet.querySelector('.skre-sim__close');
           var body     = sheet.querySelector('.skre-sim__body');
@@ -721,7 +723,6 @@
             fetch(base + '&intent=related')
               .then(function(r){ return r.json(); })
               .then(function(data){
-                /* If related comes back empty, try complementary (manually curated) */
                 if (!data.products || !data.products.length) {
                   return fetch(base + '&intent=complementary').then(function(r){ return r.json(); });
                 }
@@ -751,6 +752,11 @@
           simBtn.addEventListener('click', openSheet);
           if (backdrop) backdrop.addEventListener('click', closeSheet);
           if (closeBtn) closeBtn.addEventListener('click', closeSheet);
+        }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', initSimSheet);
+        } else {
+          initSimSheet();
         }
         {%- endif -%}
       })();
@@ -1206,18 +1212,17 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      padding: 0.5rem 0.875rem;
     }
 
-    /* Counter: nudged up (more bottom padding) and right (more left padding) */
     .skre-pmg-mob__ctr {
       padding: 0.45rem 0.8rem;
-      margin: 0.5rem 0 0.5rem 0.875rem;
       font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.04em;
       color: #fff;
       line-height: 1;
-      background: rgb(0 0 0 / 0.42);
+      background: rgb(0 0 0 / 0.25);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
       border-radius: 0;
@@ -1233,14 +1238,14 @@
       display: flex;
       align-items: center;
       gap: 0.35rem;
-      background: rgb(0 0 0 / 0.42);
+      background: rgb(0 0 0 / 0.25);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
       color: #fff;
       border: none;
       border-radius: 0;
       padding: 0.45rem 0.8rem;
-      margin: 0.5rem 0.875rem 0.5rem 0;
+      margin: 0;
       font-size: 0.7rem;
       font-weight: 700;
       letter-spacing: 0.06em;
