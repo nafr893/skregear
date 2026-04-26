@@ -53,152 +53,107 @@
     {% assign section_collections = section_collections | split: ',' %}
   {% endif %}
 
-  {% capture list_items %}
-    {% for collection in section_collections limit: max_items %}
-      <div class="resource-list__item">
-        {% content_for 'block', type: '_collection-card', id: 'static-collection-card', closest.collection: collection %}
-      </div>
-      {% unless forloop.last %}
-        <!--@list/split-->
-      {% endunless %}
-    {% endfor %}
-  {% endcapture %}
+  {%- if section.settings.layout_type == 'carousel' -%}
 
-  {% liquid
-    # Create an array from the list items to be used for different layout types
-    assign list_items_array = list_items | strip | split: '<!--@list/split-->'
-  %}
+    <div
+      class="skre-coll-car"
+      id="skre-coll-car-{{ section.id }}"
+      style="--car-cols:{{ section.settings.columns }}; --car-gap:{{ section.settings.columns_gap }}px;"
+    >
+      <ul class="skre-coll-car__list list-unstyled" data-skre-car-list>
+        {%- for collection in section_collections -%}
+          <li class="skre-coll-car__item">
+            {%- content_for 'block', type: '_collection-card', id: 'static-collection-card', closest.collection: collection -%}
+          </li>
+        {%- endfor -%}
+      </ul>
 
-  {% render 'resource-list',
-    list_items: list_items,
-    list_items_array: list_items_array,
-    settings: section.settings,
-    carousel_ref: 'collectionList',
-    slide_count: max_items,
-    content_type: 'collections',
-    test_id: 'collections-list-grid'
-  %}
-
-  {%- if section.settings.show_progress_bar and section.settings.layout_type == 'carousel' -%}
-    <div class="skre-coll-pb" id="skre-coll-pb-{{ section.id }}" aria-hidden="true">
-      <div class="skre-coll-pb__track">
-        <div class="skre-coll-pb__thumb"></div>
-      </div>
-      <div class="skre-coll-pb__nav">
-        <button class="skre-coll-pb__btn skre-coll-pb__btn--prev" type="button" aria-label="Previous">
-          {{- 'icon-chevron-left.svg' | inline_asset_content -}}
-        </button>
-        <span class="skre-coll-pb__counter">
-          <span class="skre-coll-pb__current">1</span>/<span class="skre-coll-pb__total">1</span>
-        </span>
-        <button class="skre-coll-pb__btn skre-coll-pb__btn--next" type="button" aria-label="Next">
-          {{- 'icon-chevron-right.svg' | inline_asset_content -}}
-        </button>
+      <div class="skre-coll-car__footer" data-skre-car-footer>
+        <div class="skre-coll-car__track">
+          <div class="skre-coll-car__thumb"></div>
+        </div>
+        <div class="skre-coll-car__nav">
+          <button class="skre-coll-car__btn skre-coll-car__btn--prev" type="button" aria-label="Previous">
+            {{- 'icon-chevron-left.svg' | inline_asset_content -}}
+          </button>
+          <span class="skre-coll-car__counter">
+            <span class="skre-coll-car__current">1</span>/<span class="skre-coll-car__total">1</span>
+          </span>
+          <button class="skre-coll-car__btn skre-coll-car__btn--next" type="button" aria-label="Next">
+            {{- 'icon-chevron-right.svg' | inline_asset_content -}}
+          </button>
+        </div>
       </div>
     </div>
-    <script>
-      (function () {
-        var sectionEl = document.getElementById('section-{{ section.id }}');
-        var pb        = document.getElementById('skre-coll-pb-{{ section.id }}');
-        if (!sectionEl || !pb) return;
 
-        var scroller  = sectionEl.querySelector('slideshow-slides[ref="scroller"]');
-        if (!scroller) return;
+  {%- else -%}
 
-        var thumb     = pb.querySelector('.skre-coll-pb__thumb');
-        var elCurrent = pb.querySelector('.skre-coll-pb__current');
-        var elTotal   = pb.querySelector('.skre-coll-pb__total');
-        var prevBtn   = pb.querySelector('.skre-coll-pb__btn--prev');
-        var nextBtn   = pb.querySelector('.skre-coll-pb__btn--next');
+    {% capture list_items %}
+      {% for collection in section_collections limit: max_items %}
+        <div class="resource-list__item">
+          {% content_for 'block', type: '_collection-card', id: 'static-collection-card', closest.collection: collection %}
+        </div>
+        {% unless forloop.last %}
+          <!--@list/split-->
+        {% endunless %}
+      {% endfor %}
+    {% endcapture %}
 
-        function totalCards() { return scroller.querySelectorAll('slideshow-slide').length; }
+    {% liquid
+      assign list_items_array = list_items | strip | split: '<!--@list/split-->'
+    %}
 
-        function visibleCount() {
-          var slide = scroller.querySelector('slideshow-slide');
-          if (!slide || !slide.offsetWidth) return 1;
-          var cs  = getComputedStyle(scroller);
-          var gap = parseFloat(cs.columnGap) || parseFloat(cs.gap) || 0;
-          return Math.max(1, Math.round(scroller.clientWidth / (slide.offsetWidth + gap)));
-        }
+    {% render 'resource-list',
+      list_items: list_items,
+      list_items_array: list_items_array,
+      settings: section.settings,
+      carousel_ref: 'collectionList',
+      slide_count: max_items,
+      content_type: 'collections',
+      test_id: 'collections-list-grid'
+    %}
 
-        function firstVisible() {
-          var scrollable = scroller.scrollWidth - scroller.clientWidth;
-          if (scrollable <= 0) return 0;
-          return Math.round((scroller.scrollLeft / scrollable) * (totalCards() - visibleCount()));
-        }
-
-        function scrollToCard(index) {
-          var total      = totalCards();
-          var visible    = visibleCount();
-          index = Math.min(total - visible, Math.max(0, index));
-          var scrollable = scroller.scrollWidth - scroller.clientWidth;
-          var targetLeft = (index / Math.max(1, total - visible)) * scrollable;
-          var from       = scroller.scrollLeft;
-
-          function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
-
-          scroller.style.scrollSnapType = 'none';
-          /* defer one frame so the snap-type:none CSS recalculates before we animate */
-          requestAnimationFrame(function () {
-            var startTime = performance.now();
-            (function step(now) {
-              var progress = Math.min((now - startTime) / 260, 1);
-              scroller.scrollLeft = from + (targetLeft - from) * ease(progress);
-              if (progress < 1) {
-                requestAnimationFrame(step);
-              } else {
-                scroller.scrollLeft = targetLeft;
-                scroller.style.scrollSnapType = '';
-              }
-            })(startTime);
-          });
-        }
-
-        function update() {
-          var total     = totalCards();
-          var visible   = visibleCount();
-          var first     = firstVisible();
-          var last      = Math.min(total, first + visible);
-          var scrollable = scroller.scrollWidth - scroller.clientWidth;
-
-          if (scrollable <= 0) { pb.hidden = true; return; }
-          pb.hidden = false;
-
-          var ratio    = scroller.scrollLeft / scrollable;
-          var thumbPct = Math.max(10, (visible / total) * 100);
-          var leftPct  = ratio * (100 - thumbPct);
-          thumb.style.width = thumbPct + '%';
-          thumb.style.left  = leftPct + '%';
-
-          if (elCurrent) elCurrent.textContent = last;
-          if (elTotal)   elTotal.textContent   = total;
-          if (prevBtn)   prevBtn.disabled = first <= 0;
-          if (nextBtn)   nextBtn.disabled = last >= total;
-        }
-
-        if (prevBtn) prevBtn.addEventListener('click', function () { scrollToCard(firstVisible() - 1); });
-        if (nextBtn) nextBtn.addEventListener('click', function () { scrollToCard(firstVisible() + 1); });
-
-        scroller.addEventListener('scroll', update, { passive: true });
-        window.addEventListener('resize', update, { passive: true });
-        if (typeof ResizeObserver !== 'undefined') {
-          new ResizeObserver(function () { requestAnimationFrame(update); }).observe(scroller);
-        }
-        requestAnimationFrame(function () { requestAnimationFrame(update); });
-      })();
-    </script>
   {%- endif -%}
 </div>
 
 {% stylesheet %}
-  .skre-coll-pb {
+  /* ── Custom collection carousel — mirrors skre-collection-tabs exactly ── */
+
+  .skre-coll-car__list {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--car-gap, 8px);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .skre-coll-car__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .skre-coll-car__item {
+    flex: 0 0 calc(50% - var(--car-gap, 8px) / 2);
+    scroll-snap-align: start;
+    min-width: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .skre-coll-car__item {
+      flex: 0 0 calc((100% - var(--car-gap, 8px) * (var(--car-cols, 4) - 1)) / var(--car-cols, 4));
+    }
+  }
+
+  /* ── Footer: progress bar + nav — identical to skre-col-tabs ── */
+  .skre-coll-car__footer {
     display: flex;
     align-items: center;
     gap: var(--gap-md);
     margin-block-start: var(--margin-xl);
   }
 
-  .skre-coll-pb__track {
+  .skre-coll-car__track {
     position: relative;
     flex: 1;
     height: 2px;
@@ -207,7 +162,7 @@
     overflow: hidden;
   }
 
-  .skre-coll-pb__thumb {
+  .skre-coll-car__thumb {
     position: absolute;
     top: 0;
     left: 0;
@@ -217,14 +172,14 @@
     transition: left 0.15s ease, width 0.15s ease;
   }
 
-  .skre-coll-pb__nav {
+  .skre-coll-car__nav {
     display: flex;
     align-items: center;
     gap: 0.25rem;
     flex-shrink: 0;
   }
 
-  .skre-coll-pb__counter {
+  .skre-coll-car__counter {
     font-size: var(--font-size--sm);
     font-weight: 500;
     min-width: 2.5rem;
@@ -233,7 +188,7 @@
     letter-spacing: 0.02em;
   }
 
-  .skre-coll-pb__btn {
+  .skre-coll-car__btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -256,6 +211,84 @@
     }
   }
 {% endstylesheet %}
+
+{%- if section.settings.layout_type == 'carousel' -%}
+<script>
+(function () {
+  var car = document.getElementById('skre-coll-car-{{ section.id }}');
+  if (!car) return;
+
+  var list   = car.querySelector('[data-skre-car-list]');
+  var footer = car.querySelector('[data-skre-car-footer]');
+  if (!list || !footer) return;
+
+  var thumb     = footer.querySelector('.skre-coll-car__thumb');
+  var prevBtn   = footer.querySelector('.skre-coll-car__btn--prev');
+  var nextBtn   = footer.querySelector('.skre-coll-car__btn--next');
+  var elCurrent = footer.querySelector('.skre-coll-car__current');
+  var elTotal   = footer.querySelector('.skre-coll-car__total');
+
+  function visibleCount() {
+    var item = list.querySelector('.skre-coll-car__item');
+    if (!item) return 1;
+    var gap = parseFloat(getComputedStyle(list).columnGap) || 0;
+    return Math.max(1, Math.round(list.clientWidth / (item.offsetWidth + gap)));
+  }
+
+  function totalCards() {
+    return list.querySelectorAll('.skre-coll-car__item').length;
+  }
+
+  function firstVisibleIndex() {
+    var total      = totalCards();
+    var visible    = visibleCount();
+    var scrollable = list.scrollWidth - list.clientWidth;
+    if (scrollable <= 0) return 0;
+    return Math.round((list.scrollLeft / scrollable) * (total - visible));
+  }
+
+  function scrollToCard(index) {
+    var total      = totalCards();
+    var visible    = visibleCount();
+    index = Math.min(total - visible, Math.max(0, index));
+    var scrollable = list.scrollWidth - list.clientWidth;
+    var target     = (index / Math.max(1, total - visible)) * scrollable;
+    list.scrollTo({ left: target, behavior: 'smooth' });
+  }
+
+  function update() {
+    var total      = totalCards();
+    var visible    = visibleCount();
+    var first      = firstVisibleIndex();
+    var last       = Math.min(total, first + visible);
+    var scrollable = list.scrollWidth - list.clientWidth;
+
+    if (total <= visible) { footer.style.display = 'none'; return; }
+    footer.style.display = '';
+
+    var thumbWidthPct = (visible / total) * 100;
+    var thumbLeftPct  = (first / (total - visible)) * (100 - thumbWidthPct);
+    thumb.style.width = thumbWidthPct + '%';
+    thumb.style.left  = thumbLeftPct + '%';
+
+    if (elCurrent) elCurrent.textContent = last;
+    if (elTotal)   elTotal.textContent   = total;
+    if (prevBtn)   prevBtn.disabled = first <= 0;
+    if (nextBtn)   nextBtn.disabled = last >= total;
+  }
+
+  if (prevBtn) prevBtn.addEventListener('click', function () { scrollToCard(firstVisibleIndex() - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { scrollToCard(firstVisibleIndex() + 1); });
+
+  list.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(function () { requestAnimationFrame(update); }).observe(list);
+  }
+  requestAnimationFrame(function () { requestAnimationFrame(update); });
+})();
+</script>
+{%- endif -%}
 
 {% schema %}
 {
