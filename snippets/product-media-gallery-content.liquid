@@ -773,7 +773,10 @@
                   return;
                 }
                 body.innerHTML = prods.map(function(p){
-                  var imgSrc = p.featured_image && p.featured_image.src ? p.featured_image.src : '';
+                  /* featured_image is a plain URL string in the recommendations API, not an object */
+                  var imgSrc = (typeof p.featured_image === 'string' && p.featured_image)
+                             || (Array.isArray(p.images) && p.images[0])
+                             || '';
                   var imgTag = imgSrc ? '<img class="skre-sim-card__img" src="' + imgSrc + '" alt="" loading="lazy">' : '';
                   return '<a class="skre-sim-card" href="' + p.url + '">'
                     + '<div class="skre-sim-card__media">' + imgTag + '</div>'
@@ -1367,7 +1370,7 @@
     right: 0;
     max-height: 60dvh;
     background-color: var(--color-background);
-    border-radius: 1rem 1rem 0 0;
+    border-radius: 0;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -1390,10 +1393,10 @@
 
   .skre-sim__title {
     font-family: 'United-Sans', sans-serif;
-    font-size: var(--font-h4--size, 1.1rem);
+    font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
   }
 
   .skre-sim__close {
