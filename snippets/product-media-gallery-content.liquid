@@ -812,8 +812,7 @@
 {% endif %}
 
 {%- if selected_product != blank -%}
-  <div class="skre-sim" id="skre-sim-{{ block_id }}" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="skre-sim__backdrop"></div>
+  <div class="skre-sim" id="skre-sim-{{ block_id }}" role="dialog" aria-modal="true" hidden>
     <div class="skre-sim__panel">
       <div class="skre-sim__header">
         <span class="skre-sim__title">Similar Products</span>
