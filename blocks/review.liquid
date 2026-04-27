@@ -91,7 +91,7 @@
       <p class="rating-count {{ block_settings.type_preset }}">
         <span aria-hidden="true">{{- rating | round: 1 }}</span>
         <span class="rating-count-separator">|</span>
-        <span>{{- rating_count -}}</span>
+        <span class="skre-rating-count-num">{{- rating_count -}}</span>
       </p>
     {%- elsif block_settings.show_number or block_settings.stars_style == 'single' -%}
       <p class="rating-count {{ block_settings.type_preset }}">
@@ -161,6 +161,10 @@
 
   .filled-star {
     fill: var(--star-fill-color);
+  }
+
+  .skre-rating-count-num {
+    text-decoration: underline;
   }
 {% endstylesheet %}
 
