@@ -222,12 +222,12 @@
       },
       "scheme-4": {
         "settings": {
-          "background": "#e1edf5",
+          "background": "#f9f9f9",
           "foreground_heading": "#000000",
-          "foreground": "#000000cf",
-          "primary": "#000000cf",
+          "foreground": "#000000",
+          "primary": "#000000",
           "primary_hover": "#000000",
-          "border": "#1d368680",
+          "border": "#ededed",
           "shadow": "#000000",
           "primary_button_background": "#000000",
           "primary_button_text": "#ffffff",
