@@ -734,21 +734,15 @@
         function openSheet() {
           var sheet = getSheet();
           if (!sheet) return;
-          sheet.removeAttribute('hidden');
-          requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-              var panel = sheet.querySelector('.skre-sim__panel');
-              if (panel) panel.classList.add('skre-sim__panel--open');
-            });
-          });
+          sheet.setAttribute('aria-hidden', 'false');
+          sheet.classList.add('skre-sim--visible');
           if (!simLoaded) loadProducts(sheet);
         }
         function closeSheet() {
           var sheet = getSheet();
           if (!sheet) return;
-          var panel = sheet.querySelector('.skre-sim__panel');
-          if (panel) panel.classList.remove('skre-sim__panel--open');
-          setTimeout(function () { sheet.setAttribute('hidden', ''); }, 360);
+          sheet.setAttribute('aria-hidden', 'true');
+          sheet.classList.remove('skre-sim--visible');
         }
         function loadProducts(sheet) {
           var mob = getMob();
@@ -796,13 +790,13 @@
             var mob = getMob();
             if (mob && mob.contains(btn)) { openSheet(); return; }
           }
-          /* Close: X button or backdrop (outer div, not inside panel) */
+          /* Close: X button or backdrop */
           var sheet = getSheet();
-          if (!sheet || sheet.hasAttribute('hidden')) return;
+          if (!sheet || !sheet.classList.contains('skre-sim--visible')) return;
           if (e.target.closest('.skre-sim__close') && sheet.contains(e.target)) {
             closeSheet(); return;
           }
-          if (sheet.contains(e.target) && !e.target.closest('.skre-sim__panel')) {
+          if (e.target.closest('.skre-sim__backdrop') && sheet.contains(e.target)) {
             closeSheet();
           }
         });
@@ -810,7 +804,7 @@
         document.addEventListener('keydown', function(e) {
           if (e.key === 'Escape') {
             var sheet = getSheet();
-            if (sheet && !sheet.hasAttribute('hidden')) closeSheet();
+            if (sheet && sheet.classList.contains('skre-sim--visible')) closeSheet();
           }
         });
         {%- endif -%}
@@ -821,7 +815,8 @@
 {% endif %}
 
 {%- if selected_product != blank -%}
-  <div class="skre-sim" id="skre-sim-{{ block_id }}" role="dialog" aria-modal="true" hidden>
+  <div class="skre-sim" id="skre-sim-{{ block_id }}" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="skre-sim__backdrop"></div>
     <div class="skre-sim__panel">
       <div class="skre-sim__header">
         <span class="skre-sim__title">Similar Products</span>
@@ -1354,16 +1349,30 @@
     position: fixed;
     inset: 0;
     z-index: 800;
-    background: rgba(0, 0, 0, 0.45);
     display: flex;
     align-items: flex-end;
+    pointer-events: none;
   }
 
-  .skre-sim[hidden] {
-    display: none;
+  .skre-sim--visible {
+    pointer-events: auto;
+  }
+
+  .skre-sim__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .skre-sim--visible .skre-sim__backdrop {
+    opacity: 1;
   }
 
   .skre-sim__panel {
+    position: relative;
+    z-index: 1;
     width: 100%;
     max-height: 60dvh;
     background-color: var(--color-background);
@@ -1373,9 +1382,10 @@
     overflow: hidden;
     transform: translateY(100%);
     transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+    will-change: transform;
   }
 
-  .skre-sim__panel--open {
+  .skre-sim--visible .skre-sim__panel {
     transform: translateY(0);
   }
 
