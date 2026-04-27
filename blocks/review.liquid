@@ -87,7 +87,13 @@
       {% endif %}
     </div>
 
-    {%- if block_settings.show_number or block_settings.stars_style == 'single' -%}
+    {%- if block_settings.stars_style == 'shaded_with_numbers' -%}
+      <p class="rating-count {{ block_settings.type_preset }}">
+        <span aria-hidden="true">{{- rating | round: 1 }}</span>
+        <span class="rating-count-separator">|</span>
+        <span>{{- rating_count -}}</span>
+      </p>
+    {%- elsif block_settings.show_number or block_settings.stars_style == 'single' -%}
       <p class="rating-count {{ block_settings.type_preset }}">
         {%- if block_settings.stars_style == 'single' -%}
           <span aria-hidden="true">{{- rating | round: 1 }}</span>
@@ -185,6 +191,10 @@
           "label": "t:options.shaded"
         },
         {
+          "value": "shaded_with_numbers",
+          "label": "Shaded + Rating"
+        },
+        {
           "value": "single",
           "label": "t:options.single"
         }
@@ -195,7 +205,8 @@
       "type": "checkbox",
       "id": "show_number",
       "label": "t:settings.review_count",
-      "default": true
+      "default": true,
+      "visible_if": "{{ block.settings.stars_style != 'shaded_with_numbers' }}"
     },
     {
       "type": "select",
