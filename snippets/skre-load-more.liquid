@@ -8,8 +8,7 @@
 {%- assign _displayed = _fetched | at_most: paginate.items -%}
 {%- assign _total     = paginate.items -%}
 {%- assign _pct_desk  = _displayed | times: 100.0 | divided_by: _total | round -%}
-{%- comment -%} Mobile shows 6 rows × 2 cols = 12 initially {%- endcomment -%}
-{%- assign _mobile_limit = 12 -%}
+{%- assign _mobile_limit = 13 -%}
 {%- assign _mobile_shown = _mobile_limit | at_most: _total -%}
 {%- assign _pct_mob   = _mobile_shown | times: 100.0 | divided_by: _total | round -%}
 
@@ -48,12 +47,12 @@
 {%- endif -%}
 
 {% stylesheet %}
-  /* Mobile: hide products 13+ on first render */
-  .product-grid--lm-init .product-grid__item:nth-child(n+13) {
+  /* Mobile: hide products 14+ on first render */
+  .product-grid--lm-init .product-grid__item:nth-child(n+14) {
     display: none;
   }
   @media screen and (min-width: 750px) {
-    .product-grid--lm-init .product-grid__item:nth-child(n+13) {
+    .product-grid--lm-init .product-grid__item:nth-child(n+14) {
       display: revert;
     }
   }
