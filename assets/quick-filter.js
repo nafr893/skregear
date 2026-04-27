@@ -106,28 +106,8 @@
       if (productFilterMap[item.dataset.productId || ''] === filterValue) n++;
     });
 
-    // Nothing matched — hide the whole component
-    if (n === 0) {
-      lm.style.display = 'none';
-      return;
-    }
-
-    lm.style.display = '';
-
-    // Update label: "Showing N of N products"
-    if (label) {
-      label.innerHTML =
-        'Showing <span class="skre-lm__count skre-lm__count--desk">' + n +
-        '</span><span class="skre-lm__count skre-lm__count--mob">' + n +
-        '</span> of ' + n + ' products';
-    }
-
-    // Progress bar to 100% — all matched items are already in the DOM
-    if (fillD) fillD.style.width = '100%';
-    if (fillM) fillM.style.width = '100%';
-
-    // Hide the Load More button — there are no more to fetch for this filter
-    if (btn) btn.style.display = 'none';
+    // Filter active — all matched products are already in the DOM, nothing more to load
+    lm.style.display = 'none';
   }
 
   if (document.readyState === 'loading') {
