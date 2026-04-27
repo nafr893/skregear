@@ -250,3 +250,32 @@ div.collection-card__content.layout-panel-flex--column {
 
   }
 }
+
+/* ── Add-to-cart button: disable fly-to-cart + checkmark animations ── */
+.add-to-cart-button .add-to-cart__added {
+  display: none !important;
+}
+.add-to-cart-button .add-to-cart-icon {
+  display: none !important;
+}
+.add-to-cart-button .add-to-cart-text,
+.add-to-cart-button[data-added='true'] .add-to-cart-text {
+  animation: none !important;
+  transition: none !important;
+  clip-path: none !important;
+  filter: none !important;
+  opacity: 1 !important;
+  translate: none !important;
+}
+
+/* ── Add-to-cart button: label left, price right ── */
+.add-to-cart-button .add-to-cart-text {
+  justify-content: space-between;
+  width: 100%;
+}
+
+.skre-atc-price {
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
