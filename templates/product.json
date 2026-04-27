@@ -611,7 +611,7 @@
                       "name": "t:names.icon",
                       "settings": {
                         "icon": "star",
-                        "image_upload": "shopify://shop_images/icon-similar-2.svg",
+                        "image_upload": "shopify://shop_images/icon-similar.png",
                         "width": 24,
                         "link": "",
                         "open_in_new_tab": false
