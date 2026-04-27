@@ -648,7 +648,7 @@
       endif
     -%}
     {%- if _has_multi or _has_sim -%}
-      <div class="skre-pmg-mob" id="skre-pmg-mob-{{ block_id }}" aria-hidden="true">
+      <div class="skre-pmg-mob" id="skre-pmg-mob-{{ block_id }}" data-total="{{ sorted_media.size }}" aria-hidden="true">
         <div class="skre-pmg-mob__row">
           {%- if _has_multi -%}
             <div class="skre-pmg-mob__ctr">
@@ -673,98 +673,137 @@
       </div>
       <script>
       (function(){
-        var mob = document.getElementById('skre-pmg-mob-{{ block_id }}');
-        if (!mob) return;
-        var mg = mob.closest('media-gallery');
-        if (!mg) return;
-        var sc = mg.querySelector('slideshow-container');
-        if (sc) sc.appendChild(mob);
+        var bid = '{{ block_id }}';
 
-        /* First slide: white frosted glass + black text */
-        mob.classList.add('skre-pmg-mob--light');
-
-        {%- if _has_multi -%}
-        var total = {{ sorted_media.size }};
-        var cur  = mob.querySelector('.skre-pmg-mob__cur');
-        var fill = mob.querySelector('.skre-pmg-mob__fill');
-        mg.addEventListener('slideshow:select', function(e){
-          var n = e.detail.index + 1;
-          if (cur)  cur.textContent  = n;
-          if (fill) fill.style.width = (n / total * 100) + '%';
-          mob.classList.toggle('skre-pmg-mob--light', e.detail.index === 0);
-        });
+        /* All helpers re-query the DOM so they work after media-gallery.replaceWith() */
+        function getMob()   { return document.getElementById('skre-pmg-mob-' + bid); }
+        {%- if _has_sim -%}
+        function getSheet() { return document.getElementById('skre-sim-' + bid); }
         {%- endif -%}
 
-        {%- if _has_sim -%}
-        /* Drawer div is after </media-gallery> in the HTML, so defer lookup until DOM is ready */
-        function initSimSheet() {
-          var simBtn  = mob.querySelector('.skre-pmg-mob__sim-btn');
-          var sheet   = document.getElementById('skre-sim-{{ block_id }}');
-          if (!simBtn || !sheet) return;
-          var backdrop = sheet.querySelector('.skre-sim__backdrop');
-          var closeBtn = sheet.querySelector('.skre-sim__close');
-          var body     = sheet.querySelector('.skre-sim__body');
-          var loaded   = false;
+        function injectMob() {
+          var mob = getMob();
+          if (!mob) return;
+          var mg = mob.closest('media-gallery');
+          if (!mg) return;
+          var sc = mg.querySelector('slideshow-container');
+          if (sc && !sc.contains(mob)) sc.appendChild(mob);
+          /* First slide of any variant = white frosted glass */
+          mob.classList.add('skre-pmg-mob--light');
+        }
 
-          function openSheet() {
-            sheet.setAttribute('aria-hidden', 'false');
-            sheet.classList.add('skre-sim--open');
-            document.documentElement.style.overflow = 'hidden';
-            if (!loaded) loadProducts();
-          }
-          function closeSheet() {
-            sheet.setAttribute('aria-hidden', 'true');
-            sheet.classList.remove('skre-sim--open');
-            document.documentElement.style.overflow = '';
-          }
-          function fmtMoney(cents) {
-            var s = (cents / 100).toFixed(2);
-            return '$' + s.replace(/\.00$/, '');
-          }
-          function loadProducts() {
-            var pid = simBtn.dataset.productId;
-            var base = '/recommendations/products.json?product_id=' + pid + '&limit=10';
-            fetch(base + '&intent=related')
-              .then(function(r){ return r.json(); })
-              .then(function(data){
-                if (!data.products || !data.products.length) {
-                  return fetch(base + '&intent=complementary').then(function(r){ return r.json(); });
-                }
-                return data;
-              })
-              .then(function(data){
-                loaded = true;
-                var prods = data.products || [];
-                if (!prods.length) {
-                  body.innerHTML = '<p class="skre-sim__empty">No similar products found.</p>';
-                  return;
-                }
-                body.innerHTML = prods.map(function(p){
-                  /* featured_image is a plain URL string in the recommendations API, not an object */
-                  var imgSrc = (typeof p.featured_image === 'string' && p.featured_image)
-                             || (Array.isArray(p.images) && p.images[0])
-                             || '';
-                  var imgTag = imgSrc ? '<img class="skre-sim-card__img" src="' + imgSrc + '" alt="" loading="lazy">' : '';
-                  return '<a class="skre-sim-card" href="' + p.url + '">'
-                    + '<div class="skre-sim-card__media">' + imgTag + '</div>'
-                    + '<p class="skre-sim-card__title">' + p.title + '</p>'
-                    + '<p class="skre-sim-card__price">' + fmtMoney(p.price_min) + '</p>'
-                    + '</a>';
-                }).join('');
-              })
-              .catch(function(){
-                body.innerHTML = '<p class="skre-sim__empty">Could not load recommendations.</p>';
-              });
-          }
-          simBtn.addEventListener('click', openSheet);
-          if (backdrop) backdrop.addEventListener('click', closeSheet);
-          if (closeBtn) closeBtn.addEventListener('click', closeSheet);
+        /* Initial injection */
+        injectMob();
+
+        /* Guard: document-level listeners are registered once per block, not per render */
+        window.__skrPmg = window.__skrPmg || {};
+        if (window.__skrPmg[bid]) return;
+        window.__skrPmg[bid] = true;
+
+        /* Re-inject after variant:update replaces media-gallery.
+           media-gallery.js calls this.replaceWith() synchronously inside its
+           variant:update handler; by the time the event reaches document the
+           new element is already in the DOM. */
+        document.addEventListener('variant:update', function() {
+          injectMob();
+        });
+
+        /* Counter + light/dark badge on slide change */
+        document.addEventListener('slideshow:select', function(e) {
+          var mob = getMob();
+          if (!mob) return;
+          var mg = mob.closest('media-gallery');
+          /* Ignore events from a different gallery on the page */
+          if (!mg || !mg.contains(e.target)) return;
+
+          {%- if _has_multi -%}
+          var n     = e.detail.index + 1;
+          var total = parseInt(mob.dataset.total, 10) || 1;
+          var cur   = mob.querySelector('.skre-pmg-mob__cur');
+          var fill  = mob.querySelector('.skre-pmg-mob__fill');
+          if (cur)  cur.textContent  = n;
+          if (fill) fill.style.width = (n / total * 100) + '%';
+          {%- endif -%}
+          /* Slide 1 of any variant = white frosted glass; all others = dark */
+          mob.classList.toggle('skre-pmg-mob--light', e.detail.index === 0);
+        });
+
+        {%- if _has_sim -%}
+        var simLoaded = false;
+
+        function openSheet() {
+          var sheet = getSheet();
+          if (!sheet) return;
+          sheet.setAttribute('aria-hidden', 'false');
+          sheet.classList.add('skre-sim--open');
+          document.documentElement.style.overflow = 'hidden';
+          if (!simLoaded) loadProducts(sheet);
         }
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', initSimSheet);
-        } else {
-          initSimSheet();
+        function closeSheet() {
+          var sheet = getSheet();
+          if (!sheet) return;
+          sheet.setAttribute('aria-hidden', 'true');
+          sheet.classList.remove('skre-sim--open');
+          document.documentElement.style.overflow = '';
         }
+        function loadProducts(sheet) {
+          var mob = getMob();
+          var btn = mob && mob.querySelector('.skre-pmg-mob__sim-btn');
+          var pid = btn && btn.dataset.productId;
+          if (!pid || !sheet) return;
+          var body = sheet.querySelector('.skre-sim__body');
+          var base = '/recommendations/products.json?product_id=' + pid + '&limit=10';
+          fetch(base + '&intent=related')
+            .then(function(r){ return r.json(); })
+            .then(function(data){
+              if (!data.products || !data.products.length) {
+                return fetch(base + '&intent=complementary').then(function(r){ return r.json(); });
+              }
+              return data;
+            })
+            .then(function(data){
+              simLoaded = true;
+              var prods = data.products || [];
+              if (!prods.length) {
+                body.innerHTML = '<p class="skre-sim__empty">No similar products found.</p>';
+                return;
+              }
+              body.innerHTML = prods.map(function(p){
+                var imgSrc = (typeof p.featured_image === 'string' && p.featured_image)
+                           || (Array.isArray(p.images) && p.images[0]) || '';
+                var imgTag = imgSrc ? '<img class="skre-sim-card__img" src="' + imgSrc + '" alt="" loading="lazy">' : '';
+                var price = '$' + (p.price_min / 100).toFixed(2).replace(/\.00$/, '');
+                return '<a class="skre-sim-card" href="' + p.url + '">'
+                  + '<div class="skre-sim-card__media">' + imgTag + '</div>'
+                  + '<p class="skre-sim-card__title">' + p.title + '</p>'
+                  + '<p class="skre-sim-card__price">' + price + '</p>'
+                  + '</a>';
+              }).join('');
+            })
+            .catch(function(){
+              body.innerHTML = '<p class="skre-sim__empty">Could not load recommendations.</p>';
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+          /* Open: click on Similar Products button in this block's mob */
+          var btn = e.target.closest('.skre-pmg-mob__sim-btn');
+          if (btn) {
+            var mob = getMob();
+            if (mob && mob.contains(btn)) { openSheet(); return; }
+          }
+          /* Close: backdrop or X inside this block's sheet */
+          var sheet = getSheet();
+          if (!sheet || !sheet.classList.contains('skre-sim--open')) return;
+          if (sheet.contains(e.target) &&
+              (e.target.closest('.skre-sim__backdrop') || e.target.closest('.skre-sim__close'))) {
+            closeSheet();
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') closeSheet();
+        });
         {%- endif -%}
       })();
       </script>
