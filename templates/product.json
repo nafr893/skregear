@@ -392,7 +392,7 @@
             "variant_picker_R3rGDr": {
               "type": "variant-picker",
               "settings": {
-                "variant_style": "buttons",
+                "variant_style": "overlay",
                 "show_swatches": true,
                 "alignment": "left",
                 "padding-block-start": 0,
@@ -407,7 +407,7 @@
               "settings": {
                 "stacking": true,
                 "show_pickup_availability": false,
-                "gift_card_form": true,
+                "gift_card_form": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -448,8 +448,8 @@
                 "vertical_alignment": "center",
                 "align_baseline": false,
                 "horizontal_alignment_flex_direction_column": "flex-start",
-                "vertical_alignment_flex_direction_column": "center",
-                "gap": 12,
+                "vertical_alignment_flex_direction_column": "space-between",
+                "gap": 15,
                 "width": "fill",
                 "custom_width": 100,
                 "width_mobile": "fill",
@@ -472,8 +472,8 @@
                 "link": "",
                 "open_in_new_tab": false,
                 "placeholder": "",
-                "padding-block-start": 16,
-                "padding-block-end": 16,
+                "padding-block-start": 24,
+                "padding-block-end": 24,
                 "padding-inline-start": 10,
                 "padding-inline-end": 10,
                 "visibility": "both"
@@ -495,7 +495,7 @@
                     "custom_width": 100,
                     "width_mobile": "fill",
                     "custom_width_mobile": 100,
-                    "height": "fit",
+                    "height": "fill",
                     "custom_height": 100,
                     "inherit_color_scheme": true,
                     "color_scheme": "",
@@ -525,8 +525,8 @@
                       "name": "t:names.icon",
                       "settings": {
                         "icon": "star",
-                        "image_upload": "shopify://shop_images/Skre-Logo-Dark.png",
-                        "width": 24,
+                        "image_upload": "shopify://shop_images/icon-skre.png",
+                        "width": 28,
                         "link": "",
                         "open_in_new_tab": false
                       },
@@ -536,7 +536,7 @@
                       "type": "text",
                       "name": "t:names.text",
                       "settings": {
-                        "text": "<p>Lifetime Warranty</p>",
+                        "text": "<p><a href=\"/pages/warranty\" title=\"Lifetime Warranty\">Lifetime Warranty</a></p>",
                         "width": "fit-content",
                         "max_width": "normal",
                         "alignment": "left",
@@ -581,7 +581,7 @@
                     "custom_width": 100,
                     "width_mobile": "fill",
                     "custom_width_mobile": 100,
-                    "height": "fit",
+                    "height": "fill",
                     "custom_height": 100,
                     "inherit_color_scheme": true,
                     "color_scheme": "",
@@ -611,8 +611,8 @@
                       "name": "t:names.icon",
                       "settings": {
                         "icon": "star",
-                        "image_upload": "shopify://shop_images/icon-similar-2.svg",
-                        "width": 24,
+                        "image_upload": "shopify://shop_images/icon-similar_1d0d140a-bd88-4dc4-95e0-ee9d07d22a83.png",
+                        "width": 28,
                         "link": "",
                         "open_in_new_tab": false
                       },
@@ -667,7 +667,7 @@
                     "custom_width": 100,
                     "width_mobile": "fill",
                     "custom_width_mobile": 100,
-                    "height": "fit",
+                    "height": "fill",
                     "custom_height": 100,
                     "inherit_color_scheme": true,
                     "color_scheme": "",
@@ -697,8 +697,8 @@
                       "name": "t:names.icon",
                       "settings": {
                         "icon": "star",
-                        "image_upload": "shopify://shop_images/Box_Icon_v4.png",
-                        "width": 24,
+                        "image_upload": "shopify://shop_images/icon-delivery.png",
+                        "width": 28,
                         "link": "",
                         "open_in_new_tab": false
                       },
