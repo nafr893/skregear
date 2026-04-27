@@ -536,7 +536,7 @@
                       "type": "text",
                       "name": "t:names.text",
                       "settings": {
-                        "text": "<p>Lifetime Warranty</p>",
+                        "text": "<p><a href=\"/pages/warranty\" title=\"Lifetime Warranty\">Lifetime Warranty</a></p>",
                         "width": "fit-content",
                         "max_width": "normal",
                         "alignment": "left",
