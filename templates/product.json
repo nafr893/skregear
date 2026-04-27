@@ -392,7 +392,7 @@
             "variant_picker_R3rGDr": {
               "type": "variant-picker",
               "settings": {
-                "variant_style": "dropdowns",
+                "variant_style": "overlay",
                 "show_swatches": true,
                 "alignment": "left",
                 "padding-block-start": 0,
