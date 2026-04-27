@@ -268,7 +268,11 @@ div.collection-card__content.layout-panel-flex--column {
   translate: none !important;
 }
 
-/* ── Add-to-cart button: label left, price right ── */
+/* ── Add-to-cart button: label left, price right; equal padding all sides ── */
+.add-to-cart-button {
+  padding-inline: var(--button-padding-block) !important;
+}
+
 .add-to-cart-button .add-to-cart-text {
   justify-content: space-between;
   width: 100%;
