@@ -697,8 +697,8 @@
                       "name": "t:names.icon",
                       "settings": {
                         "icon": "star",
-                        "image_upload": "shopify://shop_images/Box_Icon_v4.png",
-                        "width": 20,
+                        "image_upload": "shopify://shop_images/icon-shipping.png",
+                        "width": 24,
                         "link": "",
                         "open_in_new_tab": false
                       },
