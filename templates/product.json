@@ -267,7 +267,7 @@
                         "show_number": true,
                         "rating_color": "primary",
                         "type_preset": "paragraph",
-                        "width": "100%",
+                        "width": "fit-content",
                         "alignment": "left"
                       },
                       "blocks": {}
