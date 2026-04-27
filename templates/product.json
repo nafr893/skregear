@@ -202,7 +202,7 @@
                   "settings": {
                     "content_direction": "row",
                     "vertical_on_mobile": false,
-                    "horizontal_alignment": "space-between",
+                    "horizontal_alignment": "flex-start",
                     "vertical_alignment": "center",
                     "align_baseline": false,
                     "horizontal_alignment_flex_direction_column": "flex-start",
@@ -237,7 +237,20 @@
                     "visibility": "both"
                   },
                   "blocks": {
-                    "price_y6tUxX": {
+                    "review_CTUd7R": {
+                      "type": "review",
+                      "name": "t:names.product_review_stars",
+                      "settings": {
+                        "stars_style": "shaded",
+                        "show_number": true,
+                        "rating_color": "primary",
+                        "type_preset": "paragraph",
+                        "width": "fit-content",
+                        "alignment": "left"
+                      },
+                      "blocks": {}
+                    },
+                    "price_NhHaMz": {
                       "type": "price",
                       "name": "t:names.product_price",
                       "settings": {
@@ -245,7 +258,7 @@
                         "show_installments": false,
                         "show_tax_info": false,
                         "type_preset": "",
-                        "width": "100%",
+                        "width": "fit-content",
                         "alignment": "left",
                         "font": "var(--font-body--family)",
                         "font_size": "1rem",
@@ -259,24 +272,11 @@
                         "padding-inline-end": 0
                       },
                       "blocks": {}
-                    },
-                    "review_NeYML9": {
-                      "type": "review",
-                      "name": "t:names.product_review_stars",
-                      "settings": {
-                        "stars_style": "shaded",
-                        "show_number": true,
-                        "rating_color": "primary",
-                        "type_preset": "paragraph",
-                        "width": "fit-content",
-                        "alignment": "left"
-                      },
-                      "blocks": {}
                     }
                   },
                   "block_order": [
-                    "price_y6tUxX",
-                    "review_NeYML9"
+                    "review_CTUd7R",
+                    "price_NhHaMz"
                   ]
                 }
               },
