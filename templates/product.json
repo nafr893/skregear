@@ -237,19 +237,6 @@
                     "visibility": "both"
                   },
                   "blocks": {
-                    "review_CTUd7R": {
-                      "type": "review",
-                      "name": "t:names.product_review_stars",
-                      "settings": {
-                        "stars_style": "shaded",
-                        "show_number": true,
-                        "rating_color": "primary",
-                        "type_preset": "paragraph",
-                        "width": "fit-content",
-                        "alignment": "left"
-                      },
-                      "blocks": {}
-                    },
                     "price_NhHaMz": {
                       "type": "price",
                       "name": "t:names.product_price",
@@ -272,11 +259,24 @@
                         "padding-inline-end": 0
                       },
                       "blocks": {}
+                    },
+                    "review_CTUd7R": {
+                      "type": "review",
+                      "name": "t:names.product_review_stars",
+                      "settings": {
+                        "stars_style": "shaded",
+                        "show_number": true,
+                        "rating_color": "primary",
+                        "type_preset": "paragraph",
+                        "width": "fit-content",
+                        "alignment": "left"
+                      },
+                      "blocks": {}
                     }
                   },
                   "block_order": [
-                    "review_CTUd7R",
-                    "price_NhHaMz"
+                    "price_NhHaMz",
+                    "review_CTUd7R"
                   ]
                 }
               },
