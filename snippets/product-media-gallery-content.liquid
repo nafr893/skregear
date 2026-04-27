@@ -734,17 +734,21 @@
         function openSheet() {
           var sheet = getSheet();
           if (!sheet) return;
-          sheet.setAttribute('aria-hidden', 'false');
-          sheet.classList.add('skre-sim--open');
-          document.documentElement.style.overflow = 'hidden';
+          sheet.removeAttribute('hidden');
+          requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+              var panel = sheet.querySelector('.skre-sim__panel');
+              if (panel) panel.classList.add('skre-sim__panel--open');
+            });
+          });
           if (!simLoaded) loadProducts(sheet);
         }
         function closeSheet() {
           var sheet = getSheet();
           if (!sheet) return;
-          sheet.setAttribute('aria-hidden', 'true');
-          sheet.classList.remove('skre-sim--open');
-          document.documentElement.style.overflow = '';
+          var panel = sheet.querySelector('.skre-sim__panel');
+          if (panel) panel.classList.remove('skre-sim__panel--open');
+          setTimeout(function () { sheet.setAttribute('hidden', ''); }, 360);
         }
         function loadProducts(sheet) {
           var mob = getMob();
@@ -792,17 +796,22 @@
             var mob = getMob();
             if (mob && mob.contains(btn)) { openSheet(); return; }
           }
-          /* Close: backdrop or X inside this block's sheet */
+          /* Close: X button or backdrop (outer div, not inside panel) */
           var sheet = getSheet();
-          if (!sheet || !sheet.classList.contains('skre-sim--open')) return;
-          if (sheet.contains(e.target) &&
-              (e.target.closest('.skre-sim__backdrop') || e.target.closest('.skre-sim__close'))) {
+          if (!sheet || sheet.hasAttribute('hidden')) return;
+          if (e.target.closest('.skre-sim__close') && sheet.contains(e.target)) {
+            closeSheet(); return;
+          }
+          if (sheet.contains(e.target) && !e.target.closest('.skre-sim__panel')) {
             closeSheet();
           }
         });
 
         document.addEventListener('keydown', function(e) {
-          if (e.key === 'Escape') closeSheet();
+          if (e.key === 'Escape') {
+            var sheet = getSheet();
+            if (sheet && !sheet.hasAttribute('hidden')) closeSheet();
+          }
         });
         {%- endif -%}
       })();
@@ -1345,30 +1354,17 @@
     position: fixed;
     inset: 0;
     z-index: 800;
-    pointer-events: none;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: flex-end;
   }
 
-  .skre-sim--open {
-    pointer-events: auto;
-  }
-
-  .skre-sim__backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgb(0 0 0 / 0.45);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .skre-sim--open .skre-sim__backdrop {
-    opacity: 1;
+  .skre-sim[hidden] {
+    display: none;
   }
 
   .skre-sim__panel {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    width: 100%;
     max-height: 60dvh;
     background-color: var(--color-background);
     border-radius: 0;
@@ -1379,7 +1375,7 @@
     transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
   }
 
-  .skre-sim--open .skre-sim__panel {
+  .skre-sim__panel--open {
     transform: translateY(0);
   }
 
