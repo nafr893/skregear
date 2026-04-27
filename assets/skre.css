@@ -283,3 +283,11 @@ div.collection-card__content.layout-panel-flex--column {
   letter-spacing: 0.02em;
   white-space: nowrap;
 }
+
+/* Search modal + search page bar: input text and placeholder */
+input.search-input,
+input.search-input::placeholder,
+.search-page-input,
+.search-page-input::placeholder {
+  color: #888888 !important;
+}
