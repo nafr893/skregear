@@ -244,11 +244,17 @@ class SkreLayerBuilder extends HTMLElement {
       return;
     }
 
-    starsEl.innerHTML = Array.from({ length: 5 }, (_, i) =>
-      `<svg class="skre-lb__star-svg${i < r ? ' filled-star' : ''}" viewBox="0 0 32 32" role="presentation">
-        <use href="#skre-lb-star"></use>
-      </svg>`
-    ).join('');
+    const decimal = r % 1;
+    const hasHalf = decimal >= 0.3 && decimal <= 0.7;
+    const fullCount = Math.floor(r) + (decimal > 0.7 ? 1 : 0);
+    const halfIndex = hasHalf ? Math.floor(r) : -1;
+
+    starsEl.innerHTML = Array.from({ length: 5 }, (_, i) => {
+      const full = i < fullCount;
+      const half = i === halfIndex;
+      const style = half ? ' style="fill:url(#skre-lb-half)"' : '';
+      return `<svg class="skre-lb__star-svg${full || half ? ' filled-star' : ''}" viewBox="0 0 32 32" role="presentation"${style}><use href="#skre-lb-star"></use></svg>`;
+    }).join('');
 
     if (countEl) countEl.textContent = product.rating_count ? `(${product.rating_count})` : '';
   }
