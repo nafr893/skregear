@@ -292,6 +292,33 @@ input.search-input::placeholder,
   color: #888888 !important;
 }
 
+/* ── Empty cart state: compact mobile layout ── */
+@media screen and (max-width: 749px) {
+  .cart-empty__buttons {
+    padding-top: var(--padding-xs, 0.5rem);
+    padding-bottom: var(--padding-lg);
+  }
+
+  .cart-empty__trending-title {
+    font-size: 13px;
+    margin-block-start: var(--margin-sm);
+    margin-block-end: 0.4rem;
+  }
+
+  /* 3 cards per row → each card is narrower and shorter */
+  .cart-empty__trending-item {
+    flex: 0 0 calc(33.333% - var(--gap-md) * 0.667);
+  }
+
+  .cart-empty__trending {
+    padding-block-end: var(--padding-lg);
+  }
+
+  .cart-empty__carousel-footer {
+    margin-block-start: 0.5rem;
+  }
+}
+
 /* ── Product media grid: show-more / show-less ── */
 @media screen and (min-width: 750px) {
   .media-gallery__grid--collapsed li:nth-child(n+9) {
