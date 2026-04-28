@@ -368,7 +368,7 @@ input.search-input::placeholder,
     display: flex;
     align-items: center;
     gap: 0.35em;
-    margin-top: 0.75rem;
+    margin-top: 1.75rem;
     margin-inline: auto;
     padding: 0;
     background: none;

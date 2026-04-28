@@ -238,24 +238,30 @@
 
 {% javascript %}
   class PerfStats extends HTMLElement {
+    #fired = false;
+
     connectedCallback() {
       const details = this.querySelector('.details');
       if (!details) return;
 
       let inView = false;
 
-      new IntersectionObserver(([entry]) => {
+      const observer = new IntersectionObserver(([entry]) => {
         inView = entry.isIntersecting;
-        if (inView && details.open) this._glitch();
-      }, { threshold: 0.15 }).observe(this);
+        if (inView && details.open) this.#fire(observer);
+      }, { threshold: 0.15 });
+      observer.observe(this);
 
       details.addEventListener('toggle', () => {
-        if (details.open && inView) {
-          this._glitch();
-        } else if (!details.open) {
-          this.querySelectorAll('.perf-seg--glitch').forEach(s => s.classList.remove('perf-seg--glitch'));
-        }
+        if (details.open && inView) this.#fire(observer);
       });
+    }
+
+    #fire(observer) {
+      if (this.#fired) return;
+      this.#fired = true;
+      observer.disconnect();
+      this._glitch();
     }
 
     _glitch() {
