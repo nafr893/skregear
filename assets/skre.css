@@ -387,11 +387,14 @@ input.search-input::placeholder,
   }
 
   .skre-gallery-toggle__caret {
-    font-size: 1em;
-    line-height: 1;
     display: inline-flex;
     align-items: center;
     transition: transform 0.2s ease;
+  }
+
+  .skre-gallery-toggle__caret svg {
+    width: 1em;
+    height: 1em;
   }
 
   .skre-gallery-toggle--open .skre-gallery-toggle__caret {
