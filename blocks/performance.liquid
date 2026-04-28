@@ -220,26 +220,17 @@
   }
 
   @keyframes perf-seg-glitch {
-    0%         { background: #e0e0e0; }
-    12%        { background: #000; }
-    14%        { background: #e0e0e0; }
-    28%        { background: #000; }
-    30%        { background: #e0e0e0; }
-    45%        { background: #000; }
-    47%        { background: #e0e0e0; }
-    62%        { background: #000; }
-    64%        { background: #e0e0e0; }
-    75%        { background: #000; }
-    77%        { background: #e0e0e0; }
-    85%        { background: #000; }
-    87%        { background: #e0e0e0; }
-    93%        { background: #000; }
-    95%        { background: #e0e0e0; }
-    100%       { background: #000; }
+    0%   { background: #e0e0e0; }
+    20%  { background: #000; }
+    33%  { background: #e0e0e0; }
+    55%  { background: #000; }
+    64%  { background: #e0e0e0; }
+    73%  { background: #000; }
+    100% { background: #000; }
   }
 
   .perf-seg--glitch {
-    animation: perf-seg-glitch 0.65s steps(1) var(--pd, 0ms) both;
+    animation: perf-seg-glitch 110ms steps(1) var(--pd, 0ms) both;
   }
 {% endstylesheet %}
 
@@ -265,7 +256,7 @@
     _glitch() {
       this.querySelectorAll('.perf-stat').forEach((stat, si) => {
         stat.querySelectorAll('.perf-stat__seg--on').forEach((seg, sj) => {
-          seg.style.setProperty('--pd', `${si * 55 + sj * 14}ms`);
+          seg.style.setProperty('--pd', `${si * 25 + sj * 65}ms`);
           seg.classList.remove('perf-seg--glitch');
           void seg.offsetWidth;
           seg.classList.add('perf-seg--glitch');
