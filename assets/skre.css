@@ -364,33 +364,19 @@ input.search-input::placeholder,
     display: block;
     margin-top: 0.75rem;
     margin-inline: auto;
-    padding: var(--button-padding-block) var(--button-padding-inline);
-    background: #000;
-    color: #fff;
+    padding: 0;
+    background: none;
     border: none;
+    color: inherit;
     font-family: inherit;
     font-size: var(--font-size--sm);
-    font-weight: 700;
-    letter-spacing: 0.1em;
+    font-weight: 600;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     cursor: pointer;
-    border-radius: var(--style-border-radius-buttons, 0);
-    transition: background-color 0.2s ease;
   }
 
-  .skre-gallery-toggle:hover:not(.skre-gallery-toggle--less) {
-    background-color: #222;
-  }
-
-  .skre-gallery-toggle--less {
-    background: transparent;
-    color: inherit;
-    padding: 0.25rem 0;
-    font-weight: 500;
-    letter-spacing: 0;
-    text-transform: none;
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    border-radius: 0;
+  .skre-gallery-toggle:hover {
+    opacity: 0.65;
   }
 }
