@@ -105,16 +105,21 @@
   assign skre_variant_files = selected_product.selected_or_first_available_variant.metafields.custom.variant_images.value
 
   if skre_variant_files != blank
-    # Variant has custom images: show those first (in metafield order), then remaining product.media
+    # Variant has custom images: show those first (in metafield order), then remaining product.media.
+    # Use string comparison to avoid integer vs GID type coercion issues.
     assign skre_added_ids = ''
     for vfile in skre_variant_files
       assign skre_vparts = vfile.id | split: '/'
-      assign skre_vnumid = skre_vparts | last | plus: 0
-      assign skre_found = selected_product.media | where: 'id', skre_vnumid
-      if skre_found.size > 0
-        assign sorted_media = sorted_media | concat: skre_found
-        assign skre_added_ids = skre_added_ids | append: skre_vnumid | append: ','
-      endif
+      assign skre_vid_str = skre_vparts | last | strip
+      for media in selected_product.media
+        assign skre_mid_str = media.id | append: ''
+        if skre_mid_str == skre_vid_str
+          assign skre_found = selected_product.media | where: 'id', media.id
+          assign sorted_media = sorted_media | concat: skre_found
+          assign skre_added_ids = skre_added_ids | append: skre_mid_str | append: ','
+          break
+        endif
+      endfor
     endfor
     for media in selected_product.media
       assign skre_id_check = media.id | append: ','
