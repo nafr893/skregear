@@ -445,6 +445,24 @@ class SkreLayerBuilder extends HTMLElement {
     }
   }
 
+  #bindImageSwipe() {
+    const wrap = this.querySelector('.skre-lb__hero-wrap');
+    if (!wrap) return;
+    let startX = 0;
+    let startY = 0;
+    wrap.addEventListener('touchstart', e => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    }, { passive: true });
+    wrap.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - startX;
+      const dy = e.changedTouches[0].clientY - startY;
+      if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+      if (dx < 0) this.#nextImage();
+      else this.#prevImage();
+    }, { passive: true });
+  }
+
   // ── ATC button ────────────────────────────────────────────────────────────
 
   #updateAtcPrice(variant) {
