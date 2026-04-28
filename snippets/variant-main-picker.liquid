@@ -520,6 +520,24 @@
     clip: rect(0, 0, 0, 0);
   }
 
+  @media screen and (min-width: 750px) {
+    .variant-option--overlay {
+      display: none;
+    }
+    .skre-sov {
+      display: none !important;
+    }
+    .skre-sov-fieldset {
+      position: static;
+      opacity: 1;
+      pointer-events: auto;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      clip: auto;
+    }
+  }
+
   .skre-sov-trigger {
     display: flex;
     align-items: center;

@@ -238,14 +238,17 @@
       const details = this.querySelector('.details');
       if (!details) return;
 
-      if (details.open) {
-        requestAnimationFrame(() => this._glitch());
-      }
+      let inView = false;
+
+      new IntersectionObserver(([entry]) => {
+        inView = entry.isIntersecting;
+        if (inView && details.open) this._glitch();
+      }, { threshold: 0.15 }).observe(this);
 
       details.addEventListener('toggle', () => {
-        if (details.open) {
+        if (details.open && inView) {
           this._glitch();
-        } else {
+        } else if (!details.open) {
           this.querySelectorAll('.perf-seg--glitch').forEach(s => s.classList.remove('perf-seg--glitch'));
         }
       });
