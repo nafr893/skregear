@@ -266,13 +266,17 @@ class SkreLayerBuilder extends HTMLElement {
     if (colorName) colorName.textContent = selectedColor ?? colorOpt.values[0] ?? '';
 
     container.innerHTML = colorOpt.values.map(val => {
-      const v = product.variants.find(vv => vv.option1 === val);
-      const imgUrl = v?.variant_images?.[0] ?? v?.featured_image ?? '';
+      const swatch = product.swatches?.[val];
+      const swStyle = swatch?.image
+        ? `background-image:url('${swatch.image}')`
+        : swatch?.color
+          ? `background-color:${swatch.color}`
+          : 'background-color:#ccc';
       const isActive = val === selectedColor;
       return `<button
         class="skre-lb__swatch${isActive ? ' skre-lb__swatch--active' : ''}"
         data-color="${this.#esc(val)}"
-        style="${imgUrl ? `background-image:url('${imgUrl}')` : 'background-color:#ccc'}"
+        style="${swStyle}"
         aria-label="${this.#esc(val)}"
         aria-pressed="${isActive}"
       ></button>`;

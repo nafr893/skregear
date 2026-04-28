@@ -11,6 +11,7 @@
   assign label_extreme_cold = section.settings.label_extreme_cold | default: 'Extreme Cold Weather'
   assign exit_url           = section.settings.exit_url           | default: '/'
   assign atc_color          = section.settings.atc_color          | default: '#b8431a'
+  assign all_swatches       = shop.metaobjects['shopify--color-swatch'].values
 -%}
 
 {%- capture lb_json -%}
@@ -75,6 +76,30 @@
                           {%- unless forloop.last -%},{%- endunless -%}
                         {%- endfor -%}
                       ],
+                      "swatches": {
+                        {%- assign first_sw_entry = true -%}
+                        {%- for opt in product.options_with_values -%}
+                          {%- assign opt_name_lc = opt.name | downcase -%}
+                          {%- if opt_name_lc == 'color' or opt_name_lc == 'colour' -%}
+                            {%- for val in opt.values -%}
+                              {%- unless first_sw_entry -%},{%- endunless -%}
+                              {%- assign first_sw_entry = false -%}
+                              {%- assign sw_hex = null -%}
+                              {%- assign sw_img_url = null -%}
+                              {%- for sw_entry in all_swatches -%}
+                                {%- if sw_entry.name.value == val -%}
+                                  {%- assign sw_hex = sw_entry.color.value -%}
+                                  {%- if sw_entry.image.value != blank -%}
+                                    {%- assign sw_img_url = sw_entry.image.value | image_url: width: 120 -%}
+                                  {%- endif -%}
+                                  {%- break -%}
+                                {%- endif -%}
+                              {%- endfor -%}
+                              {{ val | json }}: {"color": {{ sw_hex | json }}, "image": {{ sw_img_url | json }}}
+                            {%- endfor -%}
+                          {%- endif -%}
+                        {%- endfor -%}
+                      },
                       "variants": [
                         {%- assign first_var = true -%}
                         {%- for variant in product.variants -%}
