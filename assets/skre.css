@@ -204,6 +204,13 @@ h5, h6, p {
   border-bottom: 1px solid #ededed;
 }
 
+/* Product page: scroll media and product info together as one page */
+@media screen and (min-width: 750px) {
+  .product-information__media media-gallery.sticky-content {
+    position: static;
+  }
+}
+
 /* Extra top padding inside the mega menu drawer — desktop only */
 @media screen and (min-width: 990px) {
   .menu-list__submenu,
