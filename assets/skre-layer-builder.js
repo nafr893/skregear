@@ -236,11 +236,7 @@ class SkreLayerBuilder extends HTMLElement {
     const starsEl = this.querySelector('.skre-lb__stars');
     const countEl = this.querySelector('.skre-lb__rating-count');
 
-    // Shopify rating metafields serialize as {value:"4.8",scale_min:"0",scale_max:"5"}
-    const raw = product.rating;
-    const r = raw !== null && typeof raw === 'object'
-      ? parseFloat(raw.value ?? raw.rating ?? 0)
-      : parseFloat(raw ?? 0);
+    const r = parseFloat(product.rating ?? 0);
 
     if (!r || !starsEl) {
       if (starsEl) starsEl.innerHTML = '';
@@ -249,7 +245,9 @@ class SkreLayerBuilder extends HTMLElement {
     }
 
     starsEl.innerHTML = Array.from({ length: 5 }, (_, i) =>
-      `<span class="skre-lb__star${i < r ? ' skre-lb__star--filled' : ''}">&#9733;</span>`
+      `<svg class="skre-lb__star-svg${i < r ? ' filled-star' : ''}" viewBox="0 0 32 32" role="presentation">
+        <use href="#skre-lb-star"></use>
+      </svg>`
     ).join('');
 
     if (countEl) countEl.textContent = product.rating_count ? `(${product.rating_count})` : '';
