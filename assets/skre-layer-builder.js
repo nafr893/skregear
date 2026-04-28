@@ -446,7 +446,7 @@ class SkreLayerBuilder extends HTMLElement {
   }
 
   #bindImageSwipe() {
-    const wrap = this.querySelector('.skre-lb__hero-wrap');
+    const wrap = this.querySelector('.skre-lb__media');
     if (!wrap) return;
     let startX = 0;
     let startY = 0;

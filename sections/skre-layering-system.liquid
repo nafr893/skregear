@@ -201,32 +201,34 @@
 
   {%- comment -%} ── Screen B: Builder ── {%- endcomment -%}
   <div class="skre-lb__builder" hidden>
-    <div class="skre-lb__header">
-      <div class="skre-lb__tabs" role="tablist"></div>
-      <button class="skre-lb__close" type="button" aria-label="Exit builder">
-        {{- 'icon-close.svg' | inline_asset_content -}}
-      </button>
-    </div>
-
-    <div class="skre-lb__layer-header">
-      <span class="skre-lb__layer-label"></span>
-      <div class="skre-lb__layer-nav">
-        <button class="skre-lb__prev" type="button">&#8249; Back</button>
-        <button class="skre-lb__next" type="button">Next &#8250;</button>
-      </div>
-    </div>
-
-    <div class="skre-lb__progress-row">
-      <span class="skre-lb__progress-text">1/1</span>
-      <div class="skre-lb__progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-        <div class="skre-lb__progress-fill"></div>
-      </div>
-    </div>
-
     <div class="skre-lb__media">
       <div class="skre-lb__hero-wrap">
         <img class="skre-lb__hero" src="" alt="" width="1200" height="1200" loading="eager">
       </div>
+
+      <div class="skre-lb__header">
+        <div class="skre-lb__tabs" role="tablist"></div>
+        <button class="skre-lb__close" type="button" aria-label="Exit builder">
+          {{- 'icon-close.svg' | inline_asset_content -}}
+        </button>
+      </div>
+
+      <div class="skre-lb__layer-overlay">
+        <div class="skre-lb__layer-header">
+          <span class="skre-lb__layer-label"></span>
+          <div class="skre-lb__layer-nav">
+            <button class="skre-lb__prev" type="button">&#8249; Back</button>
+            <button class="skre-lb__next" type="button">Next &#8250;</button>
+          </div>
+        </div>
+        <div class="skre-lb__progress-row">
+          <span class="skre-lb__progress-text">1/1</span>
+          <div class="skre-lb__progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+            <div class="skre-lb__progress-fill"></div>
+          </div>
+        </div>
+      </div>
+
       <div class="skre-lb__img-track">
         <div class="skre-lb__img-fill"></div>
       </div>
@@ -402,15 +404,25 @@ body:has(.skre-lb) main {
   display: none !important;
 }
 
-/* Layer tabs + close row */
+/* ── Media: full-bleed image zone with overlay controls ── */
+.skre-lb__media {
+  position: relative;
+  flex-shrink: 0;
+  height: 52svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Tabs + close: overlaid at top, frosted glass */
 .skre-lb__header {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: stretch;
-  border-bottom: 1px solid #e8e8e8;
-  position: sticky;
-  top: 0;
-  background: #fff;
-  z-index: 10;
+  background: rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .skre-lb__tabs {
@@ -423,7 +435,7 @@ body:has(.skre-lb) main {
 .skre-lb__tabs::-webkit-scrollbar { display: none; }
 
 .skre-lb__tab {
-  padding: 0.5rem 0.85rem;
+  padding: 0.55rem 0.85rem;
   font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.09em;
@@ -433,17 +445,17 @@ body:has(.skre-lb) main {
   border: none;
   border-bottom: 2px solid transparent;
   cursor: pointer;
-  color: #aaa;
+  color: rgba(255, 255, 255, 0.5);
   transition: color 0.15s, border-color 0.15s;
 }
 
 .skre-lb__tab--active {
-  color: #111;
-  border-bottom-color: #111;
+  color: #fff;
+  border-bottom-color: rgba(255, 255, 255, 0.9);
 }
 
 .skre-lb__tab--done {
-  color: #555;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .skre-lb__close {
@@ -455,7 +467,7 @@ body:has(.skre-lb) main {
   border: none;
   cursor: pointer;
   flex-shrink: 0;
-  color: #333;
+  color: #fff;
 }
 
 .skre-lb__close svg,
@@ -464,12 +476,21 @@ body:has(.skre-lb) main {
   height: 18px;
 }
 
-/* Layer label + nav row */
+/* Layer overlay: sits at bottom of media, frosted glass */
+.skre-lb__layer-overlay {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  padding: 0.55rem 1rem 0.45rem;
+  background: rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
 .skre-lb__layer-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.4rem 1rem 0;
 }
 
 .skre-lb__layer-label {
@@ -478,24 +499,28 @@ body:has(.skre-lb) main {
   font-weight: 900;
   letter-spacing: 0.09em;
   text-transform: uppercase;
+  color: #fff;
 }
 
 .skre-lb__layer-nav {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .skre-lb__prev,
 .skre-lb__next {
-  background: none;
-  border: none;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 2px;
   cursor: pointer;
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.03em;
-  color: #222;
-  padding: 0.2rem 0;
+  color: #fff;
+  padding: 0.25rem 0.65rem;
 }
 
 .skre-lb__prev:disabled,
@@ -504,51 +529,40 @@ body:has(.skre-lb) main {
   cursor: default;
 }
 
-/* Progress row */
+/* Progress row: inside the layer overlay */
 .skre-lb__progress-row {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  padding: 0.2rem 1rem 0.3rem;
+  gap: 0.6rem;
+  padding-top: 0.35rem;
 }
 
 .skre-lb__progress-text {
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   font-weight: 700;
-  color: #777;
+  color: rgba(255, 255, 255, 0.7);
   white-space: nowrap;
-  min-width: 2.5rem;
+  min-width: 2rem;
 }
 
 .skre-lb__progress-track {
   flex: 1;
-  height: 2px;
-  background: #e0e0e0;
-  border-radius: 2px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
   overflow: hidden;
 }
 
 .skre-lb__progress-fill {
   height: 100%;
-  background: #111;
-  border-radius: 2px;
+  background: #fff;
   transition: width 0.35s ease;
 }
 
-/* Product media */
-.skre-lb__media {
-  background: transparent;
-  flex-shrink: 0;
-  height: 36svh;
-  display: flex;
-  flex-direction: column;
-}
-
 .skre-lb__hero-wrap {
-  position: relative;
-  flex: 1;
-  min-height: 0;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
+  z-index: 0;
 }
 
 .skre-lb__hero {
@@ -559,14 +573,16 @@ body:has(.skre-lb) main {
 }
 
 .skre-lb__img-track {
+  position: relative;
+  z-index: 2;
   width: 100%;
   height: 2px;
-  background-color: rgb(0 0 0 / 0.1);
+  background-color: rgba(255, 255, 255, 0.25);
 }
 
 .skre-lb__img-fill {
   height: 100%;
-  background-color: #000;
+  background-color: #fff;
   transition: width 0.3s ease;
 }
 
