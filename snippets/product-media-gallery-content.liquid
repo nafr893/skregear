@@ -102,14 +102,34 @@
   endif
 
   assign sorted_media = '' | split: ','
-  if selected_variant_media
-    assign sorted_media = sorted_media | concat: selected_product.media | where: 'id', selected_variant_media.id
+  assign skre_variant_files = selected_product.selected_or_first_available_variant.metafields.custom.variant_images.value
 
+  if skre_variant_files != blank
+    # Variant has custom images: show those first (in metafield order), then remaining product.media
+    assign skre_added_ids = ''
+    for vfile in skre_variant_files
+      assign skre_vparts = vfile.id | split: '/'
+      assign skre_vnumid = skre_vparts | last | plus: 0
+      assign skre_found = selected_product.media | where: 'id', skre_vnumid
+      if skre_found.size > 0
+        assign sorted_media = sorted_media | concat: skre_found
+        assign skre_added_ids = skre_added_ids | append: skre_vnumid | append: ','
+      endif
+    endfor
+    for media in selected_product.media
+      assign skre_id_check = media.id | append: ','
+      unless skre_added_ids contains skre_id_check
+        assign skre_rest = selected_product.media | where: 'id', media.id
+        assign sorted_media = sorted_media | concat: skre_rest
+      endunless
+    endfor
+  elsif selected_variant_media
+    # Fallback: original behaviour — variant featured media first, then rest
+    assign sorted_media = sorted_media | concat: selected_product.media | where: 'id', selected_variant_media.id
     for media in selected_product.media
       if block_settings.hide_variants and variant_images contains media.src and sorted_media.size > 0
         continue
       endif
-
       if media.id != selected_variant_media.id
         assign found_media = selected_product.media | where: 'id', media.id
         assign sorted_media = sorted_media | concat: found_media
