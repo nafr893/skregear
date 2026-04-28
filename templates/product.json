@@ -877,7 +877,7 @@
                         "text_dA4zGA": {
                           "type": "text",
                           "settings": {
-                            "text": "<p>{{ closest.product.metafields.custom.product_preview.value }}</p>",
+                            "text": "<p>{{ closest.product.metafields.custom.product_features | metafield_tag }}</p>",
                             "width": "100%",
                             "max_width": "normal",
                             "alignment": "left",
