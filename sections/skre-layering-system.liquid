@@ -11,7 +11,6 @@
   assign label_extreme_cold = section.settings.label_extreme_cold | default: 'Extreme Cold Weather'
   assign exit_url           = section.settings.exit_url           | default: '/'
   assign atc_color          = section.settings.atc_color          | default: '#b8431a'
-  assign all_swatches       = shop.metaobjects['shopify--color-swatch'].values
 -%}
 
 {%- capture lb_json -%}
@@ -81,21 +80,17 @@
                         {%- for opt in product.options_with_values -%}
                           {%- assign opt_name_lc = opt.name | downcase -%}
                           {%- if opt_name_lc == 'color' or opt_name_lc == 'colour' -%}
-                            {%- for val in opt.values -%}
+                            {%- for oval in opt.values -%}
                               {%- unless first_sw_entry -%},{%- endunless -%}
                               {%- assign first_sw_entry = false -%}
-                              {%- assign sw_hex = null -%}
+                              {%- assign sw_css = null -%}
                               {%- assign sw_img_url = null -%}
-                              {%- for sw_entry in all_swatches -%}
-                                {%- if sw_entry.name.value == val -%}
-                                  {%- assign sw_hex = sw_entry.color.value -%}
-                                  {%- if sw_entry.image.value != blank -%}
-                                    {%- assign sw_img_url = sw_entry.image.value | image_url: width: 120 -%}
-                                  {%- endif -%}
-                                  {%- break -%}
-                                {%- endif -%}
-                              {%- endfor -%}
-                              {{ val | json }}: {"color": {{ sw_hex | json }}, "image": {{ sw_img_url | json }}}
+                              {%- if oval.swatch.image != blank -%}
+                                {%- assign sw_img_url = oval.swatch.image | image_url: width: 120 -%}
+                              {%- elsif oval.swatch.color != blank -%}
+                                {%- assign sw_css = 'rgb(' | append: oval.swatch.color.rgb | append: ')' -%}
+                              {%- endif -%}
+                              {{ oval.name | json }}: {"color": {{ sw_css | json }}, "image": {{ sw_img_url | json }}}
                             {%- endfor -%}
                           {%- endif -%}
                         {%- endfor -%}
@@ -677,7 +672,7 @@ body:has(.skre-lb) main {
 .skre-lb__swatch {
   width: 1.9rem;
   height: 1.9rem;
-  border-radius: 50%;
+  border-radius: 0;
   border: 2px solid #e0e0e0;
   cursor: pointer;
   overflow: hidden;
@@ -690,8 +685,6 @@ body:has(.skre-lb) main {
 
 .skre-lb__swatch--active {
   border-color: #111;
-  outline: 2px solid #111;
-  outline-offset: 2px;
 }
 
 /* Size chips */
