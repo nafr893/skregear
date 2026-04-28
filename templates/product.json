@@ -948,7 +948,7 @@
                     "accordion_row_GCNiD6": {
                       "type": "_accordion-row",
                       "settings": {
-                        "heading": "Manufacturing",
+                        "heading": "CARE & MAINTENANCE",
                         "open_by_default": false,
                         "icon": "none",
                         "width": 20
@@ -957,7 +957,7 @@
                         "text_WKLrKr": {
                           "type": "text",
                           "settings": {
-                            "text": "<p>Our products are manufactured both locally and globally. We carefully select our manufacturing partners to ensure our products are high quality and a fair value.</p>",
+                            "text": "<p>{{ closest.product.metafields.custom.product_care | metafield_tag }}</p>",
                             "width": "100%",
                             "max_width": "normal",
                             "alignment": "left",
