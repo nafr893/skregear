@@ -140,7 +140,7 @@
 
   .perf-seasons__label,
   .perf-seasons__label p {
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
@@ -254,7 +254,7 @@
     _glitch() {
       this.querySelectorAll('.perf-stat').forEach((stat, si) => {
         stat.querySelectorAll('.perf-stat__seg--on').forEach((seg, sj) => {
-          seg.style.setProperty('--pd', `${si * 25 + sj * 65}ms`);
+          seg.style.setProperty('--pd', `${150 + si * 25 + sj * 65}ms`);
           seg.classList.remove('perf-seg--glitch');
           void seg.offsetWidth;
           seg.classList.add('perf-seg--glitch');
