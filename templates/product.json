@@ -749,7 +749,7 @@
               "name": "Performance Stats",
               "settings": {
                 "title": "Performance",
-                "open_by_default": false,
+                "open_by_default": true,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
