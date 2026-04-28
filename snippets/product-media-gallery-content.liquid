@@ -491,17 +491,19 @@
         {% endfor %}
       </ul>
       {% if sorted_media.size > 8 %}
-        <button class="skre-gallery-toggle" type="button" data-more="⌄  Show More" data-less="^  Show Less">
-          ⌄  Show More
+        <button class="skre-gallery-toggle" type="button">
+          <span class="skre-gallery-toggle__caret" aria-hidden="true">⌄</span>
+          <span class="skre-gallery-toggle__label">Show More</span>
         </button>
         <script>
           (function () {
             var btn = document.currentScript.previousElementSibling;
             var grid = btn.previousElementSibling;
+            var label = btn.querySelector('.skre-gallery-toggle__label');
             btn.addEventListener('click', function () {
               var collapsed = grid.classList.toggle('media-gallery__grid--collapsed');
-              btn.textContent = collapsed ? btn.dataset.more : btn.dataset.less;
-              btn.classList.toggle('skre-gallery-toggle--less', !collapsed);
+              label.textContent = collapsed ? 'Show More' : 'Show Less';
+              btn.classList.toggle('skre-gallery-toggle--open', !collapsed);
             });
           })();
         </script>
