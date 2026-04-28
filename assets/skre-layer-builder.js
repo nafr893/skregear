@@ -236,19 +236,22 @@ class SkreLayerBuilder extends HTMLElement {
     const starsEl = this.querySelector('.skre-lb__stars');
     const countEl = this.querySelector('.skre-lb__rating-count');
 
-    if (!product.rating) {
+    // Shopify rating metafields serialize as {value:"4.8",scale_min:"0",scale_max:"5"}
+    const raw = product.rating;
+    const r = raw !== null && typeof raw === 'object'
+      ? parseFloat(raw.value ?? raw.rating ?? 0)
+      : parseFloat(raw ?? 0);
+
+    if (!r || !starsEl) {
       if (starsEl) starsEl.innerHTML = '';
       if (countEl) countEl.textContent = '';
       return;
     }
 
-    const r = parseFloat(product.rating);
-    if (starsEl) {
-      starsEl.innerHTML = Array.from({ length: 5 }, (_, i) => {
-        const filled = i < r;
-        return `<span style="color:${filled ? '#111' : '#ccc'}">&#9733;</span>`;
-      }).join('');
-    }
+    starsEl.innerHTML = Array.from({ length: 5 }, (_, i) =>
+      `<span class="skre-lb__star${i < r ? ' skre-lb__star--filled' : ''}">&#9733;</span>`
+    ).join('');
+
     if (countEl) countEl.textContent = product.rating_count ? `(${product.rating_count})` : '';
   }
 
