@@ -97,7 +97,7 @@
 {%- endcapture -%}
 
 <perf-stats
-  class="perf-block spacing-style{% if block.settings.show_dividers %} perf-block--dividers{% endif %}"
+  class="perf-block spacing-style{% if block.settings.dividers == 'both' %} perf-block--dividers{% elsif block.settings.dividers == 'top' %} perf-block--divider-top{% endif %}"
   style="{% render 'spacing-style', settings: block.settings %}"
 >
   {%- render 'accordion-custom-component',
@@ -114,6 +114,10 @@
 
   .perf-block--dividers {
     border-block: 1px solid #ededed;
+  }
+
+  .perf-block--divider-top {
+    border-block-start: 1px solid #ededed;
   }
 
   /* ── Summary header ── */
@@ -295,10 +299,15 @@
       "default": false
     },
     {
-      "type": "checkbox",
-      "id": "show_dividers",
-      "label": "Show dividers",
-      "default": true
+      "type": "select",
+      "id": "dividers",
+      "label": "Dividers",
+      "options": [
+        { "value": "both", "label": "Top and bottom" },
+        { "value": "top", "label": "Top only" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "top"
     },
     {
       "type": "header",
