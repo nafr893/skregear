@@ -96,7 +96,7 @@
   </details>
 {%- endcapture -%}
 
-<div
+<perf-stats
   class="perf-block spacing-style"
   style="{% render 'spacing-style', settings: block.settings %}"
 >
@@ -105,7 +105,7 @@
     open_by_default_on_desktop: block.settings.open_by_default,
     open_by_default_on_mobile: block.settings.open_by_default
   -%}
-</div>
+</perf-stats>
 
 {% stylesheet %}
   .perf-block {
@@ -213,7 +213,66 @@
   .perf-stat__seg--on {
     background: #000;
   }
+
+  @keyframes perf-seg-glitch {
+    0%         { background: #e0e0e0; }
+    12%        { background: #000; }
+    14%        { background: #e0e0e0; }
+    28%        { background: #000; }
+    30%        { background: #e0e0e0; }
+    45%        { background: #000; }
+    47%        { background: #e0e0e0; }
+    62%        { background: #000; }
+    64%        { background: #e0e0e0; }
+    75%        { background: #000; }
+    77%        { background: #e0e0e0; }
+    85%        { background: #000; }
+    87%        { background: #e0e0e0; }
+    93%        { background: #000; }
+    95%        { background: #e0e0e0; }
+    100%       { background: #000; }
+  }
+
+  .perf-seg--glitch {
+    animation: perf-seg-glitch 0.65s steps(1) var(--pd, 0ms) both;
+  }
 {% endstylesheet %}
+
+{% javascript %}
+  class PerfStats extends HTMLElement {
+    connectedCallback() {
+      const details = this.querySelector('.details');
+      if (!details) return;
+
+      if (details.open) {
+        requestAnimationFrame(() => this._glitch());
+      }
+
+      details.addEventListener('toggle', () => {
+        if (details.open) {
+          this._glitch();
+        } else {
+          this.querySelectorAll('.perf-seg--glitch').forEach(s => s.classList.remove('perf-seg--glitch'));
+        }
+      });
+    }
+
+    _glitch() {
+      this.querySelectorAll('.perf-stat').forEach((stat, si) => {
+        stat.querySelectorAll('.perf-stat__seg--on').forEach((seg, sj) => {
+          seg.style.setProperty('--pd', `${si * 55 + sj * 14}ms`);
+          seg.classList.remove('perf-seg--glitch');
+          void seg.offsetWidth;
+          seg.classList.add('perf-seg--glitch');
+        });
+      });
+    }
+  }
+
+  if (!customElements.get('perf-stats')) {
+    customElements.define('perf-stats', PerfStats);
+  }
+{% endjavascript %}
 
 {% schema %}
 {
