@@ -446,7 +446,7 @@
 
     {% if media_presentation == 'grid' %}
       <ul
-        class="media-gallery__grid list-unstyled"
+        class="media-gallery__grid list-unstyled{% if sorted_media.size > 8 %} media-gallery__grid--collapsed{% endif %}"
         data-testid="media-gallery-grid"
       >
         {% for media in sorted_media %}
@@ -490,6 +490,21 @@
           </li>
         {% endfor %}
       </ul>
+      {% if sorted_media.size > 8 %}
+        <button class="skre-gallery-toggle" type="button" data-more="Show More" data-less="Show Less">
+          Show More
+        </button>
+        <script>
+          (function () {
+            var btn = document.currentScript.previousElementSibling;
+            var grid = btn.previousElementSibling;
+            btn.addEventListener('click', function () {
+              var collapsed = grid.classList.toggle('media-gallery__grid--collapsed');
+              btn.textContent = collapsed ? btn.dataset.more : btn.dataset.less;
+            });
+          })();
+        </script>
+      {% endif %}
     {% endif %}
 
     {%- if block_settings.zoom -%}

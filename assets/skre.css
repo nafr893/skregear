@@ -291,3 +291,38 @@ input.search-input::placeholder,
 .search-page-input::placeholder {
   color: #888888 !important;
 }
+
+/* ── Product media grid: show-more / show-less ── */
+@media screen and (min-width: 750px) {
+  .media-gallery__grid--collapsed li:nth-child(n+9) {
+    display: none;
+  }
+}
+
+.skre-gallery-toggle {
+  display: none;
+}
+
+@media screen and (min-width: 750px) {
+  .skre-gallery-toggle {
+    display: block;
+    width: 100%;
+    margin-top: 0.75rem;
+    padding: 0.75rem 2rem;
+    background: #000;
+    color: #fff;
+    border: none;
+    font-family: inherit;
+    font-size: var(--font-size--sm);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: var(--style-border-radius-buttons, 0);
+    transition: background-color 0.2s ease;
+  }
+
+  .skre-gallery-toggle:hover {
+    background-color: #222;
+  }
+}
