@@ -749,7 +749,9 @@
               "name": "Performance Stats",
               "settings": {
                 "title": "Performance",
+                "seasons_label": "<p>BEST SEASON USED FOR:</p>",
                 "open_by_default": true,
+                "show_dividers": true,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
