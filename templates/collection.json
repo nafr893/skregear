@@ -159,6 +159,20 @@
               },
               "blocks": {}
             },
+            "swatches_7wVBUx": {
+              "type": "swatches",
+              "name": "t:names.swatches",
+              "settings": {
+                "product_swatches_alignment": "flex-start",
+                "product_swatches_alignment_mobile": "flex-start",
+                "hide_padding": false,
+                "product_swatches_padding_top": 4,
+                "product_swatches_padding_bottom": 0,
+                "product_swatches_padding_left": 0,
+                "product_swatches_padding_right": 0
+              },
+              "blocks": {}
+            },
             "product_title_4nY4eT": {
               "type": "product-title",
               "name": "t:names.product_title",
@@ -222,6 +236,7 @@
           },
           "block_order": [
             "card-gallery",
+            "swatches_7wVBUx",
             "product_title_4nY4eT",
             "review_jWnTz6",
             "price_EzJzMm"
@@ -232,6 +247,8 @@
         "layout_type": "grid",
         "product_card_size": "medium",
         "mobile_product_card_size": "small",
+        "enable_load_more": false,
+        "load_more_per_page": 16,
         "enable_infinite_scroll": true,
         "products_per_page": 24,
         "product_grid_width": "centered",
@@ -360,6 +377,7 @@
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
+                "font_size_mobile": "",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
@@ -415,6 +433,7 @@
         "max_collections": 4,
         "icons_style": "arrow",
         "icons_shape": "circle",
+        "show_progress_bar": false,
         "section_width": "page-width",
         "gap": 12,
         "color_scheme": "",
