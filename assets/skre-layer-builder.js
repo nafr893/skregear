@@ -13,25 +13,26 @@ class SkreLayerBuilder extends HTMLElement {
   #summaryPanel = null;
 
   connectedCallback() {
-    const script = this.querySelector('#skre-lb-data');
-    if (!script) return;
-    try {
-      this.#data = JSON.parse(script.textContent);
-      // Sort each condition's slots by sort_order
-      this.#data.conditions.forEach(c => {
-        c.slots.sort((a, b) => (a.sort_order ?? 99) - (b.sort_order ?? 99));
-      });
-    } catch (e) {
-      console.error('[skre-layer-builder] Failed to parse data', e);
-      return;
-    }
-
     this.#picker = this.querySelector('.skre-lb__picker');
     this.#builder = this.querySelector('.skre-lb__builder');
     this.#summaryPanel = this.querySelector('.skre-lb__summary-panel');
 
     this.#bindPicker();
     this.#bindBuilder();
+
+    const script = this.querySelector('#skre-lb-data');
+    if (!script) {
+      console.error('[skre-layer-builder] Data script tag not found');
+      return;
+    }
+    try {
+      this.#data = JSON.parse(script.textContent);
+      this.#data.conditions.forEach(c => {
+        c.slots.sort((a, b) => (a.sort_order ?? 99) - (b.sort_order ?? 99));
+      });
+    } catch (e) {
+      console.error('[skre-layer-builder] Failed to parse data — check for JSON errors in the Liquid output', e);
+    }
   }
 
   // ── Picker ──────────────────────────────────────────────────────────────

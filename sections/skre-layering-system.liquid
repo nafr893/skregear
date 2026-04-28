@@ -55,9 +55,9 @@
                       else
                         assign p_img = ''
                       endif
-                      assign p_rating = product.metafields.reviews.rating.value.rating | default: null
-                      assign p_rating_count = product.metafields.reviews.rating_count | default: null
-                      assign p_preview = product.metafields.custom.product_preview | default: ''
+                      assign p_rating = product.metafields.reviews.rating.value | default: null
+                      assign p_rating_count = product.metafields.reviews.rating_count.value | default: null
+                      assign p_preview = product.metafields.custom.product_preview.value | default: ''
                     -%}
                     {
                       "id": {{ product.id | json }},
@@ -204,7 +204,7 @@
     </div>
 
     <div class="skre-lb__media">
-      <img class="skre-lb__hero" src="" alt="" loading="eager">
+      <img class="skre-lb__hero" src="" alt="" width="1200" height="1200" loading="eager">
       <div class="skre-lb__thumbs"></div>
     </div>
 
@@ -256,7 +256,7 @@
       <div class="skre-lb__summary-items"></div>
       <div class="skre-lb__summary-footer">
         <div class="skre-lb__summary-total"></div>
-        <a href="/cart" class="skre-lb__cart-btn">View Cart</a>
+        <a href="{{ routes.cart_url }}" class="skre-lb__cart-btn">View Cart</a>
       </div>
     </div>
   </div>
