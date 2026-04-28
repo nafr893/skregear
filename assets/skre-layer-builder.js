@@ -68,8 +68,7 @@ class SkreLayerBuilder extends HTMLElement {
     });
     this.querySelector('.skre-lb__prev')?.addEventListener('click', () => this.#prevProduct());
     this.querySelector('.skre-lb__next')?.addEventListener('click', () => this.#nextProduct());
-    this.querySelector('.skre-lb__img-prev')?.addEventListener('click', () => this.#prevImage());
-    this.querySelector('.skre-lb__img-next')?.addEventListener('click', () => this.#nextImage());
+    this.#bindImageSwipe();
     this.querySelector('.skre-lb__atc')?.addEventListener('click', () => this.#addToSystem());
     this.querySelector('.skre-lb__summary-btn')?.addEventListener('click', () => this.#showSummary());
     this.querySelector('.skre-lb__summary-close')?.addEventListener('click', () => this.#hideSummary());

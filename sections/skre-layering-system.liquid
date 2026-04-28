@@ -226,8 +226,6 @@
     <div class="skre-lb__media">
       <div class="skre-lb__hero-wrap">
         <img class="skre-lb__hero" src="" alt="" width="1200" height="1200" loading="eager">
-        <button class="skre-lb__img-prev" type="button" aria-label="Previous image"></button>
-        <button class="skre-lb__img-next" type="button" aria-label="Next image"></button>
       </div>
       <div class="skre-lb__img-track">
         <div class="skre-lb__img-fill"></div>
@@ -541,6 +539,7 @@ body:has(.skre-lb) main {
 .skre-lb__media {
   background: transparent;
   flex-shrink: 0;
+  height: 36svh;
   display: flex;
   flex-direction: column;
 }
@@ -549,31 +548,15 @@ body:has(.skre-lb) main {
   position: relative;
   flex: 1;
   min-height: 0;
+  overflow: hidden;
 }
 
 .skre-lb__hero {
   width: 100%;
-  max-height: 34svh;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
   display: block;
-  padding: 0.5rem 1rem;
-  box-sizing: border-box;
 }
-
-.skre-lb__img-prev,
-.skre-lb__img-next {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 45%;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-}
-
-.skre-lb__img-prev { left: 0; }
-.skre-lb__img-next { right: 0; }
 
 .skre-lb__img-track {
   width: 100%;
