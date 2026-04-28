@@ -306,9 +306,9 @@ input.search-input::placeholder,
 @media screen and (min-width: 750px) {
   .skre-gallery-toggle {
     display: block;
-    width: 100%;
     margin-top: 0.75rem;
-    padding: 0.75rem 2rem;
+    margin-inline: auto;
+    padding: var(--button-padding-block) var(--button-padding-inline);
     background: #000;
     color: #fff;
     border: none;
@@ -322,7 +322,19 @@ input.search-input::placeholder,
     transition: background-color 0.2s ease;
   }
 
-  .skre-gallery-toggle:hover {
+  .skre-gallery-toggle:hover:not(.skre-gallery-toggle--less) {
     background-color: #222;
+  }
+
+  .skre-gallery-toggle--less {
+    background: transparent;
+    color: inherit;
+    padding: 0.25rem 0;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    border-radius: 0;
   }
 }

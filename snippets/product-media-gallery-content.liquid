@@ -501,6 +501,7 @@
             btn.addEventListener('click', function () {
               var collapsed = grid.classList.toggle('media-gallery__grid--collapsed');
               btn.textContent = collapsed ? btn.dataset.more : btn.dataset.less;
+              btn.classList.toggle('skre-gallery-toggle--less', !collapsed);
             });
           })();
         </script>
