@@ -33,7 +33,7 @@
 
       {%- if seasons != blank -%}
         <div class="perf-seasons">
-          <p class="perf-seasons__label">Best used for:</p>
+          <div class="perf-seasons__label">{{- block.settings.seasons_label | default: '<p>Best used for:</p>' -}}</div>
           <div class="perf-seasons__items">
             {%- for season in seasons -%}
               <span class="perf-seasons__item">
@@ -97,7 +97,7 @@
 {%- endcapture -%}
 
 <perf-stats
-  class="perf-block spacing-style"
+  class="perf-block spacing-style{% if block.settings.show_dividers %} perf-block--dividers{% endif %}"
   style="{% render 'spacing-style', settings: block.settings %}"
 >
   {%- render 'accordion-custom-component',
@@ -110,6 +110,10 @@
 {% stylesheet %}
   .perf-block {
     width: 100%;
+  }
+
+  .perf-block--dividers {
+    border-block: 1px solid #ededed;
   }
 
   /* ── Summary header ── */
@@ -134,7 +138,8 @@
     border-bottom: 1px solid #ededed;
   }
 
-  .perf-seasons__label {
+  .perf-seasons__label,
+  .perf-seasons__label p {
     font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.1em;
@@ -286,10 +291,22 @@
       "default": "Performance"
     },
     {
+      "type": "richtext",
+      "id": "seasons_label",
+      "label": "Season label",
+      "default": "<p>Best used for:</p>"
+    },
+    {
       "type": "checkbox",
       "id": "open_by_default",
       "label": "Open by default",
       "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dividers",
+      "label": "Show dividers",
+      "default": true
     },
     {
       "type": "header",
