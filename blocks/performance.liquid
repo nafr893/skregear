@@ -1,0 +1,287 @@
+
+{% liquid
+  assign product = closest.product
+
+  if request.visual_preview_mode and product == blank
+    assign product = collections.all.products.first
+    assign preview_mode = true
+  endif
+%}
+
+{%- capture perf_content -%}
+  <details
+    class="details"
+    {% if block.settings.open_by_default %}open{% endif %}
+    {{ block.shopify_attributes }}
+  >
+    <summary class="details__header perf__summary">
+      {{- block.settings.title | default: 'Performance' -}}
+      <span class="svg-wrapper icon-caret icon-animated">
+        {{- 'icon-caret.svg' | inline_asset_content -}}
+      </span>
+    </summary>
+
+    <div class="details-content perf__body">
+
+      {%- liquid
+        if preview_mode
+          assign seasons = 'Early,Mid,Late' | split: ','
+        else
+          assign seasons = product.metafields.custom.product_season.value
+        endif
+      -%}
+
+      {%- if seasons != blank -%}
+        <div class="perf-seasons">
+          <p class="perf-seasons__label">Best used for:</p>
+          <div class="perf-seasons__items">
+            {%- for season in seasons -%}
+              <span class="perf-seasons__item">
+                <svg class="perf-seasons__check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                  <rect x="1" y="1" width="16" height="16" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M4 9.5l3 3L14 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {{- season | strip -}}
+              </span>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- liquid
+        if preview_mode
+          assign preview_labels  = 'Thermal Rating,Waterproofing,Wind Resistant,Durability' | split: ','
+          assign preview_ratings = '8,7,8,9' | split: ','
+        endif
+      -%}
+
+      {%- for i in (1..5) -%}
+        {%- liquid
+          if preview_mode
+            assign idx        = forloop.index0
+            assign s_label    = preview_labels[idx]
+            assign s_rating   = preview_ratings[idx] | plus: 0
+          else
+            assign lkey       = 'stat_' | append: i | append: '_label'
+            assign rkey       = 'stat_' | append: i | append: '_rating'
+            assign s_label    = product.metafields.custom[lkey]
+            assign s_rating   = product.metafields.custom[rkey] | plus: 0
+          endif
+        -%}
+
+        {%- if s_label != blank -%}
+          <div class="perf-stat">
+            <div class="perf-stat__row">
+              <span class="perf-stat__label">{{- s_label | strip | upcase -}}</span>
+              <span class="perf-stat__score">{{- s_rating -}}/10</span>
+            </div>
+            <div
+              class="perf-stat__bar"
+              role="img"
+              aria-label="{{ s_label }}: {{ s_rating }} out of 10"
+            >
+              {%- for seg in (1..10) -%}
+                <div class="perf-stat__seg{% if seg <= s_rating %} perf-stat__seg--on{% endif %}"></div>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+
+        {%- if preview_mode and forloop.index >= preview_labels.size -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+    </div>
+  </details>
+{%- endcapture -%}
+
+<div
+  class="perf-block spacing-style"
+  style="{% render 'spacing-style', settings: block.settings %}"
+>
+  {%- render 'accordion-custom-component',
+    children: perf_content,
+    open_by_default_on_desktop: block.settings.open_by_default,
+    open_by_default_on_mobile: block.settings.open_by_default
+  -%}
+</div>
+
+{% stylesheet %}
+  .perf-block {
+    width: 100%;
+  }
+
+  /* ── Summary header ── */
+  .perf__summary {
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    font-size: var(--font-size--sm);
+  }
+
+  /* ── Body ── */
+  .perf__body {
+    padding-block: 0.75rem 0.25rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Seasons ── */
+  .perf-seasons {
+    padding-block-end: 1rem;
+    margin-block-end: 0.25rem;
+    border-bottom: 1px solid #ededed;
+  }
+
+  .perf-seasons__label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0 0 0.5rem;
+    color: rgb(var(--color-foreground-rgb) / 0.6);
+  }
+
+  .perf-seasons__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem 1.25rem;
+  }
+
+  .perf-seasons__item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .perf-seasons__check {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
+    color: var(--color-foreground);
+  }
+
+  /* ── Stat row ── */
+  .perf-stat {
+    padding-block: 0.8rem;
+    border-bottom: 1px solid #ededed;
+  }
+
+  .perf-stat:last-child {
+    border-bottom: none;
+  }
+
+  .perf-stat__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-block-end: 0.5rem;
+  }
+
+  .perf-stat__label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .perf-stat__score {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: rgb(var(--color-foreground-rgb) / 0.55);
+    border: 1px solid #ddd;
+    padding: 0.1rem 0.4rem;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+
+  /* ── Segmented bar ── */
+  .perf-stat__bar {
+    display: flex;
+    gap: 3px;
+  }
+
+  .perf-stat__seg {
+    flex: 1;
+    height: 3px;
+    background: #e0e0e0;
+    border-radius: 1px;
+  }
+
+  .perf-stat__seg--on {
+    background: #000;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Performance Stats",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Performance"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_by_default",
+      "label": "Open by default",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "Left",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "Right",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Performance Stats",
+      "category": "Product"
+    }
+  ]
+}
+{% endschema %}
