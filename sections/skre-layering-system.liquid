@@ -224,8 +224,14 @@
     </div>
 
     <div class="skre-lb__media">
-      <img class="skre-lb__hero" src="" alt="" width="1200" height="1200" loading="eager">
-      <div class="skre-lb__thumbs"></div>
+      <div class="skre-lb__hero-wrap">
+        <img class="skre-lb__hero" src="" alt="" width="1200" height="1200" loading="eager">
+        <button class="skre-lb__img-prev" type="button" aria-label="Previous image"></button>
+        <button class="skre-lb__img-next" type="button" aria-label="Next image"></button>
+      </div>
+      <div class="skre-lb__img-track">
+        <div class="skre-lb__img-fill"></div>
+      </div>
     </div>
 
     <div class="skre-lb__info">
@@ -539,10 +545,14 @@ body:has(.skre-lb) main {
   flex-direction: column;
 }
 
-.skre-lb__hero {
-  width: 100%;
+.skre-lb__hero-wrap {
+  position: relative;
   flex: 1;
   min-height: 0;
+}
+
+.skre-lb__hero {
+  width: 100%;
   max-height: 34svh;
   object-fit: contain;
   display: block;
@@ -550,36 +560,31 @@ body:has(.skre-lb) main {
   box-sizing: border-box;
 }
 
-.skre-lb__thumbs {
-  display: flex;
-  gap: 0.45rem;
-  padding: 0 1rem 0.75rem;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.skre-lb__thumbs::-webkit-scrollbar { display: none; }
-
-.skre-lb__thumb {
-  width: 54px;
-  height: 54px;
-  flex-shrink: 0;
-  border: 2px solid transparent;
-  cursor: pointer;
+.skre-lb__img-prev,
+.skre-lb__img-next {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 45%;
+  background: none;
+  border: none;
   padding: 0;
-  background: #fff;
-  overflow: hidden;
-  border-radius: 0;
+  cursor: pointer;
 }
 
-.skre-lb__thumb--active {
-  border-color: #111;
-}
+.skre-lb__img-prev { left: 0; }
+.skre-lb__img-next { right: 0; }
 
-.skre-lb__thumb img {
+.skre-lb__img-track {
   width: 100%;
+  height: 2px;
+  background-color: rgb(0 0 0 / 0.1);
+}
+
+.skre-lb__img-fill {
   height: 100%;
-  object-fit: cover;
-  display: block;
+  background-color: #000;
+  transition: width 0.3s ease;
 }
 
 /* Product info */

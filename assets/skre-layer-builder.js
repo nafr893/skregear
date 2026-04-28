@@ -6,6 +6,8 @@ class SkreLayerBuilder extends HTMLElement {
   #selectedVariants = {}; // layerIndex → variant snapshot
   #cartLines = [];        // items added to system
   #subtotal = 0;          // in cents
+  #imgUrls = [];          // images for current product
+  #imgIndex = 0;          // active image index
 
   // DOM refs cached on connect
   #picker = null;
@@ -66,6 +68,8 @@ class SkreLayerBuilder extends HTMLElement {
     });
     this.querySelector('.skre-lb__prev')?.addEventListener('click', () => this.#prevProduct());
     this.querySelector('.skre-lb__next')?.addEventListener('click', () => this.#nextProduct());
+    this.querySelector('.skre-lb__img-prev')?.addEventListener('click', () => this.#prevImage());
+    this.querySelector('.skre-lb__img-next')?.addEventListener('click', () => this.#nextImage());
     this.querySelector('.skre-lb__atc')?.addEventListener('click', () => this.#addToSystem());
     this.querySelector('.skre-lb__summary-btn')?.addEventListener('click', () => this.#showSummary());
     this.querySelector('.skre-lb__summary-close')?.addEventListener('click', () => this.#hideSummary());
@@ -409,34 +413,36 @@ class SkreLayerBuilder extends HTMLElement {
   }
 
   #updateImages(urls) {
+    this.#imgUrls = urls;
+    this.#imgIndex = 0;
+    this.#renderHeroImage();
+  }
+
+  #renderHeroImage() {
     const hero = this.querySelector('.skre-lb__hero');
-    const thumbsContainer = this.querySelector('.skre-lb__thumbs');
+    const fill = this.querySelector('.skre-lb__img-fill');
+    const track = this.querySelector('.skre-lb__img-track');
+    const urls = this.#imgUrls;
 
-    if (hero) {
-      hero.src = urls[0] ?? '';
-      hero.alt = '';
+    if (hero) hero.src = urls[this.#imgIndex] ?? '';
+
+    const total = urls.length;
+    const pct = total > 1 ? ((this.#imgIndex + 1) / total) * 100 : 100;
+    if (fill) fill.style.width = `${pct}%`;
+    if (track) track.style.display = total > 1 ? '' : 'none';
+  }
+
+  #prevImage() {
+    if (this.#imgIndex > 0) {
+      this.#imgIndex--;
+      this.#renderHeroImage();
     }
+  }
 
-    if (thumbsContainer) {
-      if (urls.length <= 1) {
-        thumbsContainer.innerHTML = '';
-        return;
-      }
-      thumbsContainer.innerHTML = urls.map((url, i) =>
-        `<button class="skre-lb__thumb${i === 0 ? ' skre-lb__thumb--active' : ''}" data-idx="${i}" type="button">
-          <img src="${url}" alt="" loading="lazy">
-        </button>`
-      ).join('');
-
-      thumbsContainer.querySelectorAll('[data-idx]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const url = urls[Number(btn.dataset.idx)];
-          if (hero) hero.src = url;
-          thumbsContainer.querySelectorAll('.skre-lb__thumb').forEach(t =>
-            t.classList.toggle('skre-lb__thumb--active', t === btn)
-          );
-        });
-      });
+  #nextImage() {
+    if (this.#imgIndex < this.#imgUrls.length - 1) {
+      this.#imgIndex++;
+      this.#renderHeroImage();
     }
   }
 
