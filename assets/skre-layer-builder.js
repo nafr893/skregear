@@ -1,0 +1,603 @@
+class SkreLayerBuilder extends HTMLElement {
+  #data = null;
+  #condition = null;
+  #layerIndex = 0;
+  #productIndexes = {};   // layerIndex → productIndex
+  #selectedVariants = {}; // layerIndex → variant snapshot
+  #cartLines = [];        // items added to system
+  #subtotal = 0;          // in cents
+
+  // DOM refs cached on connect
+  #picker = null;
+  #builder = null;
+  #summaryPanel = null;
+
+  connectedCallback() {
+    const script = this.querySelector('#skre-lb-data');
+    if (!script) return;
+    try {
+      this.#data = JSON.parse(script.textContent);
+      // Sort each condition's slots by sort_order
+      this.#data.conditions.forEach(c => {
+        c.slots.sort((a, b) => (a.sort_order ?? 99) - (b.sort_order ?? 99));
+      });
+    } catch (e) {
+      console.error('[skre-layer-builder] Failed to parse data', e);
+      return;
+    }
+
+    this.#picker = this.querySelector('.skre-lb__picker');
+    this.#builder = this.querySelector('.skre-lb__builder');
+    this.#summaryPanel = this.querySelector('.skre-lb__summary-panel');
+
+    this.#bindPicker();
+    this.#bindBuilder();
+  }
+
+  // ── Picker ──────────────────────────────────────────────────────────────
+
+  #bindPicker() {
+    this.querySelectorAll('[data-condition]').forEach(btn => {
+      btn.addEventListener('click', () => this.#selectCondition(btn.dataset.condition));
+    });
+  }
+
+  #selectCondition(key) {
+    this.#condition = key;
+    this.#layerIndex = 0;
+    this.#productIndexes = {};
+    this.#selectedVariants = {};
+    this.#cartLines = [];
+    this.#subtotal = 0;
+
+    if (this.#picker) this.#picker.hidden = true;
+    if (this.#builder) this.#builder.hidden = false;
+
+    this.#renderTabs();
+    this.#setLayer(0);
+  }
+
+  // ── Builder ─────────────────────────────────────────────────────────────
+
+  #bindBuilder() {
+    this.querySelector('.skre-lb__close')?.addEventListener('click', () => {
+      window.location.href = this.dataset.exitUrl || '/';
+    });
+    this.querySelector('.skre-lb__prev')?.addEventListener('click', () => this.#prevProduct());
+    this.querySelector('.skre-lb__next')?.addEventListener('click', () => this.#nextProduct());
+    this.querySelector('.skre-lb__atc')?.addEventListener('click', () => this.#addToSystem());
+    this.querySelector('.skre-lb__summary-btn')?.addEventListener('click', () => this.#showSummary());
+    this.querySelector('.skre-lb__summary-close')?.addEventListener('click', () => this.#hideSummary());
+    this.querySelector('.skre-lb__summary-panel')?.addEventListener('click', e => {
+      if (e.target === this.#summaryPanel) this.#hideSummary();
+    });
+  }
+
+  // ── Helpers ──────────────────────────────────────────────────────────────
+
+  #getConditionData() {
+    return this.#data?.conditions?.find(c => c.key === this.#condition) ?? null;
+  }
+
+  #getSlots() {
+    return this.#getConditionData()?.slots ?? [];
+  }
+
+  #activeSlot() {
+    return this.#getSlots()[this.#layerIndex] ?? null;
+  }
+
+  // ── Tabs ─────────────────────────────────────────────────────────────────
+
+  #renderTabs() {
+    const slots = this.#getSlots();
+    const tabs = this.querySelector('.skre-lb__tabs');
+    if (!tabs) return;
+
+    tabs.innerHTML = slots.map((slot, i) => {
+      const isActive = i === this.#layerIndex;
+      const isDone = Boolean(this.#selectedVariants[i]);
+      return `<button
+        class="skre-lb__tab${isActive ? ' skre-lb__tab--active' : ''}${isDone && !isActive ? ' skre-lb__tab--done' : ''}"
+        data-layer="${i}"
+        role="tab"
+        aria-selected="${isActive}"
+      >${slot.label}</button>`;
+    }).join('');
+
+    tabs.querySelectorAll('[data-layer]').forEach(btn => {
+      btn.addEventListener('click', () => this.#setLayer(Number(btn.dataset.layer)));
+    });
+  }
+
+  // ── Layer navigation ─────────────────────────────────────────────────────
+
+  #setLayer(i) {
+    const slots = this.#getSlots();
+    if (i < 0 || i >= slots.length) return;
+    this.#layerIndex = i;
+    this.#renderTabs();
+
+    const slot = slots[i];
+    const pi = this.#productIndexes[i] ?? 0;
+
+    const labelEl = this.querySelector('.skre-lb__layer-label');
+    if (labelEl) labelEl.textContent = `${slot.label} Options`;
+
+    if (slot.products.length > 0) {
+      this.#renderProduct(slot.products[Math.min(pi, slot.products.length - 1)], pi, slot.products.length);
+    } else {
+      this.#renderEmptySlot();
+    }
+  }
+
+  #prevProduct() {
+    const slot = this.#activeSlot();
+    if (!slot) return;
+    const current = this.#productIndexes[this.#layerIndex] ?? 0;
+    const next = Math.max(0, current - 1);
+    this.#productIndexes[this.#layerIndex] = next;
+    this.#renderProduct(slot.products[next], next, slot.products.length);
+  }
+
+  #nextProduct() {
+    const slot = this.#activeSlot();
+    if (!slot) return;
+    const current = this.#productIndexes[this.#layerIndex] ?? 0;
+    const next = Math.min(slot.products.length - 1, current + 1);
+    this.#productIndexes[this.#layerIndex] = next;
+    this.#renderProduct(slot.products[next], next, slot.products.length);
+  }
+
+  // ── Product rendering ────────────────────────────────────────────────────
+
+  #renderProduct(product, productIndex, totalProducts) {
+    // Progress
+    const progressText = this.querySelector('.skre-lb__progress-text');
+    const progressFill = this.querySelector('.skre-lb__progress-fill');
+    if (progressText) progressText.textContent = `${productIndex + 1}/${totalProducts}`;
+    if (progressFill) {
+      const pct = totalProducts > 1 ? ((productIndex + 1) / totalProducts) * 100 : 100;
+      progressFill.style.width = `${pct}%`;
+    }
+
+    // Back/Next nav
+    const prevBtn = this.querySelector('.skre-lb__prev');
+    const nextBtn = this.querySelector('.skre-lb__next');
+    if (prevBtn) prevBtn.disabled = productIndex === 0;
+    if (nextBtn) nextBtn.disabled = productIndex === totalProducts - 1;
+
+    // Text fields
+    this.#setText('.skre-lb__title', product.title ?? '');
+    this.#setText('.skre-lb__price', product.price_display ?? '');
+
+    const previewEl = this.querySelector('.skre-lb__preview');
+    if (previewEl) {
+      previewEl.textContent = product.preview_text ?? '';
+      previewEl.hidden = !product.preview_text;
+    }
+
+    this.#renderRating(product);
+
+    // Determine default variant (first available, else first)
+    const defaultVariant = product.variants.find(v => v.available) ?? product.variants[0] ?? null;
+
+    const defaultColor = defaultVariant?.option1 ?? null;
+    const defaultSize = defaultVariant?.option2 ?? null;
+
+    this.#renderSwatches(product, defaultColor);
+    this.#renderSizes(product, defaultColor, defaultSize);
+
+    const images = this.#getVariantImages(product, defaultVariant);
+    this.#updateImages(images);
+    this.#updateAtcPrice(defaultVariant);
+
+    // Store selection snapshot for this layer
+    if (defaultVariant) {
+      this.#selectedVariants[this.#layerIndex] = {
+        id: defaultVariant.id,
+        title: defaultVariant.title,
+        price: defaultVariant.price,
+        price_display: defaultVariant.price_display,
+        option1: defaultVariant.option1,
+        option2: defaultVariant.option2,
+        imageUrl: images[0] ?? product.featured_image ?? '',
+        productTitle: product.title,
+      };
+    }
+  }
+
+  #renderEmptySlot() {
+    this.#setText('.skre-lb__title', 'No products in this slot yet.');
+    this.#setText('.skre-lb__preview', '');
+    this.#setText('.skre-lb__price', '');
+    this.#updateImages([]);
+    this.#updateAtcPrice(null);
+
+    const prevBtn = this.querySelector('.skre-lb__prev');
+    const nextBtn = this.querySelector('.skre-lb__next');
+    if (prevBtn) prevBtn.disabled = true;
+    if (nextBtn) nextBtn.disabled = true;
+
+    const progressText = this.querySelector('.skre-lb__progress-text');
+    if (progressText) progressText.textContent = '0/0';
+
+    const progressFill = this.querySelector('.skre-lb__progress-fill');
+    if (progressFill) progressFill.style.width = '0%';
+  }
+
+  // ── Rating ───────────────────────────────────────────────────────────────
+
+  #renderRating(product) {
+    const starsEl = this.querySelector('.skre-lb__stars');
+    const countEl = this.querySelector('.skre-lb__rating-count');
+
+    if (!product.rating) {
+      if (starsEl) starsEl.innerHTML = '';
+      if (countEl) countEl.textContent = '';
+      return;
+    }
+
+    const r = parseFloat(product.rating);
+    if (starsEl) {
+      starsEl.innerHTML = Array.from({ length: 5 }, (_, i) => {
+        const filled = i < r;
+        return `<span style="color:${filled ? '#111' : '#ccc'}">&#9733;</span>`;
+      }).join('');
+    }
+    if (countEl) countEl.textContent = product.rating_count ? `(${product.rating_count})` : '';
+  }
+
+  // ── Swatches ─────────────────────────────────────────────────────────────
+
+  #renderSwatches(product, selectedColor) {
+    const colorOpt = product.options.find(o => o.name.toLowerCase() === 'color');
+    const container = this.querySelector('.skre-lb__swatches');
+    const colorRow = this.querySelector('.skre-lb__color-row');
+    const colorName = this.querySelector('.skre-lb__color-name');
+
+    if (!colorOpt || !container) {
+      if (colorRow) colorRow.hidden = true;
+      return;
+    }
+
+    if (colorRow) colorRow.hidden = false;
+    if (colorName) colorName.textContent = selectedColor ?? colorOpt.values[0] ?? '';
+
+    container.innerHTML = colorOpt.values.map(val => {
+      const v = product.variants.find(vv => vv.option1 === val);
+      const imgUrl = v?.variant_images?.[0] ?? v?.featured_image ?? '';
+      const isActive = val === selectedColor;
+      return `<button
+        class="skre-lb__swatch${isActive ? ' skre-lb__swatch--active' : ''}"
+        data-color="${this.#esc(val)}"
+        style="${imgUrl ? `background-image:url('${imgUrl}')` : 'background-color:#ccc'}"
+        aria-label="${this.#esc(val)}"
+        aria-pressed="${isActive}"
+      ></button>`;
+    }).join('');
+
+    container.querySelectorAll('[data-color]').forEach(btn => {
+      btn.addEventListener('click', () => this.#selectColor(btn.dataset.color));
+    });
+  }
+
+  // ── Sizes ─────────────────────────────────────────────────────────────────
+
+  #renderSizes(product, selectedColor, selectedSize) {
+    const sizeOpt = product.options.find(o => o.name.toLowerCase() === 'size');
+    const container = this.querySelector('.skre-lb__sizes');
+    if (!container) return;
+
+    if (!sizeOpt) {
+      container.innerHTML = '';
+      return;
+    }
+
+    container.innerHTML = sizeOpt.values.map(val => {
+      const v = product.variants.find(vv => {
+        const colorMatch = !selectedColor || vv.option1 === selectedColor;
+        const sizeMatch = vv.option2 === val || (!vv.option2 && vv.option1 === val);
+        return colorMatch && sizeMatch;
+      });
+      const available = v?.available !== false;
+      const isActive = val === selectedSize;
+      return `<button
+        class="skre-lb__size${isActive ? ' skre-lb__size--active' : ''}${!available ? ' skre-lb__size--unavailable' : ''}"
+        data-size="${this.#esc(val)}"
+        ${!available ? 'disabled' : ''}
+        aria-pressed="${isActive}"
+      >${val}</button>`;
+    }).join('');
+
+    container.querySelectorAll('[data-size]').forEach(btn => {
+      btn.addEventListener('click', () => this.#selectSize(btn.dataset.size));
+    });
+  }
+
+  // ── Color selection ───────────────────────────────────────────────────────
+
+  #selectColor(colorValue) {
+    const slot = this.#activeSlot();
+    if (!slot) return;
+    const pi = this.#productIndexes[this.#layerIndex] ?? 0;
+    const product = slot.products[pi];
+    if (!product) return;
+
+    const currentSize = this.#selectedVariants[this.#layerIndex]?.option2;
+
+    let variant =
+      product.variants.find(v => v.option1 === colorValue && v.option2 === currentSize && v.available) ??
+      product.variants.find(v => v.option1 === colorValue && v.available) ??
+      product.variants.find(v => v.option1 === colorValue);
+
+    const images = this.#getVariantImages(product, variant);
+    this.#updateImages(images);
+
+    const colorName = this.querySelector('.skre-lb__color-name');
+    if (colorName) colorName.textContent = colorValue;
+
+    this.querySelectorAll('.skre-lb__swatch').forEach(btn => {
+      const active = btn.dataset.color === colorValue;
+      btn.classList.toggle('skre-lb__swatch--active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+
+    this.#renderSizes(product, colorValue, variant?.option2 ?? null);
+    this.#updateAtcPrice(variant);
+
+    if (variant) {
+      this.#selectedVariants[this.#layerIndex] = {
+        id: variant.id,
+        title: variant.title,
+        price: variant.price,
+        price_display: variant.price_display,
+        option1: variant.option1,
+        option2: variant.option2,
+        imageUrl: images[0] ?? product.featured_image ?? '',
+        productTitle: product.title,
+      };
+    }
+  }
+
+  // ── Size selection ────────────────────────────────────────────────────────
+
+  #selectSize(sizeValue) {
+    const slot = this.#activeSlot();
+    if (!slot) return;
+    const pi = this.#productIndexes[this.#layerIndex] ?? 0;
+    const product = slot.products[pi];
+    if (!product) return;
+
+    const currentColor = this.#selectedVariants[this.#layerIndex]?.option1;
+
+    const variant =
+      product.variants.find(v => v.option1 === currentColor && v.option2 === sizeValue) ??
+      product.variants.find(v => v.option2 === sizeValue || v.option1 === sizeValue);
+
+    this.querySelectorAll('.skre-lb__size').forEach(btn => {
+      const active = btn.dataset.size === sizeValue;
+      btn.classList.toggle('skre-lb__size--active', active);
+      btn.setAttribute('aria-pressed', String(active));
+    });
+
+    if (variant) {
+      this.#selectedVariants[this.#layerIndex] = {
+        ...this.#selectedVariants[this.#layerIndex],
+        id: variant.id,
+        title: variant.title,
+        price: variant.price,
+        price_display: variant.price_display,
+        option2: variant.option2,
+      };
+      this.#updateAtcPrice(variant);
+    }
+  }
+
+  // ── Images ────────────────────────────────────────────────────────────────
+
+  #getVariantImages(product, variant) {
+    if (variant?.variant_images?.length) return variant.variant_images;
+    if (variant?.featured_image) return [variant.featured_image];
+    if (product?.featured_image) return [product.featured_image];
+    return [];
+  }
+
+  #updateImages(urls) {
+    const hero = this.querySelector('.skre-lb__hero');
+    const thumbsContainer = this.querySelector('.skre-lb__thumbs');
+
+    if (hero) {
+      hero.src = urls[0] ?? '';
+      hero.alt = '';
+    }
+
+    if (thumbsContainer) {
+      if (urls.length <= 1) {
+        thumbsContainer.innerHTML = '';
+        return;
+      }
+      thumbsContainer.innerHTML = urls.map((url, i) =>
+        `<button class="skre-lb__thumb${i === 0 ? ' skre-lb__thumb--active' : ''}" data-idx="${i}" type="button">
+          <img src="${url}" alt="" loading="lazy">
+        </button>`
+      ).join('');
+
+      thumbsContainer.querySelectorAll('[data-idx]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const url = urls[Number(btn.dataset.idx)];
+          if (hero) hero.src = url;
+          thumbsContainer.querySelectorAll('.skre-lb__thumb').forEach(t =>
+            t.classList.toggle('skre-lb__thumb--active', t === btn)
+          );
+        });
+      });
+    }
+  }
+
+  // ── ATC button ────────────────────────────────────────────────────────────
+
+  #updateAtcPrice(variant) {
+    const priceEl = this.querySelector('.skre-lb__atc-price');
+    const btn = this.querySelector('.skre-lb__atc');
+    if (priceEl) priceEl.textContent = variant?.price_display ?? '';
+    if (btn) btn.disabled = !variant?.id;
+  }
+
+  async #addToSystem() {
+    const variantData = this.#selectedVariants[this.#layerIndex];
+    if (!variantData?.id) {
+      alert('Please select options before adding to your system.');
+      return;
+    }
+
+    const btn = this.querySelector('.skre-lb__atc');
+    const labelEl = btn?.querySelector('.skre-lb__atc-label');
+    if (btn) btn.disabled = true;
+    if (labelEl) labelEl.textContent = 'Adding…';
+
+    try {
+      const res = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ items: [{ id: variantData.id, quantity: 1 }] }),
+      });
+      const data = await res.json();
+      if (data.status) throw new Error(data.message ?? 'Cart error');
+
+      const addedItem = Array.isArray(data.items) ? data.items[0] : data;
+      const layerLabel = this.#activeSlot()?.label ?? '';
+      const variantDisplay = variantData.title === 'Default Title' ? '' : variantData.title;
+
+      this.#cartLines.push({
+        key: addedItem?.key ?? String(variantData.id),
+        variantId: variantData.id,
+        title: variantData.productTitle,
+        variantTitle: variantDisplay,
+        price: variantData.price,
+        price_display: variantData.price_display,
+        imageUrl: variantData.imageUrl ?? '',
+        layerLabel,
+      });
+
+      this.#subtotal += variantData.price;
+      this.#renderSubtotal();
+      this.#advanceLayer();
+
+    } catch (err) {
+      console.error('[skre-layer-builder] Cart add failed', err);
+      alert('Something went wrong adding to cart. Please try again.');
+    } finally {
+      if (btn) btn.disabled = false;
+      if (labelEl) labelEl.textContent = 'ADD TO SYSTEM';
+    }
+  }
+
+  #advanceLayer() {
+    const slots = this.#getSlots();
+    const next = this.#layerIndex + 1;
+    if (next < slots.length) {
+      this.#setLayer(next);
+    } else {
+      this.#showSummary();
+    }
+  }
+
+  // ── Subtotal ──────────────────────────────────────────────────────────────
+
+  #renderSubtotal() {
+    const el = this.querySelector('.skre-lb__subtotal-amount');
+    if (el) el.textContent = this.#formatMoney(this.#subtotal);
+  }
+
+  #formatMoney(cents) {
+    return `$${(cents / 100).toFixed(2)}`;
+  }
+
+  // ── Summary panel ─────────────────────────────────────────────────────────
+
+  #showSummary() {
+    if (!this.#summaryPanel) return;
+    this.#renderSummaryItems();
+    this.#summaryPanel.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  #hideSummary() {
+    if (!this.#summaryPanel) return;
+    this.#summaryPanel.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  #renderSummaryItems() {
+    const itemsContainer = this.querySelector('.skre-lb__summary-items');
+    const totalEl = this.querySelector('.skre-lb__summary-total');
+
+    if (itemsContainer) {
+      if (this.#cartLines.length === 0) {
+        itemsContainer.innerHTML =
+          '<p style="padding:1.25rem 1rem;color:#888;font-size:0.82rem;">No items added yet.</p>';
+      } else {
+        itemsContainer.innerHTML = this.#cartLines.map((line, i) =>
+          `<div class="skre-lb__summary-item">
+            <img class="skre-lb__si-img" src="${line.imageUrl}" alt="${this.#esc(line.title)}" loading="lazy">
+            <div class="skre-lb__si-info">
+              <p class="skre-lb__si-name">${line.title}</p>
+              <p class="skre-lb__si-variant">${line.layerLabel}${line.variantTitle ? ' &middot; ' + line.variantTitle : ''}</p>
+            </div>
+            <span class="skre-lb__si-price">${line.price_display}</span>
+            <button class="skre-lb__si-remove" data-key="${this.#esc(line.key)}" data-idx="${i}" type="button" aria-label="Remove">
+              &#215;
+            </button>
+          </div>`
+        ).join('');
+
+        itemsContainer.querySelectorAll('[data-key]').forEach(btn => {
+          btn.addEventListener('click', () =>
+            this.#removeLine(btn.dataset.key, Number(btn.dataset.idx))
+          );
+        });
+      }
+    }
+
+    if (totalEl) {
+      totalEl.innerHTML = `<span>System Total</span><span>${this.#formatMoney(this.#subtotal)}</span>`;
+    }
+  }
+
+  async #removeLine(lineKey, lineIdx) {
+    if (lineIdx < 0 || lineIdx >= this.#cartLines.length) return;
+    try {
+      await fetch('/cart/change.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ id: lineKey, quantity: 0 }),
+      });
+      const [removed] = this.#cartLines.splice(lineIdx, 1);
+      if (removed) {
+        this.#subtotal = Math.max(0, this.#subtotal - removed.price);
+        this.#renderSubtotal();
+        this.#renderSummaryItems();
+      }
+    } catch (err) {
+      console.error('[skre-layer-builder] Remove line failed', err);
+    }
+  }
+
+  // ── Utilities ─────────────────────────────────────────────────────────────
+
+  #setText(selector, text) {
+    const el = this.querySelector(selector);
+    if (el) el.textContent = text;
+  }
+
+  #esc(str) {
+    return String(str ?? '').replace(/[&<>"']/g, c => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+    }[c]));
+  }
+}
+
+if (!customElements.get('skre-layer-builder')) {
+  customElements.define('skre-layer-builder', SkreLayerBuilder);
+}

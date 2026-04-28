@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "layering-system": {
+      "type": "skre-layering-system",
+      "settings": {}
+    }
+  },
+  "order": ["layering-system"]
+}
