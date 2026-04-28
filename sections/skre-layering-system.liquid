@@ -255,7 +255,6 @@
       </div>
 
       <h2 class="skre-lb__title"></h2>
-      <p class="skre-lb__preview"></p>
       <p class="skre-lb__price"></p>
 
       <div class="skre-lb__color-row">
@@ -415,11 +414,11 @@ body:has(.skre-lb) main {
   display: none !important;
 }
 
-/* ── Media: full-bleed image zone ── */
+/* ── Media: grows to fill all space above the info panel ── */
 .skre-lb__media {
   position: relative;
-  flex-shrink: 0;
-  height: 46svh;
+  flex: 1;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -575,14 +574,11 @@ body:has(.skre-lb) main {
 
 /* Product info */
 .skre-lb__info {
-  padding: 0.5rem 1rem 1rem;
+  padding: 0.6rem 1rem 1.5rem;
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  flex-shrink: 0;
 }
 
 .skre-lb__rating-row {

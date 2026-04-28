@@ -175,12 +175,6 @@ class SkreLayerBuilder extends HTMLElement {
     this.#setText('.skre-lb__title', product.title ?? '');
     this.#setText('.skre-lb__price', product.price_display ?? '');
 
-    const previewEl = this.querySelector('.skre-lb__preview');
-    if (previewEl) {
-      previewEl.textContent = product.preview_text ?? '';
-      previewEl.hidden = !product.preview_text;
-    }
-
     this.#renderRating(product);
 
     // Determine default variant (first available, else first)
