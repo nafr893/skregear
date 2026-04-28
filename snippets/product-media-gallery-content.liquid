@@ -102,39 +102,14 @@
   endif
 
   assign sorted_media = '' | split: ','
-  assign skre_variant_files = selected_product.selected_or_first_available_variant.metafields.custom.variant_images.value
-
-  if skre_variant_files != blank
-    # Variant has custom images: show those first (in metafield order), then remaining product.media.
-    # Use string comparison to avoid integer vs GID type coercion issues.
-    assign skre_added_ids = ''
-    for vfile in skre_variant_files
-      assign skre_vparts = vfile.id | split: '/'
-      assign skre_vid_str = skre_vparts | last | strip
-      for media in selected_product.media
-        assign skre_mid_str = media.id | append: ''
-        if skre_mid_str == skre_vid_str
-          assign skre_found = selected_product.media | where: 'id', media.id
-          assign sorted_media = sorted_media | concat: skre_found
-          assign skre_added_ids = skre_added_ids | append: skre_mid_str | append: ','
-          break
-        endif
-      endfor
-    endfor
-    for media in selected_product.media
-      assign skre_id_check = media.id | append: ','
-      unless skre_added_ids contains skre_id_check
-        assign skre_rest = selected_product.media | where: 'id', media.id
-        assign sorted_media = sorted_media | concat: skre_rest
-      endunless
-    endfor
-  elsif selected_variant_media
-    # Fallback: original behaviour — variant featured media first, then rest
+  if selected_variant_media
     assign sorted_media = sorted_media | concat: selected_product.media | where: 'id', selected_variant_media.id
+
     for media in selected_product.media
       if block_settings.hide_variants and variant_images contains media.src and sorted_media.size > 0
         continue
       endif
+
       if media.id != selected_variant_media.id
         assign found_media = selected_product.media | where: 'id', media.id
         assign sorted_media = sorted_media | concat: found_media
@@ -470,16 +445,65 @@
     %}
 
     {% if media_presentation == 'grid' %}
+      {%- liquid
+        assign skre_vfiles = selected_product.selected_or_first_available_variant.metafields.custom.variant_images.value
+        if skre_vfiles != blank
+          assign skre_grid_count = skre_vfiles.size | plus: sorted_media.size
+        else
+          assign skre_grid_count = sorted_media.size
+        endif
+      -%}
       <ul
-        class="media-gallery__grid list-unstyled{% if sorted_media.size > 8 %} media-gallery__grid--collapsed{% endif %}"
+        class="media-gallery__grid list-unstyled{% if skre_grid_count > 8 %} media-gallery__grid--collapsed{% endif %}"
         data-testid="media-gallery-grid"
       >
+        {%- if skre_vfiles != blank -%}
+          {%- for vfile in skre_vfiles -%}
+            {%- liquid
+              if vfile.image != blank
+                assign skre_vf_img = vfile.image
+                assign skre_vf_type = 'image'
+              elsif vfile.preview_image != blank
+                assign skre_vf_img = vfile.preview_image
+                assign skre_vf_type = 'video'
+              else
+                continue
+              endif
+              assign skre_vf_ratio = skre_vf_img.aspect_ratio | default: 1.0
+              if needs_both_sizes and forloop.first
+                assign skre_vf_sizes = sizes_single
+              else
+                assign skre_vf_sizes = sizes
+              endif
+            -%}
+            <li
+              class="{{ product_media_container_class }} product-media-container--{{ skre_vf_type }}{% unless block_settings.aspect_ratio == 'adapt' %} product-media-container--force-aspect{% endunless %}"
+              style="{% if block_settings.aspect_ratio == 'adapt' %}--media-preview-ratio: {{ skre_vf_ratio }};{% endif %} --media-radius: {{ block_settings.media_radius }}px;"
+              {% if settings.transition_to_main_product and forloop.first %}
+                data-view-transition-type="product-image-transition"
+              {% endif %}
+            >
+              <div class="product-media" style="--ratio: {{ skre_vf_ratio }}">
+                {{-
+                  skre_vf_img
+                  | image_url: width: 3840
+                  | image_tag:
+                    widths: '240, 352, 832, 1200, 1600, 1920, 2560, 3840',
+                    alt: vfile.alt | default: skre_vf_img.alt,
+                    sizes: skre_vf_sizes,
+                    loading: 'lazy',
+                    class: 'product-media__image'
+                -}}
+              </div>
+            </li>
+          {%- endfor -%}
+        {%- endif -%}
         {% for media in sorted_media %}
           <li
             ref="media[]"
             class="{{ product_media_container_class }} product-media-container--{{ media.media_type }} {% unless block_settings.aspect_ratio == 'adapt' %}product-media-container--force-aspect{% endunless %}"
             style="{% if block_settings.aspect_ratio == 'adapt' %} --media-preview-ratio: {{ media.preview_image.aspect_ratio | default: 1.0 }};{% endif %} --media-radius: {{ block_settings.media_radius }}px;"
-            {% if settings.transition_to_main_product and forloop.first %}
+            {% if settings.transition_to_main_product and forloop.first and skre_vfiles == blank %}
               data-view-transition-type="product-image-transition"
             {% endif %}
             {% if media.presentation.focal_point != blank %}
@@ -499,7 +523,7 @@
               </button>
             {%- endif -%}
             {%- liquid
-              if needs_both_sizes and forloop.first
+              if needs_both_sizes and forloop.first and skre_vfiles == blank
                 assign media_sizes = sizes_single
               else
                 assign media_sizes = sizes
@@ -515,7 +539,7 @@
           </li>
         {% endfor %}
       </ul>
-      {% if sorted_media.size > 8 %}
+      {% if skre_grid_count > 8 %}
         <button class="skre-gallery-toggle" type="button">
           <span class="skre-gallery-toggle__caret" aria-hidden="true">{{- 'icon-caret.svg' | inline_asset_content -}}</span>
           <span class="skre-gallery-toggle__label">Show More</span>
