@@ -271,18 +271,20 @@ body:has(.skre-lb) {
   overflow: hidden;
 }
 
-body:has(.skre-lb) #shopify-section-announcement-bar,
-body:has(.skre-lb) #shopify-section-header {
+body:has(.skre-lb) header,
+body:has(.skre-lb) sticky-header,
+body:has(.skre-lb) announcement-bar,
+body:has(.skre-lb) [id*="announcement"],
+body:has(.skre-lb) [id*="header"],
+body:has(.skre-lb) footer,
+body:has(.skre-lb) [id*="footer"] {
   display: none !important;
 }
 
-body:has(.skre-lb) #shopify-section-footer {
-  display: none !important;
-}
-
-body:has(.skre-lb) #MainContent {
-  padding-block: 0 !important;
-  margin-block: 0 !important;
+body:has(.skre-lb) #MainContent,
+body:has(.skre-lb) main {
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 /* ── Wrapper ── */
