@@ -11,8 +11,19 @@
   "sections": {
     "layering-system": {
       "type": "skre-layering-system",
-      "settings": {}
+      "settings": {
+        "logo": "shopify://shop_images/Skre-White-Logo.png",
+        "heading": "Select Your Layering Conditions",
+        "exit_url": "",
+        "label_hot": "Hot Weather",
+        "label_mild": "Mild Weather",
+        "label_cold": "Cold Weather",
+        "label_extreme_cold": "Extreme Cold Weather",
+        "atc_color": "#b8431a"
+      }
     }
   },
-  "order": ["layering-system"]
+  "order": [
+    "layering-system"
+  ]
 }
