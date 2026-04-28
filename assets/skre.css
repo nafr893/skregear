@@ -204,6 +204,11 @@ h5, h6, p {
   border-bottom: 1px solid #ededed;
 }
 
+/* Product page: force all media items to square crop */
+.product-information__media .product-media {
+  aspect-ratio: 1 / 1 !important;
+}
+
 /* Product page: scroll media and product info together as one page */
 @media screen and (min-width: 750px) {
   .product-information__media media-gallery,
