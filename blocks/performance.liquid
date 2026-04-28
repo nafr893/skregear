@@ -63,7 +63,7 @@
             assign s_rating   = preview_ratings[idx] | plus: 0
           else
             assign lkey       = 'stat_' | append: i | append: '_label'
-            assign rkey       = 'stat_' | append: i | append: '_rating'
+            assign rkey       = 'stat_' | append: i | append: '_ranking'
             assign s_label    = product.metafields.custom[lkey]
             assign s_rating   = product.metafields.custom[rkey] | plus: 0
           endif
