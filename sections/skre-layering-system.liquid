@@ -93,7 +93,7 @@
                                 {%- assign sw_css = 'rgb(' | append: oval.swatch.color.rgb | append: ')' -%}
                                 {%- assign sw_base_rgb = oval.swatch.color.rgb -%}
                               {%- else -%}
-                                {%- for cmo in shop.metaobjects['shopify--color-pattern'].values -%}
+                                {%- for cmo in shop.metaobjects['shopify--color'].values -%}
                                   {%- if cmo.label.value == oval.name -%}
                                     {%- assign bc_ref = cmo.base_color.value -%}
                                     {%- if bc_ref != blank and bc_ref.color != blank -%}
