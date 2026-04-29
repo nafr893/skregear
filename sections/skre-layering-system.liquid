@@ -85,12 +85,25 @@
                               {%- assign first_sw_entry = false -%}
                               {%- assign sw_css = null -%}
                               {%- assign sw_img_url = null -%}
+                              {%- assign sw_base_rgb = null -%}
                               {%- if oval.swatch.image != blank -%}
                                 {%- assign sw_img_url = oval.swatch.image | image_url: width: 120 -%}
-                              {%- elsif oval.swatch.color != blank -%}
-                                {%- assign sw_css = 'rgb(' | append: oval.swatch.color.rgb | append: ')' -%}
                               {%- endif -%}
-                              {{ oval.name | json }}: {"color": {{ sw_css | json }}, "image": {{ sw_img_url | json }}}
+                              {%- if oval.swatch.color != blank -%}
+                                {%- assign sw_css = 'rgb(' | append: oval.swatch.color.rgb | append: ')' -%}
+                                {%- assign sw_base_rgb = oval.swatch.color.rgb -%}
+                              {%- else -%}
+                                {%- for cmo in shop.metaobjects['shopify--color-pattern'].values -%}
+                                  {%- if cmo.label.value == oval.name -%}
+                                    {%- assign bc_ref = cmo.base_color.value -%}
+                                    {%- if bc_ref != blank and bc_ref.color != blank -%}
+                                      {%- assign sw_base_rgb = bc_ref.color.rgb -%}
+                                    {%- endif -%}
+                                    {%- break -%}
+                                  {%- endif -%}
+                                {%- endfor -%}
+                              {%- endif -%}
+                              {{ oval.name | json }}: {"color": {{ sw_css | json }}, "image": {{ sw_img_url | json }}, "base_rgb": {{ sw_base_rgb | json }}}
                             {%- endfor -%}
                           {%- endif -%}
                         {%- endfor -%}
@@ -572,7 +585,8 @@ body:has(.skre-lb) main {
   inset: 0;
   overflow: hidden;
   z-index: 0;
-  background-color: #6B3A2A;
+  background-color: #fff;
+  transition: background-color 0.3s ease;
 }
 
 .skre-lb__hero {

@@ -206,6 +206,7 @@ class SkreLayerBuilder extends HTMLElement {
 
     this.#renderSwatches(product, defaultColor);
     this.#renderSizes(product, defaultColor, defaultSize);
+    this.#updateMediaBackground(product, defaultColor);
 
     const images = this.#getVariantImages(product, defaultVariant);
     this.#updateImages(images);
@@ -364,6 +365,7 @@ class SkreLayerBuilder extends HTMLElement {
 
     const images = this.#getVariantImages(product, variant);
     this.#updateImages(images);
+    this.#updateMediaBackground(product, colorValue);
 
     const colorName = this.querySelector('.skre-lb__color-name');
     if (colorName) colorName.textContent = colorValue;
@@ -424,6 +426,15 @@ class SkreLayerBuilder extends HTMLElement {
       };
       this.#updateAtcPrice(variant);
     }
+  }
+
+  // ── Media background ─────────────────────────────────────────────────────
+
+  #updateMediaBackground(product, colorValue) {
+    const heroWrap = this.querySelector('.skre-lb__hero-wrap');
+    if (!heroWrap) return;
+    const rgb = product?.swatches?.[colorValue]?.base_rgb;
+    heroWrap.style.backgroundColor = rgb ? `rgba(${rgb}, 0.25)` : '#fff';
   }
 
   // ── Images ────────────────────────────────────────────────────────────────
