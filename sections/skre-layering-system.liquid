@@ -86,22 +86,34 @@
                               {%- assign sw_css = null -%}
                               {%- assign sw_img_url = null -%}
                               {%- assign sw_base_rgb = null -%}
-                              {%- if oval.swatch.image != blank -%}
-                                {%- assign sw_img_url = oval.swatch.image | image_url: width: 120 -%}
-                              {%- endif -%}
-                              {%- if oval.swatch.color != blank -%}
-                                {%- assign sw_css = 'rgb(' | append: oval.swatch.color.rgb | append: ')' -%}
-                                {%- assign sw_base_rgb = oval.swatch.color.rgb -%}
-                              {%- else -%}
-                                {%- for cmo in shop.metaobjects['shopify--color'].values -%}
-                                  {%- if cmo.label.value == oval.name -%}
-                                    {%- assign bc_ref = cmo.base_color.value -%}
-                                    {%- if bc_ref != blank and bc_ref.color != blank -%}
-                                      {%- assign sw_base_rgb = bc_ref.color.rgb -%}
-                                    {%- endif -%}
-                                    {%- break -%}
+                              {%- comment -%} Direct shopify--color metaobject lookup by label -%}{%- endcomment -%}
+                              {%- for cmo in shop.metaobjects['shopify--color'].values -%}
+                                {%- if cmo.label.value == oval.name -%}
+                                  {%- if cmo.color.value != blank -%}
+                                    {%- assign sw_css = 'rgb(' | append: cmo.color.value.rgb | append: ')' -%}
+                                    {%- assign sw_base_rgb = cmo.color.value.rgb -%}
                                   {%- endif -%}
-                                {%- endfor -%}
+                                  {%- if cmo.image.value != blank -%}
+                                    {%- assign sw_img_url = cmo.image.value | image_url: width: 120 -%}
+                                  {%- endif -%}
+                                  {%- if sw_base_rgb == blank -%}
+                                    {%- assign bc_mo = cmo.base_color.value -%}
+                                    {%- if bc_mo != blank and bc_mo.color.value != blank -%}
+                                      {%- assign sw_base_rgb = bc_mo.color.value.rgb -%}
+                                    {%- endif -%}
+                                  {%- endif -%}
+                                  {%- break -%}
+                                {%- endif -%}
+                              {%- endfor -%}
+                              {%- comment -%} Fallback to oval.swatch if metaobject lookup yielded nothing -%}{%- endcomment -%}
+                              {%- if sw_css == blank and sw_img_url == blank -%}
+                                {%- if oval.swatch.image != blank -%}
+                                  {%- assign sw_img_url = oval.swatch.image | image_url: width: 120 -%}
+                                {%- endif -%}
+                                {%- if oval.swatch.color != blank -%}
+                                  {%- assign sw_css = 'rgb(' | append: oval.swatch.color.rgb | append: ')' -%}
+                                  {%- assign sw_base_rgb = oval.swatch.color.rgb -%}
+                                {%- endif -%}
                               {%- endif -%}
                               {{ oval.name | json }}: {"color": {{ sw_css | json }}, "image": {{ sw_img_url | json }}, "base_rgb": {{ sw_base_rgb | json }}}
                             {%- endfor -%}
