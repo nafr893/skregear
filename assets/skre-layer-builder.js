@@ -75,6 +75,24 @@ class SkreLayerBuilder extends HTMLElement {
     this.querySelector('.skre-lb__summary-panel')?.addEventListener('click', e => {
       if (e.target === this.#summaryPanel) this.#hideSummary();
     });
+
+    // Zoom / full-screen
+    this.querySelector('.skre-lb__zoom-btn')?.addEventListener('click', () => this.#openZoom());
+    this.querySelector('.skre-lb__zoom-close')?.addEventListener('click', () => this.#closeZoom());
+    const zoomDialog = this.querySelector('.skre-lb__zoom-dialog');
+    if (zoomDialog) {
+      zoomDialog.addEventListener('click', e => {
+        if (e.target === zoomDialog) this.#closeZoom();
+      });
+      let zoomSwipeY = 0;
+      zoomDialog.addEventListener('touchstart', e => {
+        zoomSwipeY = e.touches[0].clientY;
+      }, { passive: true });
+      zoomDialog.addEventListener('touchend', e => {
+        if (e.changedTouches[0].clientY - zoomSwipeY > 60) this.#closeZoom();
+      }, { passive: true });
+      zoomDialog.addEventListener('cancel', () => this.#closeZoom());
+    }
   }
 
   // ── Helpers ──────────────────────────────────────────────────────────────
@@ -611,6 +629,21 @@ class SkreLayerBuilder extends HTMLElement {
     } catch (err) {
       console.error('[skre-layer-builder] Remove line failed', err);
     }
+  }
+
+  // ── Zoom ──────────────────────────────────────────────────────────────────
+
+  #openZoom() {
+    const dialog = this.querySelector('.skre-lb__zoom-dialog');
+    const img = this.querySelector('.skre-lb__zoom-img');
+    if (!dialog || !img) return;
+    img.src = this.#imgUrls[this.#imgIndex] ?? '';
+    dialog.showModal();
+  }
+
+  #closeZoom() {
+    const dialog = this.querySelector('.skre-lb__zoom-dialog');
+    if (dialog?.open) dialog.close();
   }
 
   // ── Utilities ─────────────────────────────────────────────────────────────

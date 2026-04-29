@@ -238,6 +238,14 @@
           </div>
         </div>
       </div>
+      <button class="skre-lb__zoom-btn" type="button" aria-label="View full image">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <polyline points="9 21 3 21 3 15"></polyline>
+          <line x1="21" y1="3" x2="14" y2="10"></line>
+          <line x1="3" y1="21" x2="10" y2="14"></line>
+        </svg>
+      </button>
     </div>
 
     {%- comment -%} Image pagination bar — below the image {%- endcomment -%}
@@ -279,6 +287,14 @@
       </div>
     </div>
   </div>
+
+  {%- comment -%} ── Full-screen zoom dialog ── {%- endcomment -%}
+  <dialog class="skre-lb__zoom-dialog">
+    <button class="skre-lb__zoom-close" type="button" aria-label="Close full image">
+      {{- 'icon-close.svg' | inline_asset_content -}}
+    </button>
+    <img class="skre-lb__zoom-img" src="" alt="" loading="eager">
+  </dialog>
 
   {%- comment -%} ── Summary panel ── {%- endcomment -%}
   <div class="skre-lb__summary-panel" hidden>
@@ -924,6 +940,90 @@ body:has(.skre-lb) main {
 
 .skre-lb__cart-btn:hover {
   background: #333;
+}
+
+/* ── Zoom expand button — bottom-right of media zone ── */
+.skre-lb__zoom-btn {
+  position: absolute;
+  bottom: 0.55rem;
+  right: 0.55rem;
+  z-index: 3;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem;
+}
+
+.skre-lb__zoom-btn svg {
+  width: 0.85rem;
+  height: 0.85rem;
+  flex-shrink: 0;
+}
+
+/* ── Zoom dialog — native full-screen overlay ── */
+.skre-lb__zoom-dialog {
+  margin: 0;
+  padding: 0;
+  width: 100dvw;
+  height: 100dvh;
+  max-width: 100%;
+  max-height: 100%;
+  background: #000;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.skre-lb__zoom-dialog::backdrop {
+  background: #000;
+}
+
+.skre-lb__zoom-dialog:not([open]) {
+  display: none;
+}
+
+.skre-lb__zoom-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  touch-action: pinch-zoom;
+}
+
+.skre-lb__zoom-close {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: none;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #fff;
+  padding: 0;
+}
+
+.skre-lb__zoom-close svg {
+  width: 18px;
+  height: 18px;
 }
 
 /* ── Desktop centering ── */
