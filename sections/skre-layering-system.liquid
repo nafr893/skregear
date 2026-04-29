@@ -132,6 +132,7 @@
                             "title": {{ variant.title | json }},
                             "price": {{ variant.price | json }},
                             "price_display": {{ variant.price | money | json }},
+                            "compare_at_price": {{ variant.compare_at_price | json }},
                             "available": {{ variant.available | json }},
                             "option1": {{ variant.option1 | json }},
                             "option2": {{ variant.option2 | json }},
@@ -274,16 +275,21 @@
 
       <div class="skre-lb__sizes"></div>
 
-      <button class="skre-lb__atc" type="button" style="background-color: {{ atc_color }};">
-        <span class="skre-lb__atc-label">ADD TO SYSTEM</span>
-        <span class="skre-lb__atc-price"></span>
-      </button>
+      <div class="skre-lb__action-row">
+        <button class="skre-lb__atc" type="button" style="background-color: {{ atc_color }};">
+          <span class="skre-lb__atc-label">ADD TO SYSTEM</span>
+          <span class="skre-lb__atc-price"></span>
+        </button>
+        <button class="skre-lb__summary-btn" type="button">View Summary</button>
+      </div>
 
       <div class="skre-lb__footer">
         <span class="skre-lb__subtotal-label">
           System Subtotal: <span class="skre-lb__subtotal-amount">{{ 0 | money }}</span>
         </span>
-        <button class="skre-lb__summary-btn" type="button">View Summary</button>
+        <span class="skre-lb__savings-label" hidden>
+          Total Savings: <span class="skre-lb__savings-amount"></span>
+        </span>
       </div>
     </div>
   </div>
@@ -735,12 +741,18 @@ body:has(.skre-lb) main {
   text-decoration: line-through;
 }
 
+/* Action row: ATC + View Summary */
+.skre-lb__action-row {
+  display: flex;
+  margin-top: 0.2rem;
+}
+
 /* Add to System button */
 .skre-lb__atc {
+  flex: 1;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
   padding: 1rem 1.25rem;
   color: #fff;
   border: none;
@@ -750,7 +762,6 @@ body:has(.skre-lb) main {
   font-weight: 900;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-top: 0.2rem;
   transition: opacity 0.15s;
 }
 
@@ -761,6 +772,35 @@ body:has(.skre-lb) main {
 
 .skre-lb__atc-price {
   font-weight: 700;
+}
+
+/* View Summary button — hidden until first item added */
+.skre-lb__summary-btn {
+  display: none;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  background: #111;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: 'United-Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 1rem 1rem;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.skre-lb__summary-btn:hover {
+  background: #333;
+}
+
+/* Show View Summary button side-by-side once items exist */
+.skre-lb__builder--has-items .skre-lb__summary-btn {
+  display: flex;
 }
 
 /* Footer bar */
@@ -778,15 +818,14 @@ body:has(.skre-lb) main {
   color: #555;
 }
 
-.skre-lb__summary-btn {
-  background: none;
-  border: none;
+.skre-lb__savings-label {
   font-size: 0.72rem;
   font-weight: 700;
-  text-decoration: underline;
-  cursor: pointer;
-  color: #333;
-  padding: 0;
+  color: #2a7a2a;
+}
+
+.skre-lb__savings-label[hidden] {
+  display: none;
 }
 
 /* ── Summary panel (slide-up) ── */

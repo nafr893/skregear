@@ -6,6 +6,7 @@ class SkreLayerBuilder extends HTMLElement {
   #selectedVariants = {}; // layerIndex → variant snapshot
   #cartLines = [];        // items added to system
   #subtotal = 0;          // in cents
+  #msrpTotal = 0;         // compare_at_price sum for savings calculation
   #imgUrls = [];          // images for current product
   #imgIndex = 0;          // active image index
 
@@ -52,6 +53,8 @@ class SkreLayerBuilder extends HTMLElement {
     this.#selectedVariants = {};
     this.#cartLines = [];
     this.#subtotal = 0;
+    this.#msrpTotal = 0;
+    this.#builder?.classList.remove('skre-lb__builder--has-items');
 
     if (this.#picker) this.#picker.hidden = true;
     if (this.#builder) this.#builder.hidden = false;
@@ -215,6 +218,7 @@ class SkreLayerBuilder extends HTMLElement {
         title: defaultVariant.title,
         price: defaultVariant.price,
         price_display: defaultVariant.price_display,
+        compare_at_price: defaultVariant.compare_at_price ?? null,
         option1: defaultVariant.option1,
         option2: defaultVariant.option2,
         imageUrl: images[0] ?? product.featured_image ?? '',
@@ -379,6 +383,7 @@ class SkreLayerBuilder extends HTMLElement {
         title: variant.title,
         price: variant.price,
         price_display: variant.price_display,
+        compare_at_price: variant.compare_at_price ?? null,
         option1: variant.option1,
         option2: variant.option2,
         imageUrl: images[0] ?? product.featured_image ?? '',
@@ -516,6 +521,10 @@ class SkreLayerBuilder extends HTMLElement {
       const layerLabel = this.#activeSlot()?.label ?? '';
       const variantDisplay = variantData.title === 'Default Title' ? '' : variantData.title;
 
+      const msrp = (variantData.compare_at_price && variantData.compare_at_price > variantData.price)
+        ? variantData.compare_at_price
+        : variantData.price;
+
       this.#cartLines.push({
         key: addedItem?.key ?? String(variantData.id),
         variantId: variantData.id,
@@ -523,11 +532,14 @@ class SkreLayerBuilder extends HTMLElement {
         variantTitle: variantDisplay,
         price: variantData.price,
         price_display: variantData.price_display,
+        msrp,
         imageUrl: variantData.imageUrl ?? '',
         layerLabel,
       });
 
       this.#subtotal += variantData.price;
+      this.#msrpTotal += msrp;
+      this.#builder?.classList.add('skre-lb__builder--has-items');
       this.#renderSubtotal();
       this.#advanceLayer();
 
@@ -555,6 +567,18 @@ class SkreLayerBuilder extends HTMLElement {
   #renderSubtotal() {
     const el = this.querySelector('.skre-lb__subtotal-amount');
     if (el) el.textContent = this.#formatMoney(this.#subtotal);
+
+    const savings = this.#msrpTotal - this.#subtotal;
+    const savingsLabel = this.querySelector('.skre-lb__savings-label');
+    const savingsAmount = this.querySelector('.skre-lb__savings-amount');
+    if (savingsLabel) {
+      if (savings > 0) {
+        if (savingsAmount) savingsAmount.textContent = this.#formatMoney(savings);
+        savingsLabel.hidden = false;
+      } else {
+        savingsLabel.hidden = true;
+      }
+    }
   }
 
   #formatMoney(cents) {
@@ -623,6 +647,10 @@ class SkreLayerBuilder extends HTMLElement {
       const [removed] = this.#cartLines.splice(lineIdx, 1);
       if (removed) {
         this.#subtotal = Math.max(0, this.#subtotal - removed.price);
+        this.#msrpTotal = Math.max(0, this.#msrpTotal - (removed.msrp ?? removed.price));
+        if (this.#cartLines.length === 0) {
+          this.#builder?.classList.remove('skre-lb__builder--has-items');
+        }
         this.#renderSubtotal();
         this.#renderSummaryItems();
       }
