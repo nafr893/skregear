@@ -568,16 +568,13 @@ class SkreLayerBuilder extends HTMLElement {
     const el = this.querySelector('.skre-lb__subtotal-amount');
     if (el) el.textContent = this.#formatMoney(this.#subtotal);
 
-    const savings = this.#msrpTotal - this.#subtotal;
+    const savings = Math.max(0, this.#msrpTotal - this.#subtotal);
     const savingsLabel = this.querySelector('.skre-lb__savings-label');
     const savingsAmount = this.querySelector('.skre-lb__savings-amount');
     if (savingsLabel) {
-      if (savings > 0) {
-        if (savingsAmount) savingsAmount.textContent = this.#formatMoney(savings);
-        savingsLabel.hidden = false;
-      } else {
-        savingsLabel.hidden = true;
-      }
+      const hasItems = this.#cartLines.length > 0;
+      if (savingsAmount) savingsAmount.textContent = this.#formatMoney(savings);
+      savingsLabel.hidden = !hasItems;
     }
   }
 
