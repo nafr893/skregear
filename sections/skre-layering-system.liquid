@@ -744,6 +744,7 @@ body:has(.skre-lb) main {
 /* Action row: ATC + View Summary */
 .skre-lb__action-row {
   display: flex;
+  gap: 0.4rem;
   margin-top: 0.2rem;
 }
 
@@ -798,9 +799,19 @@ body:has(.skre-lb) main {
   background: #333;
 }
 
-/* Show View Summary button side-by-side once items exist */
+/* Show View Summary button side-by-side once items exist — equal 50/50 split */
 .skre-lb__builder--has-items .skre-lb__summary-btn {
   display: flex;
+  flex: 1;
+}
+
+/* Hide price from ATC button once View Summary is visible */
+.skre-lb__builder--has-items .skre-lb__atc {
+  justify-content: center;
+}
+
+.skre-lb__builder--has-items .skre-lb__atc-price {
+  display: none;
 }
 
 /* Footer bar */
