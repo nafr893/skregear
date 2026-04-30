@@ -1,14 +1,13 @@
 {%- liquid
-  assign condition_keys = "hot,mild,cold,extreme_cold" | split: ","
+  assign condition_keys = "early_season,mid_season,late_season" | split: ","
   assign all_slots = shop.metaobjects.skre_layer_slot.values
   if all_slots == blank
     assign all_slots = '' | split: ''
   endif
 
-  assign label_hot          = section.settings.label_hot          | default: 'Hot Weather'
-  assign label_mild         = section.settings.label_mild         | default: 'Mild Weather'
-  assign label_cold         = section.settings.label_cold         | default: 'Cold Weather'
-  assign label_extreme_cold = section.settings.label_extreme_cold | default: 'Extreme Cold Weather'
+  assign label_early_season = section.settings.label_early_season | default: 'Early Season'
+  assign label_mid_season   = section.settings.label_mid_season   | default: 'Mid Season'
+  assign label_late_season  = section.settings.label_late_season  | default: 'Late Season'
   assign exit_url           = section.settings.exit_url           | default: '/'
   assign atc_color          = section.settings.atc_color          | default: '#b8431a'
 -%}
@@ -20,14 +19,12 @@
     {%- for ck in condition_keys -%}
       {%- liquid
         case ck
-          when 'hot'
-            assign ck_label = label_hot
-          when 'mild'
-            assign ck_label = label_mild
-          when 'cold'
-            assign ck_label = label_cold
-          when 'extreme_cold'
-            assign ck_label = label_extreme_cold
+          when 'early_season'
+            assign ck_label = label_early_season
+          when 'mid_season'
+            assign ck_label = label_mid_season
+          when 'late_season'
+            assign ck_label = label_late_season
         endcase
       -%}
       {%- unless first_cond -%},{%- endunless -%}
@@ -234,17 +231,14 @@
       {{- section.settings.heading | default: 'Select Your Layering Conditions' -}}
     </h1>
     <div class="skre-lb__picker-btns">
-      <button class="skre-lb__picker-btn" data-condition="hot" type="button">
-        {{- label_hot | upcase -}}
+      <button class="skre-lb__picker-btn" data-condition="early_season" type="button">
+        {{- label_early_season | upcase -}}
       </button>
-      <button class="skre-lb__picker-btn" data-condition="mild" type="button">
-        {{- label_mild | upcase -}}
+      <button class="skre-lb__picker-btn" data-condition="mid_season" type="button">
+        {{- label_mid_season | upcase -}}
       </button>
-      <button class="skre-lb__picker-btn" data-condition="cold" type="button">
-        {{- label_cold | upcase -}}
-      </button>
-      <button class="skre-lb__picker-btn" data-condition="extreme_cold" type="button">
-        {{- label_extreme_cold | upcase -}}
+      <button class="skre-lb__picker-btn" data-condition="late_season" type="button">
+        {{- label_late_season | upcase -}}
       </button>
     </div>
     <a class="skre-lb__picker-exit" href="{{ exit_url }}">Exit Builder</a>
@@ -1245,31 +1239,25 @@ body:has(.skre-lb) main {
     },
     {
       "type": "header",
-      "content": "Condition button labels"
+      "content": "Season button labels"
     },
     {
       "type": "text",
-      "id": "label_hot",
-      "label": "Hot weather label",
-      "default": "Hot Weather"
+      "id": "label_early_season",
+      "label": "Early season label",
+      "default": "Early Season"
     },
     {
       "type": "text",
-      "id": "label_mild",
-      "label": "Mild weather label",
-      "default": "Mild Weather"
+      "id": "label_mid_season",
+      "label": "Mid season label",
+      "default": "Mid Season"
     },
     {
       "type": "text",
-      "id": "label_cold",
-      "label": "Cold weather label",
-      "default": "Cold Weather"
-    },
-    {
-      "type": "text",
-      "id": "label_extreme_cold",
-      "label": "Extreme cold label",
-      "default": "Extreme Cold Weather"
+      "id": "label_late_season",
+      "label": "Late season label",
+      "default": "Late Season"
     },
     {
       "type": "header",

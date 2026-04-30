@@ -15,10 +15,9 @@
         "logo": "shopify://shop_images/Skre-White-Logo.png",
         "heading": "Select Your Layering Conditions",
         "exit_url": "",
-        "label_hot": "Hot Weather",
-        "label_mild": "Mild Weather",
-        "label_cold": "Cold Weather",
-        "label_extreme_cold": "Extreme Cold Weather",
+        "label_early_season": "Early Season",
+        "label_mid_season": "Mid Season",
+        "label_late_season": "Late Season",
         "atc_color": "#b8431a"
       }
     }
