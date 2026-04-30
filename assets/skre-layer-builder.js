@@ -1,6 +1,7 @@
 class SkreLayerBuilder extends HTMLElement {
   #data = null;
   #condition = null;
+  #region = null;
   #layerIndex = 0;
   #productIndexes = {};   // layerIndex → productIndex
   #selectedVariants = {}; // layerIndex → variant snapshot
@@ -12,11 +13,13 @@ class SkreLayerBuilder extends HTMLElement {
 
   // DOM refs cached on connect
   #picker = null;
+  #regionPicker = null;
   #builder = null;
   #summaryPanel = null;
 
   connectedCallback() {
     this.#picker = this.querySelector('.skre-lb__picker');
+    this.#regionPicker = this.querySelector('.skre-lb__region-picker');
     this.#builder = this.querySelector('.skre-lb__builder');
     this.#summaryPanel = this.querySelector('.skre-lb__summary-panel');
 
@@ -44,10 +47,36 @@ class SkreLayerBuilder extends HTMLElement {
     this.querySelectorAll('[data-condition]').forEach(btn => {
       btn.addEventListener('click', () => this.#selectCondition(btn.dataset.condition));
     });
+    this.querySelector('.skre-lb__region-back')?.addEventListener('click', () => {
+      if (this.#regionPicker) this.#regionPicker.hidden = true;
+      if (this.#picker) this.#picker.hidden = false;
+    });
+  }
+
+  #renderRegionPicker(regions) {
+    const container = this.querySelector('.skre-lb__region-btns');
+    if (!container) return;
+    container.innerHTML = regions.map(r =>
+      `<button class="skre-lb__region-btn" data-region="${this.#esc(r.key)}" type="button">
+        ${this.#esc(r.key.toUpperCase())}
+      </button>`
+    ).join('');
+    container.querySelectorAll('[data-region]').forEach(btn => {
+      btn.addEventListener('click', () => this.#selectRegion(btn.dataset.region));
+    });
+  }
+
+  #selectRegion(key) {
+    this.#region = key;
+    if (this.#regionPicker) this.#regionPicker.hidden = true;
+    if (this.#builder) this.#builder.hidden = false;
+    this.#renderTabs();
+    this.#setLayer(0);
   }
 
   #selectCondition(key) {
     this.#condition = key;
+    this.#region = null;
     this.#layerIndex = 0;
     this.#productIndexes = {};
     this.#selectedVariants = {};
@@ -57,10 +86,17 @@ class SkreLayerBuilder extends HTMLElement {
     this.#builder?.classList.remove('skre-lb__builder--has-items');
 
     if (this.#picker) this.#picker.hidden = true;
-    if (this.#builder) this.#builder.hidden = false;
 
-    this.#renderTabs();
-    this.#setLayer(0);
+    const regions = this.#getConditionData()?.regions ?? [];
+    if (regions.length > 1) {
+      this.#renderRegionPicker(regions);
+      if (this.#regionPicker) this.#regionPicker.hidden = false;
+    } else {
+      this.#region = regions[0]?.key ?? '';
+      if (this.#builder) this.#builder.hidden = false;
+      this.#renderTabs();
+      this.#setLayer(0);
+    }
   }
 
   // ── Builder ─────────────────────────────────────────────────────────────
@@ -105,7 +141,9 @@ class SkreLayerBuilder extends HTMLElement {
   }
 
   #getSlots() {
-    return this.#getConditionData()?.slots ?? [];
+    const regions = this.#getConditionData()?.regions ?? [];
+    const region = regions.find(r => r.key === this.#region) ?? regions[0] ?? null;
+    return region?.slots ?? [];
   }
 
   #activeSlot() {

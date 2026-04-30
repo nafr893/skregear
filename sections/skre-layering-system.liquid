@@ -32,19 +32,41 @@
       -%}
       {%- unless first_cond -%},{%- endunless -%}
       {%- assign first_cond = false -%}
+      {%- comment -%} Collect unique region keys for this condition -%}{%- endcomment -%}
+      {%- assign rk_str = '' -%}
+      {%- for slot in all_slots -%}
+        {%- if slot.condition.value == ck -%}
+          {%- assign r = slot.region.value | default: '' -%}
+          {%- assign check = '|' | append: r | append: '|' -%}
+          {%- assign rk_str_wrapped = '|' | append: rk_str | append: '|' -%}
+          {%- unless rk_str_wrapped contains check -%}
+            {%- if rk_str != '' -%}{%- assign rk_str = rk_str | append: '|' -%}{%- endif -%}
+            {%- assign rk_str = rk_str | append: r -%}
+          {%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- assign rk_arr = rk_str | split: '|' -%}
       {
         "key": {{ ck | json }},
         "label": {{ ck_label | json }},
-        "slots": [
-          {%- assign first_slot = true -%}
-          {%- for slot in all_slots -%}
-            {%- if slot.condition.value == ck -%}
-              {%- unless first_slot -%},{%- endunless -%}
-              {%- assign first_slot = false -%}
-              {
-                "label": {{ slot.label.value | json }},
-                "sort_order": {{ slot.sort_order.value | default: 99 | json }},
-                "products": [
+        "regions": [
+          {%- assign first_region = true -%}
+          {%- for rk in rk_arr -%}
+            {%- unless first_region -%},{%- endunless -%}
+            {%- assign first_region = false -%}
+            {
+              "key": {{ rk | json }},
+              "slots": [
+                {%- assign first_slot = true -%}
+                {%- for slot in all_slots -%}
+                  {%- assign slot_region = slot.region.value | default: '' -%}
+                  {%- if slot.condition.value == ck and slot_region == rk -%}
+                    {%- unless first_slot -%},{%- endunless -%}
+                    {%- assign first_slot = false -%}
+                    {
+                      "label": {{ slot.label.value | json }},
+                      "sort_order": {{ slot.sort_order.value | default: 99 | json }},
+                      "products": [
                   {%- assign first_prod = true -%}
                   {%- for product in slot.products.value -%}
                     {%- unless first_prod -%},{%- endunless -%}
@@ -176,9 +198,12 @@
                       ]
                     }
                   {%- endfor -%}
-                ]
-              }
-            {%- endif -%}
+                    ]
+                  }
+                {%- endif -%}
+              {%- endfor -%}
+              ]
+            }
           {%- endfor -%}
         ]
       }
@@ -223,6 +248,24 @@
       </button>
     </div>
     <a class="skre-lb__picker-exit" href="{{ exit_url }}">Exit Builder</a>
+  </div>
+
+  {%- comment -%} ── Screen A2: Region picker ── {%- endcomment -%}
+  <div class="skre-lb__region-picker" hidden>
+    {%- if section.settings.logo -%}
+      <div class="skre-lb__picker-logo">
+        {{
+          section.settings.logo
+          | image_url: width: 160
+          | image_tag: alt: shop.name, loading: 'eager', class: 'skre-lb__logo-img'
+        }}
+      </div>
+    {%- endif -%}
+    <h1 class="skre-lb__picker-heading">
+      {{- section.settings.region_heading | default: 'Select Your Region' -}}
+    </h1>
+    <div class="skre-lb__region-btns"></div>
+    <button class="skre-lb__region-back" type="button">&#8592; Back</button>
   </div>
 
   {%- comment -%} ── Shared SVG star definition ── {%- endcomment -%}
@@ -457,8 +500,62 @@ body:has(.skre-lb) main {
 }
 
 .skre-lb__picker[hidden],
+.skre-lb__region-picker[hidden],
 .skre-lb__builder[hidden] {
   display: none !important;
+}
+
+.skre-lb__region-picker {
+  height: 100svh;
+  background: #3d3d2f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 2rem 3.5rem;
+  gap: 0;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+}
+
+.skre-lb__region-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+  max-width: 440px;
+}
+
+.skre-lb__region-btn {
+  width: 100%;
+  padding: 1.05rem 1.5rem;
+  background: #fff;
+  color: #1a1a1a;
+  font-family: 'United-Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  border-radius: 0;
+  transition: background 0.15s, color 0.15s;
+}
+
+.skre-lb__region-btn:hover {
+  background: #e8e8e8;
+}
+
+.skre-lb__region-back {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.8rem;
+  text-decoration: underline;
+  margin-top: 1.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 /* ── Media: grows to fill all space above the info panel ── */
@@ -1134,6 +1231,12 @@ body:has(.skre-lb) main {
       "id": "heading",
       "label": "Picker heading",
       "default": "Select Your Layering Conditions"
+    },
+    {
+      "type": "text",
+      "id": "region_heading",
+      "label": "Region picker heading",
+      "default": "Select Your Region"
     },
     {
       "type": "url",
