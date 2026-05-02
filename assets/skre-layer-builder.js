@@ -116,6 +116,8 @@ class SkreLayerBuilder extends HTMLElement {
     });
 
     // Zoom / full-screen
+    this.querySelector('.skre-lb__expand')?.addEventListener('click', () => this.#toggleExpand());
+    this.#bindAccordions();
     this.querySelector('.skre-lb__zoom-btn')?.addEventListener('click', () => this.#openZoom());
     this.querySelector('.skre-lb__zoom-close')?.addEventListener('click', () => this.#closeZoom());
     const zoomDialog = this.querySelector('.skre-lb__zoom-dialog');
@@ -245,6 +247,8 @@ class SkreLayerBuilder extends HTMLElement {
     this.#renderSwatches(product, defaultColor);
     this.#renderSizes(product, defaultColor, defaultSize);
     this.#updateMediaBackground(product, defaultColor);
+    this.#renderExpandedContent(product);
+    this.#collapseExpand();
 
     const images = this.#getVariantImages(product, defaultVariant);
     this.#updateImages(images);
@@ -710,6 +714,120 @@ class SkreLayerBuilder extends HTMLElement {
     } catch (err) {
       console.error('[skre-layer-builder] Remove line failed', err);
     }
+  }
+
+  // ── Expand / Collapse info ───────────────────────────────────────────────
+
+  #toggleExpand() {
+    const expanded = this.#builder?.classList.toggle('skre-lb__builder--info-expanded');
+    const label = this.querySelector('.skre-lb__expand');
+    if (label) {
+      label.innerHTML = expanded
+        ? 'Collapse Info <span class="skre-lb__expand-caret" style="display:inline-block;transform:rotate(180deg)">&#8963;</span>'
+        : 'Expand Info <span class="skre-lb__expand-caret">&#8963;</span>';
+    }
+  }
+
+  #collapseExpand() {
+    this.#builder?.classList.remove('skre-lb__builder--info-expanded');
+    const label = this.querySelector('.skre-lb__expand');
+    if (label) label.innerHTML = 'Expand Info <span class="skre-lb__expand-caret">&#8963;</span>';
+  }
+
+  // ── Accordions ───────────────────────────────────────────────────────────
+
+  #bindAccordions() {
+    this.querySelectorAll('[data-accordion] .skre-lb__accordion-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const accordion = btn.closest('[data-accordion]');
+        const body = accordion.querySelector('.skre-lb__accordion-body');
+        const isOpen = !body.hidden;
+        if (isOpen) {
+          this.#closeAccordion(accordion);
+        } else {
+          this.querySelectorAll('[data-accordion]').forEach(a => this.#closeAccordion(a));
+          this.#openAccordion(accordion);
+        }
+      });
+    });
+  }
+
+  #openAccordion(accordion) {
+    const body = accordion.querySelector('.skre-lb__accordion-body');
+    const icon = accordion.querySelector('.skre-lb__accordion-icon');
+    if (body) body.hidden = false;
+    if (icon) icon.textContent = '−';
+  }
+
+  #closeAccordion(accordion) {
+    const body = accordion.querySelector('.skre-lb__accordion-body');
+    const icon = accordion.querySelector('.skre-lb__accordion-icon');
+    if (body) body.hidden = true;
+    if (icon) icon.textContent = '+';
+  }
+
+  // ── Expanded content rendering ───────────────────────────────────────────
+
+  #renderExpandedContent(product) {
+    // Overview text
+    const overviewEl = this.querySelector('.skre-lb__overview-text');
+    if (overviewEl) overviewEl.textContent = product.overview ?? product.preview_text ?? '';
+
+    // Best used for
+    const bufContainer = this.querySelector('.skre-lb__best-used-for');
+    if (bufContainer) {
+      const items = Array.isArray(product.best_used_for) ? product.best_used_for : [];
+      if (items.length) {
+        bufContainer.innerHTML =
+          `<p class="skre-lb__best-used-label">BEST USED FOR:</p>
+          <div class="skre-lb__best-used-items">
+            ${items.map(item =>
+              `<span class="skre-lb__best-used-item">
+                <span class="skre-lb__best-used-check">&#10003;</span>
+                ${this.#esc(item)}
+              </span>`
+            ).join('')}
+          </div>`;
+      } else {
+        bufContainer.innerHTML = '';
+      }
+    }
+
+    // Performance bars
+    this.#renderPerfBars(product);
+
+    // Reset accordions: overview open, others closed
+    this.querySelectorAll('[data-accordion]').forEach(a => this.#closeAccordion(a));
+    const overviewAccordion = this.querySelector('[data-accordion="overview"]');
+    if (overviewAccordion) this.#openAccordion(overviewAccordion);
+  }
+
+  #renderPerfBars(product) {
+    const container = this.querySelector('.skre-lb__perf-bars');
+    if (!container) return;
+
+    const stats = [
+      { label: 'Thermal Rating',  value: product.perf_thermal },
+      { label: 'Waterproofing',   value: product.perf_waterproofing },
+      { label: 'Breathability',   value: product.perf_breathability },
+      { label: 'Light Weight',    value: product.perf_lightweight },
+    ].filter(s => s.value != null);
+
+    if (!stats.length) { container.innerHTML = ''; return; }
+
+    container.innerHTML = stats.map(stat => {
+      const val = Math.min(10, Math.max(0, Number(stat.value)));
+      const segments = Array.from({ length: 10 }, (_, i) =>
+        `<div class="skre-lb__perf-segment${i < val ? ' skre-lb__perf-segment--filled' : ''}"></div>`
+      ).join('');
+      return `<div class="skre-lb__perf-stat">
+        <div class="skre-lb__perf-stat-header">
+          <span class="skre-lb__perf-label">${this.#esc(stat.label)}</span>
+          <span class="skre-lb__perf-score">${val}/10</span>
+        </div>
+        <div class="skre-lb__perf-track">${segments}</div>
+      </div>`;
+    }).join('');
   }
 
   // ── Zoom ──────────────────────────────────────────────────────────────────

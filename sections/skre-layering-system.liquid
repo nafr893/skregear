@@ -77,12 +77,24 @@
                       assign p_rating = product.metafields.reviews.rating.value.rating | default: null
                       assign p_rating_count = product.metafields.reviews.rating_count.value | default: null
                       assign p_preview = product.metafields.custom.product_preview.value | default: ''
+                      assign p_overview = product.description | strip_html | strip_newlines
+                      assign p_best_used_for = product.metafields.custom.best_used_for.value
+                      assign p_thermal = product.metafields.custom.thermal_rating.value | default: null
+                      assign p_waterproofing = product.metafields.custom.waterproofing.value | default: null
+                      assign p_breathability = product.metafields.custom.breathability.value | default: null
+                      assign p_lightweight = product.metafields.custom.lightweight.value | default: null
                     -%}
                     {
                       "id": {{ product.id | json }},
                       "title": {{ product.title | json }},
                       "handle": {{ product.handle | json }},
                       "preview_text": {{ p_preview | json }},
+                      "overview": {{ p_overview | json }},
+                      "best_used_for": {{ p_best_used_for | json }},
+                      "perf_thermal": {{ p_thermal | json }},
+                      "perf_waterproofing": {{ p_waterproofing | json }},
+                      "perf_breathability": {{ p_breathability | json }},
+                      "perf_lightweight": {{ p_lightweight | json }},
                       "price": {{ product.price | json }},
                       "price_display": {{ product.price | money | json }},
                       "featured_image": {{ p_img | json }},
@@ -322,7 +334,9 @@
           <span class="skre-lb__stars"></span>
           <span class="skre-lb__rating-count"></span>
         </div>
-        <button class="skre-lb__expand" type="button">Expand Info &#8963;</button>
+        <button class="skre-lb__expand" type="button">
+          Expand Info <span class="skre-lb__expand-caret">&#8963;</span>
+        </button>
       </div>
 
       <h2 class="skre-lb__title"></h2>
@@ -330,12 +344,58 @@
 
       <div class="skre-lb__color-row">
         <span class="skre-lb__color-label">
-          Color: <span class="skre-lb__color-name"></span>
+          Select Color: <span class="skre-lb__color-name"></span>
         </span>
         <div class="skre-lb__swatches"></div>
       </div>
 
-      <div class="skre-lb__sizes"></div>
+      <div class="skre-lb__sizes-wrap">
+        <span class="skre-lb__sizes-label">Select Size</span>
+        <div class="skre-lb__sizes"></div>
+      </div>
+
+      {%- comment -%} ── Expanded-only content ── {%- endcomment -%}
+      <div class="skre-lb__exp-only">
+
+        <a class="skre-lb__size-chart-link" href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15" aria-hidden="true"><path d="M2 9h20M2 15h20M9 3v18M15 3v18"/></svg>
+          Size Chart
+        </a>
+
+        <div class="skre-lb__accordions">
+
+          <div class="skre-lb__accordion" data-accordion="overview">
+            <button class="skre-lb__accordion-btn" type="button">
+              <span>OVERVIEW</span>
+              <span class="skre-lb__accordion-icon">&#8722;</span>
+            </button>
+            <div class="skre-lb__accordion-body">
+              <p class="skre-lb__overview-text"></p>
+            </div>
+          </div>
+
+          <div class="skre-lb__accordion" data-accordion="specs">
+            <button class="skre-lb__accordion-btn" type="button">
+              <span>SPECS</span>
+              <span class="skre-lb__accordion-icon">&#43;</span>
+            </button>
+            <div class="skre-lb__accordion-body" hidden>
+              <div class="skre-lb__best-used-for"></div>
+            </div>
+          </div>
+
+          <div class="skre-lb__accordion" data-accordion="performance">
+            <button class="skre-lb__accordion-btn" type="button">
+              <span>PERFORMANCE</span>
+              <span class="skre-lb__accordion-icon">&#43;</span>
+            </button>
+            <div class="skre-lb__accordion-body" hidden>
+              <div class="skre-lb__perf-bars"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
       <div class="skre-lb__action-row">
         <button class="skre-lb__atc" type="button" style="background-color: {{ atc_color }};">
@@ -1192,6 +1252,191 @@ body:has(.skre-lb) main {
 .skre-lb__zoom-close svg {
   width: 18px;
   height: 18px;
+}
+
+/* ── Size label above size chips ── */
+.skre-lb__sizes-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.skre-lb__sizes-label {
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ── Expanded info overlay ── */
+.skre-lb__builder {
+  position: relative;
+}
+
+.skre-lb__exp-only {
+  display: none;
+}
+
+.skre-lb__builder--info-expanded .skre-lb__exp-only {
+  display: block;
+}
+
+.skre-lb__builder--info-expanded .skre-lb__info {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #fff;
+}
+
+/* Rotate caret when expanded */
+.skre-lb__builder--info-expanded .skre-lb__expand-caret {
+  display: inline-block;
+  transform: rotate(180deg);
+}
+
+/* ── Size chart link ── */
+.skre-lb__size-chart-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #222;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  margin-top: 0.25rem;
+}
+
+/* ── Accordions ── */
+.skre-lb__accordions {
+  margin-top: 0.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.skre-lb__accordion {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.skre-lb__accordion-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'United-Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #111;
+  text-align: left;
+}
+
+.skre-lb__accordion-icon {
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 1;
+  flex-shrink: 0;
+  color: #555;
+}
+
+.skre-lb__accordion-body {
+  padding-bottom: 0.85rem;
+}
+
+.skre-lb__accordion-body[hidden] {
+  display: none;
+}
+
+.skre-lb__overview-text {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: #444;
+  margin: 0;
+}
+
+/* ── Best Used For (Specs) ── */
+.skre-lb__best-used-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #555;
+  margin: 0 0 0.5rem;
+}
+
+.skre-lb__best-used-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.skre-lb__best-used-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #222;
+}
+
+.skre-lb__best-used-check {
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+/* ── Performance bars ── */
+.skre-lb__perf-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skre-lb__perf-stat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.3rem;
+}
+
+.skre-lb__perf-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #333;
+  text-transform: uppercase;
+}
+
+.skre-lb__perf-score {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.skre-lb__perf-track {
+  display: flex;
+  gap: 3px;
+}
+
+.skre-lb__perf-segment {
+  flex: 1;
+  height: 3px;
+  background-color: #e0e0e0;
+  border-radius: 0;
+}
+
+.skre-lb__perf-segment--filled {
+  background-color: #111;
 }
 
 /* ── Desktop centering ── */
