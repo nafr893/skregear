@@ -757,6 +757,9 @@ class SkreLayerBuilder extends HTMLElement {
     const icon = accordion.querySelector('.skre-lb__accordion-icon');
     if (body) body.hidden = false;
     if (icon) icon.textContent = '−';
+    if (accordion.dataset.accordion === 'performance') {
+      requestAnimationFrame(() => this.#triggerPerfGlitch());
+    }
   }
 
   #closeAccordion(accordion) {
@@ -773,23 +776,26 @@ class SkreLayerBuilder extends HTMLElement {
     const overviewEl = this.querySelector('.skre-lb__overview-text');
     if (overviewEl) overviewEl.textContent = product.overview ?? product.preview_text ?? '';
 
-    // Best used for (seasons metafield — same source as performance.liquid)
-    const bufContainer = this.querySelector('.skre-lb__best-used-for');
-    if (bufContainer) {
+    // Best used for — rendered inside PERFORMANCE accordion using exact perf-seasons__* classes
+    const seasonsContainer = this.querySelector('.skre-lb__perf-seasons');
+    if (seasonsContainer) {
       const items = Array.isArray(product.seasons) ? product.seasons : [];
       if (items.length) {
-        bufContainer.innerHTML =
-          `<p class="skre-lb__best-used-label">BEST USED FOR:</p>
-          <div class="skre-lb__best-used-items">
+        seasonsContainer.innerHTML =
+          `<div class="perf-seasons__label">Best used for:</div>
+          <div class="perf-seasons__items">
             ${items.map(item =>
-              `<span class="skre-lb__best-used-item">
-                <span class="skre-lb__best-used-check">&#10003;</span>
+              `<span class="perf-seasons__item">
+                <svg class="perf-seasons__check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                  <rect x="1" y="1" width="16" height="16" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M4 9.5l3 3L14 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
                 ${this.#esc(String(item).trim())}
               </span>`
             ).join('')}
           </div>`;
       } else {
-        bufContainer.innerHTML = '';
+        seasonsContainer.innerHTML = '';
       }
     }
 
@@ -812,16 +818,29 @@ class SkreLayerBuilder extends HTMLElement {
     container.innerHTML = stats.map(stat => {
       const val = Math.min(10, Math.max(0, Number(stat.rating)));
       const segments = Array.from({ length: 10 }, (_, i) =>
-        `<div class="skre-lb__perf-segment${i < val ? ' skre-lb__perf-segment--filled' : ''}"></div>`
+        `<div class="perf-stat__seg${i < val ? ' perf-stat__seg--on' : ''}"></div>`
       ).join('');
-      return `<div class="skre-lb__perf-stat">
-        <div class="skre-lb__perf-stat-header">
-          <span class="skre-lb__perf-label">${this.#esc(String(stat.label).toUpperCase())}</span>
-          <span class="skre-lb__perf-score">${val}/10</span>
+      return `<div class="perf-stat">
+        <div class="perf-stat__row">
+          <span class="perf-stat__label">${this.#esc(String(stat.label).toUpperCase())}</span>
+          <span class="perf-stat__score">${val}/10</span>
         </div>
-        <div class="skre-lb__perf-track">${segments}</div>
+        <div class="perf-stat__bar" role="img" aria-label="${this.#esc(String(stat.label))}: ${val} out of 10">
+          ${segments}
+        </div>
       </div>`;
     }).join('');
+  }
+
+  #triggerPerfGlitch() {
+    this.querySelectorAll('.skre-lb__perf-bars .perf-stat').forEach((stat, si) => {
+      stat.querySelectorAll('.perf-stat__seg--on').forEach((seg, sj) => {
+        seg.style.setProperty('--pd', `${150 + si * 25 + sj * 65}ms`);
+        seg.classList.remove('perf-seg--glitch');
+        void seg.offsetWidth;
+        seg.classList.add('perf-seg--glitch');
+      });
+    });
   }
 
   // ── Zoom ──────────────────────────────────────────────────────────────────
