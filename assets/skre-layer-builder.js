@@ -773,10 +773,10 @@ class SkreLayerBuilder extends HTMLElement {
     const overviewEl = this.querySelector('.skre-lb__overview-text');
     if (overviewEl) overviewEl.textContent = product.overview ?? product.preview_text ?? '';
 
-    // Best used for
+    // Best used for (seasons metafield — same source as performance.liquid)
     const bufContainer = this.querySelector('.skre-lb__best-used-for');
     if (bufContainer) {
-      const items = Array.isArray(product.best_used_for) ? product.best_used_for : [];
+      const items = Array.isArray(product.seasons) ? product.seasons : [];
       if (items.length) {
         bufContainer.innerHTML =
           `<p class="skre-lb__best-used-label">BEST USED FOR:</p>
@@ -784,7 +784,7 @@ class SkreLayerBuilder extends HTMLElement {
             ${items.map(item =>
               `<span class="skre-lb__best-used-item">
                 <span class="skre-lb__best-used-check">&#10003;</span>
-                ${this.#esc(item)}
+                ${this.#esc(String(item).trim())}
               </span>`
             ).join('')}
           </div>`;
@@ -806,23 +806,17 @@ class SkreLayerBuilder extends HTMLElement {
     const container = this.querySelector('.skre-lb__perf-bars');
     if (!container) return;
 
-    const stats = [
-      { label: 'Thermal Rating',  value: product.perf_thermal },
-      { label: 'Waterproofing',   value: product.perf_waterproofing },
-      { label: 'Breathability',   value: product.perf_breathability },
-      { label: 'Light Weight',    value: product.perf_lightweight },
-    ].filter(s => s.value != null);
-
+    const stats = Array.isArray(product.perf_stats) ? product.perf_stats : [];
     if (!stats.length) { container.innerHTML = ''; return; }
 
     container.innerHTML = stats.map(stat => {
-      const val = Math.min(10, Math.max(0, Number(stat.value)));
+      const val = Math.min(10, Math.max(0, Number(stat.rating)));
       const segments = Array.from({ length: 10 }, (_, i) =>
         `<div class="skre-lb__perf-segment${i < val ? ' skre-lb__perf-segment--filled' : ''}"></div>`
       ).join('');
       return `<div class="skre-lb__perf-stat">
         <div class="skre-lb__perf-stat-header">
-          <span class="skre-lb__perf-label">${this.#esc(stat.label)}</span>
+          <span class="skre-lb__perf-label">${this.#esc(String(stat.label).toUpperCase())}</span>
           <span class="skre-lb__perf-score">${val}/10</span>
         </div>
         <div class="skre-lb__perf-track">${segments}</div>

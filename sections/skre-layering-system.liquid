@@ -78,11 +78,7 @@
                       assign p_rating_count = product.metafields.reviews.rating_count.value | default: null
                       assign p_preview = product.metafields.custom.product_preview.value | default: ''
                       assign p_overview = product.description | strip_html | strip_newlines
-                      assign p_best_used_for = product.metafields.custom.best_used_for.value
-                      assign p_thermal = product.metafields.custom.thermal_rating.value | default: null
-                      assign p_waterproofing = product.metafields.custom.waterproofing.value | default: null
-                      assign p_breathability = product.metafields.custom.breathability.value | default: null
-                      assign p_lightweight = product.metafields.custom.lightweight.value | default: null
+                      assign p_seasons = product.metafields.custom.product_season.value
                     -%}
                     {
                       "id": {{ product.id | json }},
@@ -90,11 +86,21 @@
                       "handle": {{ product.handle | json }},
                       "preview_text": {{ p_preview | json }},
                       "overview": {{ p_overview | json }},
-                      "best_used_for": {{ p_best_used_for | json }},
-                      "perf_thermal": {{ p_thermal | json }},
-                      "perf_waterproofing": {{ p_waterproofing | json }},
-                      "perf_breathability": {{ p_breathability | json }},
-                      "perf_lightweight": {{ p_lightweight | json }},
+                      "seasons": {{ p_seasons | json }},
+                      "perf_stats": [
+                        {%- assign first_ps = true -%}
+                        {%- for i in (1..5) -%}
+                          {%- assign lkey = 'stat_' | append: i | append: '_label' -%}
+                          {%- assign rkey = 'stat_' | append: i | append: '_ranking' -%}
+                          {%- assign s_label = product.metafields.custom[lkey] -%}
+                          {%- assign s_rating = product.metafields.custom[rkey] | plus: 0 -%}
+                          {%- if s_label != blank -%}
+                            {%- unless first_ps -%},{%- endunless -%}
+                            {%- assign first_ps = false -%}
+                            {"label": {{ s_label | json }}, "rating": {{ s_rating | json }}}
+                          {%- endif -%}
+                        {%- endfor -%}
+                      ],
                       "price": {{ product.price | json }},
                       "price_display": {{ product.price | money | json }},
                       "featured_image": {{ p_img | json }},
