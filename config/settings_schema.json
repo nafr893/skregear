@@ -1728,6 +1728,24 @@
       },
       {
         "type": "header",
+        "content": "t:content.free_shipping_bar"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_free_shipping_bar",
+        "label": "t:settings.enable_free_shipping_bar",
+        "default": false
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "t:settings.free_shipping_threshold",
+        "info": "t:info.free_shipping_threshold",
+        "default": 200,
+        "visible_if": "{{ settings.enable_free_shipping_bar == true }}"
+      },
+      {
+        "type": "header",
         "content": "t:content.cart_features"
       },
       {

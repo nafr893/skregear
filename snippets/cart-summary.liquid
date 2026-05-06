@@ -5,6 +5,30 @@
   @param {string} [section_id] - The section ID for cart discount component.
 {%- enddoc -%}
 
+{%- if settings.enable_free_shipping_bar and settings.free_shipping_threshold > 0 -%}
+  {%- assign threshold_cents = settings.free_shipping_threshold | times: 100 -%}
+  {%- if cart.total_price >= threshold_cents -%}
+    {%- assign shipping_unlocked = true -%}
+    {%- assign bar_pct = 100 -%}
+  {%- else -%}
+    {%- assign shipping_unlocked = false -%}
+    {%- assign remaining_cents = threshold_cents | minus: cart.total_price -%}
+    {%- assign bar_pct = cart.total_price | times: 100 | divided_by: threshold_cents -%}
+  {%- endif -%}
+  <div class="free-shipping-bar">
+    <p class="free-shipping-bar__msg">
+      {%- if shipping_unlocked -%}
+        You've unlocked free shipping!
+      {%- else -%}
+        Add <strong>{{ remaining_cents | money }}</strong> more to get free shipping
+      {%- endif -%}
+    </p>
+    <div class="free-shipping-bar__track" role="progressbar" aria-valuenow="{{ bar_pct }}" aria-valuemin="0" aria-valuemax="100">
+      <div class="free-shipping-bar__fill{% if shipping_unlocked %} free-shipping-bar__fill--complete{% endif %}" style="width: {{ bar_pct }}%"></div>
+    </div>
+  </div>
+{%- endif -%}
+
 <div class="cart-totals">
   {% # We need to keep this node in place to allow morphing to work properly # %}
   <div class="cart-totals__original-container cart-primary-typography">
@@ -604,5 +628,46 @@
     .cart-summary--extend {
       height: 100%;
     }
+  }
+
+  /* ── Free shipping bar ── */
+  .free-shipping-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-block: var(--padding-md);
+    border-block-end: 1px solid var(--color-border);
+    margin-block-end: var(--margin-3xs);
+  }
+
+  .free-shipping-bar__msg {
+    margin: 0;
+    font-size: var(--font-size--2xs);
+    text-align: center;
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+  }
+
+  .free-shipping-bar__msg strong {
+    color: var(--color-foreground);
+    font-weight: 700;
+  }
+
+  .free-shipping-bar__track {
+    width: 100%;
+    height: 4px;
+    background: rgb(var(--color-foreground-rgb) / 0.12);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .free-shipping-bar__fill {
+    height: 100%;
+    background: var(--color-foreground);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+
+  .free-shipping-bar__fill--complete {
+    background: #2a7a3b;
   }
 {% endstylesheet %}
