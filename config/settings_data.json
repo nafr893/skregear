@@ -66,6 +66,7 @@
     "cart_type": "drawer",
     "cart_price_font": "secondary",
     "auto_open_cart_drawer": true,
+    "enable_free_shipping_bar": true,
     "show_cart_note": false,
     "show_add_discount_code": true,
     "empty_cart_btn_4_text": "",
