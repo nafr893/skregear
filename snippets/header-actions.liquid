@@ -625,10 +625,6 @@ padding-bottom: .125rem;
     overflow: visible;
   }
 
-  .header-actions__cart-icon .cart-bubble__background {
-    background-color: transparent;
-  }
-
   .header-actions__cart-icon .cart-bubble {
     position: absolute;
     width: var(--cart-bubble-size, 10px);
@@ -668,13 +664,7 @@ padding-bottom: .125rem;
   }
 
   .header-actions__cart-icon.header-actions__cart-icon--has-cart svg {
-    /* Create donut mask where the cart bubble sits */
-    mask: radial-gradient(
-      calc(var(--cart-bubble-size) + 2px) at calc(100% - var(--cart-bubble-right)) var(--cart-bubble-top),
-      transparent 45.45%,
-      #fff 45.45%,
-      #fff 100%
-    );
+    mask: none;
   }
 
   .cart-drawer__heading .cart-bubble .cart-bubble__background {
