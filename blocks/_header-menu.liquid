@@ -126,11 +126,17 @@
             {%- if matched_slot > 0 -%}{%- assign show_promo = true -%}{%- endif -%}
 
             {%- if show_promo -%}
-              {%- assign promo_img     = block_settings['mega_promo_' | append: matched_slot | append: '_image'] -%}
-              {%- assign promo_para    = block_settings['mega_promo_' | append: matched_slot | append: '_paragraph'] -%}
-              {%- assign promo_heading = block_settings['mega_promo_' | append: matched_slot | append: '_heading'] -%}
-              {%- assign promo_btn_lbl = block_settings['mega_promo_' | append: matched_slot | append: '_btn_label'] -%}
-              {%- assign promo_btn_url = block_settings['mega_promo_' | append: matched_slot | append: '_btn_link'] -%}
+              {%- assign _promo_prefix = 'mega_promo_' | append: matched_slot -%}
+              {%- assign _k_img     = _promo_prefix | append: '_image' -%}
+              {%- assign _k_para    = _promo_prefix | append: '_paragraph' -%}
+              {%- assign _k_heading = _promo_prefix | append: '_heading' -%}
+              {%- assign _k_btn_lbl = _promo_prefix | append: '_btn_label' -%}
+              {%- assign _k_btn_url = _promo_prefix | append: '_btn_link' -%}
+              {%- assign promo_img     = block_settings[_k_img] -%}
+              {%- assign promo_para    = block_settings[_k_para] -%}
+              {%- assign promo_heading = block_settings[_k_heading] -%}
+              {%- assign promo_btn_lbl = block_settings[_k_btn_lbl] -%}
+              {%- assign promo_btn_url = block_settings[_k_btn_url] -%}
             {%- endif -%}
 
             <div class="menu-list__submenu{{ color_scheme_classes }}" ref="submenu[]">
