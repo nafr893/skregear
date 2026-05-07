@@ -1,4 +1,5 @@
 
+{%- if section.settings.collection_list != blank or request.visual_preview_mode -%}
 
 {% liquid
   if section.settings.collection_list != blank
@@ -115,6 +116,8 @@
 
   {%- endif -%}
 </div>
+
+{%- endif -%}
 
 {% stylesheet %}
   /* ── Custom collection carousel — mirrors skre-collection-tabs exactly ── */
