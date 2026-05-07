@@ -109,28 +109,24 @@
             <span class="menu-list__link-title">{{- link.title -}}</span>
           </a>
           {%- if link.links != blank -%}
-            {%- comment -%} Find the promo slot whose identifier matches this nav item {%- endcomment -%}
-            {%- assign matched_slot = 0 -%}
+            {%- comment -%} Collect all promo slots whose identifier exactly matches this nav item (case-sensitive) {%- endcomment -%}
+            {%- assign matched_slots = '' -%}
             {%- if block_settings.show_mega_promo -%}
-              {%- assign link_title_down = link.title | downcase | strip -%}
+              {%- assign link_title_stripped = link.title | strip -%}
               {%- for slot in (1..5) -%}
                 {%- assign id_key = 'mega_promo_' | append: slot | append: '_identifier' -%}
-                {%- assign slot_id = block_settings[id_key] | downcase | strip -%}
-                {%- if slot_id != blank and slot_id == link_title_down -%}
-                  {%- assign matched_slot = slot -%}
-                  {%- break -%}
+                {%- assign slot_id = block_settings[id_key] | strip -%}
+                {%- if slot_id != blank and slot_id == link_title_stripped -%}
+                  {%- if matched_slots != '' -%}{%- assign matched_slots = matched_slots | append: '|' -%}{%- endif -%}
+                  {%- assign matched_slots = matched_slots | append: slot -%}
                 {%- endif -%}
               {%- endfor -%}
             {%- endif -%}
             {%- assign show_promo = false -%}
-            {%- if matched_slot > 0 -%}{%- assign show_promo = true -%}{%- endif -%}
-
-            {%- if show_promo -%}
-              {%- assign promo_img     = block_settings['mega_promo_' | append: matched_slot | append: '_image'] -%}
-              {%- assign promo_para    = block_settings['mega_promo_' | append: matched_slot | append: '_paragraph'] -%}
-              {%- assign promo_heading = block_settings['mega_promo_' | append: matched_slot | append: '_heading'] -%}
-              {%- assign promo_btn_lbl = block_settings['mega_promo_' | append: matched_slot | append: '_btn_label'] -%}
-              {%- assign promo_btn_url = block_settings['mega_promo_' | append: matched_slot | append: '_btn_link'] -%}
+            {%- assign matched_slots_arr = '' | split: '' -%}
+            {%- if matched_slots != blank -%}
+              {%- assign show_promo = true -%}
+              {%- assign matched_slots_arr = matched_slots | split: '|' -%}
             {%- endif -%}
 
             <div class="menu-list__submenu{{ color_scheme_classes }}" ref="submenu[]">
@@ -161,37 +157,45 @@
 
                 {%- if show_promo -%}
                   <div class="mega-menu-promo">
-                    <div class="mega-menu-promo__card">
-                      {%- if promo_img -%}
-                        <img
-                          src="{{ promo_img | image_url: width: 600 }}"
-                          alt="{{ promo_img.alt | escape }}"
-                          class="mega-menu-promo__image"
-                          loading="lazy"
-                          width="{{ promo_img.width }}"
-                          height="{{ promo_img.height }}"
-                        >
-                      {%- else -%}
-                        <div class="mega-menu-promo__placeholder"></div>
-                      {%- endif -%}
-                      <div class="mega-menu-promo__overlay" aria-hidden="true"></div>
-                      <div class="mega-menu-promo__content">
-                        {%- if promo_para != blank -%}
-                          <p class="mega-menu-promo__paragraph">{{ promo_para }}</p>
-                        {%- endif -%}
-                        {%- if promo_heading != blank -%}
-                          <p class="mega-menu-promo__heading">{{ promo_heading }}</p>
-                        {%- endif -%}
-                        {%- if promo_btn_lbl != blank -%}
-                          <a
-                            href="{{ promo_btn_url | default: '#' }}"
-                            class="mega-menu-promo__btn"
+                    {%- for slot_str in matched_slots_arr limit: 3 -%}
+                      {%- assign s = slot_str | strip -%}
+                      {%- assign c_img     = block_settings['mega_promo_' | append: s | append: '_image'] -%}
+                      {%- assign c_para    = block_settings['mega_promo_' | append: s | append: '_paragraph'] -%}
+                      {%- assign c_heading = block_settings['mega_promo_' | append: s | append: '_heading'] -%}
+                      {%- assign c_btn_lbl = block_settings['mega_promo_' | append: s | append: '_btn_label'] -%}
+                      {%- assign c_btn_url = block_settings['mega_promo_' | append: s | append: '_btn_link'] -%}
+                      <div class="mega-menu-promo__card">
+                        {%- if c_img -%}
+                          <img
+                            src="{{ c_img | image_url: width: 600 }}"
+                            alt="{{ c_img.alt | escape }}"
+                            class="mega-menu-promo__image"
+                            loading="lazy"
+                            width="{{ c_img.width }}"
+                            height="{{ c_img.height }}"
                           >
-                            {{- promo_btn_lbl -}}
-                          </a>
+                        {%- else -%}
+                          <div class="mega-menu-promo__placeholder"></div>
                         {%- endif -%}
+                        <div class="mega-menu-promo__overlay" aria-hidden="true"></div>
+                        <div class="mega-menu-promo__content">
+                          {%- if c_para != blank -%}
+                            <p class="mega-menu-promo__paragraph">{{ c_para }}</p>
+                          {%- endif -%}
+                          {%- if c_heading != blank -%}
+                            <p class="mega-menu-promo__heading">{{ c_heading }}</p>
+                          {%- endif -%}
+                          {%- if c_btn_lbl != blank -%}
+                            <a
+                              href="{{ c_btn_url | default: '#' }}"
+                              class="mega-menu-promo__btn"
+                            >
+                              {{- c_btn_lbl -}}
+                            </a>
+                          {%- endif -%}
+                        </div>
                       </div>
-                    </div>
+                    {%- endfor -%}
                   </div>
                 {%- endif -%}
               </div>
@@ -765,7 +769,8 @@
 
     @media screen and (min-width: 990px) {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      gap: 8px;
       flex: 1.5 1 0;
       min-width: 0;
       margin-inline-end: var(--page-margin);
@@ -775,8 +780,8 @@
 
   .mega-menu-promo__card {
     position: relative;
-    width: 100%;
     flex: 1 1 0;
+    min-width: 0;
     min-height: 0;
     overflow: hidden;
     border-radius: var(--style-border-radius-cards, 0);
