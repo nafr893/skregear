@@ -224,7 +224,12 @@ h5, h6, p {
 @media screen and (min-width: 990px) {
   .menu-list__submenu,
   .overflow-menu::part(overflow) {
-    --submenu-padding-block-start: calc(var(--padding-3xl) + 1.5rem);
+    --submenu-padding-block-start: calc(var(--padding-3xl) + 3rem);
+  }
+
+  .mega-menu__link--parent {
+    font-size: 0.7em;
+    font-weight: 700;
   }
 }
 
