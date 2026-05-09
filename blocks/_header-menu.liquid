@@ -109,10 +109,31 @@
             <span class="menu-list__link-title">{{- link.title -}}</span>
           </a>
           {%- if link.links != blank -%}
+            {%- comment -%} Match promo slots to this nav item by case-sensitive identifier {%- endcomment -%}
+            {%- assign matched_slots = '' -%}
+            {%- if block_settings.show_mega_promo -%}
+              {%- assign link_title_stripped = link.title | strip -%}
+              {%- for slot in (1..5) -%}
+                {%- assign _pk = 'mega_promo_' | append: slot -%}
+                {%- assign _k_id = _pk | append: '_identifier' -%}
+                {%- assign slot_id = block_settings[_k_id] | strip -%}
+                {%- if slot_id != blank and slot_id == link_title_stripped -%}
+                  {%- if matched_slots != '' -%}{%- assign matched_slots = matched_slots | append: '|' -%}{%- endif -%}
+                  {%- assign matched_slots = matched_slots | append: slot -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+            {%- assign show_promo = false -%}
+            {%- assign matched_slots_arr = '' | split: '' -%}
+            {%- if matched_slots != blank -%}
+              {%- assign show_promo = true -%}
+              {%- assign matched_slots_arr = matched_slots | split: '|' -%}
+            {%- endif -%}
+
             <div class="menu-list__submenu{{ color_scheme_classes }}" ref="submenu[]">
               <div
                 id="submenu-{{ forloop.index }}"
-                class="menu-list__submenu-inner{% if block_settings.show_mega_promo %} menu-list__submenu-inner--has-promo{% endif %}"
+                class="menu-list__submenu-inner{% if show_promo %} menu-list__submenu-inner--has-promo{% endif %}"
                 style="{% render 'submenu-font-styles', settings: block_settings %}"
               >
                 {% assign list_id = 'MegaMenuList-' | append: forloop.index %}
@@ -135,39 +156,50 @@
                   </div>
                 </div>
 
-                {%- if block_settings.show_mega_promo -%}
+                {%- if show_promo -%}
                   <div class="mega-menu-promo">
-                    <div class="mega-menu-promo__card">
-                      {%- if block_settings.mega_promo_image -%}
-                        <img
-                          src="{{ block_settings.mega_promo_image | image_url: width: 600 }}"
-                          alt="{{ block_settings.mega_promo_image.alt | escape }}"
-                          class="mega-menu-promo__image"
-                          loading="lazy"
-                          width="{{ block_settings.mega_promo_image.width }}"
-                          height="{{ block_settings.mega_promo_image.height }}"
-                        >
-                      {%- else -%}
-                        <div class="mega-menu-promo__placeholder"></div>
-                      {%- endif -%}
-                      <div class="mega-menu-promo__overlay" aria-hidden="true"></div>
-                      <div class="mega-menu-promo__content">
-                        {%- if block_settings.mega_promo_paragraph != blank -%}
-                          <p class="mega-menu-promo__paragraph">{{ block_settings.mega_promo_paragraph }}</p>
-                        {%- endif -%}
-                        {%- if block_settings.mega_promo_heading != blank -%}
-                          <p class="mega-menu-promo__heading">{{ block_settings.mega_promo_heading }}</p>
-                        {%- endif -%}
-                        {%- if block_settings.mega_promo_btn_label != blank -%}
-                          <a
-                            href="{{ block_settings.mega_promo_btn_link | default: '#' }}"
-                            class="mega-menu-promo__btn"
+                    {%- for slot_str in matched_slots_arr -%}
+                      {%- assign s = slot_str | strip -%}
+                      {%- assign _pk      = 'mega_promo_' | append: s -%}
+                      {%- assign _k_img   = _pk | append: '_image' -%}
+                      {%- assign _k_para  = _pk | append: '_paragraph' -%}
+                      {%- assign _k_head  = _pk | append: '_heading' -%}
+                      {%- assign _k_lbl   = _pk | append: '_btn_label' -%}
+                      {%- assign _k_url   = _pk | append: '_btn_link' -%}
+                      {%- assign c_img    = block_settings[_k_img] -%}
+                      {%- assign c_para   = block_settings[_k_para] -%}
+                      {%- assign c_head   = block_settings[_k_head] -%}
+                      {%- assign c_lbl    = block_settings[_k_lbl] -%}
+                      {%- assign c_url    = block_settings[_k_url] -%}
+                      <div class="mega-menu-promo__card">
+                        {%- if c_img -%}
+                          <img
+                            src="{{ c_img | image_url: width: 600 }}"
+                            alt="{{ c_img.alt | escape }}"
+                            class="mega-menu-promo__image"
+                            loading="lazy"
+                            width="{{ c_img.width }}"
+                            height="{{ c_img.height }}"
                           >
-                            {{- block_settings.mega_promo_btn_label -}}
-                          </a>
+                        {%- else -%}
+                          <div class="mega-menu-promo__placeholder"></div>
                         {%- endif -%}
+                        <div class="mega-menu-promo__overlay" aria-hidden="true"></div>
+                        <div class="mega-menu-promo__content">
+                          {%- if c_para != blank -%}
+                            <p class="mega-menu-promo__paragraph">{{ c_para }}</p>
+                          {%- endif -%}
+                          {%- if c_head != blank -%}
+                            <p class="mega-menu-promo__heading">{{ c_head }}</p>
+                          {%- endif -%}
+                          {%- if c_lbl != blank -%}
+                            <a href="{{ c_url | default: '#' }}" class="mega-menu-promo__btn">
+                              {{- c_lbl -}}
+                            </a>
+                          {%- endif -%}
+                        </div>
                       </div>
-                    </div>
+                    {%- endfor -%}
                   </div>
                 {%- endif -%}
               </div>
@@ -1217,42 +1249,44 @@
     {
       "type": "checkbox",
       "id": "show_mega_promo",
-      "label": "Show promo card",
+      "label": "Enable promo cards",
       "default": false
     },
-    {
-      "type": "image_picker",
-      "id": "mega_promo_image",
-      "label": "Image",
-      "visible_if": "{{ block.settings.show_mega_promo }}"
-    },
-    {
-      "type": "inline_richtext",
-      "id": "mega_promo_paragraph",
-      "label": "Paragraph text",
-      "default": "Built to Stop Bites",
-      "visible_if": "{{ block.settings.show_mega_promo }}"
-    },
-    {
-      "type": "text",
-      "id": "mega_promo_heading",
-      "label": "Heading",
-      "default": "How We Lab Tested Equinox Guard",
-      "visible_if": "{{ block.settings.show_mega_promo }}"
-    },
-    {
-      "type": "text",
-      "id": "mega_promo_btn_label",
-      "label": "Button label",
-      "default": "Learn More",
-      "visible_if": "{{ block.settings.show_mega_promo }}"
-    },
-    {
-      "type": "url",
-      "id": "mega_promo_btn_link",
-      "label": "Button link",
-      "visible_if": "{{ block.settings.show_mega_promo }}"
-    }
+    { "type": "header", "content": "Promo Card 1" },
+    { "type": "text", "id": "mega_promo_1_identifier", "label": "Menu identifier (case-sensitive)", "placeholder": "e.g. Shop", "visible_if": "{{ block.settings.show_mega_promo }}" },
+    { "type": "image_picker", "id": "mega_promo_1_image", "label": "Image", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_1_identifier != blank }}" },
+    { "type": "inline_richtext", "id": "mega_promo_1_paragraph", "label": "Paragraph text", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_1_identifier != blank }}" },
+    { "type": "text", "id": "mega_promo_1_heading", "label": "Heading", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_1_identifier != blank }}" },
+    { "type": "text", "id": "mega_promo_1_btn_label", "label": "Button label", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_1_identifier != blank }}" },
+    { "type": "url", "id": "mega_promo_1_btn_link", "label": "Button link", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_1_identifier != blank }}" },
+    { "type": "header", "content": "Promo Card 2" },
+    { "type": "text", "id": "mega_promo_2_identifier", "label": "Menu identifier (case-sensitive)", "placeholder": "e.g. Outlet", "visible_if": "{{ block.settings.show_mega_promo }}" },
+    { "type": "image_picker", "id": "mega_promo_2_image", "label": "Image", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_2_identifier != blank }}" },
+    { "type": "inline_richtext", "id": "mega_promo_2_paragraph", "label": "Paragraph text", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_2_identifier != blank }}" },
+    { "type": "text", "id": "mega_promo_2_heading", "label": "Heading", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_2_identifier != blank }}" },
+    { "type": "text", "id": "mega_promo_2_btn_label", "label": "Button label", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_2_identifier != blank }}" },
+    { "type": "url", "id": "mega_promo_2_btn_link", "label": "Button link", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_2_identifier != blank }}" },
+    { "type": "header", "content": "Promo Card 3" },
+    { "type": "text", "id": "mega_promo_3_identifier", "label": "Menu identifier (case-sensitive)", "placeholder": "e.g. Pursuit", "visible_if": "{{ block.settings.show_mega_promo }}" },
+    { "type": "image_picker", "id": "mega_promo_3_image", "label": "Image", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_3_identifier != blank }}" },
+    { "type": "inline_richtext", "id": "mega_promo_3_paragraph", "label": "Paragraph text", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_3_identifier != blank }}" },
+    { "type": "text", "id": "mega_promo_3_heading", "label": "Heading", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_3_identifier != blank }}" },
+    { "type": "text", "id": "mega_promo_3_btn_label", "label": "Button label", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_3_identifier != blank }}" },
+    { "type": "url", "id": "mega_promo_3_btn_link", "label": "Button link", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_3_identifier != blank }}" },
+    { "type": "header", "content": "Promo Card 4" },
+    { "type": "text", "id": "mega_promo_4_identifier", "label": "Menu identifier (case-sensitive)", "placeholder": "e.g. Explore", "visible_if": "{{ block.settings.show_mega_promo }}" },
+    { "type": "image_picker", "id": "mega_promo_4_image", "label": "Image", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_4_identifier != blank }}" },
+    { "type": "inline_richtext", "id": "mega_promo_4_paragraph", "label": "Paragraph text", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_4_identifier != blank }}" },
+    { "type": "text", "id": "mega_promo_4_heading", "label": "Heading", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_4_identifier != blank }}" },
+    { "type": "text", "id": "mega_promo_4_btn_label", "label": "Button label", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_4_identifier != blank }}" },
+    { "type": "url", "id": "mega_promo_4_btn_link", "label": "Button link", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_4_identifier != blank }}" },
+    { "type": "header", "content": "Promo Card 5" },
+    { "type": "text", "id": "mega_promo_5_identifier", "label": "Menu identifier (case-sensitive)", "placeholder": "e.g. Womens", "visible_if": "{{ block.settings.show_mega_promo }}" },
+    { "type": "image_picker", "id": "mega_promo_5_image", "label": "Image", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_5_identifier != blank }}" },
+    { "type": "inline_richtext", "id": "mega_promo_5_paragraph", "label": "Paragraph text", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_5_identifier != blank }}" },
+    { "type": "text", "id": "mega_promo_5_heading", "label": "Heading", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_5_identifier != blank }}" },
+    { "type": "text", "id": "mega_promo_5_btn_label", "label": "Button label", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_5_identifier != blank }}" },
+    { "type": "url", "id": "mega_promo_5_btn_link", "label": "Button link", "visible_if": "{{ block.settings.show_mega_promo and block.settings.mega_promo_5_identifier != blank }}" }
   ]
 }
 {% endschema %}
