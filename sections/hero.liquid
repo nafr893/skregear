@@ -450,6 +450,8 @@
   {% endif %}
 {% endcapture %}
 
+{%- if media_count == 0 and request.visual_preview_mode == false -%}
+{%- else -%}
 <div
   id="Hero-{{ section.id }}"
   class="hero color-{{ section.settings.color_scheme }}{% if section.blocks.size == 0 and section.settings.section_height == 'auto' %} hero--no-blocks-auto-height{% endif %}{% if section.settings.stack_media_on_mobile %} hero--stack-mobile{% endif %}"
@@ -538,6 +540,7 @@
     </div>
   </div>
 </div>
+{%- endif -%}
 
 {% stylesheet %}
   .hero-wrapper {
