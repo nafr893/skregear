@@ -1,3 +1,8 @@
+/* Lock page scroll whenever any modal dialog is open (search, cart, etc.) */
+html:has(dialog:modal) {
+  overflow: hidden;
+}
+
 h1, h2, h3, h4 {
 font-family: 'United-Sans', sans-serif !important;
 }
