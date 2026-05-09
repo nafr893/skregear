@@ -114,9 +114,9 @@
             {%- if block_settings.show_mega_promo -%}
               {%- assign link_title_stripped = link.title | strip -%}
               {%- for slot in (1..5) -%}
-                {%- assign _pk = 'mega_promo_' | append: slot -%}
-                {%- assign _k_id = _pk | append: '_identifier' -%}
-                {%- assign slot_id = block_settings[_k_id] | strip -%}
+                {%- assign pk = 'mega_promo_' | append: slot -%}
+                {%- assign k_id = pk | append: '_identifier' -%}
+                {%- assign slot_id = block_settings[k_id] | strip -%}
                 {%- if slot_id != blank and slot_id == link_title_stripped -%}
                   {%- if matched_slots != '' -%}{%- assign matched_slots = matched_slots | append: '|' -%}{%- endif -%}
                   {%- assign matched_slots = matched_slots | append: slot -%}
@@ -160,17 +160,17 @@
                   <div class="mega-menu-promo">
                     {%- for slot_str in matched_slots_arr -%}
                       {%- assign s = slot_str | strip -%}
-                      {%- assign _pk      = 'mega_promo_' | append: s -%}
-                      {%- assign _k_img   = _pk | append: '_image' -%}
-                      {%- assign _k_para  = _pk | append: '_paragraph' -%}
-                      {%- assign _k_head  = _pk | append: '_heading' -%}
-                      {%- assign _k_lbl   = _pk | append: '_btn_label' -%}
-                      {%- assign _k_url   = _pk | append: '_btn_link' -%}
-                      {%- assign c_img    = block_settings[_k_img] -%}
-                      {%- assign c_para   = block_settings[_k_para] -%}
-                      {%- assign c_head   = block_settings[_k_head] -%}
-                      {%- assign c_lbl    = block_settings[_k_lbl] -%}
-                      {%- assign c_url    = block_settings[_k_url] -%}
+                      {%- assign pk      = 'mega_promo_' | append: s -%}
+                      {%- assign k_img   = pk | append: '_image' -%}
+                      {%- assign k_para  = pk | append: '_paragraph' -%}
+                      {%- assign k_head  = pk | append: '_heading' -%}
+                      {%- assign k_lbl   = pk | append: '_btn_label' -%}
+                      {%- assign k_url   = pk | append: '_btn_link' -%}
+                      {%- assign c_img    = block_settings[k_img] -%}
+                      {%- assign c_para   = block_settings[k_para] -%}
+                      {%- assign c_head   = block_settings[k_head] -%}
+                      {%- assign c_lbl    = block_settings[k_lbl] -%}
+                      {%- assign c_url    = block_settings[k_url] -%}
                       <div class="mega-menu-promo__card">
                         {%- if c_img -%}
                           <img

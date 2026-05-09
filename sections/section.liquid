@@ -12,7 +12,17 @@
   {% content_for 'blocks' %}
 {% endcapture %}
 
-{% render 'section', section: section, children: children, visibility_class: _vis_class %}
+{%- liquid
+  assign skre_show_section = true
+  if template.name == 'collection' and request.visual_preview_mode == false
+    if section.settings.background_media != 'image' or section.settings.background_image == blank
+      assign skre_show_section = false
+    endif
+  endif
+-%}
+{%- if skre_show_section -%}
+  {% render 'section', section: section, children: children, visibility_class: _vis_class %}
+{%- endif -%}
 
 {% schema %}
 {
