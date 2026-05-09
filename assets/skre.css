@@ -227,9 +227,9 @@ h5, h6, p {
 
 /* Extra top padding inside the mega menu drawer — desktop only */
 @media screen and (min-width: 990px) {
-  .menu-list__submenu,
-  .overflow-menu::part(overflow) {
-    --submenu-padding-block-start: calc(var(--padding-3xl) + 14rem);
+  .menu-list__submenu-inner,
+  .overflow-menu::part(overflow-list) {
+    padding-block-start: 8rem !important;
   }
 
   .mega-menu__link--parent {
