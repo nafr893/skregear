@@ -229,7 +229,7 @@ h5, h6, p {
 @media screen and (min-width: 990px) {
   .menu-list__submenu,
   .overflow-menu::part(overflow) {
-    --submenu-padding-block-start: calc(var(--padding-3xl) + 3rem);
+    --submenu-padding-block-start: calc(var(--padding-3xl) + 5rem);
   }
 
   .mega-menu__link--parent {
