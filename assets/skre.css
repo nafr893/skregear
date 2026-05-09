@@ -236,6 +236,10 @@ h5, h6, p {
     font-size: 0.7em;
     font-weight: 700;
   }
+
+  .mega-menu__column > div > .mega-menu__link {
+    font-weight: 700;
+  }
 }
 
 /* Scale review block (stars + count) to 75% */
