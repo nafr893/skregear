@@ -101,14 +101,13 @@ h5, h6, p {
   }
 }
 
-/* Product card image background */
+/* Product card image background — mix-blend-mode:multiply treats white as transparent */
 .resource-card__media {
   background-color: #f5f5f5;
 }
 
 .resource-card__image {
-  background-color: #f5f5f5;
-  object-fit: contain;
+  mix-blend-mode: multiply;
 }
 
 /* ── Promo card — injected into collection product grid ─────────── */

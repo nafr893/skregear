@@ -69,7 +69,7 @@
 
     syncLoadMore(filterValue, productFilterMap);
   }
-
+ 
   /**
    * @param {string} filterValue
    * @param {Record<string,string>} productFilterMap
