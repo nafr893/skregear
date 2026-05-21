@@ -115,7 +115,7 @@
           %}
           {{
             resource.media[1]
-            | image_url: width: image_width
+            | image_url: width: image_width, format: 'webp'
             | image_tag:
               loading: 'lazy',
               class: 'resource-card__image resource-card__image--secondary',
