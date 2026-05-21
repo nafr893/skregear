@@ -278,10 +278,15 @@ input[type='search']::-webkit-search-decoration {
 
 div.collection-card__content.layout-panel-flex--column {
   p {
-     text-transform: uppercase !important;
+    text-transform: uppercase !important;
     font-family: 'United-Sans', sans-serif !important;
+    font-size: 1.5rem !important; /* 24px desktop */
+  }
+}
 
-
+@media screen and (max-width: 749px) {
+  div.collection-card__content.layout-panel-flex--column p {
+    font-size: 1.25rem !important; /* 20px mobile */
   }
 }
 
