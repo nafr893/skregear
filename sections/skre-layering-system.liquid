@@ -70,7 +70,7 @@
                     {%- assign first_prod = false -%}
                     {%- liquid
                       if product.featured_image
-                        assign p_img = product.featured_image | image_url: width: 1200
+                        assign p_img = product.featured_image | image_url: width: 1200, format: 'webp'
                       else
                         assign p_img = ''
                       endif
@@ -164,7 +164,7 @@
                           {%- assign first_var = false -%}
                           {%- liquid
                             if variant.featured_image
-                              assign v_img = variant.featured_image | image_url: width: 1200
+                              assign v_img = variant.featured_image | image_url: width: 1200, format: 'webp'
                             else
                               assign v_img = ''
                             endif
@@ -173,13 +173,13 @@
                             if vfiles != blank
                               for vfile in vfiles
                                 if vfile.image != blank
-                                  assign vimg_url = vfile.image | image_url: width: 1200
+                                  assign vimg_url = vfile.image | image_url: width: 1200, format: 'webp'
                                   unless vimgs_str == ''
                                     assign vimgs_str = vimgs_str | append: '|'
                                   endunless
                                   assign vimgs_str = vimgs_str | append: vimg_url
                                 elsif vfile.preview_image != blank
-                                  assign vimg_url = vfile.preview_image | image_url: width: 1200
+                                  assign vimg_url = vfile.preview_image | image_url: width: 1200, format: 'webp'
                                   unless vimgs_str == ''
                                     assign vimgs_str = vimgs_str | append: '|'
                                   endunless
@@ -766,7 +766,6 @@ body:has(.skre-lb) main {
   height: 100%;
   object-fit: cover;
   display: block;
-  mix-blend-mode: multiply;
 }
 
 .skre-lb__img-track {
