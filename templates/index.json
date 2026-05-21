@@ -865,7 +865,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "EXPLORE",
-            "link": "shopify://collections/hardscrabble-series",
+            "link": "shopify://pages/warranty",
             "open_in_new_tab": false,
             "style_class": "button",
             "width": "fit-content",
