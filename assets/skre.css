@@ -101,6 +101,11 @@ h5, h6, p {
   }
 }
 
+/* Product card image background — shows behind transparent product images */
+.resource-card__media {
+  background-color: #f9f9f9;
+}
+
 /* ── Promo card — injected into collection product grid ─────────── */
 .skre-promo-card {
   display: block;
