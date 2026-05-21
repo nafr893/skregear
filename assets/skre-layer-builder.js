@@ -477,11 +477,24 @@ class SkreLayerBuilder extends HTMLElement {
     if (!heroWrap) return;
     const swatch = product?.swatches?.[colorValue];
 
-    let bg = '#fff';
+    let bg = 'transparent';
     const src = swatch?.base_rgb ?? swatch?.color ?? null;
     if (src) {
-      const m = String(src).match(/\d+/g);
-      if (m?.length >= 3) bg = `rgba(${m[0]}, ${m[1]}, ${m[2]}, 0.5)`;
+      const str = String(src).trim();
+      // Handle hex: #rgb or #rrggbb
+      const hex = str.match(/^#?([0-9a-fA-F]{3,6})$/);
+      if (hex) {
+        let h = hex[1];
+        if (h.length === 3) h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
+        const r = parseInt(h.slice(0,2), 16);
+        const g = parseInt(h.slice(2,4), 16);
+        const b = parseInt(h.slice(4,6), 16);
+        bg = `rgba(${r}, ${g}, ${b}, 0.25)`;
+      } else {
+        // Handle rgb(...) format
+        const m = str.match(/\d+/g);
+        if (m?.length >= 3) bg = `rgba(${m[0]}, ${m[1]}, ${m[2]}, 0.25)`;
+      }
     }
     heroWrap.style.backgroundColor = bg;
   }
