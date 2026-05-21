@@ -1,16 +1,16 @@
 {%- liquid
   assign condition_keys = "early_season,mid_season,late_season" | split: ","
-  assign all_slots = shop.metaobjects.skre_layer_slot.values
-  if all_slots == blank
-    assign all_slots = '' | split: ''
-  endif
-
   assign label_early_season = section.settings.label_early_season | default: 'Early Season'
   assign label_mid_season   = section.settings.label_mid_season   | default: 'Mid Season'
   assign label_late_season  = section.settings.label_late_season  | default: 'Late Season'
   assign exit_url           = section.settings.exit_url           | default: '/'
   assign atc_color          = section.settings.atc_color          | default: '#b8431a'
 -%}
+
+{%- comment -%} Raise the default 20-entry metaobject limit to 250 {%- endcomment -%}
+{% paginate shop.metaobjects.skre_layer_slot.values by 250 %}
+{%- assign all_slots = shop.metaobjects.skre_layer_slot.values -%}
+{%- if all_slots == blank -%}{%- assign all_slots = '' | split: '' -%}{%- endif -%}
 
 {%- capture lb_json -%}
 {
@@ -450,6 +450,8 @@
 </skre-layer-builder>
 
 <script src="{{ 'skre-layer-builder.js' | asset_url }}" type="module"></script>
+
+{% endpaginate %}
 
 {% stylesheet %}
 
