@@ -101,10 +101,14 @@ h5, h6, p {
   }
 }
 
-/* Product card image background — shows behind transparent product images */
-.resource-card__media,
+/* Product card image background */
+.resource-card__media {
+  background-color: #f5f5f5;
+}
+
 .resource-card__image {
   background-color: #f5f5f5;
+  object-fit: contain;
 }
 
 /* ── Promo card — injected into collection product grid ─────────── */
