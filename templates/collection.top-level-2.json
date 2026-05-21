@@ -159,7 +159,7 @@
         "collection_list": "{{ collection.metafields.custom.sub_collections.value }}",
         "layout_type": "carousel",
         "carousel_on_mobile": false,
-        "columns": 3,
+        "columns": 4,
         "mobile_columns": "2",
         "mobile_card_size": "60cqw",
         "columns_gap": 8,
