@@ -56,6 +56,7 @@
             "text_XVTnAz": {
               "type": "text",
               "name": "Title",
+              "disabled": true,
               "settings": {
                 "text": "<h1>{{ closest.collection.title }}</h1>",
                 "width": "fit-content",
@@ -218,7 +219,6 @@
         "text_tqQTNE": {
           "type": "text",
           "name": "Title",
-          "disabled": true,
           "settings": {
             "text": "<h1>{{ closest.collection.title }}</h1>",
             "width": "fit-content",
