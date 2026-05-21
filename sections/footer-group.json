@@ -422,7 +422,7 @@
               "type": "menu",
               "name": "t:names.menu",
               "settings": {
-                "menu": "main-menu",
+                "menu": "resources",
                 "heading": "",
                 "menu_spacing": 12,
                 "show_as_accordion": true,
@@ -444,7 +444,7 @@
               "type": "menu",
               "name": "t:names.menu",
               "settings": {
-                "menu": "main-menu",
+                "menu": "footer-2",
                 "heading": "",
                 "menu_spacing": 12,
                 "show_as_accordion": true,
