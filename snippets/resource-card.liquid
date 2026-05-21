@@ -178,7 +178,7 @@
     </p>
 
     {% if resource_type == 'product' %}
-      {% render 'price', product_resource: resource, show_unit_price: true %}
+      {% render 'price', product_resource: resource, show_unit_price: true, show_sale_price_first: true %}
     {% elsif resource_type == 'collection' and single_thumbnail_collection == false %}
       <p class="resource-card__subtext paragraph">
         {{- 'content.search_results_resource_products_count' | t: count: resource.all_products_count -}}
