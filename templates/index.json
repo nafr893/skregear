@@ -49,7 +49,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "visibility": "both"
           },
           "blocks": {
             "text_a9xjNw": {
@@ -74,7 +75,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             },
@@ -100,7 +102,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             }
@@ -172,12 +175,12 @@
           "name": "Hunt",
           "settings": {
             "label": "Hunt",
-            "collection_1": "whitetail-gear",
-            "collection_2": "insulation",
-            "collection_3": "new-arrivals",
-            "collection_4": "soft-shell",
-            "collection_5": "whitetail-base-layer",
-            "collection_6": "whitetail-best-sellers",
+            "collection_1": "jackets-vests",
+            "collection_2": "shirts-tops",
+            "collection_3": "pants-bibs",
+            "collection_4": "hats-gloves-accessories",
+            "collection_5": "womens-gear",
+            "collection_6": "packs-bags-equipment",
             "collection_7": "",
             "collection_8": ""
           }
@@ -206,7 +209,8 @@
       "settings": {
         "color_scheme": "scheme-1",
         "padding-block-start": 40,
-        "padding-block-end": 40
+        "padding-block-end": 40,
+        "visibility": "both"
       }
     },
     "hero_qkqBhp": {
@@ -249,7 +253,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "visibility": "both"
           },
           "blocks": {
             "text_pm7gja": {
@@ -274,7 +279,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 5,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             },
@@ -299,7 +305,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             },
@@ -324,7 +331,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 32,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             }
@@ -413,7 +421,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "visibility": "both"
           },
           "blocks": {}
         }
@@ -447,7 +456,8 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 60,
-        "padding-block-end": 20
+        "padding-block-end": 20,
+        "visibility": "both"
       }
     },
     "skre_product_tabs_DrtFwq": {
@@ -484,7 +494,8 @@
       "settings": {
         "color_scheme": "scheme-1",
         "padding-block-start": 0,
-        "padding-block-end": 40
+        "padding-block-end": 40,
+        "visibility": "both"
       }
     },
     "section_FXptDL": {
@@ -548,7 +559,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "visibility": "both"
           },
           "blocks": {
             "group_bRAzay": {
@@ -588,7 +600,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 12,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {
                 "text_WFfhkP": {
@@ -613,7 +626,8 @@
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
-                    "padding-inline-end": 0
+                    "padding-inline-end": 0,
+                    "visibility": "both"
                   },
                   "blocks": {}
                 },
@@ -638,7 +652,8 @@
                     "padding-block-start": 0,
                     "padding-block-end": 0,
                     "padding-inline-start": 0,
-                    "padding-inline-end": 0
+                    "padding-inline-end": 0,
+                    "visibility": "both"
                   },
                   "blocks": {}
                 }
@@ -699,7 +714,8 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 40,
-        "padding-block-end": 40
+        "padding-block-end": 40,
+        "visibility": "both"
       }
     },
     "skre_blog_carousel_pnN8WW": {
@@ -710,7 +726,8 @@
         "blog": "resources",
         "color_scheme": "scheme-1",
         "padding-block-start": 40,
-        "padding-block-end": 60
+        "padding-block-end": 60,
+        "visibility": "both"
       }
     },
     "hero_L7HYhT": {
@@ -753,7 +770,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "visibility": "both"
           },
           "blocks": {
             "text_jL9N88": {
@@ -778,7 +796,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 5,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             },
@@ -803,7 +822,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             },
@@ -828,7 +848,8 @@
                 "padding-block-start": 0,
                 "padding-block-end": 32,
                 "padding-inline-start": 0,
-                "padding-inline-end": 0
+                "padding-inline-end": 0,
+                "visibility": "both"
               },
               "blocks": {}
             }
@@ -844,7 +865,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "EXPLORE",
-            "link": "shopify://collections/hardscrabble-series",
+            "link": "shopify://pages/warranty",
             "open_in_new_tab": false,
             "style_class": "button",
             "width": "fit-content",
