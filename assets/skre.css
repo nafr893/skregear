@@ -63,6 +63,12 @@ h5, h6, p {
   background-color: transparent !important;
 }
 
+/* Force 2:3 aspect ratio on product images in the search modal */
+.predictive-search-results__card--product .resource-card__media,
+.recently-viewed-wrapper .resource-card__media {
+  --resource-card-aspect-ratio: 2 / 3;
+}
+
 /* Sentence-case pill labels: first letter of each word capitalised, rest lowercase */
 /* Consistent font weight: neutralise bold/light overrides from styled_text markup */
 .predictive-search-results__card--query .predictive-search-results__pill,
