@@ -122,6 +122,8 @@ class SkreLayerBuilder extends HTMLElement {
     this.querySelector('.skre-lb__expand')?.addEventListener('click', () => this.#toggleExpand());
     this.#bindAccordions();
     this.querySelector('.skre-lb__zoom-btn')?.addEventListener('click', () => this.#openZoom());
+    this.querySelector('.skre-lb__hover-arrow--prev')?.addEventListener('click', () => this.#prevImage());
+    this.querySelector('.skre-lb__hover-arrow--next')?.addEventListener('click', () => this.#nextImage());
     this.querySelector('.skre-lb__zoom-close')?.addEventListener('click', () => this.#closeZoom());
     const zoomDialog = this.querySelector('.skre-lb__zoom-dialog');
     if (zoomDialog) {
@@ -535,6 +537,12 @@ class SkreLayerBuilder extends HTMLElement {
         dotsEl.innerHTML = '';
       }
     }
+
+    // Hover arrows: hidden at boundaries, visible in between
+    const prevArrow = this.querySelector('.skre-lb__hover-arrow--prev');
+    const nextArrow = this.querySelector('.skre-lb__hover-arrow--next');
+    if (prevArrow) prevArrow.hidden = this.#imgIndex === 0;
+    if (nextArrow) nextArrow.hidden = this.#imgIndex >= urls.length - 1;
   }
 
   #prevImage() {

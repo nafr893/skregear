@@ -367,6 +367,14 @@
           <line x1="3" y1="21" x2="10" y2="14"></line>
         </svg>
       </button>
+      <div class="skre-lb__hover-arrows" aria-hidden="true">
+        <button class="skre-lb__hover-arrow skre-lb__hover-arrow--prev" type="button" aria-label="Previous image" hidden>
+          <span class="skre-lb__hover-arrow-icon">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
+        </button>
+        <button class="skre-lb__hover-arrow skre-lb__hover-arrow--next" type="button" aria-label="Next image" hidden>
+          <span class="skre-lb__hover-arrow-icon">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
+        </button>
+      </div>
     </div>
 
     {%- comment -%} Image pagination bar — below the image {%- endcomment -%}
@@ -1531,14 +1539,16 @@ body:has(.skre-lb) main {
 /* Rail is desktop-only — hidden by default so mobile never sees it */
 .skre-lb__rail { display: none; }
 
-/* Dots are desktop-only */
+/* Dots and hover arrows are desktop-only */
 .skre-lb__img-dots { display: none; }
+.skre-lb__hover-arrows { display: none; }
 
 @media screen and (min-width: 750px) {
 
   /* Drop the mobile centering + 480px cap; become a full-bleed 3-col grid */
   .skre-lb { display: block; }
   .skre-lb__builder {
+    --skre-lb-bar-pad: 0.6rem;
     max-width: none;
     width: 100vw;
     height: 100svh;
@@ -1653,8 +1663,8 @@ body:has(.skre-lb) main {
 
   /* Media footer: float up, leave room on the right for the zoom button */
   .skre-lb__media-footer {
-    left: 3rem;
-    right: 6rem;
+    left: 5rem;
+    right: 8.5rem;
     bottom: 1.5rem;
   }
   .skre-lb__media-caption {
@@ -1662,7 +1672,7 @@ body:has(.skre-lb) main {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: 0.75rem 1.1rem;
+    padding: var(--skre-lb-bar-pad) 1rem;
     gap: 1.25rem;
     background: rgba(0, 0, 0, 0.48);
     border-radius: 2px;
@@ -1714,14 +1724,47 @@ body:has(.skre-lb) main {
     background: rgba(255, 255, 255, 0.65);
   }
 
-  /* Zoom button: same bottom + padding as the bar so heights match */
+  /* Zoom button: same bottom + padding as the bar so heights match exactly */
   .skre-lb__zoom-btn {
     bottom: 1.5rem;
     right: 3rem;
     width: auto;
     height: auto;
-    padding: 0.75rem 0.9rem;
+    padding: var(--skre-lb-bar-pad) 0.9rem;
     border-radius: 2px;
+  }
+
+  /* Hover arrows: left/right image navigation, reveal on media hover */
+  .skre-lb__hover-arrows {
+    display: flex;
+    position: absolute;
+    inset: 0;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+    mix-blend-mode: difference;
+    z-index: 3;
+  }
+  .skre-lb__hover-arrow {
+    opacity: 0;
+    pointer-events: auto;
+    transition: opacity 0.18s;
+    color: #fff;
+    background: none;
+    border: none;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+  }
+  .skre-lb__media:hover .skre-lb__hover-arrow:not([hidden]) {
+    opacity: 1;
+  }
+  .skre-lb__hover-arrow-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+  }
+  .skre-lb__hover-arrow--prev .skre-lb__hover-arrow-icon {
+    scale: -1 1;
   }
 
   /* ── RIGHT INFO / SPEC PANEL ───────────────────────────────────────────── */
