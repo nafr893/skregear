@@ -282,6 +282,38 @@
     <button class="skre-lb__region-back" type="button">&#8592; Back</button>
   </div>
 
+  {%- comment -%} ── Tutorial screen (shown on first visit, re-openable via ?) ── {%- endcomment -%}
+  <div class="skre-lb__tutorial" hidden>
+    <div class="skre-lb__tut-inner">
+      <p class="skre-lb__tut-eyebrow">HOW IT WORKS</p>
+      <h2 class="skre-lb__tut-title">Build Your Layering System</h2>
+      <ol class="skre-lb__tut-steps">
+        <li class="skre-lb__tut-step">
+          <span class="skre-lb__tut-num">01</span>
+          <div class="skre-lb__tut-step-body">
+            <strong class="skre-lb__tut-step-title">Browse Each Layer</strong>
+            <p class="skre-lb__tut-step-desc">Use the layer tabs to move between Base, Mid, and Outer. Tap Back and Next to browse all products for that layer.</p>
+          </div>
+        </li>
+        <li class="skre-lb__tut-step">
+          <span class="skre-lb__tut-num">02</span>
+          <div class="skre-lb__tut-step-body">
+            <strong class="skre-lb__tut-step-title">Select &amp; Add</strong>
+            <p class="skre-lb__tut-step-desc">Pick a color and size, then tap ADD TO SYSTEM. Your selection is tracked in the panel on the left.</p>
+          </div>
+        </li>
+        <li class="skre-lb__tut-step">
+          <span class="skre-lb__tut-num">03</span>
+          <div class="skre-lb__tut-step-body">
+            <strong class="skre-lb__tut-step-title">Review &amp; Checkout</strong>
+            <p class="skre-lb__tut-step-desc">Once all layers are added, tap Review System to see your complete build and head to checkout.</p>
+          </div>
+        </li>
+      </ol>
+      <button class="skre-lb__tut-cta" type="button">Got It &#8250; Start Building</button>
+    </div>
+  </div>
+
   {%- comment -%} ── Shared SVG star definition ── {%- endcomment -%}
   <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -314,6 +346,7 @@
           <span class="skre-lb__rail-title">Your System</span>
         </div>
         <span class="skre-lb__rail-count"></span>
+        <button class="skre-lb__help-btn skre-lb__help-btn--rail" type="button" aria-label="How it works">?</button>
       </div>
 
       <div class="skre-lb__rail-list"></div>
@@ -344,6 +377,7 @@
     {%- comment -%} Tabs row — sits above the image, no frosted glass {%- endcomment -%}
     <div class="skre-lb__header">
       <div class="skre-lb__tabs" role="tablist"></div>
+      <button class="skre-lb__help-btn" type="button" aria-label="How it works">?</button>
       <button class="skre-lb__close" type="button" aria-label="Exit builder">
         {{- 'icon-close.svg' | inline_asset_content -}}
       </button>
@@ -1798,6 +1832,156 @@ body:has(.skre-lb) main {
   .skre-lb__builder--has-items .skre-lb__summary-btn { display: none; }
   .skre-lb__builder--has-items .skre-lb__atc { justify-content: space-between; flex: 1; }
   .skre-lb__builder--has-items .skre-lb__atc-price { display: inline; }
+}
+
+/* ── Tutorial screen ─────────────────────────────────────────────────────── */
+.skre-lb__tutorial {
+  height: 100svh;
+  background: #3d3d2f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.5rem;
+  overflow-y: auto;
+}
+
+.skre-lb__tut-inner {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  color: #fff;
+}
+
+.skre-lb__tut-eyebrow {
+  font-family: 'United-Sans', sans-serif;
+  font-weight: 900;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0 0 0.6rem;
+}
+
+.skre-lb__tut-title {
+  font-family: 'United-Sans', sans-serif;
+  font-weight: 900;
+  font-size: 1.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0 0 2rem;
+  line-height: 1.1;
+}
+
+.skre-lb__tut-steps {
+  list-style: none;
+  margin: 0 0 2.25rem;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.skre-lb__tut-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.1rem;
+}
+
+.skre-lb__tut-num {
+  font-family: 'United-Sans', sans-serif;
+  font-weight: 900;
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
+  color: var(--skre-lb-accent, #b8431a);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 2.2rem;
+  padding-top: 0.1rem;
+}
+
+.skre-lb__tut-step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.skre-lb__tut-step-title {
+  font-family: 'United-Sans', sans-serif;
+  font-weight: 900;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.skre-lb__tut-step-desc {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0;
+}
+
+.skre-lb__tut-cta {
+  width: 100%;
+  padding: 16px;
+  background: var(--skre-lb-accent, #b8431a);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-family: 'United-Sans', sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: opacity 0.15s;
+}
+
+.skre-lb__tut-cta:hover { opacity: 0.88; }
+
+/* ── Help (?) button ─────────────────────────────────────────────────────── */
+.skre-lb__help-btn {
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 50%;
+  width: 1.6rem;
+  height: 1.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #555;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.skre-lb__help-btn:hover {
+  border-color: #333;
+  color: #111;
+}
+
+/* Rail help button: slightly different since it's on the light rail head */
+.skre-lb__help-btn--rail {
+  color: #888;
+  border-color: #ddd;
+}
+
+@media screen and (min-width: 750px) {
+  .skre-lb__tutorial {
+    padding: 3rem 2rem;
+  }
+  .skre-lb__tut-inner {
+    max-width: 520px;
+  }
+  .skre-lb__tut-title {
+    font-size: 2rem;
+  }
 }
 
 {% endstylesheet %}

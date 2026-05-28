@@ -16,12 +16,16 @@ class SkreLayerBuilder extends HTMLElement {
   #regionPicker = null;
   #builder = null;
   #summaryPanel = null;
+  #tutorial = null;
+
+  static #SEEN_KEY = 'skre-lb-seen';
 
   connectedCallback() {
     this.#picker = this.querySelector('.skre-lb__picker');
     this.#regionPicker = this.querySelector('.skre-lb__region-picker');
     this.#builder = this.querySelector('.skre-lb__builder');
     this.#summaryPanel = this.querySelector('.skre-lb__summary-panel');
+    this.#tutorial = this.querySelector('.skre-lb__tutorial');
 
     this.#bindPicker();
     this.#bindBuilder();
@@ -69,9 +73,9 @@ class SkreLayerBuilder extends HTMLElement {
   #selectRegion(key) {
     this.#region = key;
     if (this.#regionPicker) this.#regionPicker.hidden = true;
-    if (this.#builder) this.#builder.hidden = false;
     this.#renderTabs();
     this.#setLayer(0);
+    this.#maybeShowTutorial();
   }
 
   #selectCondition(key) {
@@ -93,10 +97,34 @@ class SkreLayerBuilder extends HTMLElement {
       if (this.#regionPicker) this.#regionPicker.hidden = false;
     } else {
       this.#region = regions[0]?.key ?? '';
-      if (this.#builder) this.#builder.hidden = false;
       this.#renderTabs();
       this.#setLayer(0);
+      this.#maybeShowTutorial();
     }
+  }
+
+  // ── Tutorial ─────────────────────────────────────────────────────────────
+
+  #maybeShowTutorial() {
+    if (!this.#tutorial || localStorage.getItem(SkreLayerBuilder.#SEEN_KEY)) {
+      if (this.#builder) this.#builder.hidden = false;
+      return;
+    }
+    this.#showTutorial();
+  }
+
+  #showTutorial() {
+    if (!this.#tutorial) return;
+    if (this.#picker) this.#picker.hidden = true;
+    if (this.#regionPicker) this.#regionPicker.hidden = true;
+    if (this.#builder) this.#builder.hidden = true;
+    this.#tutorial.hidden = false;
+  }
+
+  #dismissTutorial() {
+    localStorage.setItem(SkreLayerBuilder.#SEEN_KEY, '1');
+    if (this.#tutorial) this.#tutorial.hidden = true;
+    if (this.#builder) this.#builder.hidden = false;
   }
 
   // ── Builder ─────────────────────────────────────────────────────────────
@@ -115,6 +143,10 @@ class SkreLayerBuilder extends HTMLElement {
     this.querySelector('.skre-lb__rail-atc')?.addEventListener('click', () => this.#addToSystem());
     this.style.setProperty('--skre-lb-accent', this.dataset.atcColor || '#b8431a');
     this.querySelector('.skre-lb__summary-close')?.addEventListener('click', () => this.#hideSummary());
+    this.querySelector('.skre-lb__tut-cta')?.addEventListener('click', () => this.#dismissTutorial());
+    this.querySelectorAll('.skre-lb__help-btn').forEach(btn =>
+      btn.addEventListener('click', () => this.#showTutorial())
+    );
     this.querySelector('.skre-lb__summary-panel')?.addEventListener('click', e => {
       if (e.target === this.#summaryPanel) this.#hideSummary();
     });
