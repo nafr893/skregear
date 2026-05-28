@@ -902,10 +902,17 @@ class SkreLayerBuilder extends HTMLElement {
     // Performance bars
     this.#renderPerfBars(product);
 
-    // Reset accordions: overview open, others closed
+    // Specs: populate from recommended_use metafield; hide accordion if empty
+    const specsAccordion = this.querySelector('[data-accordion="specs"]');
+    const specsBody = specsAccordion?.querySelector('.skre-lb__accordion-body');
+    const recommendedUse = product.recommended_use ?? '';
+    if (specsBody) specsBody.textContent = recommendedUse;
+    if (specsAccordion) specsAccordion.hidden = !recommendedUse;
+
+    // Reset accordions: performance open, others closed
     this.querySelectorAll('[data-accordion]').forEach(a => this.#closeAccordion(a));
-    const overviewAccordion = this.querySelector('[data-accordion="overview"]');
-    if (overviewAccordion) this.#openAccordion(overviewAccordion);
+    const perfAccordion = this.querySelector('[data-accordion="performance"]');
+    if (perfAccordion) this.#openAccordion(perfAccordion);
   }
 
   #renderPerfBars(product) {

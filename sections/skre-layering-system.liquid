@@ -79,6 +79,7 @@
                       assign p_preview = product.metafields.custom.product_preview.value | default: ''
                       assign p_overview = product.description | strip_html | strip_newlines
                       assign p_seasons = product.metafields.custom.product_season.value
+                      assign p_recommended_use = product.metafields.custom.recommended_use.value | default: ''
                     -%}
                     {
                       "id": {{ product.id | json }},
@@ -86,6 +87,7 @@
                       "handle": {{ product.handle | json }},
                       "preview_text": {{ p_preview | json }},
                       "overview": {{ p_overview | json }},
+                      "recommended_use": {{ p_recommended_use | json }},
                       "seasons": {{ p_seasons | json }},
                       "perf_stats": [
                         {%- assign first_ps = true -%}
@@ -418,12 +420,25 @@
 
         <div class="skre-lb__accordions">
 
-          <div class="skre-lb__accordion" data-accordion="overview">
+          <div class="skre-lb__accordion" data-accordion="performance">
             <button class="skre-lb__accordion-btn" type="button">
-              <span>OVERVIEW</span>
+              <span>PERFORMANCE</span>
               <span class="skre-lb__accordion-icon">&#8722;</span>
             </button>
             <div class="skre-lb__accordion-body">
+              <div class="perf__body">
+                <div class="perf-seasons skre-lb__perf-seasons"></div>
+                <div class="skre-lb__perf-bars"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="skre-lb__accordion" data-accordion="overview">
+            <button class="skre-lb__accordion-btn" type="button">
+              <span>OVERVIEW</span>
+              <span class="skre-lb__accordion-icon">&#43;</span>
+            </button>
+            <div class="skre-lb__accordion-body" hidden>
               <p class="skre-lb__overview-text"></p>
             </div>
           </div>
@@ -434,19 +449,6 @@
               <span class="skre-lb__accordion-icon">&#43;</span>
             </button>
             <div class="skre-lb__accordion-body" hidden></div>
-          </div>
-
-          <div class="skre-lb__accordion" data-accordion="performance">
-            <button class="skre-lb__accordion-btn" type="button">
-              <span>PERFORMANCE</span>
-              <span class="skre-lb__accordion-icon">&#43;</span>
-            </button>
-            <div class="skre-lb__accordion-body" hidden>
-              <div class="perf__body">
-                <div class="perf-seasons skre-lb__perf-seasons"></div>
-                <div class="skre-lb__perf-bars"></div>
-              </div>
-            </div>
           </div>
 
         </div>
