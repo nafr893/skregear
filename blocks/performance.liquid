@@ -261,7 +261,7 @@
       if (this.#fired) return;
       this.#fired = true;
       observer.disconnect();
-      this._glitch();
+      setTimeout(() => this._glitch(), 500);
     }
 
     _glitch() {
