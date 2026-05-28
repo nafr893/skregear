@@ -110,6 +110,9 @@ class SkreLayerBuilder extends HTMLElement {
     this.#bindImageSwipe();
     this.querySelector('.skre-lb__atc')?.addEventListener('click', () => this.#addToSystem());
     this.querySelector('.skre-lb__summary-btn')?.addEventListener('click', () => this.#showSummary());
+    // Desktop rail: checkout opens the summary; accent var drives the active marker
+    this.querySelector('.skre-lb__rail-checkout')?.addEventListener('click', () => this.#showSummary());
+    this.style.setProperty('--skre-lb-accent', this.dataset.atcColor || '#b8431a');
     this.querySelector('.skre-lb__summary-close')?.addEventListener('click', () => this.#hideSummary());
     this.querySelector('.skre-lb__summary-panel')?.addEventListener('click', e => {
       if (e.target === this.#summaryPanel) this.#hideSummary();
@@ -194,6 +197,7 @@ class SkreLayerBuilder extends HTMLElement {
     } else {
       this.#renderEmptySlot();
     }
+    this.#renderRail();
   }
 
   #prevProduct() {
@@ -595,6 +599,7 @@ class SkreLayerBuilder extends HTMLElement {
         msrp,
         imageUrl: variantData.imageUrl ?? '',
         layerLabel,
+        layerIndex: this.#layerIndex,
       });
 
       this.#subtotal += variantData.price;
@@ -636,10 +641,79 @@ class SkreLayerBuilder extends HTMLElement {
       if (savingsAmount) savingsAmount.textContent = this.#formatMoney(savings);
       savingsLabel.hidden = !hasItems;
     }
+    this.#renderRail();
   }
 
   #formatMoney(cents) {
     return `$${(cents / 100).toFixed(2)}`;
+  }
+
+  // ── Desktop rail (YOUR SYSTEM) ─────────────────────────────────────────────
+
+  #renderRail() {
+    const list = this.querySelector('.skre-lb__rail-list');
+    if (!list) return; // rail markup not present
+
+    const slots = this.#getSlots();
+    const byIndex = {};
+    this.#cartLines.forEach(l => { if (l.layerIndex != null) byIndex[l.layerIndex] = l; });
+
+    list.innerHTML = slots.map((slot, i) => {
+      const line = byIndex[i];
+      const active = i === this.#layerIndex;
+      const thumb = line
+        ? `<span class="skre-lb__rail-thumb"><img src="${line.imageUrl}" alt="" loading="lazy"></span>`
+        : `<span class="skre-lb__rail-thumb skre-lb__rail-thumb--empty">${i + 1}</span>`;
+      const sub = line
+        ? `${this.#esc(line.title)}${line.variantTitle ? ' · ' + this.#esc(line.variantTitle) : ''}`
+        : 'Not selected';
+      const right = line
+        ? `<span class="skre-lb__rail-price">${line.price_display}</span>
+           <button class="skre-lb__rail-remove" data-rail-remove="${i}" data-key="${this.#esc(line.key)}" type="button" aria-label="Remove">&#215;</button>`
+        : '';
+      return `<button class="skre-lb__rail-slot${active ? ' skre-lb__rail-slot--active' : ''}" data-rail-layer="${i}" type="button">
+        ${thumb}
+        <span class="skre-lb__rail-info">
+          <span class="skre-lb__rail-layer">${this.#esc(slot.label)}</span>
+          <span class="skre-lb__rail-prod${line ? '' : ' skre-lb__rail-prod--empty'}">${sub}</span>
+        </span>
+        ${right}
+      </button>`;
+    }).join('');
+
+    // Jump to a layer (ignore clicks that land on the remove button)
+    list.querySelectorAll('[data-rail-layer]').forEach(btn => {
+      btn.addEventListener('click', e => {
+        if (e.target.closest('[data-rail-remove]')) return;
+        this.#setLayer(Number(btn.dataset.railLayer));
+      });
+    });
+    // Remove a line from the system
+    list.querySelectorAll('[data-rail-remove]').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const li = this.#cartLines.findIndex(l => l.layerIndex === Number(btn.dataset.railRemove));
+        if (li >= 0) this.#removeLine(btn.dataset.key, li);
+      });
+    });
+
+    // Count + totals + savings + checkout state
+    const countEl = this.querySelector('.skre-lb__rail-count');
+    if (countEl) countEl.textContent = `${this.#cartLines.length} / ${slots.length}`;
+
+    const subEl = this.querySelector('.skre-lb__rail-subtotal');
+    if (subEl) subEl.textContent = this.#formatMoney(this.#subtotal);
+    const totalEl = this.querySelector('.skre-lb__rail-total');
+    if (totalEl) totalEl.textContent = this.#formatMoney(this.#subtotal);
+
+    const savings = Math.max(0, this.#msrpTotal - this.#subtotal);
+    const savRow = this.querySelector('.skre-lb__rail-savings-row');
+    const savEl = this.querySelector('.skre-lb__rail-savings');
+    if (savEl) savEl.textContent = '−' + this.#formatMoney(savings);
+    if (savRow) savRow.hidden = savings <= 0;
+
+    const checkoutBtn = this.querySelector('.skre-lb__rail-checkout');
+    if (checkoutBtn) checkoutBtn.disabled = this.#cartLines.length === 0;
   }
 
   // ── Summary panel ─────────────────────────────────────────────────────────

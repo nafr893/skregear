@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SKRE Layering — desktop patch verification</title>
+<style>
+/* fonts (theme uses 'United-Sans' + 'Avenir') */
+@font-face { font-family:'United-Sans'; src:url('../../../fonts/UnitedSansReg-Black.woff2') format('woff2'); font-weight:900; }
+@font-face { font-family:'Avenir'; src:url('../../../fonts/Avenir-Book-01.woff2') format('woff2'); font-weight:400; }
+@font-face { font-family:'Avenir'; src:url('../../../fonts/Avenir-Heavy-05.woff2') format('woff2'); font-weight:700; }
+* { box-sizing:border-box; }
+html,body{ margin:0; }
+body{ font-family:'Avenir',sans-serif; }
+
+/* ============ EXCERPT of the EXISTING mobile builder CSS (real class names) ============ */
+.skre-lb { display:block; position:relative; height:100svh; overflow:hidden; }
+.skre-lb__builder { display:flex; flex-direction:column; height:100svh; background:#fff; overflow:hidden; position:relative; }
+.skre-lb__header { display:flex; align-items:stretch; flex-shrink:0; background:#fff; border-bottom:1px solid #ededed; }
+.skre-lb__tabs { display:flex; flex:1; overflow-x:auto; }
+.skre-lb__tab { padding:0.55rem 0.85rem; font-size:0.62rem; font-weight:800; letter-spacing:0.09em; text-transform:uppercase; white-space:nowrap; background:none; border:none; border-bottom:2px solid transparent; cursor:pointer; color:#aaa; font-family:'United-Sans'; }
+.skre-lb__tab--active { color:#111; border-bottom-color:#111; }
+.skre-lb__close { display:flex; align-items:center; justify-content:center; padding:0.5rem 0.85rem; background:none; border:none; cursor:pointer; flex-shrink:0; color:#333; }
+.skre-lb__media { position:relative; flex:1; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+.skre-lb__hero-wrap { position:absolute; inset:0; overflow:hidden; z-index:0; background:#3f3f37; }
+.skre-lb__media-footer { position:absolute; bottom:0; left:0; z-index:2; }
+.skre-lb__media-caption { display:inline-flex; flex-direction:column; gap:0.2rem; padding:0.4rem 0.65rem 0.45rem; background:rgba(0,0,0,0.32); backdrop-filter:blur(12px); }
+.skre-lb__layer-label { font-family:'United-Sans'; font-size:0.62rem; font-weight:900; letter-spacing:0.1em; text-transform:uppercase; color:#fff; }
+.skre-lb__media-nav { display:flex; align-items:center; gap:0.45rem; }
+.skre-lb__progress-text { font-size:0.68rem; font-weight:700; color:rgba(255,255,255,0.75); }
+.skre-lb__prev,.skre-lb__next { background:none; border:none; cursor:pointer; font-size:0.7rem; font-weight:700; color:#fff; padding:0; }
+.skre-lb__zoom-btn { position:absolute; bottom:0.55rem; right:0.55rem; z-index:3; width:2rem; height:2rem; border:none; background:rgba(0,0,0,0.32); backdrop-filter:blur(12px); color:#fff; display:flex; align-items:center; justify-content:center; }
+.skre-lb__img-track { width:100%; height:2px; background:#e8e8e8; flex-shrink:0; }
+.skre-lb__info { padding:0.6rem 1rem 1.5rem; display:flex; flex-direction:column; gap:0.35rem; flex-shrink:0; }
+.skre-lb__rating-row { display:flex; justify-content:space-between; align-items:center; }
+.skre-lb__expand { font-size:0.72rem; font-weight:700; cursor:pointer; color:#444; background:none; border:none; }
+.skre-lb__title { font-family:'United-Sans'; font-size:1.1rem; font-weight:900; text-transform:uppercase; letter-spacing:0.04em; margin:0; line-height:1.2; }
+.skre-lb__price { font-size:1rem; font-weight:700; margin:0; }
+.skre-lb__color-row { display:flex; flex-direction:column; gap:0.4rem; }
+.skre-lb__color-label { font-size:0.73rem; font-weight:600; color:#333; }
+.skre-lb__swatches { display:flex; flex-wrap:wrap; gap:0.4rem; }
+.skre-lb__swatch { width:1.9rem; height:1.9rem; border:2px solid #e0e0e0; cursor:pointer; }
+.skre-lb__sizes-wrap { display:flex; flex-direction:column; gap:0.3rem; }
+.skre-lb__sizes-label { font-size:0.73rem; font-weight:600; color:#333; }
+.skre-lb__sizes { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:0.4rem; }
+.skre-lb__size { padding:0.45rem 0.75rem; border:1px solid #ccc; background:none; font-size:0.72rem; font-weight:700; cursor:pointer; color:#222; }
+.skre-lb__size--active { border-color:#111; background:#111; color:#fff; }
+.skre-lb__exp-only { display:none; }
+.skre-lb__accordions { margin-top:0.5rem; border-top:1px solid #e0e0e0; }
+.skre-lb__accordion { border-bottom:1px solid #e0e0e0; }
+.skre-lb__accordion-btn { width:100%; display:flex; justify-content:space-between; align-items:center; padding:0.85rem 0; background:none; border:none; cursor:pointer; font-family:'United-Sans'; font-size:0.78rem; font-weight:900; letter-spacing:0.1em; text-transform:uppercase; color:#111; }
+.skre-lb__action-row { display:flex; gap:0.4rem; margin-top:0.2rem; }
+.skre-lb__atc { flex:1; display:flex; justify-content:space-between; align-items:center; padding:1rem 1.25rem; color:#fff; border:none; cursor:pointer; font-family:'United-Sans'; font-size:0.74rem; font-weight:900; letter-spacing:0.12em; text-transform:uppercase; }
+.skre-lb__summary-btn { display:none; }
+.skre-lb__builder--has-items .skre-lb__summary-btn { display:flex; flex:1; align-items:center; justify-content:center; background:#111; color:#fff; border:none; font-family:'United-Sans'; font-weight:900; padding:1rem; text-transform:uppercase; letter-spacing:0.1em; font-size:0.74rem; }
+.skre-lb__footer { display:flex; justify-content:space-between; align-items:center; padding-top:0.65rem; border-top:1px solid #ededed; margin-top:0.2rem; }
+.skre-lb__subtotal-label { font-size:0.72rem; color:#555; }
+@media screen and (min-width:600px){ .skre-lb__builder { width:100%; max-width:480px; margin:0 auto; } }
+
+/* ============ STEP 1 PATCH (verbatim) ============ */
+</style>
+<link rel="stylesheet" href="../01-desktop-styles.css">
+</head>
+<body>
+<div class="skre-lb">
+  <div class="skre-lb__builder skre-lb__builder--has-items">
+
+    <!-- STEP 2 rail markup (wordmark fallback shown) -->
+    <aside class="skre-lb__rail" aria-hidden="true">
+      <div class="skre-lb__rail-head">
+        <div class="skre-lb__rail-brand">
+          <span class="skre-lb__rail-wordmark">SKRE</span>
+          <span class="skre-lb__rail-title">Your System</span>
+        </div>
+        <span class="skre-lb__rail-count"></span>
+      </div>
+      <div class="skre-lb__rail-list"></div>
+      <div class="skre-lb__rail-foot">
+        <div class="skre-lb__rail-totals">
+          <div class="skre-lb__rail-line"><span>Subtotal</span><span class="skre-lb__rail-subtotal">$0.00</span></div>
+          <div class="skre-lb__rail-line skre-lb__rail-savings-row"><span>You Save</span><span class="skre-lb__rail-savings">−$30.00</span></div>
+          <div class="skre-lb__rail-line skre-lb__rail-line--total"><span>System Total</span><span class="skre-lb__rail-total">$0.00</span></div>
+        </div>
+        <button class="skre-lb__rail-checkout" type="button">Review System</button>
+      </div>
+    </aside>
+
+    <div class="skre-lb__header">
+      <div class="skre-lb__tabs">
+        <button class="skre-lb__tab">Base Layer</button>
+        <button class="skre-lb__tab skre-lb__tab--active">Mid Layer</button>
+        <button class="skre-lb__tab">Insulation</button>
+      </div>
+      <button class="skre-lb__close">✕</button>
+    </div>
+
+    <div class="skre-lb__media">
+      <div class="skre-lb__hero-wrap"></div>
+      <div class="skre-lb__media-footer">
+        <div class="skre-lb__media-caption">
+          <span class="skre-lb__layer-label">Mid Layer Options</span>
+          <div class="skre-lb__media-nav"><span class="skre-lb__progress-text">1/2</span><button class="skre-lb__prev">‹ Back</button><button class="skre-lb__next">Next ›</button></div>
+        </div>
+      </div>
+      <button class="skre-lb__zoom-btn">⤢</button>
+    </div>
+
+    <div class="skre-lb__img-track"></div>
+
+    <div class="skre-lb__info">
+      <div class="skre-lb__rating-row"><span style="font-size:.75rem;color:#666">★★★★★ (402)</span><button class="skre-lb__expand">Expand Info ⌄</button></div>
+      <h2 class="skre-lb__title">Hardscrabble Jacket</h2>
+      <p class="skre-lb__price">$189.00</p>
+      <div class="skre-lb__color-row"><span class="skre-lb__color-label">Select Color: Olive</span>
+        <div class="skre-lb__swatches"><button class="skre-lb__swatch" style="background:#4a4a38"></button><button class="skre-lb__swatch" style="background:#3a3c3b"></button><button class="skre-lb__swatch" style="background:#6b513a"></button></div>
+      </div>
+      <div class="skre-lb__sizes-wrap"><span class="skre-lb__sizes-label">Select Size</span>
+        <div class="skre-lb__sizes"><button class="skre-lb__size">S</button><button class="skre-lb__size skre-lb__size--active">M</button><button class="skre-lb__size">L</button><button class="skre-lb__size">XL</button></div>
+      </div>
+      <div class="skre-lb__exp-only">
+        <div class="skre-lb__accordions">
+          <div class="skre-lb__accordion"><button class="skre-lb__accordion-btn"><span>OVERVIEW</span><span>−</span></button></div>
+          <div class="skre-lb__accordion"><button class="skre-lb__accordion-btn"><span>SPECS</span><span>+</span></button></div>
+          <div class="skre-lb__accordion"><button class="skre-lb__accordion-btn"><span>PERFORMANCE</span><span>+</span></button></div>
+        </div>
+      </div>
+      <div class="skre-lb__action-row">
+        <button class="skre-lb__atc" style="background:#b8431a"><span>ADD TO SYSTEM</span><span class="skre-lb__atc-price">$189.00</span></button>
+        <button class="skre-lb__summary-btn">View Summary</button>
+      </div>
+      <div class="skre-lb__footer"><span class="skre-lb__subtotal-label">System Subtotal: $89.00</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// minimal stand-in for #renderRail to confirm filled + empty rows render via the patch CSS
+const slots = ['Base Layer','Mid Layer','Insulation','Outer Shell','Bottoms','Headwear'];
+const lines = { 0:{title:'Merino Wool Crew',variantTitle:'Olive / S',price_display:'$89',img:'#4a4a38'} };
+const active = 1;
+document.querySelector('.skre-lb__rail-list').innerHTML = slots.map(function(label,i){
+  var line = lines[i];
+  var thumb = line
+    ? '<span class="skre-lb__rail-thumb" style="background:'+line.img+'"></span>'
+    : '<span class="skre-lb__rail-thumb skre-lb__rail-thumb--empty">'+(i+1)+'</span>';
+  var sub = line ? (line.title+' \u00b7 '+line.variantTitle) : 'Not selected';
+  var right = line ? '<span class="skre-lb__rail-price">'+line.price_display+'</span><button class="skre-lb__rail-remove">\u00d7</button>' : '';
+  return '<button class="skre-lb__rail-slot'+(i===active?' skre-lb__rail-slot--active':'')+'">'+thumb+'<span class="skre-lb__rail-info"><span class="skre-lb__rail-layer">'+label+'</span><span class="skre-lb__rail-prod'+(line?'':' skre-lb__rail-prod--empty')+'">'+sub+'</span></span>'+right+'</button>';
+}).join('');
+document.querySelector('.skre-lb__rail-count').textContent = '1 / 6';
+document.querySelector('.skre-lb__rail-subtotal').textContent = '$89.00';
+document.querySelector('.skre-lb__rail-total').textContent = '$89.00';
+document.documentElement.style.setProperty('--skre-lb-accent','#b8431a');
+</script>
+</body>
+</html>

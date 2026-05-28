@@ -296,6 +296,45 @@
   {%- comment -%} ── Screen B: Builder ── {%- endcomment -%}
   <div class="skre-lb__builder" hidden>
 
+    {%- comment -%} ── Desktop-only: YOUR SYSTEM rail (≥750px) ── {%- endcomment -%}
+    <aside class="skre-lb__rail" aria-hidden="true">
+      <div class="skre-lb__rail-head">
+        <div class="skre-lb__rail-brand">
+          {%- if section.settings.logo -%}
+            {{
+              section.settings.logo
+              | image_url: width: 96
+              | image_tag: alt: shop.name, loading: 'eager', class: 'skre-lb__rail-logo', widths: '48, 96'
+            }}
+          {%- else -%}
+            <span class="skre-lb__rail-wordmark">{{ shop.name | upcase }}</span>
+          {%- endif -%}
+          <span class="skre-lb__rail-title">Your System</span>
+        </div>
+        <span class="skre-lb__rail-count"></span>
+      </div>
+
+      <div class="skre-lb__rail-list"></div>
+
+      <div class="skre-lb__rail-foot">
+        <div class="skre-lb__rail-totals">
+          <div class="skre-lb__rail-line">
+            <span>Subtotal</span>
+            <span class="skre-lb__rail-subtotal">{{ 0 | money }}</span>
+          </div>
+          <div class="skre-lb__rail-line skre-lb__rail-savings-row" hidden>
+            <span>You Save</span>
+            <span class="skre-lb__rail-savings"></span>
+          </div>
+          <div class="skre-lb__rail-line skre-lb__rail-line--total">
+            <span>System Total</span>
+            <span class="skre-lb__rail-total">{{ 0 | money }}</span>
+          </div>
+        </div>
+        <button class="skre-lb__rail-checkout" type="button" disabled>Review System</button>
+      </div>
+    </aside>
+
     {%- comment -%} Tabs row — sits above the image, no frosted glass {%- endcomment -%}
     <div class="skre-lb__header">
       <div class="skre-lb__tabs" role="tablist"></div>
@@ -1486,6 +1525,150 @@ body:has(.skre-lb) main {
     width: 100%;
     max-width: 480px;
   }
+}
+
+/* Rail is desktop-only — hidden by default so mobile never sees it */
+.skre-lb__rail { display: none; }
+
+@media screen and (min-width: 750px) {
+
+  /* Drop the mobile centering + 480px cap; become a full-bleed 3-col grid */
+  .skre-lb { display: block; }
+  .skre-lb__builder {
+    max-width: none;
+    width: 100vw;
+    height: 100svh;
+    display: grid;
+    grid-template-columns: 320px minmax(0, 1fr) 384px;
+    grid-template-rows: 100svh;
+  }
+
+  /* Hide mobile-only chrome: top tab bar, thin progress track,
+     the "Expand Info" toggle, and the duplicated subtotal footer */
+  .skre-lb__header,
+  .skre-lb__img-track,
+  .skre-lb__expand,
+  .skre-lb__footer { display: none !important; }
+
+  /* ── LEFT RAIL — YOUR SYSTEM ───────────────────────────────────────────── */
+  .skre-lb__rail {
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    background: #fafafa;
+    border-right: 1px solid #ededed;
+  }
+  .skre-lb__rail-head {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 18px 14px;
+  }
+  .skre-lb__rail-brand {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .skre-lb__rail-wordmark {
+    font-family: 'United-Sans', sans-serif;
+    font-weight: 900; font-size: 18px; letter-spacing: 0.12em; color: #000;
+  }
+  .skre-lb__rail-logo { max-height: 26px; width: auto; display: block; }
+  .skre-lb__rail-title {
+    font-family: 'United-Sans', sans-serif;
+    font-weight: 900; font-size: 12px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: #000;
+    padding-left: 12px; border-left: 1px solid #e0e0e0;
+  }
+  .skre-lb__rail-count { font-size: 11px; font-weight: 700; color: #888; }
+
+  .skre-lb__rail-list { flex: 1; overflow-y: auto; padding: 0 12px; }
+
+  .skre-lb__rail-slot {
+    display: flex; align-items: center; gap: 12px;
+    width: 100%; text-align: left; padding: 11px;
+    background: none; border: 1px solid transparent;
+    border-bottom: 1px solid #ededed; position: relative; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .skre-lb__rail-slot:hover { background: #fff; }
+  .skre-lb__rail-slot--active { background: #fff; border-color: #d9d9d9; }
+  .skre-lb__rail-slot--active::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: var(--skre-lb-accent, #b8431a);
+  }
+  .skre-lb__rail-thumb {
+    width: 50px; height: 58px; flex-shrink: 0; overflow: hidden;
+    border: 1px solid #ededed; display: flex; align-items: center; justify-content: center;
+    background: #fff;
+  }
+  .skre-lb__rail-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .skre-lb__rail-thumb--empty {
+    background: #f0f0ee; border: 1px dashed #cfcfca;
+    font-family: 'United-Sans', sans-serif; font-weight: 900; font-size: 17px; color: #c5c5bf;
+  }
+  .skre-lb__rail-info { flex: 1; min-width: 0; }
+  .skre-lb__rail-layer {
+    display: block;
+    font-family: 'United-Sans', sans-serif; font-weight: 900;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #000;
+  }
+  .skre-lb__rail-prod {
+    display: block; font-size: 12px; color: #555; margin-top: 2px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .skre-lb__rail-prod--empty { color: #aaa; font-style: italic; }
+  .skre-lb__rail-price { font-family: 'United-Sans', sans-serif; font-weight: 900; font-size: 12px; flex-shrink: 0; }
+  .skre-lb__rail-remove {
+    background: none; border: none; color: #bbb; font-size: 16px; line-height: 1;
+    padding: 2px 4px; flex-shrink: 0; cursor: pointer;
+  }
+  .skre-lb__rail-remove:hover { color: #000; }
+
+  .skre-lb__rail-foot {
+    flex-shrink: 0; padding: 15px 18px; border-top: 1px solid #d9d9d9; background: #fff;
+  }
+  .skre-lb__rail-totals { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+  .skre-lb__rail-line { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; }
+  .skre-lb__rail-line span:first-child { color: #555; }
+  .skre-lb__rail-line--total {
+    font-family: 'United-Sans', sans-serif; font-weight: 900; font-size: 15px; letter-spacing: 0.02em;
+  }
+  .skre-lb__rail-savings { color: #045000 !important; font-weight: 700; }
+  .skre-lb__rail-savings-row[hidden] { display: none; }
+  .skre-lb__rail-checkout {
+    width: 100%; padding: 15px; background: #000; color: #fff; border: none; cursor: pointer;
+    font-family: 'United-Sans', sans-serif; font-weight: 900; font-size: 13px;
+    letter-spacing: 0.12em; text-transform: uppercase; transition: background 0.15s;
+  }
+  .skre-lb__rail-checkout:hover { background: #1e1e1e; }
+  .skre-lb__rail-checkout:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* ── CENTER MEDIA ──────────────────────────────────────────────────────── */
+  .skre-lb__media { grid-column: 2; min-height: 0; }
+
+  /* ── RIGHT INFO / SPEC PANEL ───────────────────────────────────────────── */
+  .skre-lb__info {
+    grid-column: 3;
+    min-height: 0;
+    overflow-y: auto;
+    border-left: 1px solid #ededed;
+    padding: 1.5rem 1.5rem 1.5rem;
+    gap: 0.55rem;
+  }
+  /* Accordions (overview / specs / performance) are always shown on desktop */
+  .skre-lb__exp-only { display: block; }
+  /* Neutralise the mobile expand-overlay positioning, just in case */
+  .skre-lb__builder--info-expanded .skre-lb__info { position: static; inset: auto; }
+
+  .skre-lb__title { font-size: 1.55rem; }
+  .skre-lb__price { font-size: 1.15rem; }
+
+  /* Action row: on desktop the rail handles "Review System", so the in-panel
+     "View Summary" button is hidden — ADD TO SYSTEM stays full width */
+  .skre-lb__builder--has-items .skre-lb__summary-btn { display: none; }
+  .skre-lb__builder--has-items .skre-lb__atc { justify-content: space-between; flex: 1; }
+  .skre-lb__builder--has-items .skre-lb__atc-price { display: inline; }
 }
 
 {% endstylesheet %}
