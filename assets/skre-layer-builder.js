@@ -73,6 +73,7 @@ class SkreLayerBuilder extends HTMLElement {
   #selectRegion(key) {
     this.#region = key;
     if (this.#regionPicker) this.#regionPicker.hidden = true;
+    if (this.#builder) this.#builder.hidden = false;
     this.#renderTabs();
     this.#setLayer(0);
     this.#maybeShowTutorial();
@@ -97,6 +98,7 @@ class SkreLayerBuilder extends HTMLElement {
       if (this.#regionPicker) this.#regionPicker.hidden = false;
     } else {
       this.#region = regions[0]?.key ?? '';
+      if (this.#builder) this.#builder.hidden = false;
       this.#renderTabs();
       this.#setLayer(0);
       this.#maybeShowTutorial();
@@ -106,25 +108,18 @@ class SkreLayerBuilder extends HTMLElement {
   // ── Tutorial ─────────────────────────────────────────────────────────────
 
   #maybeShowTutorial() {
-    if (!this.#tutorial || localStorage.getItem(SkreLayerBuilder.#SEEN_KEY)) {
-      if (this.#builder) this.#builder.hidden = false;
-      return;
+    if (this.#tutorial && !localStorage.getItem(SkreLayerBuilder.#SEEN_KEY)) {
+      this.#tutorial.hidden = false;
     }
-    this.#showTutorial();
   }
 
   #showTutorial() {
-    if (!this.#tutorial) return;
-    if (this.#picker) this.#picker.hidden = true;
-    if (this.#regionPicker) this.#regionPicker.hidden = true;
-    if (this.#builder) this.#builder.hidden = true;
-    this.#tutorial.hidden = false;
+    if (this.#tutorial) this.#tutorial.hidden = false;
   }
 
   #dismissTutorial() {
     localStorage.setItem(SkreLayerBuilder.#SEEN_KEY, '1');
     if (this.#tutorial) this.#tutorial.hidden = true;
-    if (this.#builder) this.#builder.hidden = false;
   }
 
   // ── Builder ─────────────────────────────────────────────────────────────

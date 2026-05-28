@@ -1834,24 +1834,30 @@ body:has(.skre-lb) main {
   .skre-lb__builder--has-items .skre-lb__atc-price { display: inline; }
 }
 
-/* ── Tutorial screen ─────────────────────────────────────────────────────── */
+/* ── Tutorial overlay (floats above the builder, not a pre-load screen) ──── */
 .skre-lb__tutorial {
-  height: 100svh;
-  background: #3d3d2f;
+  position: absolute;
+  inset: 0;
+  z-index: 50;
+  background: rgba(20, 20, 14, 0.68);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2.5rem 1.5rem;
+  padding: 1.5rem;
   overflow-y: auto;
 }
 
 .skre-lb__tut-inner {
   width: 100%;
-  max-width: 480px;
+  max-width: 420px;
+  background: #2c2c1e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2rem 1.75rem 1.75rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0;
   color: #fff;
 }
 
