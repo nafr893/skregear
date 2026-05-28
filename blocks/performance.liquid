@@ -6,7 +6,25 @@
     assign product = collections.all.products.first
     assign preview_mode = true
   endif
+
+  assign has_perf_content = false
+  if preview_mode
+    assign has_perf_content = true
+  else
+    if product.metafields.custom.product_season.value != blank
+      assign has_perf_content = true
+    endif
+    for i in (1..5)
+      assign lkey = 'stat_' | append: i | append: '_label'
+      if product.metafields.custom[lkey] != blank
+        assign has_perf_content = true
+        break
+      endif
+    endfor
+  endif
 %}
+
+{%- if has_perf_content -%}
 
 {%- capture perf_content -%}
   <details
@@ -106,6 +124,8 @@
     open_by_default_on_mobile: block.settings.open_by_default
   -%}
 </perf-stats>
+
+{%- endif -%}
 
 {% stylesheet %}
   .perf-block {
