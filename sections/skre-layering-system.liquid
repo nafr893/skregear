@@ -1836,6 +1836,9 @@ body:has(.skre-lb) main {
 
 /* ── Tutorial overlay (floats above the builder, not a pre-load screen) ──── */
 .skre-lb__tutorial {
+  display: none; /* hidden by default; JS removes hidden attr to show */
+}
+.skre-lb__tutorial:not([hidden]) {
   position: absolute;
   inset: 0;
   z-index: 50;
