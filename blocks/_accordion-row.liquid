@@ -1,6 +1,8 @@
 
 {% assign block_settings = block.settings %}
 
+{% if block_settings.heading != blank %}
+
 {% capture accordion_row_children %}
   <details
     class="details"
@@ -36,6 +38,8 @@
   open_by_default_on_desktop: block_settings.open_by_default,
   open_by_default_on_mobile: block_settings.open_by_default
 %}
+
+{% endif %}
 
 {% stylesheet %}
   .details__icon {
