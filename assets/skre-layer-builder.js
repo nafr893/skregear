@@ -301,14 +301,17 @@ class SkreLayerBuilder extends HTMLElement {
   #renderRating(product) {
     const starsEl = this.querySelector('.skre-lb__stars');
     const countEl = this.querySelector('.skre-lb__rating-count');
+    const ratingLeft = this.querySelector('.skre-lb__rating-left');
 
     const r = parseFloat(product.rating ?? 0);
 
     if (!r || !starsEl) {
       if (starsEl) starsEl.innerHTML = '';
       if (countEl) countEl.textContent = '';
+      if (ratingLeft) ratingLeft.hidden = true;
       return;
     }
+    if (ratingLeft) ratingLeft.hidden = false;
 
     const decimal = r % 1;
     const hasHalf = decimal >= 0.3 && decimal <= 0.7;
@@ -484,7 +487,7 @@ class SkreLayerBuilder extends HTMLElement {
     if (!heroWrap) return;
     const swatch = product?.swatches?.[colorValue];
 
-    let bg = '#fff';
+    let bg = '#f9f9f9';
     const src = swatch?.base_rgb ?? swatch?.color ?? null;
     if (src) {
       const m = String(src).match(/\d+/g);
@@ -588,8 +591,10 @@ class SkreLayerBuilder extends HTMLElement {
   #updateAtcPrice(variant) {
     const priceEl = this.querySelector('.skre-lb__atc-price');
     const btn = this.querySelector('.skre-lb__atc');
+    const railAtc = this.querySelector('.skre-lb__rail-atc');
     if (priceEl) priceEl.textContent = variant?.price_display ?? '';
     if (btn) btn.disabled = !variant?.id;
+    if (railAtc) railAtc.disabled = !variant?.id;
   }
 
   async #addToSystem() {
@@ -601,8 +606,10 @@ class SkreLayerBuilder extends HTMLElement {
 
     const btn = this.querySelector('.skre-lb__atc');
     const labelEl = btn?.querySelector('.skre-lb__atc-label');
+    const railAtc = this.querySelector('.skre-lb__rail-atc');
     if (btn) btn.disabled = true;
     if (labelEl) labelEl.textContent = 'Adding…';
+    if (railAtc) { railAtc.disabled = true; railAtc.textContent = 'Adding…'; }
 
     try {
       const res = await fetch('/cart/add.js', {
@@ -646,6 +653,7 @@ class SkreLayerBuilder extends HTMLElement {
     } finally {
       if (btn) btn.disabled = false;
       if (labelEl) labelEl.textContent = 'ADD TO SYSTEM';
+      if (railAtc) { railAtc.disabled = false; railAtc.textContent = 'ADD TO SYSTEM'; }
     }
   }
 
@@ -908,17 +916,32 @@ class SkreLayerBuilder extends HTMLElement {
     // Performance bars
     this.#renderPerfBars(product);
 
-    // Specs: populate from recommended_use metafield; hide accordion if empty
+    // Specs: populate from recommended_use; hide if empty
     const specsAccordion = this.querySelector('[data-accordion="specs"]');
     const specsBody = specsAccordion?.querySelector('.skre-lb__accordion-body');
     const recommendedUse = product.recommended_use ?? '';
     if (specsBody) specsBody.textContent = recommendedUse;
     if (specsAccordion) specsAccordion.hidden = !recommendedUse;
 
-    // Reset accordions: performance open, others closed
-    this.querySelectorAll('[data-accordion]').forEach(a => this.#closeAccordion(a));
+    // Overview: hide if no content
+    const overviewAccordion = this.querySelector('[data-accordion="overview"]');
+    const hasOverview = !!(product.overview ?? '').trim();
+    if (overviewAccordion) overviewAccordion.hidden = !hasOverview;
+
+    // Performance: hide if no seasons and no stat bars
     const perfAccordion = this.querySelector('[data-accordion="performance"]');
-    if (perfAccordion) this.#openAccordion(perfAccordion);
+    const hasPerfData = (product.perf_stats?.length > 0) || (Array.isArray(product.seasons) && product.seasons.length > 0);
+    if (perfAccordion) perfAccordion.hidden = !hasPerfData;
+
+    // Open the first available accordion
+    this.querySelectorAll('[data-accordion]').forEach(a => this.#closeAccordion(a));
+    if (hasPerfData && perfAccordion) {
+      this.#openAccordion(perfAccordion);
+    } else if (hasOverview && overviewAccordion) {
+      this.#openAccordion(overviewAccordion);
+    } else if (recommendedUse && specsAccordion) {
+      this.#openAccordion(specsAccordion);
+    }
   }
 
   #renderPerfBars(product) {
