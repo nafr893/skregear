@@ -924,7 +924,7 @@ class SkreLayerBuilder extends HTMLElement {
     // Specs: populate from recommended_use; hide if empty
     const specsAccordion = this.querySelector('[data-accordion="specs"]');
     const specsBody = specsAccordion?.querySelector('.skre-lb__accordion-body');
-    const recommendedUse = product.recommended_use ?? '';
+    const recommendedUse = product.product_specs ?? '';
     if (specsBody) specsBody.textContent = recommendedUse;
     if (specsAccordion) specsAccordion.hidden = !recommendedUse;
 

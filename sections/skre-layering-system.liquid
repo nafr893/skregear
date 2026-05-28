@@ -79,7 +79,7 @@
                       assign p_preview = product.metafields.custom.product_preview.value | default: ''
                       assign p_overview = product.description | strip_html | strip_newlines
                       assign p_seasons = product.metafields.custom.product_season.value
-                      assign p_recommended_use = product.metafields.custom.recommended_use.value | default: ''
+                      assign p_recommended_use = product.metafields.custom.product_specs.value | default: ''
                     -%}
                     {
                       "id": {{ product.id | json }},
@@ -87,7 +87,7 @@
                       "handle": {{ product.handle | json }},
                       "preview_text": {{ p_preview | json }},
                       "overview": {{ p_overview | json }},
-                      "recommended_use": {{ p_recommended_use | json }},
+                      "product_specs": {{ p_recommended_use | json }},
                       "seasons": {{ p_seasons | json }},
                       "perf_stats": [
                         {%- assign first_ps = true -%}
