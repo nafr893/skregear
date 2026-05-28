@@ -517,6 +517,24 @@ class SkreLayerBuilder extends HTMLElement {
     const pct = total > 1 ? ((this.#imgIndex + 1) / total) * 100 : 100;
     if (fill) fill.style.width = `${pct}%`;
     if (track) track.style.display = total > 1 ? '' : 'none';
+
+    // Image dots (desktop)
+    const dotsEl = this.querySelector('.skre-lb__img-dots');
+    if (dotsEl) {
+      if (total > 1) {
+        dotsEl.innerHTML = urls.map((_, i) =>
+          `<button class="skre-lb__img-dot${i === this.#imgIndex ? ' skre-lb__img-dot--active' : ''}" data-dot="${i}" type="button" aria-label="Image ${i + 1}"></button>`
+        ).join('');
+        dotsEl.querySelectorAll('[data-dot]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            this.#imgIndex = Number(btn.dataset.dot);
+            this.#renderHeroImage();
+          });
+        });
+      } else {
+        dotsEl.innerHTML = '';
+      }
+    }
   }
 
   #prevImage() {
