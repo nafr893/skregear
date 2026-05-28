@@ -1647,6 +1647,41 @@ body:has(.skre-lb) main {
   /* ── CENTER MEDIA ──────────────────────────────────────────────────────── */
   .skre-lb__media { grid-column: 2; min-height: 0; }
 
+  /* Media footer: float up from the edge, span full width of the column */
+  .skre-lb__media-footer {
+    left: 1.25rem;
+    right: 1.25rem;
+    bottom: 1.5rem;
+  }
+  .skre-lb__media-caption {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    gap: 1.5rem;
+    background: rgba(0, 0, 0, 0.48);
+    border-radius: 2px;
+  }
+  .skre-lb__layer-label {
+    font-size: 0.85rem;
+    letter-spacing: 0.14em;
+  }
+  .skre-lb__media-nav {
+    gap: 0.85rem;
+    flex-shrink: 0;
+  }
+  .skre-lb__progress-text {
+    font-size: 0.8rem;
+    min-width: 2.5rem;
+    text-align: center;
+  }
+  .skre-lb__prev,
+  .skre-lb__next {
+    font-size: 0.82rem;
+    letter-spacing: 0.05em;
+  }
+
   /* ── RIGHT INFO / SPEC PANEL ───────────────────────────────────────────── */
   .skre-lb__info {
     grid-column: 3;
