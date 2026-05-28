@@ -538,11 +538,16 @@ class SkreLayerBuilder extends HTMLElement {
       }
     }
 
-    // Hover arrows: hidden at boundaries, visible in between
+    // Hover arrows: invisible at boundaries so space-between layout stays stable
     const prevArrow = this.querySelector('.skre-lb__hover-arrow--prev');
     const nextArrow = this.querySelector('.skre-lb__hover-arrow--next');
-    if (prevArrow) prevArrow.hidden = this.#imgIndex === 0;
-    if (nextArrow) nextArrow.hidden = this.#imgIndex >= urls.length - 1;
+    const hideArrow = (el, hide) => {
+      if (!el) return;
+      el.style.visibility = hide ? 'hidden' : '';
+      el.style.pointerEvents = hide ? 'none' : '';
+    };
+    hideArrow(prevArrow, this.#imgIndex === 0);
+    hideArrow(nextArrow, this.#imgIndex >= urls.length - 1);
   }
 
   #prevImage() {

@@ -370,10 +370,10 @@
         </svg>
       </button>
       <div class="skre-lb__hover-arrows" aria-hidden="true">
-        <button class="skre-lb__hover-arrow skre-lb__hover-arrow--prev" type="button" aria-label="Previous image" hidden>
+        <button class="skre-lb__hover-arrow skre-lb__hover-arrow--prev" type="button" aria-label="Previous image" style="visibility:hidden">
           <span class="skre-lb__hover-arrow-icon">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
         </button>
-        <button class="skre-lb__hover-arrow skre-lb__hover-arrow--next" type="button" aria-label="Next image" hidden>
+        <button class="skre-lb__hover-arrow skre-lb__hover-arrow--next" type="button" aria-label="Next image" style="visibility:hidden">
           <span class="skre-lb__hover-arrow-icon">{{- 'icon-arrow.svg' | inline_asset_content -}}</span>
         </button>
       </div>
@@ -1550,7 +1550,7 @@ body:has(.skre-lb) main {
   /* Drop the mobile centering + 480px cap; become a full-bleed 3-col grid */
   .skre-lb { display: block; }
   .skre-lb__builder {
-    --skre-lb-bar-pad: 0.6rem;
+    --skre-lb-bar-h: 2.6rem;
     max-width: none;
     width: 100vw;
     height: 100svh;
@@ -1674,10 +1674,12 @@ body:has(.skre-lb) main {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding: var(--skre-lb-bar-pad) 1rem;
+    height: var(--skre-lb-bar-h);
+    padding: 0 1rem;
     gap: 1.25rem;
     background: rgba(0, 0, 0, 0.48);
     border-radius: 2px;
+    box-sizing: border-box;
   }
   .skre-lb__layer-label {
     font-size: 0.85rem;
@@ -1726,13 +1728,13 @@ body:has(.skre-lb) main {
     background: rgba(255, 255, 255, 0.65);
   }
 
-  /* Zoom button: same bottom + padding as the bar so heights match exactly */
+  /* Zoom button: exact same height as the bar via shared --skre-lb-bar-h */
   .skre-lb__zoom-btn {
     bottom: 1.5rem;
     right: 3rem;
-    width: auto;
-    height: auto;
-    padding: var(--skre-lb-bar-pad) 0.9rem;
+    width: var(--skre-lb-bar-h);
+    height: var(--skre-lb-bar-h);
+    padding: 0;
     border-radius: 2px;
   }
 
