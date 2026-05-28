@@ -592,7 +592,9 @@ class SkreLayerBuilder extends HTMLElement {
     const priceEl = this.querySelector('.skre-lb__atc-price');
     const btn = this.querySelector('.skre-lb__atc');
     const railAtc = this.querySelector('.skre-lb__rail-atc');
+    const railPrice = this.querySelector('.skre-lb__rail-atc-price');
     if (priceEl) priceEl.textContent = variant?.price_display ?? '';
+    if (railPrice) railPrice.textContent = variant?.price_display ?? '';
     if (btn) btn.disabled = !variant?.id;
     if (railAtc) railAtc.disabled = !variant?.id;
   }
@@ -607,9 +609,11 @@ class SkreLayerBuilder extends HTMLElement {
     const btn = this.querySelector('.skre-lb__atc');
     const labelEl = btn?.querySelector('.skre-lb__atc-label');
     const railAtc = this.querySelector('.skre-lb__rail-atc');
+    const railLabel = this.querySelector('.skre-lb__rail-atc-label');
     if (btn) btn.disabled = true;
     if (labelEl) labelEl.textContent = 'Adding…';
-    if (railAtc) { railAtc.disabled = true; railAtc.textContent = 'Adding…'; }
+    if (railAtc) railAtc.disabled = true;
+    if (railLabel) railLabel.textContent = 'Adding…';
 
     try {
       const res = await fetch('/cart/add.js', {
@@ -653,7 +657,8 @@ class SkreLayerBuilder extends HTMLElement {
     } finally {
       if (btn) btn.disabled = false;
       if (labelEl) labelEl.textContent = 'ADD TO SYSTEM';
-      if (railAtc) { railAtc.disabled = false; railAtc.textContent = 'ADD TO SYSTEM'; }
+      if (railAtc) railAtc.disabled = false;
+      if (railLabel) railLabel.textContent = 'ADD TO SYSTEM';
     }
   }
 

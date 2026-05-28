@@ -333,7 +333,10 @@
             <span class="skre-lb__rail-total">{{ 0 | money }}</span>
           </div>
         </div>
-        <button class="skre-lb__rail-atc" type="button" disabled style="background-color: {{ atc_color }};">ADD TO SYSTEM</button>
+        <button class="skre-lb__rail-atc" type="button" disabled style="background-color: {{ atc_color }};">
+          <span class="skre-lb__rail-atc-label">ADD TO SYSTEM</span>
+          <span class="skre-lb__rail-atc-price"></span>
+        </button>
         <button class="skre-lb__rail-checkout" type="button" disabled>Review System</button>
       </div>
     </aside>
@@ -1655,6 +1658,7 @@ body:has(.skre-lb) main {
   .skre-lb__rail-savings-row[hidden] { display: none; }
   .skre-lb__rail-atc {
     width: 100%; padding: 13px; margin-bottom: 8px;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
     background: var(--skre-lb-accent, #b8431a); color: #fff; border: none; cursor: pointer;
     font-family: 'United-Sans', sans-serif; font-weight: 900; font-size: 13px;
     letter-spacing: 0.12em; text-transform: uppercase; transition: opacity 0.15s;
@@ -1737,15 +1741,7 @@ body:has(.skre-lb) main {
     background: rgba(255, 255, 255, 0.65);
   }
 
-  /* Zoom button: exact same height as the bar via shared --skre-lb-bar-h */
-  .skre-lb__zoom-btn {
-    bottom: 1.5rem;
-    right: 3rem;
-    width: var(--skre-lb-bar-h);
-    height: var(--skre-lb-bar-h);
-    padding: 0;
-    border-radius: 2px;
-  }
+  .skre-lb__zoom-btn { display: none; }
 
   /* Hover arrows: left/right image navigation, reveal on media hover */
   .skre-lb__hover-arrows {
