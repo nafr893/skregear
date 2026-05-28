@@ -232,7 +232,7 @@
   }
 
   .perf-seg--glitch {
-    animation: perf-seg-glitch 110ms steps(1) var(--pd, 0ms) both;
+    animation: perf-seg-glitch 160ms steps(1) var(--pd, 0ms) both;
   }
 {% endstylesheet %}
 
@@ -267,7 +267,7 @@
     _glitch() {
       this.querySelectorAll('.perf-stat').forEach((stat, si) => {
         stat.querySelectorAll('.perf-stat__seg--on').forEach((seg, sj) => {
-          seg.style.setProperty('--pd', `${150 + si * 25 + sj * 65}ms`);
+          seg.style.setProperty('--pd', `${200 + si * 50 + sj * 95}ms`);
           seg.classList.remove('perf-seg--glitch');
           void seg.offsetWidth;
           seg.classList.add('perf-seg--glitch');
