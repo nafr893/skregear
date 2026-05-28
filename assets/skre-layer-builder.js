@@ -112,6 +112,7 @@ class SkreLayerBuilder extends HTMLElement {
     this.querySelector('.skre-lb__summary-btn')?.addEventListener('click', () => this.#showSummary());
     // Desktop rail: checkout opens the summary; accent var drives the active marker
     this.querySelector('.skre-lb__rail-checkout')?.addEventListener('click', () => this.#showSummary());
+    this.querySelector('.skre-lb__rail-atc')?.addEventListener('click', () => this.#addToSystem());
     this.style.setProperty('--skre-lb-accent', this.dataset.atcColor || '#b8431a');
     this.querySelector('.skre-lb__summary-close')?.addEventListener('click', () => this.#hideSummary());
     this.querySelector('.skre-lb__summary-panel')?.addEventListener('click', e => {
