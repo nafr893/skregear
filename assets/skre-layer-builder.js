@@ -16,7 +16,7 @@ class SkreLayerBuilder extends HTMLElement {
   #regionPicker = null;
   #builder = null;
   #summaryPanel = null;
-  #tutorial = null;
+  #hintsActive = false;
 
   static #SEEN_KEY = 'skre-lb-seen';
 
@@ -25,7 +25,6 @@ class SkreLayerBuilder extends HTMLElement {
     this.#regionPicker = this.querySelector('.skre-lb__region-picker');
     this.#builder = this.querySelector('.skre-lb__builder');
     this.#summaryPanel = this.querySelector('.skre-lb__summary-panel');
-    this.#tutorial = this.querySelector('.skre-lb__tutorial');
 
     this.#bindPicker();
     this.#bindBuilder();
@@ -108,18 +107,54 @@ class SkreLayerBuilder extends HTMLElement {
   // ── Tutorial ─────────────────────────────────────────────────────────────
 
   #maybeShowTutorial() {
-    if (this.#tutorial && !localStorage.getItem(SkreLayerBuilder.#SEEN_KEY)) {
-      this.#tutorial.hidden = false;
+    if (!localStorage.getItem(SkreLayerBuilder.#SEEN_KEY)) {
+      // Small delay so the builder has fully painted before hints appear
+      setTimeout(() => this.#showTutorial(), 400);
     }
   }
 
   #showTutorial() {
-    if (this.#tutorial) this.#tutorial.hidden = false;
+    this.#dismissHints(); // clear any existing before re-creating
+    this.#hintsActive = true;
+
+    const zones = [
+      { selector: '.skre-lb__rail-list',  label: 'Your Layers' },
+      { selector: '.skre-lb__media',       label: 'Browse Images' },
+      { selector: '.skre-lb__info',        label: 'Product Info' },
+      { selector: '.skre-lb__rail-foot',   label: 'Add To System' },
+    ];
+
+    zones.forEach(({ selector, label }) => {
+      const parent = this.querySelector(selector);
+      if (!parent) return;
+      const hint = document.createElement('div');
+      hint.className = 'skre-lb__hint';
+      hint.innerHTML = `<div class="skre-lb__hint-pulse"></div><span class="skre-lb__hint-label">${label}</span>`;
+      // Ensure parent is a positioning context
+      if (getComputedStyle(parent).position === 'static') parent.style.position = 'relative';
+      parent.appendChild(hint);
+    });
+
+    // Dismiss on first click anywhere in the builder (except ? button)
+    const onInteract = (e) => {
+      if (e.target.closest('.skre-lb__help-btn')) return;
+      this.#dismissTutorial();
+      this.removeEventListener('click', onInteract);
+    };
+    this.addEventListener('click', onInteract);
+  }
+
+  #dismissHints() {
+    this.#hintsActive = false;
+    this.querySelectorAll('.skre-lb__hint').forEach(h => {
+      h.classList.add('skre-lb__hint--fade');
+      setTimeout(() => h.remove(), 420);
+    });
   }
 
   #dismissTutorial() {
     localStorage.setItem(SkreLayerBuilder.#SEEN_KEY, '1');
-    if (this.#tutorial) this.#tutorial.hidden = true;
+    this.#dismissHints();
   }
 
   // ── Builder ─────────────────────────────────────────────────────────────
@@ -138,7 +173,6 @@ class SkreLayerBuilder extends HTMLElement {
     this.querySelector('.skre-lb__rail-atc')?.addEventListener('click', () => this.#addToSystem());
     this.style.setProperty('--skre-lb-accent', this.dataset.atcColor || '#b8431a');
     this.querySelector('.skre-lb__summary-close')?.addEventListener('click', () => this.#hideSummary());
-    this.querySelector('.skre-lb__tut-cta')?.addEventListener('click', () => this.#dismissTutorial());
     this.querySelectorAll('.skre-lb__help-btn').forEach(btn =>
       btn.addEventListener('click', () => this.#showTutorial())
     );

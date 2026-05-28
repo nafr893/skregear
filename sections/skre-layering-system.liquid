@@ -282,38 +282,6 @@
     <button class="skre-lb__region-back" type="button">&#8592; Back</button>
   </div>
 
-  {%- comment -%} ── Tutorial screen (shown on first visit, re-openable via ?) ── {%- endcomment -%}
-  <div class="skre-lb__tutorial" hidden>
-    <div class="skre-lb__tut-inner">
-      <p class="skre-lb__tut-eyebrow">HOW IT WORKS</p>
-      <h2 class="skre-lb__tut-title">Build Your Layering System</h2>
-      <ol class="skre-lb__tut-steps">
-        <li class="skre-lb__tut-step">
-          <span class="skre-lb__tut-num">01</span>
-          <div class="skre-lb__tut-step-body">
-            <strong class="skre-lb__tut-step-title">Browse Each Layer</strong>
-            <p class="skre-lb__tut-step-desc">Use the layer tabs to move between Base, Mid, and Outer. Tap Back and Next to browse all products for that layer.</p>
-          </div>
-        </li>
-        <li class="skre-lb__tut-step">
-          <span class="skre-lb__tut-num">02</span>
-          <div class="skre-lb__tut-step-body">
-            <strong class="skre-lb__tut-step-title">Select &amp; Add</strong>
-            <p class="skre-lb__tut-step-desc">Pick a color and size, then tap ADD TO SYSTEM. Your selection is tracked in the panel on the left.</p>
-          </div>
-        </li>
-        <li class="skre-lb__tut-step">
-          <span class="skre-lb__tut-num">03</span>
-          <div class="skre-lb__tut-step-body">
-            <strong class="skre-lb__tut-step-title">Review &amp; Checkout</strong>
-            <p class="skre-lb__tut-step-desc">Once all layers are added, tap Review System to see your complete build and head to checkout.</p>
-          </div>
-        </li>
-      </ol>
-      <button class="skre-lb__tut-cta" type="button">Got It &#8250; Start Building</button>
-    </div>
-  </div>
-
   {%- comment -%} ── Shared SVG star definition ── {%- endcomment -%}
   <svg style="display:none" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -1829,128 +1797,69 @@ body:has(.skre-lb) main {
 
   /* Action row: on desktop the rail handles "Review System", so the in-panel
      "View Summary" button is hidden — ADD TO SYSTEM stays full width */
+  /* Rail handles ATC + Review on desktop — hide the right-panel action row */
+  .skre-lb__action-row { display: none; }
   .skre-lb__builder--has-items .skre-lb__summary-btn { display: none; }
   .skre-lb__builder--has-items .skre-lb__atc { justify-content: space-between; flex: 1; }
   .skre-lb__builder--has-items .skre-lb__atc-price { display: inline; }
 }
 
-/* ── Tutorial overlay (floats above the builder, not a pre-load screen) ──── */
-.skre-lb__tutorial {
-  display: none; /* hidden by default; JS removes hidden attr to show */
-}
-.skre-lb__tutorial:not([hidden]) {
+/* ── Pulsing hint circles (first-visit / ? walkthrough) ─────────────────── */
+.skre-lb__hint {
   position: absolute;
-  inset: 0;
-  z-index: 50;
-  background: rgba(20, 20, 14, 0.68);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  overflow-y: auto;
+  gap: 10px;
+  z-index: 20;
+  pointer-events: none;
+  transition: opacity 0.4s;
 }
 
-.skre-lb__tut-inner {
-  width: 100%;
-  max-width: 420px;
-  background: #2c2c1e;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 2rem 1.75rem 1.75rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  color: #fff;
-}
+.skre-lb__hint--fade { opacity: 0; }
 
-.skre-lb__tut-eyebrow {
-  font-family: 'United-Sans', sans-serif;
-  font-weight: 900;
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.55);
-  margin: 0 0 0.6rem;
-}
-
-.skre-lb__tut-title {
-  font-family: 'United-Sans', sans-serif;
-  font-weight: 900;
-  font-size: 1.75rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: #fff;
-  margin: 0 0 2rem;
-  line-height: 1.1;
-}
-
-.skre-lb__tut-steps {
-  list-style: none;
-  margin: 0 0 2.25rem;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  width: 100%;
-}
-
-.skre-lb__tut-step {
-  display: flex;
-  align-items: flex-start;
-  gap: 1.1rem;
-}
-
-.skre-lb__tut-num {
-  font-family: 'United-Sans', sans-serif;
-  font-weight: 900;
-  font-size: 1.6rem;
-  letter-spacing: 0.02em;
-  color: var(--skre-lb-accent, #b8431a);
-  line-height: 1;
-  flex-shrink: 0;
-  width: 2.2rem;
-  padding-top: 0.1rem;
-}
-
-.skre-lb__tut-step-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.skre-lb__tut-step-title {
-  font-family: 'United-Sans', sans-serif;
-  font-weight: 900;
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #fff;
-}
-
-.skre-lb__tut-step-desc {
-  font-size: 0.85rem;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.72);
-  margin: 0;
-}
-
-.skre-lb__tut-cta {
-  width: 100%;
-  padding: 16px;
+.skre-lb__hint-pulse {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
   background: var(--skre-lb-accent, #b8431a);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.skre-lb__hint-pulse::before,
+.skre-lb__hint-pulse::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  background: var(--skre-lb-accent, #b8431a);
+  animation: skre-hint-ring 2s ease-out infinite;
+  transform-origin: center;
+}
+
+.skre-lb__hint-pulse::after { animation-delay: 0.7s; }
+
+@keyframes skre-hint-ring {
+  0%   { transform: translate(-50%, -50%) scale(1);   opacity: 0.55; }
+  100% { transform: translate(-50%, -50%) scale(3.8); opacity: 0; }
+}
+
+.skre-lb__hint-label {
+  background: rgba(0, 0, 0, 0.78);
   color: #fff;
-  border: none;
-  cursor: pointer;
   font-family: 'United-Sans', sans-serif;
   font-weight: 900;
-  font-size: 13px;
+  font-size: 0.65rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  transition: opacity 0.15s;
+  padding: 5px 9px;
+  white-space: nowrap;
 }
-
-.skre-lb__tut-cta:hover { opacity: 0.88; }
 
 /* ── Help (?) button ─────────────────────────────────────────────────────── */
 .skre-lb__help-btn {
@@ -1970,28 +1879,9 @@ body:has(.skre-lb) main {
   transition: border-color 0.15s, color 0.15s;
 }
 
-.skre-lb__help-btn:hover {
-  border-color: #333;
-  color: #111;
-}
+.skre-lb__help-btn:hover { border-color: #333; color: #111; }
 
-/* Rail help button: slightly different since it's on the light rail head */
-.skre-lb__help-btn--rail {
-  color: #888;
-  border-color: #ddd;
-}
-
-@media screen and (min-width: 750px) {
-  .skre-lb__tutorial {
-    padding: 3rem 2rem;
-  }
-  .skre-lb__tut-inner {
-    max-width: 520px;
-  }
-  .skre-lb__tut-title {
-    font-size: 2rem;
-  }
-}
+.skre-lb__help-btn--rail { color: #888; border-color: #ddd; }
 
 {% endstylesheet %}
 
