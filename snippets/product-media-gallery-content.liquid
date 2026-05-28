@@ -448,7 +448,7 @@
       {%- liquid
         assign skre_vfiles = selected_product.selected_or_first_available_variant.metafields.custom.variant_images.value
         if skre_vfiles != blank
-          assign skre_grid_count = skre_vfiles.size | plus: sorted_media.size
+          assign skre_grid_count = skre_vfiles.size
         else
           assign skre_grid_count = sorted_media.size
         endif
@@ -498,46 +498,48 @@
             </li>
           {%- endfor -%}
         {%- endif -%}
-        {% for media in sorted_media %}
-          <li
-            ref="media[]"
-            class="{{ product_media_container_class }} product-media-container--{{ media.media_type }} {% unless block_settings.aspect_ratio == 'adapt' %}product-media-container--force-aspect{% endunless %}"
-            style="{% if block_settings.aspect_ratio == 'adapt' %} --media-preview-ratio: {{ media.preview_image.aspect_ratio | default: 1.0 }};{% endif %} --media-radius: {{ block_settings.media_radius }}px;"
-            {% if settings.transition_to_main_product and forloop.first and skre_vfiles == blank %}
-              data-view-transition-type="product-image-transition"
-            {% endif %}
-            {% if media.presentation.focal_point != blank %}
-              data-focal-point="{{ media.presentation.focal_point }}"
-            {% endif %}
-          >
-            {%- if block_settings.zoom and media.media_type == 'image' -%}
-              <button
-                type="button"
-                class="button button-unstyled product-media-container__zoom-button"
-                aria-label="{{ 'actions.zoom_media' | t: index: forloop.index }}"
-                on:click="/zoom/{{ forloop.index0 }}"
-                {% if block_settings.zoom %}
-                  on:pointerenter="/preloadImage/{{ forloop.index0 }}"
-                {% endif %}
-              >
-              </button>
-            {%- endif -%}
-            {%- liquid
-              if needs_both_sizes and forloop.first and skre_vfiles == blank
-                assign media_sizes = sizes_single
-              else
-                assign media_sizes = sizes
-              endif
-            -%}
-            {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
-              <div class="product-media-constraint-wrapper">
+        {%- if skre_vfiles == blank -%}
+          {% for media in sorted_media %}
+            <li
+              ref="media[]"
+              class="{{ product_media_container_class }} product-media-container--{{ media.media_type }} {% unless block_settings.aspect_ratio == 'adapt' %}product-media-container--force-aspect{% endunless %}"
+              style="{% if block_settings.aspect_ratio == 'adapt' %} --media-preview-ratio: {{ media.preview_image.aspect_ratio | default: 1.0 }};{% endif %} --media-radius: {{ block_settings.media_radius }}px;"
+              {% if settings.transition_to_main_product and forloop.first %}
+                data-view-transition-type="product-image-transition"
+              {% endif %}
+              {% if media.presentation.focal_point != blank %}
+                data-focal-point="{{ media.presentation.focal_point }}"
+              {% endif %}
+            >
+              {%- if block_settings.zoom and media.media_type == 'image' -%}
+                <button
+                  type="button"
+                  class="button button-unstyled product-media-container__zoom-button"
+                  aria-label="{{ 'actions.zoom_media' | t: index: forloop.index }}"
+                  on:click="/zoom/{{ forloop.index0 }}"
+                  {% if block_settings.zoom %}
+                    on:pointerenter="/preloadImage/{{ forloop.index0 }}"
+                  {% endif %}
+                >
+                </button>
+              {%- endif -%}
+              {%- liquid
+                if needs_both_sizes and forloop.first
+                  assign media_sizes = sizes_single
+                else
+                  assign media_sizes = sizes
+                endif
+              -%}
+              {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
+                <div class="product-media-constraint-wrapper">
+                  {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+                </div>
+              {% else %}
                 {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
-              </div>
-            {% else %}
-              {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
-            {% endif %}
-          </li>
-        {% endfor %}
+              {% endif %}
+            </li>
+          {% endfor %}
+        {%- endif -%}
       </ul>
       {% if skre_grid_count > 8 %}
         <button class="skre-gallery-toggle" type="button">
