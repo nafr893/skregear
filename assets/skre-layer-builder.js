@@ -672,14 +672,10 @@ class SkreLayerBuilder extends HTMLElement {
           this.#renderHeroImage();
         });
       });
-      // Slide strip to keep active thumb centered in the viewport
-      const viewport = this.querySelector('.skre-lb__strip-viewport');
-      if (viewport) {
-        const THUMB_STEP = 42; // 38px thumb + 4px gap
-        const vw = viewport.offsetWidth;
-        const offset = Math.round(-(this.#imgIndex * THUMB_STEP) + vw / 2 - 19);
-        stripTrack.style.transform = `translateX(${offset}px)`;
-      }
+      // Slide strip: keep active thumb at position 1 from left → 4 full visible + hint of 5th
+      const THUMB_STEP = 49; // 44px thumb + 5px gap
+      const windowStart = Math.max(0, this.#imgIndex - 1);
+      stripTrack.style.transform = `translateX(${-(windowStart * THUMB_STEP)}px)`;
     }
     if (stripPrev) stripPrev.disabled = this.#imgIndex === 0;
     if (stripNext) stripNext.disabled = this.#imgIndex >= urls.length - 1;
