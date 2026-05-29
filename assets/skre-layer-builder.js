@@ -702,7 +702,6 @@ class SkreLayerBuilder extends HTMLElement {
     if (this.#imgUrls.length <= 1) return;
     this.#imgIndex = (this.#imgIndex + 1) % this.#imgUrls.length;
     this.#renderHeroImage();
-    }
   }
 
   #bindImageSwipe() {
