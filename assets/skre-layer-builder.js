@@ -16,9 +16,37 @@ class SkreLayerBuilder extends HTMLElement {
   #regionPicker = null;
   #builder = null;
   #summaryPanel = null;
-  #hintsActive = false;
+  #tourStep = -1;
+  #tourEl = null;
 
   static #SEEN_KEY = 'skre-lb-seen';
+
+  static #TOUR_STEPS = [
+    {
+      selector: '.skre-lb__rail-list',
+      label: 'Your Layers',
+      desc: 'See every layer of your system here. Each slot shows what you\'ve added — tap a slot to jump back to it.',
+      cardSide: 'right',
+    },
+    {
+      selector: '.skre-lb__media',
+      label: 'Browse Images',
+      desc: 'Swipe or tap the arrows to explore product images. Thumbnails let you jump to any angle.',
+      cardSide: 'right',
+    },
+    {
+      selector: '.skre-lb__info',
+      label: 'Product Info',
+      desc: 'Read specs, performance ratings, and overview. Select your color and size here.',
+      cardSide: 'left',
+    },
+    {
+      selector: '.skre-lb__rail-foot',
+      label: 'Add to System',
+      desc: 'When you\'re ready, hit Add to System. Once all layers are chosen, Review System to check out.',
+      cardSide: 'right',
+    },
+  ];
 
   connectedCallback() {
     this.#picker = this.querySelector('.skre-lb__picker');
@@ -104,57 +132,97 @@ class SkreLayerBuilder extends HTMLElement {
     }
   }
 
-  // ── Tutorial ─────────────────────────────────────────────────────────────
+  // ── Spotlight tour ───────────────────────────────────────────────────────
 
   #maybeShowTutorial() {
     if (!localStorage.getItem(SkreLayerBuilder.#SEEN_KEY)) {
-      // Small delay so the builder has fully painted before hints appear
-      setTimeout(() => this.#showTutorial(), 400);
+      setTimeout(() => this.#showTutorial(0), 400);
     }
   }
 
-  #showTutorial() {
-    this.#dismissHints(); // clear any existing before re-creating
-    this.#hintsActive = true;
+  #showTutorial(step = 0) {
+    // Remove any existing tour overlay
+    this.#tourEl?.remove();
 
-    const zones = [
-      { selector: '.skre-lb__rail-list',  label: 'Your Layers' },
-      { selector: '.skre-lb__media',       label: 'Browse Images' },
-      { selector: '.skre-lb__info',        label: 'Product Info' },
-      { selector: '.skre-lb__rail-foot',   label: 'Add To System' },
-    ];
+    const steps = SkreLayerBuilder.#TOUR_STEPS;
+    const s = steps[step];
+    if (!s) return;
 
-    zones.forEach(({ selector, label }) => {
-      const parent = this.querySelector(selector);
-      if (!parent) return;
-      const hint = document.createElement('div');
-      hint.className = 'skre-lb__hint';
-      hint.innerHTML = `<div class="skre-lb__hint-pulse"></div><span class="skre-lb__hint-label">${label}</span>`;
-      // Ensure parent is a positioning context
-      if (getComputedStyle(parent).position === 'static') parent.style.position = 'relative';
-      parent.appendChild(hint);
+    const target = this.querySelector(s.selector);
+    if (!target) return;
+
+    const rect = target.getBoundingClientRect();
+    const pad = 6;
+
+    // Build overlay
+    const tour = document.createElement('div');
+    tour.className = 'skre-lb__tour';
+    this.#tourEl = tour;
+
+    // Spotlight cutout
+    const spot = document.createElement('div');
+    spot.className = 'skre-lb__tour-spot';
+    spot.style.cssText = `top:${rect.top - pad}px;left:${rect.left - pad}px;width:${rect.width + pad * 2}px;height:${rect.height + pad * 2}px;`;
+    tour.appendChild(spot);
+
+    // Info card — position above or below the spotlight
+    const card = document.createElement('div');
+    card.className = 'skre-lb__tour-card';
+
+    const isLast = step === steps.length - 1;
+    const nextLabel = isLast ? 'Start Building' : 'Next ›';
+
+    card.innerHTML = `
+      <button class="skre-lb__tour-close" type="button" aria-label="Close tour">&#215;</button>
+      <div class="skre-lb__tour-step">${step + 1} / ${steps.length}</div>
+      <div class="skre-lb__tour-label">${s.label}</div>
+      <div class="skre-lb__tour-desc">${s.desc}</div>
+      <div class="skre-lb__tour-nav">
+        <button class="skre-lb__tour-btn" type="button">${nextLabel}</button>
+      </div>`;
+
+    tour.appendChild(card);
+    document.body.appendChild(tour);
+
+    // Position card after it's in the DOM so we know its size
+    requestAnimationFrame(() => {
+      const cardH = card.offsetHeight;
+      const cardW = card.offsetWidth;
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const GAP = 14;
+
+      // Vertical: prefer below spotlight; flip above if not enough room
+      let cardTop = rect.bottom + pad + GAP;
+      if (cardTop + cardH > vh - 8) cardTop = rect.top - pad - GAP - cardH;
+      cardTop = Math.max(8, cardTop);
+
+      // Horizontal: align to left or right edge of spotlight, clamp to viewport
+      let cardLeft = s.cardSide === 'left'
+        ? rect.right + pad - cardW
+        : rect.left - pad;
+      cardLeft = Math.min(Math.max(8, cardLeft), vw - cardW - 8);
+
+      card.style.top = `${cardTop}px`;
+      card.style.left = `${cardLeft}px`;
     });
 
-    // Dismiss on first click anywhere in the builder (except ? button)
-    const onInteract = (e) => {
-      if (e.target.closest('.skre-lb__help-btn')) return;
-      this.#dismissTutorial();
-      this.removeEventListener('click', onInteract);
-    };
-    this.addEventListener('click', onInteract);
-  }
-
-  #dismissHints() {
-    this.#hintsActive = false;
-    this.querySelectorAll('.skre-lb__hint').forEach(h => {
-      h.classList.add('skre-lb__hint--fade');
-      setTimeout(() => h.remove(), 420);
+    // Wire buttons
+    card.querySelector('.skre-lb__tour-close').addEventListener('click', () => this.#dismissTutorial());
+    card.querySelector('.skre-lb__tour-btn').addEventListener('click', () => {
+      if (isLast) {
+        this.#dismissTutorial();
+      } else {
+        this.#showTutorial(step + 1);
+      }
     });
   }
 
   #dismissTutorial() {
     localStorage.setItem(SkreLayerBuilder.#SEEN_KEY, '1');
-    this.#dismissHints();
+    this.#tourEl?.remove();
+    this.#tourEl = null;
+    this.#tourStep = -1;
   }
 
   // ── Builder ─────────────────────────────────────────────────────────────
