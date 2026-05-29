@@ -80,12 +80,7 @@
                       assign p_overview = product.description | strip_html | strip_newlines
                       assign p_seasons = product.metafields.custom.product_season.value
                       assign p_recommended_use = product.metafields.custom.product_specs | metafield_tag | default: ''
-                      assign p_size_chart_file = product.metafields.custom.size_chart_image.value
-                      if p_size_chart_file
-                        assign p_size_chart_url = p_size_chart_file | image_url: width: 1200
-                      else
-                        assign p_size_chart_url = ''
-                      endif
+                      assign p_size_chart_data = product.metafields.custom.size_chart.value | default: null
                     -%}
                     {
                       "id": {{ product.id | json }},
@@ -112,7 +107,7 @@
                       "price": {{ product.price | json }},
                       "price_display": {{ product.price | money | json }},
                       "featured_image": {{ p_img | json }},
-                      "size_chart_url": {{ p_size_chart_url | json }},
+                      "size_chart": {{ p_size_chart_data | json }},
                       "rating": {{ p_rating | json }},
                       "rating_count": {{ p_rating_count | json }},
                       "options": [
@@ -525,7 +520,7 @@
           </div>
         {%- endif -%}
         <div class="skre-lb__sc-chart-wrap">
-          <img class="skre-lb__sc-chart-img" src="" alt="Size chart" loading="lazy" hidden>
+          <div class="skre-lb__sc-table-wrap"></div>
           <p class="skre-lb__sc-empty">No size chart available for this product.</p>
         </div>
       </div>
@@ -2175,12 +2170,46 @@ body:has(.skre-lb) main {
   padding: 1rem;
 }
 
-.skre-lb__sc-chart-img {
-  width: 100%;
-  display: block;
+.skre-lb__sc-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-.skre-lb__sc-chart-img[hidden] { display: none; }
+.skre-lb__sc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.skre-lb__sc-table thead tr {
+  background: #f0f0ee;
+}
+
+.skre-lb__sc-table th {
+  padding: 0.65rem 1rem;
+  text-align: left;
+  font-family: 'United-Sans', sans-serif;
+  font-weight: 900;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid #e0e0de;
+  white-space: nowrap;
+}
+
+.skre-lb__sc-table td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid #ebebeb;
+  color: #222;
+}
+
+.skre-lb__sc-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.skre-lb__sc-row--even td {
+  background: #f9f9f8;
+}
 
 .skre-lb__sc-empty {
   padding: 1.5rem 0;
@@ -2189,6 +2218,8 @@ body:has(.skre-lb) main {
   text-align: center;
   margin: 0;
 }
+
+.skre-lb__sc-empty[hidden] { display: none; }
 
 {% endstylesheet %}
 

@@ -429,7 +429,7 @@ class SkreLayerBuilder extends HTMLElement {
     const images = this.#getVariantImages(product, defaultVariant);
     this.#updateImages(images);
     this.#updateAtcPrice(defaultVariant);
-    this.#updateSizeChartImage(product.size_chart_url ?? '');
+    this.#updateSizeChartTable(product.size_chart ?? null);
 
     // Store selection snapshot for this layer
     if (defaultVariant) {
@@ -969,14 +969,22 @@ class SkreLayerBuilder extends HTMLElement {
     document.body.style.overflow = '';
   }
 
-  #updateSizeChartImage(url) {
-    const img = this.querySelector('.skre-lb__sc-chart-img');
+  #updateSizeChartTable(data) {
+    const wrap = this.querySelector('.skre-lb__sc-table-wrap');
     const empty = this.querySelector('.skre-lb__sc-empty');
-    if (img) {
-      img.src = url || '';
-      img.hidden = !url;
-    }
-    if (empty) empty.hidden = !!url;
+    const hasData = Array.isArray(data) && data.length > 0;
+    if (empty) empty.hidden = hasData;
+    if (!wrap) return;
+    if (!hasData) { wrap.innerHTML = ''; return; }
+    const headers = Object.keys(data[0]);
+    wrap.innerHTML = `<table class="skre-lb__sc-table">
+      <thead><tr>${headers.map(h => `<th>${this.#esc(h)}</th>`).join('')}</tr></thead>
+      <tbody>${data.map((row, i) =>
+        `<tr${i % 2 === 0 ? ' class="skre-lb__sc-row--even"' : ''}>${
+          headers.map(h => `<td>${this.#esc(String(row[h] ?? ''))}</td>`).join('')
+        }</tr>`
+      ).join('')}</tbody>
+    </table>`;
   }
 
   #renderSummaryItems() {
