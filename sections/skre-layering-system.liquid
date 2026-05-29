@@ -752,26 +752,37 @@ body:has(.skre-lb) main {
   color: #333;
 }
 
-/* Header top-right: two square cells (?  ✕) */
+/* Header top-right: two square cells (?  ✕) — overlays tabs with depth */
 .skre-lb__header-btns {
   display: flex;
   align-self: stretch;
   flex-shrink: 0;
-  border-left: 1px solid #ededed;
+  position: relative;
+  z-index: 2;
+}
+/* Gradient fade on the left edge so approaching tab labels are "hinted" */
+.skre-lb__header-btns::before {
+  content: '';
+  position: absolute;
+  right: 100%;
+  top: 0;
+  bottom: 0;
+  width: 36px;
+  background: linear-gradient(to right, transparent, #fff);
+  pointer-events: none;
 }
 .skre-lb__header-btns .skre-lb__help-btn,
 .skre-lb__header-btns .skre-lb__close {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: auto;
+  align-self: stretch;
   aspect-ratio: 1;
-  height: 100%;
   padding: 0;
   border: none;
   border-left: 1px solid #ededed;
   border-radius: 0;
-  background: none;
+  background: #fff;
   cursor: pointer;
   color: #333;
   font-family: 'United-Sans', sans-serif;
@@ -827,19 +838,21 @@ body:has(.skre-lb) main {
   color: #fff;
 }
 
-/* Row 2: counter + Back + Next */
+/* Row 2: counter + Back + Next — number stays centered between the two buttons */
 .skre-lb__media-nav {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.45rem;
+  justify-content: space-between;
+  gap: 0.3rem;
+  min-width: 140px;
 }
 
 .skre-lb__progress-text {
   font-size: 0.68rem;
   font-weight: 700;
   color: rgba(255, 255, 255, 0.75);
-  min-width: 1.8rem;
+  flex: 1;
+  text-align: center;
 }
 
 .skre-lb__prev,
