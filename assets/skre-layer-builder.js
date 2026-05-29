@@ -340,7 +340,7 @@ class SkreLayerBuilder extends HTMLElement {
 
     tabs.innerHTML = slots.map((slot, i) => {
       const isActive = i === this.#layerIndex;
-      const isDone = Boolean(this.#selectedVariants[i]);
+      const isDone = this.#cartLines.some(l => l.layerIndex === i);
       return `<button
         class="skre-lb__tab${isActive ? ' skre-lb__tab--active' : ''}${isDone && !isActive ? ' skre-lb__tab--done' : ''}"
         data-layer="${i}"
@@ -373,6 +373,7 @@ class SkreLayerBuilder extends HTMLElement {
     } else {
       this.#renderEmptySlot();
     }
+    this.#updateSkipLabel();
     this.#renderRail();
   }
 
@@ -832,17 +833,30 @@ class SkreLayerBuilder extends HTMLElement {
       this.#msrpTotal += msrp;
       this.#builder?.classList.add('skre-lb__builder--has-items');
       this.#renderSubtotal();
-      this.#advanceLayer();
+      this.#renderTabs();
+      this.#updateSkipLabel();
+
+      // Flash "Added ✓" — restore label after 1.5 s
+      if (labelEl) labelEl.textContent = 'Added ✓';
+      if (railLabel) railLabel.textContent = 'Added ✓';
+      if (btn) btn.disabled = false;
+      if (railAtc) railAtc.disabled = false;
+      setTimeout(() => {
+        if (labelEl) labelEl.textContent = 'ADD TO SYSTEM';
+        if (railLabel) railLabel.textContent = 'ADD TO SYSTEM';
+      }, 1500);
+      return; // skip finally label-reset
 
     } catch (err) {
       console.error('[skre-layer-builder] Cart add failed', err);
       alert('Something went wrong adding to cart. Please try again.');
     } finally {
       if (btn) btn.disabled = false;
-      if (labelEl) labelEl.textContent = 'ADD TO SYSTEM';
       if (railAtc) railAtc.disabled = false;
-      if (railLabel) railLabel.textContent = 'ADD TO SYSTEM';
     }
+    // Only reached on error
+    if (labelEl) labelEl.textContent = 'ADD TO SYSTEM';
+    if (railLabel) railLabel.textContent = 'ADD TO SYSTEM';
   }
 
   #advanceLayer() {
@@ -853,6 +867,19 @@ class SkreLayerBuilder extends HTMLElement {
     } else {
       this.#showSummary();
     }
+  }
+
+  #updateSkipLabel() {
+    const hasAdded = this.#cartLines.some(l => l.layerIndex === this.#layerIndex);
+    const slots = this.#getSlots();
+    const isLast = this.#layerIndex >= slots.length - 1;
+    const label = hasAdded
+      ? (isLast ? 'Review System' : 'Next Layer →')
+      : 'Skip Layer';
+    const skipBtn = this.querySelector('.skre-lb__skip-btn');
+    const railSkip = this.querySelector('.skre-lb__rail-skip');
+    if (skipBtn) skipBtn.textContent = label;
+    if (railSkip) railSkip.textContent = label;
   }
 
   // ── Subtotal ──────────────────────────────────────────────────────────────
@@ -883,51 +910,65 @@ class SkreLayerBuilder extends HTMLElement {
     if (!list) return; // rail markup not present
 
     const slots = this.#getSlots();
+    // Group lines by layer, keeping absolute cart index for removal
     const byIndex = {};
-    this.#cartLines.forEach(l => { if (l.layerIndex != null) byIndex[l.layerIndex] = l; });
+    this.#cartLines.forEach((l, idx) => {
+      if (l.layerIndex != null) {
+        if (!byIndex[l.layerIndex]) byIndex[l.layerIndex] = [];
+        byIndex[l.layerIndex].push({ ...l, _cartIdx: idx });
+      }
+    });
 
     list.innerHTML = slots.map((slot, i) => {
-      const line = byIndex[i];
+      const lines = byIndex[i] ?? [];
       const active = i === this.#layerIndex;
-      const thumb = line
-        ? `<span class="skre-lb__rail-thumb"><img src="${line.imageUrl}" alt="" loading="lazy"></span>`
+      const thumb = lines.length
+        ? `<span class="skre-lb__rail-thumb"><img src="${lines[0].imageUrl}" alt="" loading="lazy"></span>`
         : `<span class="skre-lb__rail-thumb skre-lb__rail-thumb--empty">${i + 1}</span>`;
-      const sub = line
-        ? `${this.#esc(line.title)}${line.variantTitle ? ' · ' + this.#esc(line.variantTitle) : ''}`
-        : 'Not selected';
-      const right = line
-        ? `<span class="skre-lb__rail-price">${line.price_display}</span>
-           <button class="skre-lb__rail-remove" data-rail-remove="${i}" data-key="${this.#esc(line.key)}" type="button" aria-label="Remove">&#215;</button>`
-        : '';
-      return `<button class="skre-lb__rail-slot${active ? ' skre-lb__rail-slot--active' : ''}" data-rail-layer="${i}" type="button">
+      const itemsHtml = lines.length
+        ? lines.map(line => `
+            <div class="skre-lb__rail-item">
+              <span class="skre-lb__rail-prod">${this.#esc(line.title)}${line.variantTitle ? ' · ' + this.#esc(line.variantTitle) : ''}</span>
+              <span class="skre-lb__rail-price">${line.price_display}</span>
+              <button class="skre-lb__rail-remove" data-cart-idx="${line._cartIdx}" data-key="${this.#esc(line.key)}" type="button" aria-label="Remove">&#215;</button>
+            </div>`).join('')
+        : `<span class="skre-lb__rail-prod skre-lb__rail-prod--empty">Not selected</span>`;
+      return `<div class="skre-lb__rail-slot${active ? ' skre-lb__rail-slot--active' : ''}" data-rail-layer="${i}" role="button" tabindex="0">
         ${thumb}
         <span class="skre-lb__rail-info">
           <span class="skre-lb__rail-layer">${this.#esc(slot.label)}</span>
-          <span class="skre-lb__rail-prod${line ? '' : ' skre-lb__rail-prod--empty'}">${sub}</span>
+          ${itemsHtml}
         </span>
-        ${right}
-      </button>`;
+      </div>`;
     }).join('');
 
     // Jump to a layer (ignore clicks that land on the remove button)
-    list.querySelectorAll('[data-rail-layer]').forEach(btn => {
-      btn.addEventListener('click', e => {
+    list.querySelectorAll('[data-rail-layer]').forEach(el => {
+      el.addEventListener('click', e => {
         if (e.target.closest('[data-rail-remove]')) return;
-        this.#setLayer(Number(btn.dataset.railLayer));
+        this.#setLayer(Number(el.dataset.railLayer));
+      });
+      el.addEventListener('keydown', e => {
+        if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('[data-rail-remove]')) {
+          e.preventDefault();
+          this.#setLayer(Number(el.dataset.railLayer));
+        }
       });
     });
-    // Remove a line from the system
+    // Remove a line from the system using absolute cart index
     list.querySelectorAll('[data-rail-remove]').forEach(btn => {
       btn.addEventListener('click', e => {
         e.stopPropagation();
-        const li = this.#cartLines.findIndex(l => l.layerIndex === Number(btn.dataset.railRemove));
-        if (li >= 0) this.#removeLine(btn.dataset.key, li);
+        this.#removeLine(btn.dataset.key, Number(btn.dataset.cartIdx));
       });
     });
 
     // Count + totals + savings + checkout state
     const countEl = this.querySelector('.skre-lb__rail-count');
-    if (countEl) countEl.textContent = `${this.#cartLines.length} / ${slots.length}`;
+    if (countEl) {
+      const filledLayers = new Set(this.#cartLines.map(l => l.layerIndex)).size;
+      countEl.textContent = `${filledLayers} / ${slots.length}`;
+    }
 
     const subEl = this.querySelector('.skre-lb__rail-subtotal');
     if (subEl) subEl.textContent = this.#formatMoney(this.#subtotal);
@@ -1048,6 +1089,8 @@ class SkreLayerBuilder extends HTMLElement {
           this.#builder?.classList.remove('skre-lb__builder--has-items');
         }
         this.#renderSubtotal();
+        this.#renderTabs();
+        this.#updateSkipLabel();
         this.#renderSummaryItems();
       }
     } catch (err) {

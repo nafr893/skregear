@@ -1734,7 +1734,7 @@ body:has(.skre-lb) main {
   .skre-lb__rail-list { flex: 1; overflow-y: auto; padding: 0 12px; }
 
   .skre-lb__rail-slot {
-    display: flex; align-items: center; gap: 12px;
+    display: flex; align-items: flex-start; gap: 12px;
     width: 100%; text-align: left; padding: 11px;
     background: none; border: 1px solid transparent;
     border-bottom: 1px solid #ededed; position: relative; cursor: pointer;
@@ -1747,7 +1747,7 @@ body:has(.skre-lb) main {
     background: var(--skre-lb-accent, #b8431a);
   }
   .skre-lb__rail-thumb {
-    width: 50px; height: 58px; flex-shrink: 0; overflow: hidden;
+    width: 50px; height: 58px; flex-shrink: 0; overflow: hidden; margin-top: 1px;
     border: 1px solid #ededed; display: flex; align-items: center; justify-content: center;
     background: #fff;
   }
@@ -1767,6 +1767,14 @@ body:has(.skre-lb) main {
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   .skre-lb__rail-prod--empty { color: #aaa; font-style: italic; }
+  /* Multiple-item row within a slot */
+  .skre-lb__rail-item {
+    display: flex; align-items: center; gap: 4px; margin-top: 3px;
+  }
+  .skre-lb__rail-item:first-of-type { margin-top: 2px; }
+  .skre-lb__rail-item .skre-lb__rail-prod {
+    flex: 1; min-width: 0; margin-top: 0;
+  }
   .skre-lb__rail-price { font-family: 'United-Sans', sans-serif; font-weight: 900; font-size: 12px; flex-shrink: 0; }
   .skre-lb__rail-remove {
     background: none; border: none; color: #bbb; font-size: 16px; line-height: 1;
