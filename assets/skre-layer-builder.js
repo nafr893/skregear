@@ -263,9 +263,9 @@ class SkreLayerBuilder extends HTMLElement {
   // ── Builder ─────────────────────────────────────────────────────────────
 
   #bindBuilder() {
-    this.querySelector('.skre-lb__close')?.addEventListener('click', () => {
-      window.location.href = this.dataset.exitUrl || '/';
-    });
+    const exitFn = () => { window.location.href = this.dataset.exitUrl || '/'; };
+    this.querySelector('.skre-lb__close')?.addEventListener('click', exitFn);
+    this.querySelector('.skre-lb__info-close')?.addEventListener('click', exitFn);
     this.querySelector('.skre-lb__prev')?.addEventListener('click', () => this.#prevProduct());
     this.querySelector('.skre-lb__next')?.addEventListener('click', () => this.#nextProduct());
     this.querySelector('.skre-lb__strip-prev')?.addEventListener('click', () => this.#prevImage());

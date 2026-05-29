@@ -404,6 +404,9 @@
     </div>
 
     <div class="skre-lb__info">
+      <button class="skre-lb__info-close" type="button" aria-label="Exit builder">
+        {{- 'icon-close.svg' | inline_asset_content -}}
+      </button>
       <div class="skre-lb__rating-row">
         <div class="skre-lb__rating-left">
           <span class="skre-lb__stars"></span>
@@ -1648,6 +1651,9 @@ body:has(.skre-lb) main {
 /* Rail is desktop-only — hidden by default so mobile never sees it */
 .skre-lb__rail { display: none; }
 
+/* Info-panel close button is desktop-only */
+.skre-lb__info-close { display: none; }
+
 /* Hover arrows are desktop-only */
 .skre-lb__hover-arrows { display: none; }
 
@@ -1695,7 +1701,7 @@ body:has(.skre-lb) main {
     font-family: 'United-Sans', sans-serif;
     font-weight: 900; font-size: 18px; letter-spacing: 0.12em; color: #000;
   }
-  .skre-lb__rail-logo { max-height: 26px; width: auto; display: block; }
+  .skre-lb__rail-logo { max-height: 26px; width: auto; display: block; filter: brightness(0); }
   .skre-lb__rail-title {
     font-family: 'United-Sans', sans-serif;
     font-weight: 900; font-size: 12px; letter-spacing: 0.12em;
@@ -1972,7 +1978,29 @@ body:has(.skre-lb) main {
     border-left: 1px solid #ededed;
     padding: 1.5rem 1.5rem 1.5rem;
     gap: 0.55rem;
+    position: relative;
   }
+
+  /* Desktop-only close button pinned to top-right of the info panel */
+  .skre-lb__info-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 32px;
+    height: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #333;
+    padding: 0;
+    border-radius: 4px;
+    transition: background 0.15s;
+  }
+  .skre-lb__info-close:hover { background: #f0f0f0; }
+  .skre-lb__info-close svg { width: 18px; height: 18px; }
   /* Accordions (overview / specs / performance) are always shown on desktop */
   .skre-lb__exp-only { display: block; }
   /* Neutralise the mobile expand-overlay positioning, just in case */
