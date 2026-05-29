@@ -25,7 +25,7 @@ class SkreLayerBuilder extends HTMLElement {
     {
       selector: '.skre-lb__rail-list',
       label: 'Your Layers',
-      desc: 'See every layer of your system here. Each slot shows what you\'ve added — tap a slot to jump back to it.',
+      desc: 'See every layer of your system here. Each slot shows what you\'ve added.',
       cardSide: 'right',
     },
     {
@@ -37,7 +37,7 @@ class SkreLayerBuilder extends HTMLElement {
     {
       selector: '.skre-lb__info',
       label: 'Product Info',
-      desc: 'Read specs, performance ratings, and overview. Select your color and size here.',
+      desc: 'Read specs, performance ratings, and product overview. Select your color and size here.',
       cardSide: 'left',
     },
     {
