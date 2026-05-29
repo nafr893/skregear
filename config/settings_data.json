@@ -90,6 +90,7 @@
     "variant_button_border_width": 1,
     "variant_button_radius": 0,
     "variant_button_width": "equal-width-buttons",
+    "size_chart_header_image": "shopify://shop_images/SKRE_Sizing_Chart.svg",
     "content_for_index": [],
     "blocks": {
       "14339172867238703359": {
