@@ -70,22 +70,26 @@ h5, h6, p {
 }
 
 /* Force consistent 2:3 aspect ratio on product images in the search modal.
-   Must set aspect-ratio on the media container (not just the img) because the
-   img alone doesn't constrain the parent height. The inline custom property
-   --resource-card-aspect-ratio doesn't set aspect-ratio directly so !important
-   wins here without fighting specificity. */
+   aspect-ratio on a height:auto container is only a "preferred" ratio — content
+   can still push it taller. The padding-bottom trick gives a truly definite
+   height (0 + 150% padding = 1.5× width = 2:3), then the image fills it
+   absolutely so it can never stretch the container. */
 .predictive-search-results__card--product .resource-card__media,
 .recently-viewed-wrapper .resource-card__media {
-  aspect-ratio: 2 / 3 !important;
+  position: relative !important;
+  height: 0 !important;
+  padding-bottom: 150% !important;
   overflow: hidden;
 }
 
 .predictive-search-results__card--product .resource-card__image,
 .recently-viewed-wrapper .resource-card__image {
-  width: 100%;
-  height: 100%;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
   object-fit: cover;
-  aspect-ratio: auto;
+  aspect-ratio: auto !important;
 }
 
 /* Sentence-case pill labels: first letter of each word capitalised, rest lowercase */
