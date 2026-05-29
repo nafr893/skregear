@@ -340,6 +340,7 @@
           <span class="skre-lb__rail-atc-label">ADD TO SYSTEM</span>
           <span class="skre-lb__rail-atc-price"></span>
         </button>
+        <button class="skre-lb__rail-skip" type="button">Skip Layer</button>
         <button class="skre-lb__rail-checkout" type="button" disabled>Review System</button>
       </div>
     </aside>
@@ -483,6 +484,7 @@
         </button>
         <button class="skre-lb__summary-btn" type="button">View Summary</button>
       </div>
+      <button class="skre-lb__skip-btn" type="button">Skip Layer</button>
 
       <div class="skre-lb__footer">
         <span class="skre-lb__subtotal-label">
@@ -1157,6 +1159,25 @@ body:has(.skre-lb) main {
   display: none;
 }
 
+/* Skip Layer — subtle text link below the action row */
+.skre-lb__skip-btn {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0.55rem 0;
+  cursor: pointer;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #888;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.skre-lb__skip-btn:hover { color: #333; }
+
 /* Footer bar */
 .skre-lb__footer {
   display: flex;
@@ -1782,6 +1803,14 @@ body:has(.skre-lb) main {
   }
   .skre-lb__rail-checkout:hover { background: #1e1e1e; }
   .skre-lb__rail-checkout:disabled { opacity: 0.4; cursor: not-allowed; }
+  .skre-lb__rail-skip {
+    width: 100%; padding: 10px; margin-bottom: 8px;
+    background: none; border: none; cursor: pointer;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: #888; text-decoration: underline; text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+  .skre-lb__rail-skip:hover { color: #333; }
 
   /* ── CENTER MEDIA ──────────────────────────────────────────────────────── */
   .skre-lb__media { grid-column: 2; min-height: 0; }
