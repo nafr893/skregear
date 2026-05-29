@@ -33,10 +33,11 @@ h5, h6, p {
   padding-inline: calc(var(--focus-outline-offset) + var(--focus-outline-width) + 2px);
 }
 
-/* Add spacing before the "+N more" overflow indicator */
+/* Consistent spacing before the "+N more" overflow indicator */
 .predictive-search-swatches overflow-list::part(more),
 .cart-empty__trending overflow-list::part(more) {
-  padding-inline-start: 6px;
+  padding-inline-start: 8px;
+  flex-shrink: 0;
 }
 
 /* Cancel the margin that variant-swatches.liquid adds for the disabled state
@@ -70,13 +71,15 @@ h5, h6, p {
 }
 
 /* Force consistent 2:3 aspect ratio on product images in the search modal.
-   aspect-ratio on a height:auto container is only a "preferred" ratio — content
-   can still push it taller. The padding-bottom trick gives a truly definite
-   height (0 + 150% padding = 1.5× width = 2:3), then the image fills it
-   absolutely so it can never stretch the container. */
+   The container uses height:0 + padding-bottom:150% to establish a definite
+   height (150% of its own width = 2:3 ratio). The image uses inset:0 alone —
+   NOT width/height:100%, because height:100% of a height:0 box = 0, which
+   over-constrains the abs-pos element and collapses it. inset:0 stretches
+   the image to fill the padding-box directly, which is the correct area. */
 .predictive-search-results__card--product .resource-card__media,
 .recently-viewed-wrapper .resource-card__media {
   position: relative !important;
+  width: 100%;
   height: 0 !important;
   padding-bottom: 150% !important;
   overflow: hidden;
@@ -86,8 +89,6 @@ h5, h6, p {
 .recently-viewed-wrapper .resource-card__image {
   position: absolute !important;
   inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
   object-fit: cover;
   aspect-ratio: auto !important;
 }
