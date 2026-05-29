@@ -16,6 +16,7 @@ class SkreLayerBuilder extends HTMLElement {
   #regionPicker = null;
   #builder = null;
   #summaryPanel = null;
+  #scPanel = null;
   #tourStep = -1;
   #tourEl = null;
 
@@ -80,6 +81,7 @@ class SkreLayerBuilder extends HTMLElement {
     this.#regionPicker = this.querySelector('.skre-lb__region-picker');
     this.#builder = this.querySelector('.skre-lb__builder');
     this.#summaryPanel = this.querySelector('.skre-lb__summary-panel');
+    this.#scPanel = this.querySelector('.skre-lb__sc-panel');
 
     this.#bindPicker();
     this.#bindBuilder();
@@ -276,6 +278,9 @@ class SkreLayerBuilder extends HTMLElement {
     this.querySelector('.skre-lb__rail-atc')?.addEventListener('click', () => this.#addToSystem());
     this.style.setProperty('--skre-lb-accent', this.dataset.atcColor || '#b8431a');
     this.querySelector('.skre-lb__summary-close')?.addEventListener('click', () => this.#hideSummary());
+    this.querySelector('.skre-lb__size-chart-link')?.addEventListener('click', () => this.#openSizeChart());
+    this.querySelector('.skre-lb__sc-close')?.addEventListener('click', () => this.#closeSizeChart());
+    this.#scPanel?.addEventListener('click', e => { if (e.target === this.#scPanel) this.#closeSizeChart(); });
     this.querySelectorAll('.skre-lb__help-btn').forEach(btn =>
       btn.addEventListener('click', () => this.#showTutorial())
     );
@@ -424,6 +429,7 @@ class SkreLayerBuilder extends HTMLElement {
     const images = this.#getVariantImages(product, defaultVariant);
     this.#updateImages(images);
     this.#updateAtcPrice(defaultVariant);
+    this.#updateSizeChartImage(product.size_chart_url ?? '');
 
     // Store selection snapshot for this layer
     if (defaultVariant) {
@@ -947,6 +953,30 @@ class SkreLayerBuilder extends HTMLElement {
     if (!this.#summaryPanel) return;
     this.#summaryPanel.hidden = true;
     document.body.style.overflow = '';
+  }
+
+  // ── Size chart ──────────────────────────────────────────────────────────────
+
+  #openSizeChart() {
+    if (!this.#scPanel) return;
+    this.#scPanel.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+
+  #closeSizeChart() {
+    if (!this.#scPanel) return;
+    this.#scPanel.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  #updateSizeChartImage(url) {
+    const img = this.querySelector('.skre-lb__sc-chart-img');
+    const empty = this.querySelector('.skre-lb__sc-empty');
+    if (img) {
+      img.src = url || '';
+      img.hidden = !url;
+    }
+    if (empty) empty.hidden = !!url;
   }
 
   #renderSummaryItems() {

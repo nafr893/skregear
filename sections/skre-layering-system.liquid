@@ -80,6 +80,12 @@
                       assign p_overview = product.description | strip_html | strip_newlines
                       assign p_seasons = product.metafields.custom.product_season.value
                       assign p_recommended_use = product.metafields.custom.product_specs | metafield_tag | default: ''
+                      assign p_size_chart_file = product.metafields.custom.size_chart_image.value
+                      if p_size_chart_file
+                        assign p_size_chart_url = p_size_chart_file | image_url: width: 1200
+                      else
+                        assign p_size_chart_url = ''
+                      endif
                     -%}
                     {
                       "id": {{ product.id | json }},
@@ -106,6 +112,7 @@
                       "price": {{ product.price | json }},
                       "price_display": {{ product.price | money | json }},
                       "featured_image": {{ p_img | json }},
+                      "size_chart_url": {{ p_size_chart_url | json }},
                       "rating": {{ p_rating | json }},
                       "rating_count": {{ p_rating_count | json }},
                       "options": [
@@ -430,10 +437,10 @@
       {%- comment -%} ── Expanded-only content ── {%- endcomment -%}
       <div class="skre-lb__exp-only">
 
-        <a class="skre-lb__size-chart-link" href="#">
+        <button class="skre-lb__size-chart-link" type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15" aria-hidden="true"><path d="M2 9h20M2 15h20M9 3v18M15 3v18"/></svg>
           Size Chart
-        </a>
+        </button>
 
         <div class="skre-lb__accordions">
 
@@ -497,6 +504,33 @@
     </button>
     <img class="skre-lb__zoom-img" src="" alt="" width="1200" height="1200" loading="eager">
   </dialog>
+
+  {%- comment -%} ── Size chart drawer ── {%- endcomment -%}
+  <div class="skre-lb__sc-panel" hidden>
+    <div class="skre-lb__sc-inner">
+      <div class="skre-lb__sc-header">
+        <span class="skre-lb__sc-title">Size Chart</span>
+        <button class="skre-lb__sc-close" type="button" aria-label="Close size chart">
+          {{- 'icon-close.svg' | inline_asset_content -}}
+        </button>
+      </div>
+      <div class="skre-lb__sc-body">
+        {%- if section.settings.size_chart_header_image -%}
+          <div class="skre-lb__sc-header-img-wrap">
+            {{
+              section.settings.size_chart_header_image
+              | image_url: width: 800
+              | image_tag: alt: 'Size guide', loading: 'lazy', class: 'skre-lb__sc-header-img'
+            }}
+          </div>
+        {%- endif -%}
+        <div class="skre-lb__sc-chart-wrap">
+          <img class="skre-lb__sc-chart-img" src="" alt="Size chart" loading="lazy" hidden>
+          <p class="skre-lb__sc-empty">No size chart available for this product.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   {%- comment -%} ── Summary panel ── {%- endcomment -%}
   <div class="skre-lb__summary-panel" hidden>
@@ -2072,6 +2106,90 @@ body:has(.skre-lb) main {
 
 .skre-lb__help-btn--rail { color: #888; border-color: #ddd; }
 
+/* ── Size chart drawer ─────────────────────────────────────────────────────── */
+.skre-lb__sc-panel {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.52);
+  z-index: 250;
+  display: flex;
+  justify-content: flex-end;
+}
+.skre-lb__sc-panel[hidden] { display: none; }
+
+.skre-lb__sc-inner {
+  background: #fff;
+  width: 400px;
+  max-width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.skre-lb__sc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1rem 0.85rem;
+  border-bottom: 1px solid #ededed;
+  flex-shrink: 0;
+}
+
+.skre-lb__sc-title {
+  font-family: 'United-Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.skre-lb__sc-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.skre-lb__sc-close svg { width: 18px; height: 18px; }
+
+.skre-lb__sc-body {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.skre-lb__sc-header-img-wrap {
+  border-bottom: 1px solid #ededed;
+}
+
+.skre-lb__sc-header-img {
+  width: 100%;
+  display: block;
+}
+
+.skre-lb__sc-chart-wrap {
+  padding: 1rem;
+}
+
+.skre-lb__sc-chart-img {
+  width: 100%;
+  display: block;
+}
+
+.skre-lb__sc-chart-img[hidden] { display: none; }
+
+.skre-lb__sc-empty {
+  padding: 1.5rem 0;
+  color: #888;
+  font-size: 0.82rem;
+  text-align: center;
+  margin: 0;
+}
+
 {% endstylesheet %}
 
 {% schema %}
@@ -2083,6 +2201,11 @@ body:has(.skre-lb) main {
       "type": "image_picker",
       "id": "logo",
       "label": "Logo image"
+    },
+    {
+      "type": "image_picker",
+      "id": "size_chart_header_image",
+      "label": "Size chart header image (universal)"
     },
     {
       "type": "text",
