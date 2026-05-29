@@ -2114,6 +2114,7 @@ body:has(.skre-lb) main {
   height: 100%;
   margin: 0 0 0 auto;
   padding: 0;
+  border: none;
   border-left: var(--style-border-drawer);
   box-shadow: var(--shadow-drawer);
   background-color: var(--color-background, #fff);
@@ -2125,7 +2126,7 @@ body:has(.skre-lb) main {
 }
 
 @media screen and (min-width: 750px) {
-  .skre-lb__sc-dialog { width: var(--sidebar-width); max-width: 95vw; }
+  .skre-lb__sc-dialog { width: 500px; max-width: 95vw; }
 }
 
 .skre-lb__sc-inner {
@@ -2182,7 +2183,12 @@ body:has(.skre-lb) main {
 }
 
 .skre-lb__sc-header-img-wrap {
+  padding: var(--padding-xl);
   border-bottom: 1px solid var(--color-border, #ededed);
+}
+
+@media screen and (min-width: 750px) {
+  .skre-lb__sc-header-img-wrap { padding-inline: var(--padding-2xl); }
 }
 
 .skre-lb__sc-header-img {
