@@ -24,6 +24,7 @@ h5, h6, p {
   position: relative;
   z-index: 2;
   margin-block-start: var(--padding-xs);
+  overflow: visible;
 }
 
 /* Fix swatch hover/selected */
@@ -70,33 +71,37 @@ h5, h6, p {
   background-color: transparent !important;
 }
 
-/* Force consistent 2:3 aspect ratio on product images in the search modal.
-   cqi units reference .predictive-search-results__inner (container-type:inline-size).
-   Cards sit in a repeat(2,1fr) grid ≈ 50cqi each → 2:3 height = 75cqi.
-   Above 550px the grid switches to 4 columns → height = 37.5cqi.
-   A definite cqi height means height:100% on the abs-pos image resolves
-   correctly at first render, no scroll trigger needed. */
+/* Consistent 4:5 ratio on all product images in the search modal.
+   Primary image sits in normal flow; secondary hover image stays absolute.
+   Using aspect-ratio directly on the image avoids any cqi/container-context
+   ambiguity that caused mobile-vs-desktop inconsistency. */
 .predictive-search-results__card--product .resource-card__media,
 .recently-viewed-wrapper .resource-card__media {
   position: relative !important;
-  height: 75cqi !important;
+  overflow: hidden !important;
+  height: auto !important;
   padding-bottom: 0 !important;
-  overflow: hidden;
 }
 
-@container (min-width: 550px) {
-  .predictive-search-results__card--product .resource-card__media,
-  .recently-viewed-wrapper .resource-card__media {
-    height: 37.5cqi !important;
-  }
+.predictive-search-results__card--product .resource-card__image:not(.resource-card__image--secondary),
+.recently-viewed-wrapper .resource-card__image:not(.resource-card__image--secondary) {
+  position: static !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 4 / 5 !important;
+  object-fit: cover !important;
+  display: block !important;
 }
 
-.predictive-search-results__card--product .resource-card__image,
-.recently-viewed-wrapper .resource-card__image {
+/* Keep secondary (hover) image filling the container */
+.predictive-search-results__card--product .resource-card__image--secondary,
+.recently-viewed-wrapper .resource-card__image--secondary {
   position: absolute !important;
   inset: 0 !important;
-  object-fit: cover;
-  aspect-ratio: auto !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
 }
 
 /* Sentence-case pill labels: first letter of each word capitalised, rest lowercase */
