@@ -24,7 +24,6 @@ h5, h6, p {
   position: relative;
   z-index: 2;
   margin-block-start: var(--padding-xs);
-  overflow: visible;
 }
 
 /* Fix swatch hover/selected */
@@ -76,6 +75,26 @@ h5, h6, p {
    makes cards tiny and images inconsistent. 2 columns matches mobile exactly. */
 .predictive-search-results__wrapper-products {
   grid-template-columns: repeat(2, 1fr) !important;
+}
+
+/* Prevent grid items from blowing past their column — swatch rows have
+   intrinsic min-width that overflows without this. */
+.predictive-search-results__wrapper-products .predictive-search-results__card--product {
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Clip the swatch overflow-list so it never widens the card */
+.predictive-search-swatches {
+  overflow: hidden !important;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Clip horizontal overflow on the search inner so pills don't
+   bleed a horizontal scrollbar onto the product grid */
+.predictive-search-results__inner {
+  overflow-x: hidden !important;
 }
 
 /* Consistent 4:5 ratio on all product images in the search modal.
