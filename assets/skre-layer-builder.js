@@ -21,7 +21,7 @@ class SkreLayerBuilder extends HTMLElement {
 
   static #SEEN_KEY = 'skre-lb-seen';
 
-  static #TOUR_STEPS = [
+  static #TOUR_STEPS_DESKTOP = [
     {
       selector: '.skre-lb__rail-list',
       label: 'Your Layers',
@@ -42,6 +42,33 @@ class SkreLayerBuilder extends HTMLElement {
     },
     {
       selector: '.skre-lb__rail-foot',
+      label: 'Add to System',
+      desc: 'When you\'re ready, hit Add to System. Once all layers are chosen, Review System to check out.',
+      cardSide: 'right',
+    },
+  ];
+
+  static #TOUR_STEPS_MOBILE = [
+    {
+      selector: '.skre-lb__header',
+      label: 'Your Layers',
+      desc: 'See every layer of your system here. Each slot shows what you\'ve added.',
+      cardSide: 'right',
+    },
+    {
+      selector: '.skre-lb__media',
+      label: 'Browse Images',
+      desc: 'Swipe or tap the arrows to explore product images.',
+      cardSide: 'right',
+    },
+    {
+      selector: '.skre-lb__info',
+      label: 'Product Info',
+      desc: 'Read specs, performance ratings, and product overview. Select your color and size here.',
+      cardSide: 'right',
+    },
+    {
+      selector: '.skre-lb__action-row',
       label: 'Add to System',
       desc: 'When you\'re ready, hit Add to System. Once all layers are chosen, Review System to check out.',
       cardSide: 'right',
@@ -144,7 +171,11 @@ class SkreLayerBuilder extends HTMLElement {
     // Remove any existing tour overlay
     this.#tourEl?.remove();
 
-    const steps = SkreLayerBuilder.#TOUR_STEPS;
+    const isDesktop = window.matchMedia('(min-width: 750px)').matches;
+    const steps = isDesktop
+      ? SkreLayerBuilder.#TOUR_STEPS_DESKTOP
+      : SkreLayerBuilder.#TOUR_STEPS_MOBILE;
+
     const s = steps[step];
     if (!s) return;
 
@@ -152,6 +183,8 @@ class SkreLayerBuilder extends HTMLElement {
     if (!target) return;
 
     const rect = target.getBoundingClientRect();
+    // Skip invisible steps (e.g. desktop-only element on mobile)
+    if (rect.width === 0 && rect.height === 0) { this.#showTutorial(step + 1); return; }
     const pad = 6;
 
     // Build overlay
