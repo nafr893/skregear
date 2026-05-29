@@ -432,3 +432,33 @@ input.search-input::placeholder,
     transform: rotate(180deg);
   }
 }
+
+/* ── Size guide trigger in variant picker ────────────────────────────────── */
+.variant-option--buttons legend:has(.skre-sc-legend-btn),
+.variant-option--swatches legend:has(.skre-sc-legend-btn),
+.variant-option--dropdowns > label:has(.skre-sc-legend-btn),
+.variant-option--overlay > label:has(.skre-sc-legend-btn) {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.skre-sc-legend-btn {
+  margin-left: auto;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  opacity: 0.75;
+}
+
+.skre-sc-legend-btn:hover { opacity: 1; }
