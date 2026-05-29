@@ -777,7 +777,7 @@ body:has(.skre-lb) main {
   align-items: center;
   justify-content: center;
   align-self: stretch;
-  aspect-ratio: 1;
+  min-width: 46px;
   padding: 0;
   border: none;
   border-left: 1px solid #ededed;
@@ -789,6 +789,9 @@ body:has(.skre-lb) main {
   font-size: 0.8rem;
   font-weight: 700;
   flex-shrink: 0;
+}
+.skre-lb__header-btns .skre-lb__help-btn {
+  font-size: 1.1rem;
 }
 .skre-lb__header-btns .skre-lb__help-btn:hover,
 .skre-lb__header-btns .skre-lb__close:hover {
