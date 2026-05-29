@@ -79,7 +79,7 @@
                       assign p_preview = product.metafields.custom.product_preview.value | default: ''
                       assign p_overview = product.description | strip_html | strip_newlines
                       assign p_seasons = product.metafields.custom.product_season.value
-                      assign p_recommended_use = product.metafields.custom.product_specs.value | default: ''
+                      assign p_recommended_use = product.metafields.custom.product_specs | metafield_tag | default: ''
                     -%}
                     {
                       "id": {{ product.id | json }},

@@ -962,7 +962,7 @@ class SkreLayerBuilder extends HTMLElement {
       const items = Array.isArray(product.seasons) ? product.seasons : [];
       if (items.length) {
         seasonsContainer.innerHTML =
-          `<div class="perf-seasons__label">Best used for:</div>
+          `<div class="perf-seasons__label">Best season used for:</div>
           <div class="perf-seasons__items">
             ${items.map(item =>
               `<span class="perf-seasons__item">
@@ -986,8 +986,9 @@ class SkreLayerBuilder extends HTMLElement {
     const specsAccordion = this.querySelector('[data-accordion="specs"]');
     const specsBody = specsAccordion?.querySelector('.skre-lb__accordion-body');
     const recommendedUse = product.product_specs ?? '';
-    if (specsBody) specsBody.textContent = recommendedUse;
-    if (specsAccordion) specsAccordion.hidden = !recommendedUse;
+    if (specsBody) specsBody.innerHTML = recommendedUse;
+    const hasSpecs = !!recommendedUse.replace(/<[^>]*>/g, '').trim();
+    if (specsAccordion) specsAccordion.hidden = !hasSpecs;
 
     // Overview: hide if no content
     const overviewAccordion = this.querySelector('[data-accordion="overview"]');
