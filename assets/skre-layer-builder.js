@@ -677,8 +677,8 @@ class SkreLayerBuilder extends HTMLElement {
       const windowStart = Math.max(0, this.#imgIndex - 1);
       stripTrack.style.transform = `translateX(${-(windowStart * THUMB_STEP)}px)`;
     }
-    if (stripPrev) stripPrev.disabled = this.#imgIndex === 0;
-    if (stripNext) stripNext.disabled = this.#imgIndex >= urls.length - 1;
+    if (stripPrev) stripPrev.disabled = urls.length <= 1;
+    if (stripNext) stripNext.disabled = urls.length <= 1;
 
     // Hover arrows: invisible at boundaries so space-between layout stays stable
     const prevArrow = this.querySelector('.skre-lb__hover-arrow--prev');
@@ -688,21 +688,20 @@ class SkreLayerBuilder extends HTMLElement {
       el.style.visibility = hide ? 'hidden' : '';
       el.style.pointerEvents = hide ? 'none' : '';
     };
-    hideArrow(prevArrow, this.#imgIndex === 0);
-    hideArrow(nextArrow, this.#imgIndex >= urls.length - 1);
+    hideArrow(prevArrow, urls.length <= 1);
+    hideArrow(nextArrow, urls.length <= 1);
   }
 
   #prevImage() {
-    if (this.#imgIndex > 0) {
-      this.#imgIndex--;
-      this.#renderHeroImage();
-    }
+    if (this.#imgUrls.length <= 1) return;
+    this.#imgIndex = (this.#imgIndex - 1 + this.#imgUrls.length) % this.#imgUrls.length;
+    this.#renderHeroImage();
   }
 
   #nextImage() {
-    if (this.#imgIndex < this.#imgUrls.length - 1) {
-      this.#imgIndex++;
-      this.#renderHeroImage();
+    if (this.#imgUrls.length <= 1) return;
+    this.#imgIndex = (this.#imgIndex + 1) % this.#imgUrls.length;
+    this.#renderHeroImage();
     }
   }
 
