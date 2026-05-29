@@ -33,6 +33,12 @@ h5, h6, p {
   padding-inline: calc(var(--focus-outline-offset) + var(--focus-outline-width) + 2px);
 }
 
+/* Add spacing before the "+N more" overflow indicator */
+.predictive-search-swatches overflow-list::part(more),
+.cart-empty__trending overflow-list::part(more) {
+  padding-inline-start: 6px;
+}
+
 /* Cancel the margin that variant-swatches.liquid adds for the disabled state
    */
 .predictive-search-swatches swatches-variant-picker-component overflow-list[disabled='true'],
@@ -64,18 +70,22 @@ h5, h6, p {
 }
 
 /* Force consistent 2:3 aspect ratio on product images in the search modal.
-   Targeting the img directly (not the custom property) because the parent's
-   inline style="--resource-card-aspect-ratio:..." always wins for CSS vars. */
-.predictive-search-results__card--product .resource-card__image,
-.recently-viewed-wrapper .resource-card__image {
-  aspect-ratio: 2 / 3;
-  width: 100%;
-  object-fit: cover;
-}
-
+   Must set aspect-ratio on the media container (not just the img) because the
+   img alone doesn't constrain the parent height. The inline custom property
+   --resource-card-aspect-ratio doesn't set aspect-ratio directly so !important
+   wins here without fighting specificity. */
 .predictive-search-results__card--product .resource-card__media,
 .recently-viewed-wrapper .resource-card__media {
+  aspect-ratio: 2 / 3 !important;
   overflow: hidden;
+}
+
+.predictive-search-results__card--product .resource-card__image,
+.recently-viewed-wrapper .resource-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  aspect-ratio: auto;
 }
 
 /* Sentence-case pill labels: first letter of each word capitalised, rest lowercase */
