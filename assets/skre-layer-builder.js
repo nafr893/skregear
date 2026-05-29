@@ -233,6 +233,8 @@ class SkreLayerBuilder extends HTMLElement {
     });
     this.querySelector('.skre-lb__prev')?.addEventListener('click', () => this.#prevProduct());
     this.querySelector('.skre-lb__next')?.addEventListener('click', () => this.#nextProduct());
+    this.querySelector('.skre-lb__strip-prev')?.addEventListener('click', () => this.#prevImage());
+    this.querySelector('.skre-lb__strip-next')?.addEventListener('click', () => this.#nextImage());
     this.#bindImageSwipe();
     this.querySelector('.skre-lb__atc')?.addEventListener('click', () => this.#addToSystem());
     this.querySelector('.skre-lb__summary-btn')?.addEventListener('click', () => this.#showSummary());
@@ -653,23 +655,34 @@ class SkreLayerBuilder extends HTMLElement {
     if (fill) fill.style.width = `${pct}%`;
     if (track) track.style.display = total > 1 ? '' : 'none';
 
-    // Image dots (desktop)
-    const dotsEl = this.querySelector('.skre-lb__img-dots');
-    if (dotsEl) {
-      if (total > 1) {
-        dotsEl.innerHTML = urls.map((_, i) =>
-          `<button class="skre-lb__img-dot${i === this.#imgIndex ? ' skre-lb__img-dot--active' : ''}" data-dot="${i}" type="button" aria-label="Image ${i + 1}"></button>`
-        ).join('');
-        dotsEl.querySelectorAll('[data-dot]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            this.#imgIndex = Number(btn.dataset.dot);
-            this.#renderHeroImage();
-          });
+    // Image filmstrip (desktop)
+    const stripTrack = this.querySelector('.skre-lb__strip-track');
+    const stripPrev = this.querySelector('.skre-lb__strip-prev');
+    const stripNext = this.querySelector('.skre-lb__strip-next');
+
+    if (stripTrack) {
+      stripTrack.innerHTML = urls.map((url, i) =>
+        `<button class="skre-lb__strip-thumb${i === this.#imgIndex ? ' skre-lb__strip-thumb--active' : ''}" data-strip-img="${i}" type="button" aria-label="Image ${i + 1}">
+          <img src="${url}" alt="" loading="lazy">
+        </button>`
+      ).join('');
+      stripTrack.querySelectorAll('[data-strip-img]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          this.#imgIndex = Number(btn.dataset.stripImg);
+          this.#renderHeroImage();
         });
-      } else {
-        dotsEl.innerHTML = '';
+      });
+      // Slide strip to keep active thumb centered in the viewport
+      const viewport = this.querySelector('.skre-lb__strip-viewport');
+      if (viewport) {
+        const THUMB_STEP = 42; // 38px thumb + 4px gap
+        const vw = viewport.offsetWidth;
+        const offset = Math.round(-(this.#imgIndex * THUMB_STEP) + vw / 2 - 19);
+        stripTrack.style.transform = `translateX(${offset}px)`;
       }
     }
+    if (stripPrev) stripPrev.disabled = this.#imgIndex === 0;
+    if (stripNext) stripNext.disabled = this.#imgIndex >= urls.length - 1;
 
     // Hover arrows: invisible at boundaries so space-between layout stays stable
     const prevArrow = this.querySelector('.skre-lb__hover-arrow--prev');
