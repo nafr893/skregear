@@ -17,7 +17,7 @@
     Size Chart
   </button>
 
-  <div class="skre-sc__panel" id="skre-sc-panel-{{ section.id }}" hidden>
+  <dialog class="skre-sc__dialog dialog-drawer" id="skre-sc-dialog-{{ section.id }}">
     <div class="skre-sc__inner">
       <div class="skre-sc__header">
         <span class="skre-sc__title">Size Chart</span>
@@ -43,14 +43,14 @@
         </div>
       </div>
     </div>
-  </div>
+  </dialog>
 
 </div>
 
 <script type="module">
   (function () {
     const id = {{ section.id | json }};
-    const panel = document.getElementById(`skre-sc-panel-${id}`);
+    const dialog = document.getElementById(`skre-sc-dialog-${id}`);
     const wrap = document.querySelector(`#skre-sc-${id} .skre-sc__table-wrap`);
     const dataEl = document.getElementById(`skre-sc-data-${id}`);
 
@@ -73,14 +73,36 @@
       } catch (e) { /* malformed JSON — leave empty state */ }
     }
 
-    // Open / close
-    function open() { panel.hidden = false; document.body.style.overflow = 'hidden'; }
-    function close() { panel.hidden = true; document.body.style.overflow = ''; }
+    // Animated close — mirrors the theme's dialog.js closeDialog sequence
+    async function closeDialog() {
+      if (!dialog?.open) return;
+      dialog.style.animation = 'none';
+      void dialog.offsetWidth;
+      dialog.classList.add('dialog-closing');
+      dialog.style.animation = '';
+      await new Promise(resolve => dialog.addEventListener('animationend', resolve, { once: true }));
+      dialog.close();
+      dialog.classList.remove('dialog-closing');
+      document.body.style.width = '';
+      document.body.style.position = '';
+      document.body.style.top = '';
+    }
 
-    document.querySelectorAll(`[data-sc-open="${id}"]`).forEach(btn => btn.addEventListener('click', open));
-    document.querySelectorAll(`[data-sc-close="${id}"]`).forEach(btn => btn.addEventListener('click', close));
-    panel?.addEventListener('click', e => { if (e.target === panel) close(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) close(); });
+    function openDialog() {
+      if (dialog?.open) return;
+      const scrollY = window.scrollY;
+      document.body.style.width = '100%';
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      dialog.showModal();
+    }
+
+    document.querySelectorAll(`[data-sc-open="${id}"]`).forEach(btn => btn.addEventListener('click', openDialog));
+    document.querySelectorAll(`[data-sc-close="${id}"]`).forEach(btn => btn.addEventListener('click', closeDialog));
+    // Backdrop click
+    dialog?.addEventListener('click', e => { if (e.target === dialog) closeDialog(); });
+    // Intercept Escape to run animation before close
+    dialog?.addEventListener('cancel', e => { e.preventDefault(); closeDialog(); });
   })();
 </script>
 
@@ -103,34 +125,54 @@
 
 .skre-sc__btn svg { flex-shrink: 0; }
 
-.skre-sc__panel {
+/* Dialog panel — matches cart drawer */
+.skre-sc__dialog {
   position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.52);
-  z-index: 400;
-  display: flex;
-  justify-content: flex-end;
+  overflow: hidden;
+  border-radius: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0 0 0 auto;
+  padding: 0;
+  border-left: var(--style-border-drawer);
+  box-shadow: var(--shadow-drawer);
+  background-color: var(--color-background, #fff);
 }
 
-.skre-sc__panel[hidden] { display: none; }
+.skre-sc__dialog:modal {
+  max-height: 100dvh;
+  overflow-y: hidden;
+}
+
+@media screen and (min-width: 750px) {
+  .skre-sc__dialog { width: var(--sidebar-width); max-width: 95vw; }
+}
 
 .skre-sc__inner {
-  background: #fff;
-  width: 400px;
-  max-width: 100vw;
   height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background-color: var(--color-background, #fff);
 }
 
 .skre-sc__header {
+  background-color: var(--color-background, #fff);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem 1rem 0.85rem;
-  border-bottom: 1px solid #ededed;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--padding-xl);
+  padding-block: var(--padding-xs);
+  border-bottom: 1px solid var(--color-border, #ededed);
+  position: sticky;
+  top: 0;
+  z-index: 1;
   flex-shrink: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .skre-sc__header { padding-inline: var(--padding-2xl); }
 }
 
 .skre-sc__title {
@@ -160,7 +202,7 @@
 }
 
 .skre-sc__header-img-wrap {
-  border-bottom: 1px solid #ededed;
+  border-bottom: 1px solid var(--color-border, #ededed);
 }
 
 .skre-sc__header-img {
@@ -169,7 +211,11 @@
 }
 
 .skre-sc__chart-wrap {
-  padding: 1rem;
+  padding: var(--padding-xl);
+}
+
+@media screen and (min-width: 750px) {
+  .skre-sc__chart-wrap { padding-inline: var(--padding-2xl); }
 }
 
 .skre-sc__table-wrap {
@@ -183,9 +229,7 @@
   font-size: 0.82rem;
 }
 
-.skre-sc__table thead tr {
-  background: #f0f0ee;
-}
+.skre-sc__table thead tr { background: #f0f0ee; }
 
 .skre-sc__table th {
   padding: 0.65rem 1rem;
@@ -205,13 +249,9 @@
   color: #222;
 }
 
-.skre-sc__table tbody tr:last-child td {
-  border-bottom: none;
-}
+.skre-sc__table tbody tr:last-child td { border-bottom: none; }
 
-.skre-sc__row--even td {
-  background: #f9f9f8;
-}
+.skre-sc__row--even td { background: #f9f9f8; }
 
 .skre-sc__empty {
   padding: 1.5rem 0;

@@ -81,7 +81,7 @@ class SkreLayerBuilder extends HTMLElement {
     this.#regionPicker = this.querySelector('.skre-lb__region-picker');
     this.#builder = this.querySelector('.skre-lb__builder');
     this.#summaryPanel = this.querySelector('.skre-lb__summary-panel');
-    this.#scPanel = this.querySelector('.skre-lb__sc-panel');
+    this.#scPanel = this.querySelector('.skre-lb__sc-dialog');
 
     this.#bindPicker();
     this.#bindBuilder();
@@ -281,6 +281,7 @@ class SkreLayerBuilder extends HTMLElement {
     this.querySelector('.skre-lb__size-chart-link')?.addEventListener('click', () => this.#openSizeChart());
     this.querySelector('.skre-lb__sc-close')?.addEventListener('click', () => this.#closeSizeChart());
     this.#scPanel?.addEventListener('click', e => { if (e.target === this.#scPanel) this.#closeSizeChart(); });
+    this.#scPanel?.addEventListener('cancel', e => { e.preventDefault(); this.#closeSizeChart(); });
     this.querySelectorAll('.skre-lb__help-btn').forEach(btn =>
       btn.addEventListener('click', () => this.#showTutorial())
     );
@@ -958,15 +959,20 @@ class SkreLayerBuilder extends HTMLElement {
   // ── Size chart ──────────────────────────────────────────────────────────────
 
   #openSizeChart() {
-    if (!this.#scPanel) return;
-    this.#scPanel.hidden = false;
-    document.body.style.overflow = 'hidden';
+    if (!this.#scPanel || this.#scPanel.open) return;
+    this.#scPanel.showModal();
   }
 
-  #closeSizeChart() {
-    if (!this.#scPanel) return;
-    this.#scPanel.hidden = true;
-    document.body.style.overflow = '';
+  async #closeSizeChart() {
+    const d = this.#scPanel;
+    if (!d?.open) return;
+    d.style.animation = 'none';
+    void d.offsetWidth;
+    d.classList.add('dialog-closing');
+    d.style.animation = '';
+    await new Promise(resolve => d.addEventListener('animationend', resolve, { once: true }));
+    d.close();
+    d.classList.remove('dialog-closing');
   }
 
   #updateSizeChartTable(data) {

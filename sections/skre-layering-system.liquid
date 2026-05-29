@@ -501,7 +501,7 @@
   </dialog>
 
   {%- comment -%} ── Size chart drawer ── {%- endcomment -%}
-  <div class="skre-lb__sc-panel" hidden>
+  <dialog class="skre-lb__sc-dialog dialog-drawer">
     <div class="skre-lb__sc-inner">
       <div class="skre-lb__sc-header">
         <span class="skre-lb__sc-title">Size Chart</span>
@@ -525,7 +525,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </dialog>
 
   {%- comment -%} ── Summary panel ── {%- endcomment -%}
   <div class="skre-lb__summary-panel" hidden>
@@ -1457,11 +1457,15 @@ body:has(.skre-lb) main {
   transform: rotate(180deg);
 }
 
-/* ── Size chart link ── */
+/* ── Size chart link — reset browser button defaults ── */
 .skre-lb__size-chart-link {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
   font-size: 0.78rem;
   font-weight: 600;
   color: #222;
@@ -2101,34 +2105,54 @@ body:has(.skre-lb) main {
 
 .skre-lb__help-btn--rail { color: #888; border-color: #ddd; }
 
-/* ── Size chart drawer ─────────────────────────────────────────────────────── */
-.skre-lb__sc-panel {
+/* ── Size chart drawer — matches cart drawer behaviour ──────────────────────── */
+.skre-lb__sc-dialog {
   position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.52);
-  z-index: 250;
-  display: flex;
-  justify-content: flex-end;
+  overflow: hidden;
+  border-radius: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0 0 0 auto;
+  padding: 0;
+  border-left: var(--style-border-drawer);
+  box-shadow: var(--shadow-drawer);
+  background-color: var(--color-background, #fff);
 }
-.skre-lb__sc-panel[hidden] { display: none; }
+
+.skre-lb__sc-dialog:modal {
+  max-height: 100dvh;
+  overflow-y: hidden;
+}
+
+@media screen and (min-width: 750px) {
+  .skre-lb__sc-dialog { width: var(--sidebar-width); max-width: 95vw; }
+}
 
 .skre-lb__sc-inner {
-  background: #fff;
-  width: 400px;
-  max-width: 100vw;
   height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background-color: var(--color-background, #fff);
 }
 
 .skre-lb__sc-header {
+  background-color: var(--color-background, #fff);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem 1rem 0.85rem;
-  border-bottom: 1px solid #ededed;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--padding-xl);
+  padding-block: var(--padding-xs);
+  border-bottom: 1px solid var(--color-border, #ededed);
+  position: sticky;
+  top: 0;
+  z-index: 1;
   flex-shrink: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .skre-lb__sc-header { padding-inline: var(--padding-2xl); }
 }
 
 .skre-lb__sc-title {
@@ -2158,7 +2182,7 @@ body:has(.skre-lb) main {
 }
 
 .skre-lb__sc-header-img-wrap {
-  border-bottom: 1px solid #ededed;
+  border-bottom: 1px solid var(--color-border, #ededed);
 }
 
 .skre-lb__sc-header-img {
@@ -2167,7 +2191,11 @@ body:has(.skre-lb) main {
 }
 
 .skre-lb__sc-chart-wrap {
-  padding: 1rem;
+  padding: var(--padding-xl);
+}
+
+@media screen and (min-width: 750px) {
+  .skre-lb__sc-chart-wrap { padding-inline: var(--padding-2xl); }
 }
 
 .skre-lb__sc-table-wrap {
@@ -2181,9 +2209,7 @@ body:has(.skre-lb) main {
   font-size: 0.82rem;
 }
 
-.skre-lb__sc-table thead tr {
-  background: #f0f0ee;
-}
+.skre-lb__sc-table thead tr { background: #f0f0ee; }
 
 .skre-lb__sc-table th {
   padding: 0.65rem 1rem;
@@ -2203,13 +2229,9 @@ body:has(.skre-lb) main {
   color: #222;
 }
 
-.skre-lb__sc-table tbody tr:last-child td {
-  border-bottom: none;
-}
+.skre-lb__sc-table tbody tr:last-child td { border-bottom: none; }
 
-.skre-lb__sc-row--even td {
-  background: #f9f9f8;
-}
+.skre-lb__sc-row--even td { background: #f9f9f8; }
 
 .skre-lb__sc-empty {
   padding: 1.5rem 0;
