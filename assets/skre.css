@@ -71,18 +71,24 @@ h5, h6, p {
 }
 
 /* Force consistent 2:3 aspect ratio on product images in the search modal.
-   The container uses height:0 + padding-bottom:150% to establish a definite
-   height (150% of its own width = 2:3 ratio). The image uses inset:0 alone —
-   NOT width/height:100%, because height:100% of a height:0 box = 0, which
-   over-constrains the abs-pos element and collapses it. inset:0 stretches
-   the image to fill the padding-box directly, which is the correct area. */
+   cqi units reference .predictive-search-results__inner (container-type:inline-size).
+   Cards sit in a repeat(2,1fr) grid ≈ 50cqi each → 2:3 height = 75cqi.
+   Above 550px the grid switches to 4 columns → height = 37.5cqi.
+   A definite cqi height means height:100% on the abs-pos image resolves
+   correctly at first render, no scroll trigger needed. */
 .predictive-search-results__card--product .resource-card__media,
 .recently-viewed-wrapper .resource-card__media {
   position: relative !important;
-  width: 100%;
-  height: 0 !important;
-  padding-bottom: 150% !important;
+  height: 75cqi !important;
+  padding-bottom: 0 !important;
   overflow: hidden;
+}
+
+@container (min-width: 550px) {
+  .predictive-search-results__card--product .resource-card__media,
+  .recently-viewed-wrapper .resource-card__media {
+    height: 37.5cqi !important;
+  }
 }
 
 .predictive-search-results__card--product .resource-card__image,
