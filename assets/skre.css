@@ -71,10 +71,15 @@ h5, h6, p {
   background-color: transparent !important;
 }
 
+/* Always 2-column grid — prevent the @container ≥550px switch to 4 columns.
+   Desktop modal is 66dvw which exceeds 550px, causing the 4-col layout that
+   makes cards tiny and images inconsistent. 2 columns matches mobile exactly. */
+.predictive-search-results__wrapper-products {
+  grid-template-columns: repeat(2, 1fr) !important;
+}
+
 /* Consistent 4:5 ratio on all product images in the search modal.
-   Primary image sits in normal flow; secondary hover image stays absolute.
-   Using aspect-ratio directly on the image avoids any cqi/container-context
-   ambiguity that caused mobile-vs-desktop inconsistency. */
+   Primary image in normal flow — no cqi, no padding tricks, works on all screen sizes. */
 .predictive-search-results__card--product .resource-card__media,
 .recently-viewed-wrapper .resource-card__media {
   position: relative !important;
