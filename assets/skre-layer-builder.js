@@ -58,7 +58,7 @@ class SkreLayerBuilder extends HTMLElement {
     {
       selector: '.skre-lb__media',
       label: 'Browse Images',
-      desc: 'Swipe or tap the arrows to explore product images.',
+      desc: 'Swipe to explore product images and tap the \'layer options\' to see different styles.',
       cardSide: 'right',
     },
     {
