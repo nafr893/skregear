@@ -1754,52 +1754,58 @@ body:has(.skre-lb) main {
   .skre-lb__cap-div { display: none !important; }
 
   /* Right zone: filmstrip floats over the image, no background */
+  /* Right zone: hard-clipped to exactly 5-thumb-width */
   .skre-lb__cap-right {
-    display: flex;
-    flex: 0 0 238px;
+    display: block;
+    width: 260px;
+    max-width: 260px;
+    flex: none;
     height: 100%;
-    align-items: stretch;
+    overflow: hidden;
   }
   .skre-lb__strip-viewport {
     position: relative;
+    width: 260px;
+    max-width: 260px;
+    height: 100%;
     overflow: hidden;
-    width: 100%;
   }
-  /* Fade edges — "hint" at partially-visible 6th thumb */
+  /* Fade edges for the "hint" effect */
   .skre-lb__strip-viewport::before,
   .skre-lb__strip-viewport::after {
     content: '';
     position: absolute;
     top: 0; bottom: 0;
-    width: 24px;
+    width: 22px;
     z-index: 1;
     pointer-events: none;
   }
   .skre-lb__strip-viewport::before {
     left: 0;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.6), transparent);
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.65), transparent);
   }
   .skre-lb__strip-viewport::after {
     right: 0;
-    background: linear-gradient(to left, rgba(0, 0, 0, 0.6), transparent);
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.65), transparent);
   }
   .skre-lb__strip-track {
     display: flex;
     gap: 4px;
     height: 100%;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 16px;
     transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  /* Square thumbnails */
+  /* Square thumbnails — 42px so 5 fit with ~33% hint of 6th at 260px */
   .skre-lb__strip-thumb {
     flex-shrink: 0;
-    width: 36px;
-    height: 36px;
+    width: 42px;
+    height: 42px;
     overflow: hidden;
     cursor: pointer;
     background: none;
     border: 2px solid transparent;
+    box-sizing: border-box;
     padding: 0;
     opacity: 0.5;
     transition: border-color 0.15s, opacity 0.15s;
@@ -1809,7 +1815,7 @@ body:has(.skre-lb) main {
   }
   .skre-lb__strip-thumb--active { border-color: #fff; opacity: 1; }
   .skre-lb__strip-thumb:hover:not(.skre-lb__strip-thumb--active) { opacity: 0.78; }
-  /* Arrows: condensed inside the strip viewport, overlaid on edges */
+  /* Arrows overlaid on edges inside the viewport */
   .skre-lb__strip-prev,
   .skre-lb__strip-next {
     position: absolute;
@@ -1819,16 +1825,16 @@ body:has(.skre-lb) main {
     background: none;
     border: none;
     color: #fff;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 700;
-    padding: 4px 4px;
+    padding: 4px 3px;
     cursor: pointer;
     opacity: 0.82;
     transition: opacity 0.15s;
     line-height: 1;
   }
-  .skre-lb__strip-prev { left: 2px; }
-  .skre-lb__strip-next { right: 2px; }
+  .skre-lb__strip-prev { left: 1px; }
+  .skre-lb__strip-next { right: 1px; }
   .skre-lb__strip-prev:hover,
   .skre-lb__strip-next:hover { opacity: 1; }
   .skre-lb__strip-prev:disabled,

@@ -673,7 +673,7 @@ class SkreLayerBuilder extends HTMLElement {
         });
       });
       // Slide strip: active at position 1 from left → 5 full visible + hint of 6th
-      const THUMB_STEP = 40; // 36px thumb + 4px gap
+      const THUMB_STEP = 46; // 42px thumb + 4px gap
       const windowStart = Math.max(0, this.#imgIndex - 1);
       stripTrack.style.transform = `translateX(${-(windowStart * THUMB_STEP)}px)`;
     }
