@@ -672,8 +672,8 @@ class SkreLayerBuilder extends HTMLElement {
           this.#renderHeroImage();
         });
       });
-      // Slide strip: keep active thumb at position 1 from left → 4 full visible + hint of 5th
-      const THUMB_STEP = 49; // 44px thumb + 5px gap
+      // Slide strip: active at position 1 from left → 5 full visible + hint of 6th
+      const THUMB_STEP = 40; // 36px thumb + 4px gap
       const windowStart = Math.max(0, this.#imgIndex - 1);
       stripTrack.style.transform = `translateX(${-(windowStart * THUMB_STEP)}px)`;
     }

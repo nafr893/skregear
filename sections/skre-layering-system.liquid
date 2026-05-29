@@ -1716,12 +1716,11 @@ body:has(.skre-lb) main {
     box-sizing: border-box;
   }
 
-  /* Left pill: layer label stacked above Back/Next */
+  /* Left pill: layer label + Back/Next in one row */
   .skre-lb__cap-left {
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 0.42rem;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.3rem;
     flex-shrink: 0;
     background: rgba(0, 0, 0, 0.52);
     backdrop-filter: blur(12px);
@@ -1757,7 +1756,7 @@ body:has(.skre-lb) main {
   /* Right zone: filmstrip floats over the image, no background */
   .skre-lb__cap-right {
     display: flex;
-    flex: 0 0 252px;
+    flex: 0 0 238px;
     height: 100%;
     align-items: stretch;
   }
@@ -1766,13 +1765,13 @@ body:has(.skre-lb) main {
     overflow: hidden;
     width: 100%;
   }
-  /* Fade edges — "hint" at partially-visible 5th thumb */
+  /* Fade edges — "hint" at partially-visible 6th thumb */
   .skre-lb__strip-viewport::before,
   .skre-lb__strip-viewport::after {
     content: '';
     position: absolute;
     top: 0; bottom: 0;
-    width: 26px;
+    width: 24px;
     z-index: 1;
     pointer-events: none;
   }
@@ -1786,16 +1785,17 @@ body:has(.skre-lb) main {
   }
   .skre-lb__strip-track {
     display: flex;
-    gap: 5px;
+    gap: 4px;
     height: 100%;
     align-items: center;
-    padding: 0 22px;
+    padding: 0 20px;
     transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
   }
+  /* Square thumbnails */
   .skre-lb__strip-thumb {
     flex-shrink: 0;
-    width: 44px;
-    height: calc(var(--skre-lb-bar-h) - 10px);
+    width: 36px;
+    height: 36px;
     overflow: hidden;
     cursor: pointer;
     background: none;
