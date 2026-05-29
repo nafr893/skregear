@@ -63,10 +63,19 @@ h5, h6, p {
   background-color: transparent !important;
 }
 
-/* Force 2:3 aspect ratio on product images in the search modal */
+/* Force consistent 2:3 aspect ratio on product images in the search modal.
+   Targeting the img directly (not the custom property) because the parent's
+   inline style="--resource-card-aspect-ratio:..." always wins for CSS vars. */
+.predictive-search-results__card--product .resource-card__image,
+.recently-viewed-wrapper .resource-card__image {
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  object-fit: cover;
+}
+
 .predictive-search-results__card--product .resource-card__media,
 .recently-viewed-wrapper .resource-card__media {
-  --resource-card-aspect-ratio: 2 / 3;
+  overflow: hidden;
 }
 
 /* Sentence-case pill labels: first letter of each word capitalised, rest lowercase */
