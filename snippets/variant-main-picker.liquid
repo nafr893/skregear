@@ -57,17 +57,12 @@
           assign opt_lc = product_option.name | downcase
           assign show_size_guide = false
           if opt_lc == 'size'
-            if settings.size_chart_header_image or product_resource.metafields.custom.size_chart != blank
-              assign show_size_guide = true
-            endif
+            assign show_size_guide = true
           endif
         -%}
         {%- capture sc_btn -%}
           {%- if show_size_guide -%}
-            <button type="button" class="skre-sc-legend-btn" onclick="document.querySelector('.skre-sc__dialog')?.showModal()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6v4M10 6v2M14 6v4M18 6v2"/></svg>
-              Size Guide
-            </button>
+            <button type="button" class="skre-sc-legend-btn" onclick="document.querySelector('.skre-sc__dialog')?.showModal()">Size Guide</button>
           {%- endif -%}
         {%- endcapture -%}
 
@@ -94,9 +89,7 @@
           >
             <legend>
               {{ product_option.name | escape -}}
-              {%- if variant_style == 'swatch' -%}
-                <span class="variant-option__swatch-value">{{ product_option.selected_value }}</span>
-              {%- endif %}
+              <span class="variant-option__swatch-value">{{ product_option.selected_value }}</span>
               {{ sc_btn }}
             </legend>
             {%- for product_option_value in product_option.values -%}
