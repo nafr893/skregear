@@ -661,9 +661,17 @@ class SkreLayerBuilder extends HTMLElement {
     const stripNext = this.querySelector('.skre-lb__strip-next');
 
     if (stripTrack) {
-      stripTrack.innerHTML = urls.map((url, i) =>
-        `<button class="skre-lb__strip-thumb${i === this.#imgIndex ? ' skre-lb__strip-thumb--active' : ''}" data-strip-img="${i}" type="button" aria-label="Image ${i + 1}">
-          <img src="${url}" alt="" loading="lazy">
+      // Render 6 slots (5 visible + 1 hint) centred on active, using modulo for infinite loop
+      const RENDER = 6;
+      const items = [];
+      for (let offset = -1; offset < RENDER - 1; offset++) {
+        const idx = ((this.#imgIndex + offset) % total + total) % total;
+        items.push({ idx, active: offset === 0 });
+      }
+      stripTrack.style.transform = '';
+      stripTrack.innerHTML = items.map(({ idx, active }) =>
+        `<button class="skre-lb__strip-thumb${active ? ' skre-lb__strip-thumb--active' : ''}" data-strip-img="${idx}" type="button" aria-label="Image ${idx + 1}">
+          <img src="${urls[idx]}" alt="" loading="lazy">
         </button>`
       ).join('');
       stripTrack.querySelectorAll('[data-strip-img]').forEach(btn => {
@@ -672,10 +680,6 @@ class SkreLayerBuilder extends HTMLElement {
           this.#renderHeroImage();
         });
       });
-      // Slide strip: active at position 1 from left → 5 full visible + hint of 6th
-      const THUMB_STEP = 46; // 42px thumb + 4px gap
-      const windowStart = Math.max(0, this.#imgIndex - 1);
-      stripTrack.style.transform = `translateX(${-(windowStart * THUMB_STEP)}px)`;
     }
     if (stripPrev) stripPrev.disabled = urls.length <= 1;
     if (stripNext) stripNext.disabled = urls.length <= 1;
