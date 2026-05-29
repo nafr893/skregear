@@ -510,10 +510,10 @@
         </button>
       </div>
       <div class="skre-lb__sc-body">
-        {%- if section.settings.size_chart_header_image -%}
+        {%- if settings.size_chart_header_image -%}
           <div class="skre-lb__sc-header-img-wrap">
             {{
-              section.settings.size_chart_header_image
+              settings.size_chart_header_image
               | image_url: width: 800
               | image_tag: alt: 'Size guide', loading: 'lazy', class: 'skre-lb__sc-header-img'
             }}
@@ -2232,11 +2232,6 @@ body:has(.skre-lb) main {
       "type": "image_picker",
       "id": "logo",
       "label": "Logo image"
-    },
-    {
-      "type": "image_picker",
-      "id": "size_chart_header_image",
-      "label": "Size chart header image (universal)"
     },
     {
       "type": "text",

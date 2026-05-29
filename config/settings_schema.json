@@ -2362,5 +2362,16 @@
         "default": "equal-width-buttons"
       }
     ]
+  },
+  {
+    "name": "Size Chart",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "size_chart_header_image",
+        "label": "Size chart header image",
+        "info": "Universal image shown at the top of every size chart drawer (e.g. a fit guide or measurement diagram)."
+      }
+    ]
   }
 ]
