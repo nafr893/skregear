@@ -120,6 +120,86 @@
         "padding-block-end": 40
       }
     },
+    "section_KN7tYH": {
+      "type": "section",
+      "blocks": {
+        "text_HgTbaJ": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "<p><em>We stand behind every product we craft, with our industry best warranty for quality and workmanship. </em><em><strong><br/><br/></strong></em></p><p>*US claims only. For claims in Canada, please visit <a href=\"https://skre.ca/\"><strong>www.skre.ca</strong></a><strong><br/><br/></strong></p><p><strong>Warranty stipulations:</strong></p><ul><li>Valid only if the gear is used for consumer use</li><li>Coverage indefinite<br/><br/></li></ul><p><strong>Our Warranty covers:</strong></p><ul><li>All manufacturer's defects, including:Material defectsButtons and bucklesZippers and zipper housingSeamsStitchingPeelingShrinkingDelimitationVelcro</li><li>Craftsmanship defects</li><li>Accessory defects<br/><br/></li></ul><p><strong>Our Warranty does not cover:</strong></p><ul><li>Damage from normal wear and tear</li><li>Branded apparel items (t-shirts, hoodies, etc.)</li><li>Socks or underwear (boxers)</li></ul><p><a href=\"https://skregear.com/apps/redo/returns-portal#/login\"><br/><br/><span style=\"text-decoration:underline\">To start a warranty claim, click here</span></a></p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 24,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "visibility": "both"
+          },
+          "blocks": {}
+        },
+        "button_h9GAQY": {
+          "type": "button",
+          "name": "t:names.button",
+          "settings": {
+            "label": "START CLAIM",
+            "link": "https://skregear.com/apps/redo/returns-portal#/login",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_HgTbaJ",
+        "button_h9GAQY"
+      ],
+      "name": "t:names.custom_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "small",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 48,
+        "padding-block-end": 0,
+        "visibility": "both"
+      }
+    },
     "main": {
       "type": "main-page",
       "blocks": {
@@ -153,6 +233,7 @@
         },
         "page-content": {
           "type": "page-content",
+          "disabled": true,
           "settings": {},
           "blocks": {}
         }
@@ -172,6 +253,7 @@
   },
   "order": [
     "hero_dk9HV8",
+    "section_KN7tYH",
     "main"
   ]
 }
