@@ -104,6 +104,21 @@
       type="module"
       fetchpriority="low"
     ></script>
+    <script type="module">
+      // overflow-list elements re-connect while startViewTransition is animating,
+      // so their reflow measurements are zero and flex-wrap:wrap gets stuck.
+      // Watch cart-items-component for the replaceChildren call, then re-dispatch
+      // the component's own 'reflow' event after layout is stable.
+      document.querySelectorAll('cart-items-component').forEach(cartItems => {
+        new MutationObserver(() => {
+          const lists = cartItems.querySelectorAll('.cart-empty__trending overflow-list');
+          if (!lists.length) return;
+          requestAnimationFrame(() => requestAnimationFrame(() => {
+            lists.forEach(el => el.dispatchEvent(new CustomEvent('reflow', { detail: {} })));
+          }));
+        }).observe(cartItems, { childList: true });
+      });
+    </script>
 
     {% capture empty_cart_drawer_content %}
       <div class="cart-drawer__header">
