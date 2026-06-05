@@ -39,275 +39,6 @@
           },
           "blocks": {}
         },
-        "accordion_Fj6KNL": {
-          "type": "accordion",
-          "name": "t:names.accordion",
-          "settings": {
-            "icon": "caret",
-            "dividers": true,
-            "type_preset": "h6",
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "accordion_row_fAYrGh": {
-              "type": "_accordion-row",
-              "settings": {
-                "heading": "What is your Return Policy?",
-                "open_by_default": true,
-                "icon": "none",
-                "width": 20
-              },
-              "blocks": {
-                "text_YVp8mt": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>We have a 30-day return policy, which means you have 30 days after receiving your item to request a return. To be eligible for a return, your item must be in the same condition that you received it, unworn or unused, with tags, and in its original packaging. </p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0,
-                    "visibility": "both"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_YVp8mt"
-              ]
-            },
-            "accordion_row_dg96nF": {
-              "type": "_accordion-row",
-              "settings": {
-                "heading": "Which Pattern should I choose?",
-                "open_by_default": false,
-                "icon": "none",
-                "width": 20
-              },
-              "blocks": {
-                "text_pCnfLm": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Our Summit pattern is very effective in the spring and early fall, while Solace tends to be favored in the later season. Both patterns are built with concealment algorithms that are designed to move with you through multiple habitat environments. Many of our prostaff and loyal customers have used both patterns throughout the season with great success. </p><p>Learn more <a href=\"https://skregear.com/pages/which-pattern-to-choose\"><span style=\"text-decoration:underline\">https://skregear.com/pages/which-pattern-to-choose</span></a></p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0,
-                    "visibility": "both"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_pCnfLm"
-              ]
-            },
-            "accordion_row_LWGDr4": {
-              "type": "_accordion-row",
-              "settings": {
-                "heading": "What does Skre stand for?",
-                "open_by_default": false,
-                "icon": "none",
-                "width": 20
-              },
-              "blocks": {
-                "text_DzHPQK": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Scree pronounced /skrē/ is an accumulation of loose stones or rocky debris lying on a slope or at the base of a hill or cliff </p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0,
-                    "visibility": "both"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_DzHPQK"
-              ]
-            },
-            "accordion_row_XX3af9": {
-              "type": "_accordion-row",
-              "settings": {
-                "heading": "Does Skre have an Outfitter program?",
-                "open_by_default": false,
-                "icon": "none",
-                "width": 20
-              },
-              "blocks": {
-                "text_Y6AdLN": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>SKRE is proud to offer an Outfitter Program to support professional users in the field. Upon approval, licensed outfitters may purchase SKRE Gear products at preferred pricing for professional use. </p><p>- Must be a registered outfitter in the United States</p><p>- Must be in good standing with their governing organizations</p><p>- Provide SKRE Gear with a copy of your current outfitter license</p><p>- Complete and submit the form below</p><p>Apply here: <span style=\"text-decoration:underline\">https://skregear.com/pages/outfitter-application</span></p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0,
-                    "visibility": "both"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_Y6AdLN"
-              ]
-            },
-            "accordion_row_EQG9aa": {
-              "type": "_accordion-row",
-              "settings": {
-                "heading": "Does Skre have a Pro Staff program?",
-                "open_by_default": false,
-                "icon": "none",
-                "width": 20
-              },
-              "blocks": {
-                "text_KUzQ93": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Yes, fill out the Prostaff Application below.</p><p><a href=\"https://skregear.com/pages/pro-staff\"><span style=\"text-decoration:underline\">https://skregear.com/pages/pro-staff</span></a></p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0,
-                    "visibility": "both"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_KUzQ93"
-              ]
-            },
-            "accordion_row_fdxFrC": {
-              "type": "_accordion-row",
-              "settings": {
-                "heading": "Does Skre have a Field Staff program?",
-                "open_by_default": false,
-                "icon": "none",
-                "width": 20
-              },
-              "blocks": {
-                "text_YU8GRb": {
-                  "type": "text",
-                  "settings": {
-                    "text": "<p>Yes, fill out the Field staff Application below.</p><p><a href=\"https://skregear.com/pages/field-staff\"><span style=\"text-decoration:underline\">https://skregear.com/pages/field-staff</span></a></p>",
-                    "width": "100%",
-                    "max_width": "normal",
-                    "alignment": "left",
-                    "type_preset": "rte",
-                    "font": "var(--font-body--family)",
-                    "font_size": "1rem",
-                    "line_height": "normal",
-                    "letter_spacing": "normal",
-                    "case": "none",
-                    "wrap": "pretty",
-                    "color": "var(--color-foreground)",
-                    "background": false,
-                    "background_color": "#00000026",
-                    "corner_radius": 0,
-                    "padding-block-start": 0,
-                    "padding-block-end": 0,
-                    "padding-inline-start": 0,
-                    "padding-inline-end": 0,
-                    "visibility": "both"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "text_YU8GRb"
-              ]
-            }
-          },
-          "block_order": [
-            "accordion_row_fAYrGh",
-            "accordion_row_dg96nF",
-            "accordion_row_LWGDr4",
-            "accordion_row_XX3af9",
-            "accordion_row_EQG9aa",
-            "accordion_row_fdxFrC"
-          ]
-        },
         "heading": {
           "type": "text",
           "name": "Title",
@@ -345,7 +76,6 @@
       },
       "block_order": [
         "text_eLcNNx",
-        "accordion_Fj6KNL",
         "heading",
         "page-content"
       ],
@@ -354,11 +84,547 @@
         "gap": 32,
         "color_scheme": "",
         "padding-block-start": 40,
-        "padding-block-end": 80
+        "padding-block-end": 48
+      }
+    },
+    "section_3BgXm3": {
+      "type": "section",
+      "blocks": {
+        "accordion_tGinCC": {
+          "type": "accordion",
+          "name": "t:names.accordion",
+          "settings": {
+            "icon": "caret",
+            "dividers": true,
+            "type_preset": "h6",
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "accordion_row_RVnYmi": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "What is your Return Policy?",
+                "open_by_default": true,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_X43TUn": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>We have a 30-day return policy, which means you have 30 days after receiving your item to request a return. To be eligible for a return, your item must be in the same condition that you received it, unworn or unused, with tags, and in its original packaging. </p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "visibility": "both"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_X43TUn"
+              ]
+            },
+            "accordion_row_bVnYme": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Which Pattern should I choose?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_CECkyV": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Our Summit pattern is very effective in the spring and early fall, while Solace tends to be favored in the later season. Both patterns are built with concealment algorithms that are designed to move with you through multiple habitat environments. Many of our prostaff and loyal customers have used both patterns throughout the season with great success. </p><p>Learn more <a href=\"https://skregear.com/pages/which-pattern-to-choose\"><span style=\"text-decoration:underline\">https://skregear.com/pages/which-pattern-to-choose</span></a></p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "visibility": "both"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_CECkyV"
+              ]
+            },
+            "accordion_row_zWwtzW": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "What does Skre stand for?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_qWJhRa": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Scree pronounced /skrē/ is an accumulation of loose stones or rocky debris lying on a slope or at the base of a hill or cliff </p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "visibility": "both"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_qWJhRa"
+              ]
+            },
+            "accordion_row_8fff4R": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Does Skre have an Outfitter program?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_8gVpgN": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>SKRE is proud to offer an Outfitter Program to support professional users in the field. Upon approval, licensed outfitters may purchase SKRE Gear products at preferred pricing for professional use. </p><p>- Must be a registered outfitter in the United States</p><p>- Must be in good standing with their governing organizations</p><p>- Provide SKRE Gear with a copy of your current outfitter license</p><p>- Complete and submit the form below</p><p>Apply here: <span style=\"text-decoration:underline\">https://skregear.com/pages/outfitter-application</span></p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "visibility": "both"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_8gVpgN"
+              ]
+            },
+            "accordion_row_tAAGaR": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Does Skre have a Pro Staff program?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_7xL46Q": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Yes, fill out the Prostaff Application below.</p><p><a href=\"https://skregear.com/pages/pro-staff\"><span style=\"text-decoration:underline\">https://skregear.com/pages/pro-staff</span></a></p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "visibility": "both"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_7xL46Q"
+              ]
+            },
+            "accordion_row_k763hY": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Does Skre have a Field Staff program?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_gdRNVJ": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Yes, fill out the Field staff Application below.</p><p><a href=\"https://skregear.com/pages/field-staff\"><span style=\"text-decoration:underline\">https://skregear.com/pages/field-staff</span></a></p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "visibility": "both"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_gdRNVJ"
+              ]
+            }
+          },
+          "block_order": [
+            "accordion_row_RVnYmi",
+            "accordion_row_bVnYme",
+            "accordion_row_zWwtzW",
+            "accordion_row_8fff4R",
+            "accordion_row_tAAGaR",
+            "accordion_row_k763hY"
+          ]
+        },
+        "accordion_BzdyWP": {
+          "type": "accordion",
+          "name": "t:names.accordion",
+          "settings": {
+            "icon": "caret",
+            "dividers": true,
+            "type_preset": "h6",
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "accordion_row_6yc4fW": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "What is Shop Pay?",
+                "open_by_default": true,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_KbbQrn": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Shop Pay is an accelerated checkout that lets customers save their email address, credit card, and shipping and billing information. This can save customers time when they check out, especially if they've already opted in to Shop Pay on any Shopify store.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "visibility": "both"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_KbbQrn"
+              ]
+            },
+            "accordion_row_dQAebA": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "What is the Reward and Referral Program?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_gbiqVB": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Earn rewards for every dollar you spend. Skre will give you 5% back in a credit for every dollar you spend. Just enroll for free by clicking on the link below.</p><p><a href=\"https://skregear.com/pages/rewards-program-page\"><span style=\"text-decoration:underline\">https://skregear.com/pages/rewards-program-page</span></a></p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "visibility": "both"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_gbiqVB"
+              ]
+            },
+            "accordion_row_cirjdi": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Can Skre help me decide what gear I should get?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_3xK6kG": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>SKRE has knowledgeable staff on hand ready to help you select the right gear for a successful hunt. You can conveniently use the chat feature on the website or call us at 435-704-9059.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "visibility": "both"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_3xK6kG"
+              ]
+            },
+            "accordion_row_b6tFQ3": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "Can I track my order?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_gEBYzf": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>Yes. Once you receive your shipping confirmation you will receive a tracking number. In addition you can log into your account and see where your shipment is.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "visibility": "both"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_gEBYzf"
+              ]
+            },
+            "accordion_row_y3AFXH": {
+              "type": "_accordion-row",
+              "settings": {
+                "heading": "How is the sizing of the gear?",
+                "open_by_default": false,
+                "icon": "none",
+                "width": 20
+              },
+              "blocks": {
+                "text_zwrhtM": {
+                  "type": "text",
+                  "settings": {
+                    "text": "<p>We have gone to great effort to ensure our sizing runs true to size. If you are between sizes we always advise customers to size up. Please refer to sizing charts provided on each product page.</p>",
+                    "width": "100%",
+                    "max_width": "normal",
+                    "alignment": "left",
+                    "type_preset": "rte",
+                    "font": "var(--font-body--family)",
+                    "font_size": "1rem",
+                    "line_height": "normal",
+                    "letter_spacing": "normal",
+                    "case": "none",
+                    "wrap": "pretty",
+                    "color": "var(--color-foreground)",
+                    "background": false,
+                    "background_color": "#00000026",
+                    "corner_radius": 0,
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0,
+                    "visibility": "both"
+                  },
+                  "blocks": {}
+                }
+              },
+              "block_order": [
+                "text_zwrhtM"
+              ]
+            }
+          },
+          "block_order": [
+            "accordion_row_6yc4fW",
+            "accordion_row_dQAebA",
+            "accordion_row_cirjdi",
+            "accordion_row_b6tFQ3",
+            "accordion_row_y3AFXH"
+          ]
+        }
+      },
+      "block_order": [
+        "accordion_tGinCC",
+        "accordion_BzdyWP"
+      ],
+      "name": "t:names.custom_section",
+      "settings": {
+        "content_direction": "row",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "flex-start",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 50,
+        "section_width": "page-width",
+        "section_height": "small",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 60,
+        "visibility": "both"
       }
     }
   },
   "order": [
-    "main"
+    "main",
+    "section_3BgXm3"
   ]
 }
