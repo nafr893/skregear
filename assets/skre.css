@@ -116,6 +116,7 @@ h5, h6, p {
   overflow: hidden !important;
   height: auto !important;
   padding-bottom: 0 !important;
+  background-color: #f9f9f9;
 }
 
 .predictive-search-results__card--product .resource-card__image:not(.resource-card__image--secondary),
@@ -127,6 +128,7 @@ h5, h6, p {
   aspect-ratio: 4 / 5 !important;
   object-fit: cover !important;
   display: block !important;
+  mix-blend-mode: multiply;
 }
 
 /* Keep secondary (hover) image filling the container */
