@@ -329,7 +329,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h3>Guide & Outfitter</h3>",
+                "text": "<h3>Law Enforcement & Government</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -357,7 +357,7 @@
               "name": "t:names.button",
               "settings": {
                 "label": "Apply Now",
-                "link": "https://skregear.com/pages/outfitter-application",
+                "link": "https://skregear.com/pages/law-enforcement",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
@@ -441,7 +441,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h3>Guide & Outfitter</h3>",
+                "text": "<h3>Industry Professional</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -469,7 +469,7 @@
               "name": "t:names.button",
               "settings": {
                 "label": "Apply Now",
-                "link": "https://skregear.com/pages/outfitter-application",
+                "link": "https://skregear.com/pages/industry-professional",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
@@ -497,7 +497,7 @@
         "content_direction": "row",
         "vertical_on_mobile": true,
         "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
+        "vertical_alignment": "flex-start",
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
