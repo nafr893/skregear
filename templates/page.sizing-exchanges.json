@@ -164,7 +164,7 @@
                 "background_color": "#00000026",
                 "corner_radius": 0,
                 "padding-block-start": 0,
-                "padding-block-end": 0,
+                "padding-block-end": 12,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0,
                 "visibility": "both"
@@ -265,7 +265,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p>In the event of a return, <span style=\"text-decoration:underline\">you will be responsible</span> for the shipping cost to send any unwanted items back to us. All returns after 60 days will be for store credit only.<br/></p><p><br/></p><p>Follow these steps:</p><p>1. Make sure the items have not been used in the field, original tags still attached and the initial purchase was from Skre Gear USA</p><p>2. Follow the prompts on the next screen. (<a href=\"https://skregear.com/apps/redo/returns-portal#/login\"><span style=\"text-decoration:underline\">Click here to get started</span></a>)</p><p>3. Allow 7-14 days from when you drop off the package for us to refund the purchase to your account</p><p>If you have additional questions call us at 435-295-4197 or email us at support@skregear.com </p><p><br/></p>",
+                "text": "<p>In the event of a return, <span style=\"text-decoration:underline\">you will be responsible</span> for the shipping cost to send any unwanted items back to us. All returns after 60 days will be for store credit only.<br/></p><p><br/></p><p>Follow these steps:</p><p>1. Make sure the items have not been used in the field, original tags still attached and the initial purchase was from Skre Gear USA</p><p>2. Follow the prompts on the next screen. (<a href=\"https://skregear.com/apps/redo/returns-portal#/login\"><span style=\"text-decoration:underline\">Click here to get started</span></a>)</p><p>3. Allow 7-14 days from when you drop off the package for us to refund the purchase to your account</p><p>If you have additional questions call us at 435-295-4197 or email us at support@skregear.com <br/></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -281,7 +281,7 @@
                 "background_color": "#00000026",
                 "corner_radius": 0,
                 "padding-block-start": 0,
-                "padding-block-end": 0,
+                "padding-block-end": 20,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0,
                 "visibility": "both"
