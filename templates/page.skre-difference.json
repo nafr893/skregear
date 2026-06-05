@@ -41,7 +41,7 @@
         "text_x4raMf": {
           "type": "text",
           "settings": {
-            "text": "<p>Hunters demand a lot out of their gear and success rarely comes easy. </p><p>At Skre there is zero compromise when its comes to crafting high-quality performance gear.</p>",
+            "text": "<p><strong>Hunters demand a lot out of their gear and success rarely comes easy. </strong></p><p><strong>At Skre there is zero compromise when its comes to crafting high-quality performance gear.</strong></p>",
             "width": "100%",
             "max_width": "none",
             "alignment": "left",
@@ -57,7 +57,7 @@
             "background_color": "#00000026",
             "corner_radius": 0,
             "padding-block-start": 0,
-            "padding-block-end": 32,
+            "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0,
             "visibility": "both"
@@ -67,6 +67,7 @@
         "button_YerhA6": {
           "type": "button",
           "name": "t:names.button",
+          "disabled": true,
           "settings": {
             "label": "Shop now",
             "link": "shopify://collections/all",
