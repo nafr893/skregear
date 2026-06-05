@@ -391,9 +391,17 @@
       ],
       "name": "t:names.collections_grid",
       "settings": {
-        "collection_list": [],
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
+        "collection_list": [
+          "baselayer-tops",
+          "fleece",
+          "hardscrabble-series",
+          "insulation-1",
+          "jackets-vests",
+          "pants-bibs",
+          "packs-bags-equipment"
+        ],
+        "layout_type": "carousel",
+        "carousel_on_mobile": true,
         "columns": 3,
         "mobile_columns": "2",
         "mobile_card_size": "60cqw",
