@@ -147,6 +147,15 @@ h5, h6, p {
   font-weight: 500;
 }
 
+/* Cart trending cards: match collection page product card appearance */
+.cart-empty__trending .resource-card__media {
+  background-color: #f9f9f9;
+}
+
+.cart-empty__trending .resource-card__image:not(.resource-card__image--secondary) {
+  mix-blend-mode: multiply;
+}
+
 /* Keep cart drawer top-aligned when empty (theme centers by default) */
 .cart-drawer--empty .cart-drawer__inner {
   justify-content: flex-start !important;
