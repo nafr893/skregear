@@ -9,6 +9,144 @@
  */
 {
   "sections": {
+    "section_8dWrDy": {
+      "type": "section",
+      "blocks": {
+        "group_FPF9Ak": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "visibility": "both"
+          },
+          "blocks": {
+            "text_CjeVeC": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h4>Mike Nielson - Founder</h4>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "visibility": "both"
+              },
+              "blocks": {}
+            },
+            "text_WaKnwT": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>I grew up in a small farming community at the base of the beautiful Wasatch mountains in northern Utah. I cut my teeth on hunting. In the fall I could often be found tagging along with Dad as he chased wild ring necks in ditch banks behind our German shorthair pointer Dandy. I was scarcely big enough to clear a ditch bank, and many times ended up in the middle of a ditch full of water. I didn't care! I was doing what Dad loved, and what I loved. Not too many birds could out fox Dandy. She was born to hunt, and provided our family with some exceptional pheasant hunting memories.<br/><br/>As much as I loved to pheasant hunt, I was completely taken with the large set of Mule deer antlers that adorned our fireplace. Many nights I found myself laying on the floor and staring up at those antlers, and wondering what it would be like to see this buck on the hoof. Dad took this buck on his first hunt when he was sixteen. I've heard the story hundreds of times, and never grow tired of hearing it once more. This story lit a fire deep in my soul, and spawned a passion for all things hunting.        </p><p>It was 1965 and Dad had hiked out of camp the second weekend of the Utah general season. As evening approached, he found himself on an open ridge with an oak choked canyon below. The spot looked promising. He got comfortable, in anticipation for what the evening hunt might bring. He'd only been there a few minutes when he heard the crunch of leaves below him. Something, or someone was walking through the scrub oak ravine. The oak was too thick to see into, so identifying the source of the noise was impossible. The oak ravine continued up hill eventually giving way to a small opening that disappeared into the next drainage not far from dads location. The noise continued for several minutes. What ever it was making all that noise, was heading for the opening a mere 50 yards from Dads perch. Dad said he was pretty convinced it wasn't a deer. <br/><br/>He said no deer would be dumb enough to make that kind of noise. At one point, he even tossed a few small rocks into the oak to see if he could get a response out of whatever it was making the ruckus. What happened next he described as surreal. A large buck appeared in the opening with his head down peering into the next drainage. The big ole monarch was completely unaware of Dad's presence a mere 50 yards away. He made quick use of the Enfield 30 06, and cracked off a shot. He was promptly standing over the buck of a lifetime. Dad was in total dismay of the events that unfolded. The buck was later inspected at a check point, and was estimated to be over ten years old. Dad even admits to this day; the buck must have been stone cold deaf. The following week, Grandpa, was hunting the book cliffs with the same rifle Dad had used to dispatch his trophy a week earlier. He arrived at a canyon that looked \"bucky\". He tossed a fist size rock that tumbled down the canyon into a patch of quakies. Three bucks exploded from cover. Grandpa immediately dropped off into the canyon and left his two companions on top to intercept the bucks, should they make a get away out the top. The two smaller bucks headed out the top, but the big buck tried to circle back and ran right into Grandpa. Both bucks now adorn Dads fireplace, and are a constant reminder of why I'm so passionate about hunting.<br/><br/><strong>TIME SPENT WITH GRANDPA</strong><br/><br/></p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "visibility": "both"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_CjeVeC",
+            "text_WaKnwT"
+          ]
+        }
+      },
+      "block_order": [
+        "group_FPF9Ak"
+      ],
+      "name": "t:names.custom_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "small",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0,
+        "visibility": "both"
+      }
+    },
     "main": {
       "type": "main-page",
       "blocks": {
@@ -42,6 +180,7 @@
         },
         "page-content": {
           "type": "page-content",
+          "disabled": true,
           "settings": {},
           "blocks": {}
         }
@@ -50,6 +189,7 @@
         "heading",
         "page-content"
       ],
+      "disabled": true,
       "settings": {
         "content_direction": "column",
         "gap": 32,
@@ -60,6 +200,7 @@
     }
   },
   "order": [
+    "section_8dWrDy",
     "main"
   ]
 }
