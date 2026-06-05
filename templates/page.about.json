@@ -1,0 +1,512 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "section_8dWrDy": {
+      "type": "section",
+      "blocks": {
+        "group_FPF9Ak": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "visibility": "both"
+          },
+          "blocks": {
+            "text_CjeVeC": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h4>Mike Nielson | Founder</h4>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "visibility": "both"
+              },
+              "blocks": {}
+            },
+            "text_WaKnwT": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>I grew up in a small farming community at the base of the beautiful Wasatch mountains in northern Utah. I cut my teeth on hunting. In the fall I could often be found tagging along with Dad as he chased wild ring necks in ditch banks behind our German shorthair pointer Dandy. I was scarcely big enough to clear a ditch bank, and many times ended up in the middle of a ditch full of water. I didn't care! I was doing what Dad loved, and what I loved. Not too many birds could out fox Dandy. She was born to hunt, and provided our family with some exceptional pheasant hunting memories.<br/><br/>As much as I loved to pheasant hunt, I was completely taken with the large set of Mule deer antlers that adorned our fireplace. Many nights I found myself laying on the floor and staring up at those antlers, and wondering what it would be like to see this buck on the hoof. Dad took this buck on his first hunt when he was sixteen. I've heard the story hundreds of times, and never grow tired of hearing it once more. This story lit a fire deep in my soul, and spawned a passion for all things hunting.        </p><p>It was 1965 and Dad had hiked out of camp the second weekend of the Utah general season. As evening approached, he found himself on an open ridge with an oak choked canyon below. The spot looked promising. He got comfortable, in anticipation for what the evening hunt might bring. He'd only been there a few minutes when he heard the crunch of leaves below him. Something, or someone was walking through the scrub oak ravine. The oak was too thick to see into, so identifying the source of the noise was impossible. The oak ravine continued up hill eventually giving way to a small opening that disappeared into the next drainage not far from dads location. The noise continued for several minutes. What ever it was making all that noise, was heading for the opening a mere 50 yards from Dads perch. Dad said he was pretty convinced it wasn't a deer. <br/><br/>He said no deer would be dumb enough to make that kind of noise. At one point, he even tossed a few small rocks into the oak to see if he could get a response out of whatever it was making the ruckus. What happened next he described as surreal. A large buck appeared in the opening with his head down peering into the next drainage. The big ole monarch was completely unaware of Dad's presence a mere 50 yards away. He made quick use of the Enfield 30 06, and cracked off a shot. He was promptly standing over the buck of a lifetime. Dad was in total dismay of the events that unfolded. The buck was later inspected at a check point, and was estimated to be over ten years old. Dad even admits to this day; the buck must have been stone cold deaf. The following week, Grandpa, was hunting the book cliffs with the same rifle Dad had used to dispatch his trophy a week earlier. He arrived at a canyon that looked \"bucky\". He tossed a fist size rock that tumbled down the canyon into a patch of quakies. Three bucks exploded from cover. Grandpa immediately dropped off into the canyon and left his two companions on top to intercept the bucks, should they make a get away out the top. The two smaller bucks headed out the top, but the big buck tried to circle back and ran right into Grandpa. Both bucks now adorn Dads fireplace, and are a constant reminder of why I'm so passionate about hunting.<br/><br/><strong>TIME SPENT WITH GRANDPA</strong></p><p>I was very fortunate as a youngster, to have a Dad and both grandfathers who loved tio hunt. My Grandpa, William Samson, played a huge role in my life. Each year when school let out for the summer, he would take my four brothers and I on a fishing trip in the Uintah mountains. The mornings were spent catching wild brooke trout in small mountain streams. The afternoons and evenings, we enjoyed varmint hunting and glassing for elk. Mom and Grandma thought he was positively nuts to take 5 young boys alone into the mountains. He wouldn't have it any other way. The drive up and back was every bit as fun as the trip itself. Grandpa seemed to have an endless archive of hunting stories, many of which were chasing bulging elk in his beloved Uintah mountains. They built and used their own elk calls with a lot of success. He was a true woodsman and always provided a great camp environment. His elk hunting trips usually extended into two weeks. They hunted hard and were usually rewarded with success. Three decades later, I still relish him telling those stories. Grandpa is still hunting & fishing at 90.<br/><br/><strong>FULFILLING A DREAM</strong>        <br/><br/>One of my favorite things to do as a youngster, was the trips we'd take to Sunset sporting goods in Sunset Utah. Sunset sporting goods, was famous for their big buck contest, where a brand spanking new Ford Bronco II was awarded to the hunter who hauled in the largest rack each fall. I always looked forward with anticipation to see the pictures of all the big bucks the contest brought in. I don't recall being interested in any of the merchandise, probably because I had no money. However I was completely mesmerized by all the shoulder mounts of trophy elk, deer, moose, sheep and other big game animals that were on display. Young boys like to dream, and I certainly did my fair share of dreaming.        When I was 15, my parents moved the family to southern Utah. It didn't take me long to realize my new home was in the middle of some of the best trophy hunting in the world, with the famed AZ strip and Paunsaugunt Plateau in my back yard.<br/><br/>After serving a two year mission for my church in Columbia SC, I returned home with no idea the direction I wanted to go with a career. However, I knew that I wanted to marry Lisa Terry, and in December of 1994 I popped the question and she said ok. I spent the next 5 years in college trying to figure things out. During this time I took a part time job at a Sporting Goods store. I really enjoyed the work and the atmosphere. A short time later the manager offered me a full-time management position at a new store in northern Utah, and I jumped at the chance. I spent the next two years learning the industry. It was a great learning experience, but due to the nature of the business, I was now hunting less than before I took the job. Prior to taking the sporting goods job, I had been dabbling in auto sales with my younger brother Scott. It was finally decided the two of us would pool are cash together and open up our own car dealership. We packed up the family and headed back home to southern Utah.        </p><p>Over the next two years, we scrimped and saved and sacrificed to grow our company. It wasn't long before the sacrifices began to pay off. I remember a gentlemen coming into our dealership and asking if we consigned RV's. We had little experience with RV's but agreed to consign his RV anyway. We sold his RV within a week. A light bulb turned on and we began to consign more RV's, and before long we took on our first RV franchise. The rest is history. We decided RV's were more enjoyable to sell than cars and it wasn't long before we were a full fledged RV dealership. As the business began to grow, I began to have more time and money to pursue my passion for hunting. It was at this time that I met Travis Roundy from Glendale Utah. We instantly became good friends.<br/><br/>Over the next few years, I began to apply and hunt in multiple states. Colorado was a state I was very interested in hunting, and in 2007 Travis and I acquired a tag that would allow us to chase giant bucks above timberline.        </p><p>Working in sporting goods, I acquired a fascination, obsession really, with hunting gear. To say I'm a gear junkie is grossly understated. I knew success above timberline would require me to be physically fit, and have gear that was light weight, durable, and functional. The first thing I updated was my hunting apparel. I did my research, and ended up spending a great deal of money on what I believed to be the best in light weight, breathable hunting gear. The trip ended up being a great success and I hammered a big basket racked buck above timberline. I learned a lot on that hunt, however, the most valuable lesson I learned was that some of the expensive gear I purchased, particularly the clothing, did not live up to the advertised hype. While the clothing was adequately durable, and moderately breathable, it did not perform any better than clothing I had used on past hunts that I'd spent significantly less to purchase. One observation I made, was regardless of the camo pattern I wore I was getting busted a large majority of the time. I always played the wind right, which convinced me the camo patterns I was using were ineffective. Over the course of the next few years, I went on several more extreme hunts. With each hunt, I tried new gear, and new technical pieces of clothing. <br/><br/>In 2011 my good friend Travis Roundy and I booked a combo hunt with a friend and outfitter in Alaska for dall sheep, moose, and grizzly. We flew deep into the Alaska Range and hunted out of a backpack for 3 solid weeks. During that trip we harvested two large rams, two big bulls, and a grizzly. Living out of backpacks for three weeks, and packing out 5 animals, we did a lot of hiking and a lot of sweating. We crossed expansive glaciers, navigated large crevasses, and scaled steep mountains. It was the hunt of a lifetime. I learned a lot about myself on that hunt. I also learned the value of having quality gear with an effective concealment pattern.</p>",
+                "width": "100%",
+                "max_width": "none",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "visibility": "both"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_CjeVeC",
+            "text_WaKnwT"
+          ]
+        },
+        "group_aBcjtN": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 48,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "visibility": "both"
+          },
+          "blocks": {
+            "text_4qxtii": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h4>Mike Wand | Co-Founder and Partner</h4>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "visibility": "both"
+              },
+              "blocks": {}
+            },
+            "text_WHTLrY": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>Innovation. Ingenuity. Execution. Service. These are powerful words, both for myself and our company. I call SKRE our company, because that’s exactly what it is: my three partners and I putting it all on the line to revolutionize the high performance outdoor apparel industry. I began this adventure in 2013, as I was sitting on a plane heading back to the USA with two of my partners, Scott and Michael Nielson. Mike would argue that this dream began much earlier than this moment, as it’s been one of his lifelong goals. Our origin story is one of hesitation, difficulty, frustration, disaster, and failure. For 24 months plus we experienced one trial after another, one failure after another. But through these failures we emerged smarter, stronger, wiser men. Men with more dedication and commitment to see this project succeed. Ultimately we decided to move forward, risking it all - literally for a couple of us – in pursuing this dream. I felt it a worthy goal. Why? Why do this? We built this company on the premise of providing a superior product at a great price. The beautiful aspect of this, and what drives me personally, is the spirit of entrepreneurialism. I find it very liberating to manifest my own destiny through determination, a strong work ethic and the execution of sound business strategies. It is very rewarding to know that the work we are doing goes toward helping people follow their dreams and achieve their goals, creating everlasting memories in the process. This in turn leads to more peace and enjoyment in people's lives. Although my partners and I come from very different backgrounds, we were able to find common ground, including a passion and respect for the great outdoors, a love of family life, and a goal of helping enhance and improve people’s lives through sound business principles. I have been amazed not only at the knowledge I have learned from my partners, but from what I have gained from people in this industry. I have met so many humble, dedicated, honorable men and women whom have a deep passion for the outdoors, for family, and the American dream. It has been an amazing and beautiful journey for me and I am so grateful for the experience so far. I will do what I can with the knowledge I have to help build, shape, and run SKRE into the one of the best performance apparel companies in the world. I grew up near a beach in San Diego. Spent most of my free time surfing the Pacific or snowboarding the Sierra Nevada’s. I graduated in 2004 from Cal Poly San Luis Obispo with a B.S. in Business Administration, duel concentration in finance and international business, minor in economics. Upon graduating, I worked in corporate finance for most of my 20’s. Learned some important life lessons during that time. Left the big city and came to St. George in 2010 where I met my partners. In 2014, I got married to my wonderful wife and became a stepfather to three boys ages 8, 12, and 14.</p>",
+                "width": "100%",
+                "max_width": "none",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "visibility": "both"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_4qxtii",
+            "text_WHTLrY"
+          ]
+        },
+        "group_JkNPhG": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 48,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "visibility": "both"
+          },
+          "blocks": {
+            "text_knzWH8": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h4>Travis Roundy | Co-founder</h4>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "visibility": "both"
+              },
+              "blocks": {}
+            },
+            "text_8FAkDg": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>Hunting has been a way of life for me from the ‘70’s growing up in Southern Utah along the western border of the Paunsaugunt deer unit. I was born the eldest of 7 boys into a second generation logging family. Timber, log trucks, sawmills, chainsaws, and the rugged mountains were in my blood early on in my boyhood. Along with the logging came the hunting and living where I do I was able to witness one of the coolest eras of mule deer hunting in history. The Paunsaugunt was struggling with low deer numbers and in the late ‘70’s it was closed to deer hunting until the mid ‘80’s when it was reopened again. Deer numbers skyrocketed and the towns and mountains around here were busting at the seams with deer, and a lot of them were giant bucks! I remember picking up shed antlers on the hills by town and kids bringing sheds to school that they had found at the bus stop alongside the road. It was a magical time to be alive and I caught the mule deer bug probably worse than anyone I know.I loved to play baseball and basketball from Little league all the way up through high school. However, i was more interested in logging and hunting big bucks. I had started to apply in Arizona and the surrounding states as a teenager and my big buck collection had a good start by the time I graduated from high school. I attended Southern Utah University for a year and cut timber out on the Kaibab in Northern Arizona for a year and then I left the country to serve a two year mission for the LDS Church in Sao Paulo, Brazil. After the mission ended, I returned to S.U.U. to resume my college degree in Wildlife biology, which I never did complete. Colette Sorensen and I started dating and I talked her into marrying me in August of ‘94 and we settled in Cedar City, while she finished her degree at S.U.U., while I apprenticed at Bulkley Taxidermy in Panguitch, Utah for a 4 month stint. I decided to open up my own taxidermy shop in our back yard in 1995 and from there Roundy Taxidermy has been my full time job for over 20 years. I have guided deer and elk hunters off and on since I was 16, and I also recently worked at Huntin’ Fool Magazine as a hunt consultant and manager, gaining valuable experience in magazine publishing, business, production of Huntin’ Fool TV, and working with dozens of the top companies in the hunting and outdoor world. Colette and I have an awesome family and we love sports, hunting, and shed antler hunting. We have 6 kids, which include 4 girls and 2 boys. All the kids love to hunt, and we have spent a lot of quality family time in the mountains together over the years.My passion for the hunt has led me to Alaska, Africa, Mexico, Florida, and almost every western state. I have backpacked into some of the most rugged and unforgiving mountains in the west and parts of Alaska in pursuit of big game. I love to backpack and see new places while I’m hunting and scouting each year. We currently own 6 hunting horses and mules and the kids, especially the boys, love to hunt horseback in the mountains of Utah, Idaho, Wyoming, and Colorado. We have taken some big mule deer in the high country in those mountains, as well as here at home in Utah. Sometimes I wonder if the boys enjoy the horses more than they do hunting big bucks!I make a living at the taxidermy shop and I enjoy the life I live very much! My favorite animals to work on arethe mule deer and Mountain lions. We do work for hunters around the country that appreciate a beautiful lion mount. The taxidermy shop has given me an opportunity to meet many people and make a lot of new friends, including SKRE Gear partner Mike Nielson. Mike showed up at a trade show where I had a taxidermy booth showing off some of my work. He had a desire to hunt big mule deer and for some reason we made a friendship there that has lasted over 15 years. We have hunted Dall sheep, grizzly, moose, elk, mule deer, and many other big game animals around the earth, and have seen some pretty awesome country on our expeditions. Mike has always been a gear junky, and is always looking for new and better gear to make our hunts and back-country trips better and more successful. Mike approached me a couple of years ago with the idea that he had to design a new camo pattern and develop technical hunting gear utilizing a totally new and unrivaled pattern. His goal was and still is to design hunting clothing and gear that really does what we want it to do in the terrain we hunt in. After two years of working with arguably the top camouflage design guru in the world, trips to Asia, hunts to diverse locations testing gear, and a thousand other things, we have SKRE, Extreme Mountain Gear. I am excited to be involved in a startup company and look forward working with the great people in the hunting and outdoor industry!</p>",
+                "width": "100%",
+                "max_width": "none",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "visibility": "both"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_knzWH8",
+            "text_8FAkDg"
+          ]
+        },
+        "group_BdnApV": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 12,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 48,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "visibility": "both"
+          },
+          "blocks": {
+            "text_NHwnfw": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h4>The Making of SKRE | A 40 year collaborated project. </h4>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "visibility": "both"
+              },
+              "blocks": {}
+            },
+            "text_WPdhni": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>One thing I like to do at the end of each hunt is evaluate my gear. My criteria is simple. Did it perform the function for which it was purchased? Did it live up to the advertised performance? How well did it perform? Did it provide concealment? And most importantly did it provide me with an edge. If it met or exceeded my criteria, it remains in service. If it failed in anyway, or under performed, it gets the ax. I have been on many extreme mountain hunts, and have literally tried every brand of hunting apparel you can imagine. I have purchased the most expensive and the least expensive and everything in the middle. I've had very expensive pieces fail, and I have also had pieces that I picked up for a reasonable price which shined in the face of extreme elements. Over the course of many hunts I began to notice technical pieces which claimed to be superior in performance, and which also came with a very hefty price tag, did not necessarily perform any better than those that were significantly less. For example, I could not determine with certainty that one piece was anymore breathable than another piece which claimed to be the most breathable in the industry. I concluded after many years of mountain hunting, and gear testing there was plenty of exceptional gear to choose from however, as important as performance was to hunting apparel, there was a second piece to hunting apparel which was getting completely overlooked. I speak of concealment, commonly known as camouflage. One common theme I begin to notice over the years, was that even the best gear, seemed to fail in regards to concealment. I was amazed that so much focus was put into performance, that concealment became an after thought. I once asked an old timer what he though the most effective camouflage pattern was. He replied, \"the one that is on sale\". I got a kick out of that, but wondered if there was some truth to what he said. I know every hunter has been busted, while trying to close to within striking distance, especially archery hunters. Hunters refer to this as the stare down. This is where an animal has you pegged. At first he may have picked up on your movement, however, as you freeze, if an animal is not thoroughly convinced you are natural or common place, you will likely get a long stare down. There is a reason an animal does this. There is something about you that is unnatural or out of place. For example, if you are wearing a mimicry pattern that mimics sage brush and you are hunting above timberline you are going to look out of place.        </p><p>A few years ago I met a guy, who is arguable the best concealment designer in the world. He has designed concealment patterns for the US military, US special forces, and some of the top militaries and law enforcement around the world. Men and women who serve in the armed forces rely on the science of Concealment. Effective concealment can mean the difference between life and death in combat situations. Furthermore I learned that militaries and law enforcement around the world have spent millions on concealment technology. To say advancements in concealment has revolutionized the industry would be a gross understatement. In order to understand the difference between concealment patterns that are effective and ones that are not, you need to grasp the science behind modern concealment technology. Consider the following explanation, \"The world we live in is made up of geometric shapes known as fractals. A Fractal tends to repeat at larger or smaller scales within the same object. A twig is a small version of a branch which can be a small version of a parent branch which is a small version of the tree trunk. A twig close up may resemble the tree trunk at a distance and only size separates the two, if no reference to scale is provided the two may be indistinguishable from each other. In the past, Camouflage design has been a semi random placement of color and shape to disrupt the targets true shape, or camouflage patterns have attempted to mimic natural camouflage, in both cases these designs actually go too far in random patterns or specific mimicry to provide a better camouflage. Chaos theory has shown patterns where we once thought only random chaotic placement occurred. We see fractals in many forms, snowflakes, rocks, trees, mountains, waves, clouds. Our subconscious actually notices these fractal shapes and once the brain has identified them as natural and commonplace in particular settings it retains those shapes. When the visual part of the brain analyzes a setting it quickly notes the common fractals it’s seen in the past and ignores them, treating them as background noise – not something which requires further scrutiny. If the pattern is not a fractal – such as a random placement of blobs, it may in-fact stand out to the visual system. If the fractal is a lake shape fractal in a woodland setting, again the subconscious will note that something is out of place. What we attempt to do with fractal camouflage is to merge these common shapes with the correct background and then scale them to the appropriate size to properly disrupt the shape of the target. Fractal concealment is not about duplicating nature, but designing from the aspect of target shape, size, scale, operational environment, vision science, geometrics, algorithms, static or mobile and color science. It really is rocket science.\" Once I understood the science behind modern day concealment, I knew I had to incorporate this technology into a performance layering kit. I shared my idea with Travis Roundy and we agreed that this was the most revolutionary concealment technology in the world. Simultaneous to creating our pattern, we begin sourcing industry best performance fabrics from around the world. In January of 2015 our quest for the best hunting apparel in the industry became a reality as we began field testing samples arriving from our factory. Field testing continued throughout 2015 hunting season with exceptional results. We are thrilled to offer to hunters in 2016 our performance line up featuring our revolutionary MTN-STEALTH concealment.</p>",
+                "width": "100%",
+                "max_width": "none",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "visibility": "both"
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_NHwnfw",
+            "text_WPdhni"
+          ]
+        }
+      },
+      "block_order": [
+        "group_FPF9Ak",
+        "group_aBcjtN",
+        "group_JkNPhG",
+        "group_BdnApV"
+      ],
+      "name": "t:names.custom_section",
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "small",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 60,
+        "padding-block-end": 60,
+        "visibility": "both"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "blocks": {
+        "heading": {
+          "type": "text",
+          "name": "Title",
+          "disabled": true,
+          "settings": {
+            "text": "<h1>{{ closest.page.title }}</h1>",
+            "width": "100%",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "h2",
+            "font": "var(--font-primary--family)",
+            "font_size": "",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "visibility": "both"
+          },
+          "blocks": {}
+        },
+        "page-content": {
+          "type": "page-content",
+          "disabled": true,
+          "settings": {},
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "heading",
+        "page-content"
+      ],
+      "disabled": true,
+      "settings": {
+        "content_direction": "column",
+        "gap": 32,
+        "color_scheme": "",
+        "padding-block-start": 40,
+        "padding-block-end": 80
+      }
+    }
+  },
+  "order": [
+    "section_8dWrDy",
+    "main"
+  ]
+}
