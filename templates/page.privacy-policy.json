@@ -49,7 +49,6 @@
         "heading",
         "page-content"
       ],
-      "disabled": true,
       "settings": {
         "content_direction": "column",
         "gap": 32,
@@ -57,74 +56,9 @@
         "padding-block-start": 40,
         "padding-block-end": 80
       }
-    },
-    "section_jRAq8G": {
-      "type": "section",
-      "blocks": {
-        "text_yDXrkC": {
-          "type": "text",
-          "name": "t:names.text",
-          "settings": {
-            "text": "<p><strong>During a sale period, we will not allow customers to stack coupons with any sale pricing. All codes will be turned off, and customers can't stack the discounts. If you need assistance with this matter, please reach out to our support team.</strong>How we collect your Personal Information. (“PI”)</p><ol><li>We will ask for PI when you purchase a product, request a service to be performed, participate in an event/contest, or engage in another activity on our website that asks for your information.</li><li>Personal Information is any information we collect when using our website and may include name, billing address, shipping address, phone number(s), email(s), and credit/debit card information.</li><li>Please note the data collected from site visitation is used internally for our web measurements and traffic and is NEVER linked to your personal information. We do not know who has visited, just what the user viewed, how long, and the time/date stamp.</li></ol><p>How we use your Personal Information</p><ol><li>All PI collected from you will be kept strictly confidential.</li><li>We will not disseminate your PI to any 3rd party for their promotional use without your permission.</li><li>We will use your PI to fulfill the products and services requested of us.</li><li>We may use your PI in conjunction with companies that facilitate shipping, credit card processing, web hosting, data analysis, surveys, social media applications and postings, and e-mail delivery services. These companies are prohibited from using the PI we provide for any other purpose than intended and can be held liable for violation. However, in no event are we responsible for any misuse of the PI by any of these companies and you agree to hold us harmless from any damages you suffer as a result of their misuse.</li><li>We may disclose your PI when we reasonably believe that it is required by a law or legal process and to protect and defend our rights and interests and the rights and interests of our affiliates, suppliers, or users. We also reserve the right to report to law enforcement agencies any activities that we in good faith believe to be unlawful. We may release certain PI when we believe that such release is reasonably necessary to enforce or apply these terms and conditions or to protect the rights, property, and safety of others and ourselves.</li></ol><p>Control of Personal Information</p><ol><li>At any time you can confirm, remove, edit or update the PI you have provided to us by contacting our service department at <a href=\"mailto:mikew@skregear.com\">mikew@skregear.com</a>.</li><li>Your PI may be stored and processed in any country where we have facilities and operations, and by providing any PI to us, you consent to the transfer of such PI to countries outside of your country of residence, including the United States, which may have different data protection rules from your country of residence.</li></ol><p>Security of Personal Information</p><ol><li>All PI transmitted to us through our online ecommerce website is encrypted using the SSL protocol (256-bit encryption). The purpose of this software is to make your PI unreadable to anyone but the recipient company. (SKRE)</li><li>We store your PI in a secure limited access facility, but do not store your credit/debit information.</li><li>Unfortunately, no data transmission over the Internet or data storage system can be guaranteed to be 100% secure.</li></ol><p>Opt-Out</p><ol><li>At any time you can opt-out of promotional communication with SKRE by emailing <a href=\"mailto:mikew@skregear.com\">mikew@skregear.com</a>. You may still receive service messages (order confirm/order changes) and legally mandated notices.</li></ol><p>Other Collected Information</p><ol><li>When visiting our website, the information we collect includes: pages visited, date-time stamps, IP address, MAC address, PC Type, browser selection, and OS.</li><li>We collect this data through the use of the cookies, pixel tags and other technologies with the intent solely to provide a customized, efficient web experience.</li></ol><p>Cookies</p><ol><li>Collect information in Part A of “Other Collected Data”</li><li>Gather statistical information about the site to help with website enhancements</li><li>Can recognize your computer and keep track of your preferences</li><li>You may at any time set your browser to not accept cookies and still be able to use our website.</li></ol><p>Minors</p><ol><li>We do not want to collect any data from a minor (&lt; age 18) and request that individuals under age 18 not provide any PI on or through our website.</li></ol><p>Sensitive Information</p><ol><li>We do not want to collect any sensitive data on our website from our clients that includes, but is not limited to, SSN, racial or ethnic origin, religious affiliation, health status, or criminal background.</li></ol><p>Changes to our Privacy Policy</p><ol><li>We may update our Privacy policy periodically, and when we do, you will see a corresponding change under the “last updated” date listed at the top of the statement. This is also how you can determine the last time we made changes to our policy.</li></ol><p>Free Shipping policy</p><ol><li>Free Shipping when you purchase over $150 is only applicable to customers in the lower 48 states. Additional shipping fees may apply if customer needs expedited shipping.</li></ol><p>Contests and Giveaways</p><ol><li>On occasion we will run a contest or giveaway. No purchase is necessary for any contests, but you must send a written entry to Skre Gear, 268 W. State Street. Hurricane, Utah. You must leave your full name, address, email and a message about the giveaway. You will received one entry per submission and only one submission per person.</li></ol><p><strong>SMS Abandoned Cart Disclosure</strong>The website uses cookies to help keep track of items you put into your shopping cart including when you have abandoned your cart and this information is used to determine when to send cart reminder messages via SMS.<strong>Third-Party Data Sharing</strong>We will not share your opt-in to an SMS campaign with any third party for purposes unrelated to providing you with the services of that campaign. We may share your Personal Data, including your SMS opt-in or consent status, with third parties that help us provide our messaging services, including but not limited to platform providers, phone companies, and any other vendors who assist us in the delivery of text messages.</p>",
-            "width": "100%",
-            "max_width": "none",
-            "alignment": "center",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0,
-            "visibility": "both"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "text_yDXrkC"
-      ],
-      "name": "t:names.custom_section",
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "small",
-        "section_height_custom": 50,
-        "color_scheme": "",
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 0,
-        "padding-block-end": 0,
-        "visibility": "both"
-      }
     }
   },
   "order": [
-    "main",
-    "section_jRAq8G"
+    "main"
   ]
 }
