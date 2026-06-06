@@ -11,6 +11,12 @@
     "main": {
       "type": "main-blog",
       "blocks": {
+        "skre-blog-filter": {
+          "type": "skre-blog-filter",
+          "settings": {
+            "all_label": "All Stories"
+          }
+        },
         "title": {
           "type": "text",
           "name": "Title",
@@ -100,7 +106,8 @@
         }
       },
       "block_order": [
-        "title"
+        "title",
+        "skre-blog-filter"
       ],
       "settings": {
         "color_scheme": "",

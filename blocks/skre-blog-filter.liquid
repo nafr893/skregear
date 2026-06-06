@@ -1,0 +1,144 @@
+{%- doc -%}
+  Blog category filter row.
+  Collects unique values from the custom.blog_category metafield (list of single line text)
+  across articles on the current page and renders a horizontal filter row.
+{%- enddoc -%}
+
+{% liquid
+  assign all_cats = ''
+  assign cat_count = 0
+
+  for article in blog.articles
+    assign cats = article.metafields.custom.blog_category.value
+    for cat in cats
+      assign cat_str = cat | strip
+      if cat_str == blank
+        continue
+      endif
+
+      assign already_have = false
+      assign existing_array = all_cats | split: '|||'
+      for e in existing_array
+        if e == cat_str
+          assign already_have = true
+          break
+        endif
+      endfor
+
+      unless already_have
+        if all_cats != ''
+          assign all_cats = all_cats | append: '|||'
+        endif
+        assign all_cats = all_cats | append: cat_str
+        assign cat_count = cat_count | plus: 1
+      endunless
+    endfor
+  endfor
+
+  assign cats_array = all_cats | split: '|||'
+%}
+
+{% if cat_count > 0 %}
+  <script src="{{ 'skre-blog-filter.js' | asset_url }}" defer></script>
+
+  <nav
+    class="skre-blog-filter"
+    {{ block.shopify_attributes }}
+    aria-label="Filter by category"
+  >
+    <ul class="skre-blog-filter__list" role="list">
+      <li>
+        <button
+          type="button"
+          class="skre-blog-filter__btn skre-blog-filter__btn--active"
+          data-filter="all"
+          aria-pressed="true"
+        >
+          {{- block.settings.all_label | default: 'All Stories' -}}
+        </button>
+      </li>
+
+      {% for cat in cats_array %}
+        <li>
+          <button
+            type="button"
+            class="skre-blog-filter__btn"
+            data-filter="{{ cat | escape }}"
+            aria-pressed="false"
+          >
+            {{- cat -}}
+          </button>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+{% endif %}
+
+{% stylesheet %}
+  .skre-blog-filter {
+    width: 100%;
+    border-bottom: 1px solid rgb(var(--color-foreground-rgb) / var(--opacity-20));
+    padding-block-end: 0.75rem;
+    margin-block-end: 2.5rem;
+  }
+
+  .skre-blog-filter__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 2.25rem;
+  }
+
+  .skre-blog-filter__btn {
+    appearance: none;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: var(--font-size--sm);
+    font-weight: 400;
+    color: rgb(var(--color-foreground-rgb) / 0.55);
+    letter-spacing: 0.02em;
+    transition: color var(--animation-speed) var(--animation-easing);
+    white-space: nowrap;
+    line-height: 1.5;
+  }
+
+  .skre-blog-filter__btn:hover {
+    color: var(--color-foreground);
+  }
+
+  .skre-blog-filter__btn--active {
+    font-weight: 600;
+    color: var(--color-foreground);
+  }
+
+  .blog-post-item.skre-blog-filter--hidden {
+    display: none;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Blog Category Filter",
+  "tag": "div",
+  "settings": [
+    {
+      "type": "text",
+      "id": "all_label",
+      "label": "\"All\" button label",
+      "default": "All Stories"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog Category Filter"
+    }
+  ]
+}
+{% endschema %}

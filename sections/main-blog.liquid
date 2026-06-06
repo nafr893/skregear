@@ -101,6 +101,7 @@
           class="blog-post-item{% if is_horizontal %} blog-post-item--horizontal{% endif %}"
           data-testid="blog-post-item"
           data-blog-index="{{ section.id }}-{{ forloop.index }}"
+          data-blog-categories="{{ article.metafields.custom.blog_category.value | json | escape }}"
         >
           {% content_for 'block', id: 'static-blog-post-card', type: '_blog-post-card', article: article %}
         </div>
