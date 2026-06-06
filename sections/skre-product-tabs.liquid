@@ -41,8 +41,10 @@
   {%- comment -%} Panels {%- endcomment -%}
   <div class="skre-prod-tabs__content">
     {% for i in (1..tabs_count) %}
-      {%- assign col_key = 'tab_' | append: i | append: '_collection' -%}
-      {%- assign col = section.settings[col_key] -%}
+      {%- assign col_url_key = 'tab_' | append: i | append: '_collection' -%}
+      {%- assign col_url = section.settings[col_url_key] -%}
+      {%- assign col_handle = col_url | split: '/collections/' | last | split: '?' | first | split: '#' | first -%}
+      {%- assign col = collections[col_handle] -%}
       <div
         class="skre-prod-tabs__panel{% unless forloop.first %} skre-prod-tabs__panel--hidden{% endunless %}"
         id="skre-prod-panel-{{ forloop.index0 }}"
@@ -370,7 +372,7 @@
       "default": "Featured"
     },
     {
-      "type": "collection",
+      "type": "url",
       "id": "tab_1_collection",
       "label": "Collection"
     },
@@ -385,7 +387,7 @@
       "default": "New Arrivals"
     },
     {
-      "type": "collection",
+      "type": "url",
       "id": "tab_2_collection",
       "label": "Collection"
     },
@@ -400,7 +402,7 @@
       "default": "Best Sellers"
     },
     {
-      "type": "collection",
+      "type": "url",
       "id": "tab_3_collection",
       "label": "Collection"
     },
@@ -415,7 +417,7 @@
       "default": "Sale"
     },
     {
-      "type": "collection",
+      "type": "url",
       "id": "tab_4_collection",
       "label": "Collection"
     },
@@ -470,7 +472,8 @@
   ],
   "blocks": [
     { "type": "@theme" },
-    { "type": "@app" }
+    { "type": "@app" },
+    { "type": "_product-card" }
   ],
   "presets": [
     {
