@@ -76,9 +76,10 @@
 
 {% stylesheet %}
   .skre-blog-filter {
+    --_filter-pad-b: 0.75rem;
     width: 100%;
     border-bottom: 1px solid rgb(var(--color-foreground-rgb) / var(--opacity-20));
-    padding-block-end: 0.75rem;
+    padding-block-end: var(--_filter-pad-b);
     margin-block-end: 2.5rem;
   }
 
@@ -93,6 +94,7 @@
   }
 
   .skre-blog-filter__btn {
+    position: relative;
     appearance: none;
     background: none;
     border: none;
@@ -116,6 +118,16 @@
   .skre-blog-filter__btn--active {
     font-weight: 600;
     color: var(--color-foreground);
+  }
+
+  .skre-blog-filter__btn--active::after {
+    content: '';
+    position: absolute;
+    bottom: calc(-1 * var(--_filter-pad-b) - 0.5px);
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: currentColor;
   }
 
   .blog-post-item.skre-blog-filter--hidden {
