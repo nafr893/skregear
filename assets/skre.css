@@ -163,29 +163,15 @@ h5, h6, p {
 }
 
 /*
- * Product tabs: _product-card uses card-gallery → slideshow-slide → .product-media → img.
- * slideshow-slide gets content-visibility: visible on the active slide, which removes
- * the containment-based isolation, so mix-blend-mode on the img looks past #f9f9f9
- * all the way to page-white. Fix: isolate directly on .product-media (plain div,
- * direct parent of the img) so the blend is guaranteed to hit #f9f9f9.
+ * Product tabs: isolate at the slideshow-slide (product-media-container) level.
+ * The element's own background-color (#f9f9f9) is painted before any children,
+ * so mix-blend-mode: multiply on the img correctly blends against #f9f9f9.
+ * Isolating at .product-media (the inner div) was broken because positioned ::before
+ * paints after inline img (paint steps 5 vs 6), leaving img blending against transparent.
  */
-.skre-prod-tabs__item .product-media {
-  position: relative !important;
+.skre-prod-tabs__item .product-media-container {
   isolation: isolate !important;
-}
-
-/* #f9f9f9 layer painted directly behind the product image inside the
-   isolated group — mix-blend-mode multiply on the image then blends
-   against this, not the page background, so white pixels → #f9f9f9 */
-.skre-prod-tabs__item .product-media::before {
-  content: '' !important;
-  position: absolute !important;
-  inset: 0 !important;
   background-color: #f9f9f9 !important;
-}
-
-.skre-prod-tabs__item .product-media__image {
-  mix-blend-mode: multiply !important;
 }
 
 /* Keep cart drawer top-aligned when empty (theme centers by default) */
