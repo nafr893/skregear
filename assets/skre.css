@@ -170,12 +170,12 @@ h5, h6, p {
  * direct parent of the img) so the blend is guaranteed to hit #f9f9f9.
  */
 .skre-prod-tabs__item .product-media {
-  background-color: #f9f9f9;
-  isolation: isolate;
+  background-color: #f9f9f9 !important;
+  isolation: isolate !important;
 }
 
 .skre-prod-tabs__item .product-media__image {
-  mix-blend-mode: multiply;
+  mix-blend-mode: multiply !important;
 }
 
 /* Keep cart drawer top-aligned when empty (theme centers by default) */
