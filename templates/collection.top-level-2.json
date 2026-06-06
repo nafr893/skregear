@@ -430,6 +430,7 @@
             "text_eHjXRQ": {
               "type": "text",
               "name": "t:names.text",
+              "disabled": true,
               "settings": {
                 "text": "<p>{{ closest.product.metafields.custom.product_preview.value }}</p>",
                 "width": "fit-content",
