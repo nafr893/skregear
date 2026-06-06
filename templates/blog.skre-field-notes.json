@@ -51,7 +51,7 @@
             "vertical_alignment_flex_direction_column": "center",
             "gap": 12,
             "width": "custom",
-            "custom_width": 50,
+            "custom_width": 40,
             "width_mobile": "fill",
             "custom_width_mobile": 100,
             "height": "fit",
@@ -245,7 +245,7 @@
               "static": true,
               "settings": {
                 "show_date": true,
-                "show_author": false,
+                "show_author": true,
                 "type_preset": "",
                 "alignment": "left",
                 "show_alignment": false,
@@ -280,7 +280,7 @@
       ],
       "settings": {
         "color_scheme": "",
-        "padding-block-start": 0,
+        "padding-block-start": 60,
         "padding-block-end": 48
       }
     }
