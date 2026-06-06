@@ -149,11 +149,15 @@ h5, h6, p {
   font-weight: 500;
 }
 
-/* Cart trending cards: match collection page product card appearance */
+/* Product tabs, search results, and cart trending: match collection page card appearance */
+.skre-prod-tabs__item .resource-card__media,
+.skre-search-results__product-item .resource-card__media,
 .cart-empty__trending .resource-card__media {
   background-color: #f9f9f9;
 }
 
+.skre-prod-tabs__item .resource-card__image:not(.resource-card__image--secondary),
+.skre-search-results__product-item .resource-card__image:not(.resource-card__image--secondary),
 .cart-empty__trending .resource-card__image:not(.resource-card__image--secondary) {
   mix-blend-mode: multiply;
 }
