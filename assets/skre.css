@@ -163,11 +163,13 @@ h5, h6, p {
 }
 
 /*
- * Product tabs: _product-card theme block uses .product-media-container + .product-media__image.
- * isolation: isolate stops mix-blend-mode from looking past this container at the page
- * background — without it, multiply blends against white instead of #f9f9f9.
+ * Product tabs: _product-card uses card-gallery → slideshow-slide → .product-media → img.
+ * slideshow-slide gets content-visibility: visible on the active slide, which removes
+ * the containment-based isolation, so mix-blend-mode on the img looks past #f9f9f9
+ * all the way to page-white. Fix: isolate directly on .product-media (plain div,
+ * direct parent of the img) so the blend is guaranteed to hit #f9f9f9.
  */
-.skre-prod-tabs__item .product-media-container {
+.skre-prod-tabs__item .product-media {
   background-color: #f9f9f9;
   isolation: isolate;
 }
