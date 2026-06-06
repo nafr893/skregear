@@ -463,27 +463,6 @@
     "skre_product_tabs_DrtFwq": {
       "type": "skre-product-tabs",
       "blocks": {
-        "tab_qmmLab": {
-          "type": "tab",
-          "settings": {
-            "label": "EARLY",
-            "collection": "early-fall-bundle"
-          }
-        },
-        "tab_ikETyw": {
-          "type": "tab",
-          "settings": {
-            "label": "MID",
-            "collection": "mid-season-antelope"
-          }
-        },
-        "tab_yTtNTh": {
-          "type": "tab",
-          "settings": {
-            "label": "LATE",
-            "collection": "late-fall-bundle"
-          }
-        },
         "static-product-card": {
           "type": "_product-card",
           "settings": {
@@ -562,13 +541,16 @@
           "block_order": ["product-card-gallery", "product_title", "price"]
         }
       },
-      "block_order": [
-        "tab_qmmLab",
-        "tab_ikETyw",
-        "tab_yTtNTh"
-      ],
+      "block_order": [],
       "name": "Product Tabs",
       "settings": {
+        "tabs_count": 3,
+        "tab_1_label": "EARLY",
+        "tab_1_collection": "early-fall-bundle",
+        "tab_2_label": "MID",
+        "tab_2_collection": "mid-season-antelope",
+        "tab_3_label": "LATE",
+        "tab_3_collection": "late-fall-bundle",
         "color_scheme": "scheme-1",
         "padding-block-start": 0,
         "padding-block-end": 40,

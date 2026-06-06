@@ -10,7 +10,7 @@
   elsif section.settings.visibility == 'mobile_only'
     assign _vis_class = 'desktop:hidden'
   endif
-  assign tab_blocks = section.blocks | where: 'type', 'tab'
+  assign tabs_count = section.settings.tabs_count | default: 2
 -%}
 
 <section
@@ -18,81 +18,79 @@
   style="--padding-block-start: {{ section.settings['padding-block-start'] }}px; --padding-block-end: {{ section.settings['padding-block-end'] }}px;"
 >
 
-  {% if tab_blocks.size > 0 %}
+  {%- comment -%} Tab navigation {%- endcomment -%}
+  <nav class="skre-prod-tabs__nav" role="tablist" aria-label="Product categories">
+    {% for i in (1..tabs_count) %}
+      {%- assign label_key = 'tab_' | append: i | append: '_label' -%}
+      {%- assign tab_label = section.settings[label_key] | default: 'Tab' -%}
+      <button
+        class="skre-prod-tabs__tab"
+        role="tab"
+        data-tab="{{ forloop.index0 }}"
+        aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+        aria-controls="skre-prod-panel-{{ forloop.index0 }}"
+      >
+        {{- tab_label -}}
+      </button>
+      {%- unless forloop.last -%}
+        <span class="skre-prod-tabs__sep" aria-hidden="true">|</span>
+      {%- endunless -%}
+    {% endfor %}
+  </nav>
 
-    {%- comment -%} Tab navigation {%- endcomment -%}
-    <nav class="skre-prod-tabs__nav" role="tablist" aria-label="Product categories">
-      {% for block in tab_blocks %}
-        <button
-          class="skre-prod-tabs__tab"
-          role="tab"
-          data-tab="{{ forloop.index0 }}"
-          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
-          aria-controls="skre-prod-panel-{{ forloop.index0 }}"
-          {{ block.shopify_attributes }}
-        >
-          {{- block.settings.label | default: 'Tab' -}}
-        </button>
-        {%- unless forloop.last -%}
-          <span class="skre-prod-tabs__sep" aria-hidden="true">|</span>
-        {%- endunless -%}
-      {% endfor %}
-    </nav>
+  {%- comment -%} Panels {%- endcomment -%}
+  <div class="skre-prod-tabs__content">
+    {% for i in (1..tabs_count) %}
+      {%- assign col_key = 'tab_' | append: i | append: '_collection' -%}
+      {%- assign col = section.settings[col_key] -%}
+      <div
+        class="skre-prod-tabs__panel{% unless forloop.first %} skre-prod-tabs__panel--hidden{% endunless %}"
+        id="skre-prod-panel-{{ forloop.index0 }}"
+        role="tabpanel"
+        aria-labelledby="skre-prod-tab-{{ forloop.index0 }}"
+      >
+        {% if col != blank and col.products.size > 0 %}
+          <ul class="skre-prod-tabs__grid list-unstyled" data-prod-carousel-list>
+            {% for product in col.products limit: 20 %}
+              <li class="skre-prod-tabs__item">
+                {%- # theme-check-disable UniqueStaticBlockId -%}
+                {%- content_for 'block', type: '_product-card', id: 'static-product-card', closest.product: product -%}
+                {%- # theme-check-enable UniqueStaticBlockId -%}
+              </li>
+            {% endfor %}
+          </ul>
 
-    {%- comment -%} Panels {%- endcomment -%}
-    <div class="skre-prod-tabs__content">
-      {% for block in tab_blocks %}
-        {%- assign col = block.settings.collection -%}
-        <div
-          class="skre-prod-tabs__panel{% unless forloop.first %} skre-prod-tabs__panel--hidden{% endunless %}"
-          id="skre-prod-panel-{{ forloop.index0 }}"
-          role="tabpanel"
-          aria-labelledby="skre-prod-tab-{{ forloop.index0 }}"
-        >
-          {% if col != blank and col.products.size > 0 %}
-            <ul class="skre-prod-tabs__grid list-unstyled" data-prod-carousel-list>
-              {% for product in col.products limit: 20 %}
-                <li class="skre-prod-tabs__item">
-                  {%- # theme-check-disable UniqueStaticBlockId -%}
-                  {%- content_for 'block', type: '_product-card', id: 'static-product-card', closest.product: product -%}
-                  {%- # theme-check-enable UniqueStaticBlockId -%}
-                </li>
-              {% endfor %}
-            </ul>
-
-            <div class="skre-prod-tabs__carousel-footer" data-prod-carousel-footer>
-              <div class="skre-prod-tabs__scroll-track" aria-hidden="true">
-                <div class="skre-prod-tabs__scroll-thumb"></div>
-              </div>
-              <div class="skre-prod-tabs__carousel-nav">
-                <button class="skre-prod-tabs__nav-btn skre-prod-tabs__nav-btn--prev" aria-label="Previous" type="button">
-                  {{- 'icon-chevron-left.svg' | inline_asset_content -}}
-                </button>
-                <span class="skre-prod-tabs__nav-counter">
-                  <span class="skre-prod-tabs__nav-current">1</span>/<span class="skre-prod-tabs__nav-total">1</span>
-                </span>
-                <button class="skre-prod-tabs__nav-btn skre-prod-tabs__nav-btn--next" aria-label="Next" type="button">
-                  {{- 'icon-chevron-right.svg' | inline_asset_content -}}
-                </button>
-              </div>
+          <div class="skre-prod-tabs__carousel-footer" data-prod-carousel-footer>
+            <div class="skre-prod-tabs__scroll-track" aria-hidden="true">
+              <div class="skre-prod-tabs__scroll-thumb"></div>
             </div>
+            <div class="skre-prod-tabs__carousel-nav">
+              <button class="skre-prod-tabs__nav-btn skre-prod-tabs__nav-btn--prev" aria-label="Previous" type="button">
+                {{- 'icon-chevron-left.svg' | inline_asset_content -}}
+              </button>
+              <span class="skre-prod-tabs__nav-counter">
+                <span class="skre-prod-tabs__nav-current">1</span>/<span class="skre-prod-tabs__nav-total">1</span>
+              </span>
+              <button class="skre-prod-tabs__nav-btn skre-prod-tabs__nav-btn--next" aria-label="Next" type="button">
+                {{- 'icon-chevron-right.svg' | inline_asset_content -}}
+              </button>
+            </div>
+          </div>
 
-          {% else %}
-            <p class="skre-prod-tabs__empty">
-              {%- if col == blank -%}
-                Select a collection in the theme editor.
-              {%- else -%}
-                No products found in this collection.
-              {%- endif -%}
-            </p>
-          {% endif %}
-        </div>
-      {% endfor %}
-    </div>
+        {% else %}
+          <p class="skre-prod-tabs__empty">
+            {%- if col == blank -%}
+              Select a collection in the theme editor.
+            {%- else -%}
+              No products found in this collection.
+            {%- endif -%}
+          </p>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
 
-  {% else %}
-    <p class="skre-prod-tabs__empty">Add tabs in the theme editor to get started.</p>
-  {% endif %}
+  {%- content_for 'blocks' -%}
 
 </section>
 
@@ -101,7 +99,6 @@
     max-width: var(--page-width);
     margin-inline: auto;
     padding-inline: var(--page-gutter);
-    background-color: black !important;
   }
 
   /* ── Tab nav ──────────────────────────────────────────────── */
@@ -352,8 +349,80 @@
 {% schema %}
 {
   "name": "Product Tabs",
-  "max_blocks": 6,
   "settings": [
+    {
+      "type": "range",
+      "id": "tabs_count",
+      "label": "Number of tabs",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Tab 1"
+    },
+    {
+      "type": "text",
+      "id": "tab_1_label",
+      "label": "Label",
+      "default": "Featured"
+    },
+    {
+      "type": "collection",
+      "id": "tab_1_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Tab 2"
+    },
+    {
+      "type": "text",
+      "id": "tab_2_label",
+      "label": "Label",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "collection",
+      "id": "tab_2_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Tab 3"
+    },
+    {
+      "type": "text",
+      "id": "tab_3_label",
+      "label": "Label",
+      "default": "Best Sellers"
+    },
+    {
+      "type": "collection",
+      "id": "tab_3_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Tab 4"
+    },
+    {
+      "type": "text",
+      "id": "tab_4_label",
+      "label": "Label",
+      "default": "Sale"
+    },
+    {
+      "type": "collection",
+      "id": "tab_4_collection",
+      "label": "Collection"
+    },
+    {
+      "type": "header",
+      "content": "Section"
+    },
     {
       "type": "select",
       "id": "color_scheme",
@@ -400,36 +469,18 @@
     }
   ],
   "blocks": [
-    {
-      "type": "tab",
-      "name": "Tab",
-      "settings": [
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Tab label",
-          "default": "Featured"
-        },
-        {
-          "type": "collection",
-          "id": "collection",
-          "label": "Collection"
-        }
-      ]
-    }
+    { "type": "@theme" },
+    { "type": "@app" }
   ],
   "presets": [
     {
       "name": "Product Tabs",
+      "settings": {
+        "tabs_count": 2,
+        "tab_1_label": "Featured",
+        "tab_2_label": "New Arrivals"
+      },
       "blocks": {
-        "tab-0": {
-          "type": "tab",
-          "settings": { "label": "Featured" }
-        },
-        "tab-1": {
-          "type": "tab",
-          "settings": { "label": "New Arrivals" }
-        },
         "static-product-card": {
           "type": "_product-card",
           "name": "Product card",
@@ -510,7 +561,7 @@
           "block_order": ["product-card-gallery", "product_title", "price"]
         }
       },
-      "block_order": ["tab-0", "tab-1"]
+      "block_order": []
     }
   ]
 }
