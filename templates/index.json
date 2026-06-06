@@ -465,8 +465,9 @@
       "blocks": {
         "static-product-card": {
           "type": "_product-card",
+          "static": true,
           "settings": {
-            "product_card_gap": 4,
+            "product_card_gap": 8,
             "inherit_color_scheme": true,
             "color_scheme": "",
             "border": "none",
@@ -479,10 +480,18 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "product-card-gallery": {
-              "type": "_product-card-gallery",
+            "image_nFBfmU": {
+              "type": "image",
+              "name": "t:names.image",
               "settings": {
+                "image": "{{ closest.product.featured_image }}",
+                "link": "",
                 "image_ratio": "adapt",
+                "width": "fill",
+                "custom_width": 100,
+                "width_mobile": "fill",
+                "custom_width_mobile": 100,
+                "height": "fit",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
@@ -491,17 +500,33 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
-            "product_title": {
+            "swatches_KE64pA": {
+              "type": "swatches",
+              "name": "t:names.swatches",
+              "settings": {
+                "product_swatches_alignment": "flex-start",
+                "product_swatches_alignment_mobile": "flex-start",
+                "hide_padding": false,
+                "product_swatches_padding_top": 4,
+                "product_swatches_padding_bottom": 0,
+                "product_swatches_padding_left": 0,
+                "product_swatches_padding_right": 0
+              },
+              "blocks": {}
+            },
+            "product_title_XJHti8": {
               "type": "product-title",
+              "name": "t:names.title",
               "settings": {
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "paragraph",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
+                "type_preset": "custom",
+                "font": "var(--font-heading--family)",
+                "font_size": "0.875rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
@@ -510,23 +535,38 @@
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
-                "padding-block-start": 4,
+                "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             },
-            "price": {
+            "review_rk4MBE": {
+              "type": "review",
+              "name": "t:names.product_review_stars",
+              "settings": {
+                "stars_style": "shaded",
+                "show_number": true,
+                "rating_color": "primary",
+                "type_preset": "paragraph",
+                "width": "100%",
+                "alignment": "left"
+              },
+              "blocks": {}
+            },
+            "price_mPDTPh": {
               "type": "price",
+              "name": "t:names.product_price",
               "settings": {
                 "show_sale_price_first": true,
                 "show_installments": false,
                 "show_tax_info": false,
-                "type_preset": "h6",
+                "type_preset": "custom",
                 "width": "100%",
                 "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
+                "font": "var(--font-heading--family)",
+                "font_size": "0.75rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
@@ -535,13 +575,19 @@
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
                 "padding-inline-end": 0
-              }
+              },
+              "blocks": {}
             }
           },
-          "block_order": ["product-card-gallery", "product_title", "price"]
+          "block_order": [
+            "image_nFBfmU",
+            "swatches_KE64pA",
+            "product_title_XJHti8",
+            "review_rk4MBE",
+            "price_mPDTPh"
+          ]
         }
       },
-      "block_order": [],
       "name": "Product Tabs",
       "settings": {
         "tabs_count": 3,
@@ -551,6 +597,8 @@
         "tab_2_collection": "shopify://collections/mid-season-antelope",
         "tab_3_label": "LATE",
         "tab_3_collection": "shopify://collections/late-fall-bundle",
+        "tab_4_label": "Sale",
+        "tab_4_collection": "",
         "color_scheme": "scheme-1",
         "padding-block-start": 0,
         "padding-block-end": 40,
