@@ -172,7 +172,7 @@
           "type": "skre-blog-filter",
           "name": "Blog Category Filter",
           "settings": {
-            "all_label": "All Stories"
+            "all_label": "All Articles"
           },
           "blocks": {}
         },
