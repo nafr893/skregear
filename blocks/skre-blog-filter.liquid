@@ -133,6 +133,25 @@
   .blog-post-item.skre-blog-filter--hidden {
     display: none;
   }
+
+  /* Force uniform 3-column layout when a specific category is selected.
+     Overrides the per-item col-span set by Liquid {% style %} blocks (specificity 0,1,0). */
+  .blog-posts-container.skre-blog-filter--filtered .blog-post-item {
+    --col-span: 2;
+    --blog-post-card-scale: 0.6;
+  }
+
+  /* Remove horizontal (hero) card layout in filtered view */
+  .blog-posts-container.skre-blog-filter--filtered .blog-post-item--horizontal .blog-post-card {
+    flex-direction: column;
+  }
+
+  @media screen and (max-width: 749px) {
+    .blog-posts-container.skre-blog-filter--filtered .blog-post-item {
+      --col-span: 6;
+      --blog-post-card-scale: 0.5;
+    }
+  }
 {% endstylesheet %}
 
 {% schema %}

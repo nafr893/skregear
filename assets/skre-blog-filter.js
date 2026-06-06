@@ -2,6 +2,9 @@
  * Blog category filter row.
  * Reads data-blog-categories JSON from each .blog-post-item and shows/hides
  * articles based on the selected category button.
+ *
+ * When a specific category is active, adds .skre-blog-filter--filtered to the
+ * grid container so CSS can force a uniform 3-column layout.
  */
 
 (function () {
@@ -36,12 +39,16 @@
    * @param {string} filterValue
    */
   function filterPosts(filterValue) {
+    const grid = /** @type {HTMLElement|null} */ (document.querySelector('.blog-posts-container'));
     const items = /** @type {NodeListOf<HTMLElement>} */ (
       document.querySelectorAll('.blog-post-item')
     );
 
+    const isFiltered = filterValue !== 'all';
+    if (grid) grid.classList.toggle('skre-blog-filter--filtered', isFiltered);
+
     items.forEach((item) => {
-      if (filterValue === 'all') {
+      if (!isFiltered) {
         item.classList.remove('skre-blog-filter--hidden');
         return;
       }
