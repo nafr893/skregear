@@ -33,15 +33,17 @@ h5, h6, p {
   padding-inline: calc(var(--focus-outline-offset) + var(--focus-outline-width) + 2px);
 }
 
-/* Prevent internal scroll in search swatches so the 4th swatch wraps during
-   overflow-list reflow — the component detects it as overflow and hides it behind "+N" */
-.predictive-search-swatches overflow-list::part(list) {
+/* Prevent internal scroll so the overflow-list reflow detects overflow and hides items behind "+N" */
+.predictive-search-swatches overflow-list::part(list),
+.cart-empty__trending overflow-list::part(list) {
   overflow-x: hidden !important;
+  flex-wrap: nowrap !important;
 }
 
 /* Hard limit: at most 3 visible swatches, then "+N" for the rest.
    Width fits: 3 × 25px swatch + 3 × gap-sm + ~55px for the "+N" button. */
-.predictive-search-swatches overflow-list {
+.predictive-search-swatches overflow-list,
+.cart-empty__trending swatches-variant-picker-component overflow-list {
   max-width: calc(3 * 25px + 3 * var(--gap-sm) + 55px);
 }
 
