@@ -149,6 +149,16 @@
   }
 
   /* ── Carousel ─────────────────────────────────────────────── */
+  /*
+   * isolation: isolate mirrors .product-grid on collection pages.
+   * Without it, mix-blend-mode: multiply on product images blends against
+   * the page's white background instead of the #f9f9f9 set on
+   * .product-media-container, so the off-white card background never appears.
+   */
+  .skre-prod-tabs__grid {
+    isolation: isolate;
+  }
+
   .skre-prod-tabs__grid {
     display: flex;
     flex-wrap: nowrap;
