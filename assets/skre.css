@@ -152,14 +152,26 @@ h5, h6, p {
 /* Product tabs, search results, and cart trending: match collection page card appearance */
 .skre-prod-tabs__item .resource-card__media,
 .skre-search-results__product-item .resource-card__media,
-.cart-empty__trending .resource-card__media,
-.skre-prod-tabs__item .product-media-container {
+.cart-empty__trending .resource-card__media {
   background-color: #f9f9f9;
 }
 
 .skre-prod-tabs__item .resource-card__image:not(.resource-card__image--secondary),
 .skre-search-results__product-item .resource-card__image:not(.resource-card__image--secondary),
-.cart-empty__trending .resource-card__image:not(.resource-card__image--secondary),
+.cart-empty__trending .resource-card__image:not(.resource-card__image--secondary) {
+  mix-blend-mode: multiply;
+}
+
+/*
+ * Product tabs: _product-card theme block uses .product-media-container + .product-media__image.
+ * isolation: isolate stops mix-blend-mode from looking past this container at the page
+ * background — without it, multiply blends against white instead of #f9f9f9.
+ */
+.skre-prod-tabs__item .product-media-container {
+  background-color: #f9f9f9;
+  isolation: isolate;
+}
+
 .skre-prod-tabs__item .product-media__image {
   mix-blend-mode: multiply;
 }

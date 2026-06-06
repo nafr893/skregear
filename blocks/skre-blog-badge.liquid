@@ -1,10 +1,12 @@
 {%- assign badge_text = block.settings.text -%}
 
-{%- unless badge_text == blank -%}
+{%- if badge_text != blank -%}
   <span class="skre-blog-badge" {{ block.shopify_attributes }}>
     {{- badge_text | escape -}}
   </span>
-{%- endunless -%}
+{%- elsif request.design_mode -%}
+  <span class="skre-blog-badge skre-blog-badge--placeholder" {{ block.shopify_attributes }}>Badge</span>
+{%- endif -%}
 
 {% stylesheet %}
   .skre-blog-badge {
