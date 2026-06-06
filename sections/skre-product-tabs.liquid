@@ -18,10 +18,6 @@
   style="--padding-block-start: {{ section.settings['padding-block-start'] }}px; --padding-block-end: {{ section.settings['padding-block-end'] }}px;"
 >
 
-  <div class="skre-prod-tabs__blocks">
-    {%- content_for 'blocks' -%}
-  </div>
-
   {% if tab_blocks.size > 0 %}
 
     {%- comment -%} Tab navigation {%- endcomment -%}
@@ -105,6 +101,7 @@
     max-width: var(--page-width);
     margin-inline: auto;
     padding-inline: var(--page-gutter);
+    background-color: black;
   }
 
   /* ── Tab nav ──────────────────────────────────────────────── */
@@ -403,12 +400,6 @@
     }
   ],
   "blocks": [
-    {
-      "type": "@theme"
-    },
-    {
-      "type": "@app"
-    },
     {
       "type": "tab",
       "name": "Tab",
