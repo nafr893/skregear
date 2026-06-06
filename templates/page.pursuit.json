@@ -403,7 +403,7 @@
                 "vertical_alignment_flex_direction_column": "center",
                 "gap": 12,
                 "width": "custom",
-                "custom_width": 90,
+                "custom_width": 85,
                 "width_mobile": "fill",
                 "custom_width_mobile": 100,
                 "height": "fit",
