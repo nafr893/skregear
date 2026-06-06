@@ -11,6 +11,7 @@
   {% endif %}
 
   <div class="blog-post-card__content">
+    {%- content_for 'blocks' -%}
     <a
       href="{{ article.url }}"
       data-testid="blog-post-link"
@@ -102,6 +103,10 @@
       "label": "t:settings.alignment",
       "default": "left"
     }
+  ],
+  "blocks": [
+    { "type": "@theme" },
+    { "type": "@app" }
   ]
 }
 {% endschema %}

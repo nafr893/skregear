@@ -1,0 +1,36 @@
+{%- assign badge_text = block.settings.text -%}
+
+{%- unless badge_text == blank -%}
+  <span class="skre-blog-badge" {{ block.shopify_attributes }}>
+    {{- badge_text | escape -}}
+  </span>
+{%- endunless -%}
+
+{% stylesheet %}
+  .skre-blog-badge {
+    display: inline-block;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.25em 0.6em;
+    line-height: 1.6;
+    margin-block-end: 0.5rem;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Badge",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Badge text",
+      "default": "Featured"
+    }
+  ]
+}
+{% endschema %}
