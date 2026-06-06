@@ -82,11 +82,11 @@
             "text_VybLRg": {
               "type": "text",
               "settings": {
-                "text": "<p>Tips, tactics, and gear breakdowns to help you hunt smarter. Whether you're chasing a new species or dialing in your kit, discover everything you need to make the most of your time in the field</p>",
+                "text": "<p><strong>Tips, tactics, and gear breakdowns to help you hunt smarter. Whether you're chasing a new species or dialing in your kit, discover everything you need to make the most of your time in the field</strong></p>",
                 "width": "fit-content",
                 "max_width": "none",
                 "alignment": "left",
-                "type_preset": "rte",
+                "type_preset": "paragraph",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
                 "line_height": "normal",
