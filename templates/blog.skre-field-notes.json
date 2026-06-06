@@ -168,6 +168,14 @@
     "main": {
       "type": "main-blog",
       "blocks": {
+        "skre_blog_filter_EephHd": {
+          "type": "skre-blog-filter",
+          "name": "Blog Category Filter",
+          "settings": {
+            "all_label": "All Stories"
+          },
+          "blocks": {}
+        },
         "title": {
           "type": "text",
           "name": "Title",
@@ -276,6 +284,7 @@
         }
       },
       "block_order": [
+        "skre_blog_filter_EephHd",
         "title"
       ],
       "settings": {
