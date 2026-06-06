@@ -170,8 +170,18 @@ h5, h6, p {
  * direct parent of the img) so the blend is guaranteed to hit #f9f9f9.
  */
 .skre-prod-tabs__item .product-media {
-  background-color: #f9f9f9 !important;
+  position: relative !important;
   isolation: isolate !important;
+}
+
+/* #f9f9f9 layer painted directly behind the product image inside the
+   isolated group — mix-blend-mode multiply on the image then blends
+   against this, not the page background, so white pixels → #f9f9f9 */
+.skre-prod-tabs__item .product-media::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-color: #f9f9f9 !important;
 }
 
 .skre-prod-tabs__item .product-media__image {
