@@ -207,13 +207,14 @@
   }
 
   /*
-   * isolation: isolate + background-color: #f9f9f9 on this wrapper means
-   * the element's own background is painted before any children within the
-   * isolated group. mix-blend-mode: multiply on the <img> then blends
-   * against #f9f9f9 — white pixels in the photo become #f9f9f9.
-   * No theme CSS chain involved; this element is fully under our control.
+   * ::after overlay approach: the overlay (#f9f9f9, mix-blend-mode: multiply)
+   * is a positioned element (paint step 6) so it always paints AFTER the block
+   * <img> (paint step 3). multiply(#f9f9f9, white_img_pixel) = #f9f9f9.
+   * isolation: isolate on the wrapper scopes the blend to the wrapper's own
+   * content — no page/section background bleeds into the calculation.
    */
   .skre-prod-tabs__img-wrap {
+    position: relative;
     aspect-ratio: 4 / 5;
     overflow: hidden;
     background-color: #f9f9f9;
@@ -221,11 +222,19 @@
     border-radius: var(--style-border-radius-cards, 0);
   }
 
+  .skre-prod-tabs__img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: #f9f9f9;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+  }
+
   .skre-prod-tabs__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    mix-blend-mode: multiply;
     display: block;
   }
 
