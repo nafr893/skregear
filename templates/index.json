@@ -705,7 +705,7 @@
               "type": "button",
               "settings": {
                 "label": "EXPLORE",
-                "link": "shopify://collections/all",
+                "link": "shopify://pages/layering-system",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
