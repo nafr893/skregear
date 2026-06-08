@@ -201,6 +201,14 @@ h5, h6, p {
   justify-content: center;
 }
 
+/* Product tabs: #f9f9f9 background on product card images */
+.skre-prod-tabs__item .image-block {
+  background-color: #f9f9f9;
+}
+.skre-prod-tabs__item .image-block__image {
+  mix-blend-mode: multiply;
+}
+
 /* Keep cart drawer top-aligned when empty (theme centers by default) */
 .cart-drawer--empty .cart-drawer__inner {
   justify-content: flex-start !important;
