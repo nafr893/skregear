@@ -824,3 +824,8 @@ input.search-input::placeholder,
     animation-duration: .01ms !important;
   }
 }
+
+div.yotpo-main-widget-layout.yotpo-align-text {
+  width: 90dvw !important; 
+  align-items: center !important; 
+}
