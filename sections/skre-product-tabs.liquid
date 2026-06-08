@@ -181,6 +181,16 @@
 
   /* ── Carousel grid ────────────────────────────────────────── */
   .skre-prod-tabs__grid {
+    /*
+     * isolation: isolate mirrors .product-grid on collection pages.
+     * Cards inside have background-color: #f9f9f9 on .skre-prod-tabs__img-wrap;
+     * img with mix-blend-mode: multiply blends against that #f9f9f9 backdrop
+     * within this isolation group — white pixels in the photo become #f9f9f9.
+     * No theme slideshow/card-gallery stacking contexts exist in our custom card,
+     * so nothing breaks the isolation chain between the grid and the img.
+     */
+    isolation: isolate;
+
     display: flex;
     flex-wrap: nowrap;
     gap: var(--gap-sm);
@@ -214,29 +224,12 @@
     color: inherit;
   }
 
-  /*
-   * ::after overlay approach: the overlay (#f9f9f9, mix-blend-mode: multiply)
-   * is a positioned element (paint step 6) so it always paints AFTER the block
-   * <img> (paint step 3). multiply(#f9f9f9, white_img_pixel) = #f9f9f9.
-   * isolation: isolate on the wrapper scopes the blend to the wrapper's own
-   * content — no page/section background bleeds into the calculation.
-   */
   .skre-prod-tabs__img-wrap {
     position: relative;
     aspect-ratio: 4 / 5;
     overflow: hidden;
     background-color: #f9f9f9;
-    isolation: isolate;
     border-radius: var(--style-border-radius-cards, 0);
-  }
-
-  .skre-prod-tabs__img-wrap::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-color: #f9f9f9;
-    mix-blend-mode: multiply;
-    pointer-events: none;
   }
 
   .skre-prod-tabs__img {
@@ -244,6 +237,7 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    mix-blend-mode: multiply;
   }
 
   .skre-prod-tabs__card-info {
