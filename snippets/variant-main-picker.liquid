@@ -17,6 +17,7 @@
     else
       assign strikethrough_color_mix = '#fff'
     endif
+    assign has_size_guide = false
   %}
   <variant-picker
     class="variant-picker spacing-style variant-picker--{{ block_settings.alignment }}"
@@ -58,11 +59,12 @@
           assign show_size_guide = false
           if opt_lc == 'size'
             assign show_size_guide = true
+            assign has_size_guide = true
           endif
         -%}
         {%- capture sc_btn -%}
           {%- if show_size_guide -%}
-            <button type="button" class="skre-sc-legend-btn" onclick="document.querySelector('.skre-sc__dialog')?.showModal()">Size Guide</button>
+            <button type="button" class="skre-sc-legend-btn" onclick="window._skreSGOpen?.()">Size Guide</button>
           {%- endif -%}
         {%- endcapture -%}
 
@@ -429,6 +431,102 @@
             if (row && !row.dataset.oos) { e.preventDefault(); row.click(); }
           }
         });
+      })();
+    </script>
+  {%- endif -%}
+
+  {%- if has_size_guide -%}
+    {%- assign sg_data = product_resource.metafields.custom.size_chart.value -%}
+    <script type="application/json" id="skre-sg-data-{{ product_resource.id }}">{{ sg_data | json }}</script>
+    <dialog class="skre-sc__dialog dialog-drawer" id="skre-sg-dialog-{{ product_resource.id }}">
+      <div class="skre-sc__inner">
+        <div class="skre-sc__header">
+          <span class="skre-sc__title">Size Chart</span>
+          <button class="skre-sc__close" type="button" aria-label="Close size chart" id="skre-sg-close-{{ product_resource.id }}">
+            {{- 'icon-close.svg' | inline_asset_content -}}
+          </button>
+        </div>
+        <div class="skre-sc__body">
+          {%- if settings.size_chart_header_image -%}
+            <div class="skre-sc__header-img-wrap">
+              {{
+                settings.size_chart_header_image
+                | image_url: width: 800
+                | image_tag: alt: 'Size guide', loading: 'lazy', class: 'skre-sc__header-img'
+              }}
+            </div>
+          {%- endif -%}
+          <div class="skre-sc__chart-wrap">
+            <div class="skre-sc__table-wrap"></div>
+            <p class="skre-sc__empty" id="skre-sg-empty-{{ product_resource.id }}">No size chart available for this product.</p>
+          </div>
+        </div>
+      </div>
+    </dialog>
+    <script>
+      (function () {
+        var pid = {{ product_resource.id | json }};
+        var dialog = document.getElementById('skre-sg-dialog-' + pid);
+        var wrap = dialog ? dialog.querySelector('.skre-sc__table-wrap') : null;
+        var emptyEl = document.getElementById('skre-sg-empty-' + pid);
+        var dataEl = document.getElementById('skre-sg-data-' + pid);
+
+        if (wrap && dataEl) {
+          try {
+            var rows = JSON.parse(dataEl.textContent);
+            if (Array.isArray(rows) && rows.length) {
+              if (emptyEl) emptyEl.hidden = true;
+              var headers = Object.keys(rows[0]);
+              var esc = function (s) {
+                return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+              };
+              wrap.innerHTML = '<table class="skre-sc__table">'
+                + '<thead><tr>' + headers.map(function (h) { return '<th>' + esc(h) + '</th>'; }).join('') + '</tr></thead>'
+                + '<tbody>' + rows.map(function (row, i) {
+                    return '<tr' + (i % 2 === 0 ? ' class="skre-sc__row--even"' : '') + '>'
+                      + headers.map(function (h) { return '<td>' + esc(String(row[h] != null ? row[h] : '')) + '</td>'; }).join('')
+                      + '</tr>';
+                  }).join('') + '</tbody>'
+                + '</table>';
+            }
+          } catch (e) {}
+        }
+
+        function closeDialog() {
+          if (!dialog || !dialog.open) return;
+          dialog.style.animation = 'none';
+          void dialog.offsetWidth;
+          dialog.classList.add('dialog-closing');
+          dialog.style.animation = '';
+          dialog.addEventListener('animationend', function handler() {
+            dialog.removeEventListener('animationend', handler);
+            dialog.close();
+            dialog.classList.remove('dialog-closing');
+            var top = document.body.style.top;
+            document.body.style.width = '';
+            document.body.style.position = '';
+            document.body.style.top = '';
+            if (top) window.scrollTo(0, -parseInt(top, 10));
+          });
+        }
+
+        function openDialog() {
+          if (!dialog || dialog.open) return;
+          var y = window.scrollY;
+          document.body.style.width = '100%';
+          document.body.style.position = 'fixed';
+          document.body.style.top = '-' + y + 'px';
+          dialog.showModal();
+        }
+
+        window._skreSGOpen = openDialog;
+
+        var closeBtn = document.getElementById('skre-sg-close-' + pid);
+        if (closeBtn) closeBtn.addEventListener('click', closeDialog);
+        if (dialog) {
+          dialog.addEventListener('click', function (e) { if (e.target === dialog) closeDialog(); });
+          dialog.addEventListener('cancel', function (e) { e.preventDefault(); closeDialog(); });
+        }
       })();
     </script>
   {%- endif -%}
