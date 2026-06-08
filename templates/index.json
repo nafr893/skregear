@@ -678,7 +678,7 @@
             "text_QfMq4D": {
               "type": "text",
               "settings": {
-                "text": "<p><strong>Stay warm and protected from the elements.Choose your base, insulation and protective layers.</strong></p>",
+                "text": "<p><strong>Stay warm and protected from the elements. Choose your base, insulation and protective layers.</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "center",
@@ -743,6 +743,7 @@
             "color_scheme": "scheme-5",
             "background_media": "image",
             "video_position": "cover",
+            "background_image": "shopify://shop_images/Nebo-Pants4.jpg",
             "background_image_position": "cover",
             "border": "none",
             "border_width": 1,
@@ -765,7 +766,7 @@
             "text_HMXLgQ": {
               "type": "text",
               "settings": {
-                "text": "<h3>SAVE UP TO </h3>",
+                "text": "<h3>SHOP WATERPROOF GEAR</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "center",
@@ -791,7 +792,7 @@
             "text_MJMccq": {
               "type": "text",
               "settings": {
-                "text": "<h3>Bestsellers</h3>",
+                "text": "<h3>Stay warm and dry </h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "center",
@@ -818,7 +819,7 @@
               "type": "button",
               "settings": {
                 "label": "Shop now",
-                "link": "shopify://collections/all",
+                "link": "shopify://collections/waterproof",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
