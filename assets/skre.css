@@ -164,6 +164,43 @@ h5, h6, p {
   mix-blend-mode: multiply;
 }
 
+/* Empty cart promo block */
+.cart-empty__promo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  margin-block-start: auto;
+}
+
+.cart-empty__promo-img-wrap {
+  width: 100%;
+  max-width: 280px;
+  border-radius: var(--style-border-radius-cards, 0);
+  overflow: hidden;
+}
+
+.cart-empty__promo-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.cart-empty__promo-heading {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--color-foreground);
+}
+
+.cart-empty__promo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Keep cart drawer top-aligned when empty (theme centers by default) */
 .cart-drawer--empty .cart-drawer__inner {
   justify-content: flex-start !important;

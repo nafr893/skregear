@@ -151,6 +151,31 @@
         <div class="cart-drawer__items">
           {% render 'cart-products', force_empty: true %}
         </div>
+
+        {%- if section.settings.empty_cart_image != blank or section.settings.empty_cart_heading != blank or section.settings.empty_cart_button_label != blank -%}
+          <div class="cart-empty__promo">
+            {%- if section.settings.empty_cart_image != blank -%}
+              <div class="cart-empty__promo-img-wrap">
+                {{
+                  section.settings.empty_cart_image
+                  | image_url: width: 600
+                  | image_tag:
+                    loading: 'lazy',
+                    class: 'cart-empty__promo-img',
+                    widths: '300, 400, 600'
+                }}
+              </div>
+            {%- endif -%}
+            {%- if section.settings.empty_cart_heading != blank -%}
+              <p class="cart-empty__promo-heading">{{ section.settings.empty_cart_heading }}</p>
+            {%- endif -%}
+            {%- if section.settings.empty_cart_button_label != blank and section.settings.empty_cart_button_link != blank -%}
+              <a href="{{ section.settings.empty_cart_button_link }}" class="button cart-empty__promo-btn">
+                {{ section.settings.empty_cart_button_label }}
+              </a>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
       </div>
     {% endcapture %}
 
