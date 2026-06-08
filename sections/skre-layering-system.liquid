@@ -2067,6 +2067,18 @@ body:has(.skre-lb) main {
   .skre-lb__builder--has-items .skre-lb__summary-btn { display: none; }
   .skre-lb__builder--has-items .skre-lb__atc { justify-content: space-between; flex: 1; }
   .skre-lb__builder--has-items .skre-lb__atc-price { display: inline; }
+
+  /* Summary panel: right-side drawer on desktop instead of full-width bottom sheet */
+  .skre-lb__summary-panel {
+    align-items: stretch;
+    justify-content: flex-end;
+  }
+  .skre-lb__summary-inner {
+    width: 400px;
+    max-width: 400px;
+    max-height: 100%;
+    border-radius: 0;
+  }
 }
 
 /* ── Spotlight tour (first-visit / ? walkthrough) ────────────────────────── */
