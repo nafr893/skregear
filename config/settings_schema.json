@@ -2384,6 +2384,16 @@
           }
         ],
         "default": "equal-width-buttons"
+      },
+      {
+        "type": "header",
+        "content": "Default selection"
+      },
+      {
+        "type": "text",
+        "id": "default_size_value",
+        "label": "Default size",
+        "info": "Enter a size value (e.g. XL) to pre-select it on product pages. Leave blank to use the first available."
       }
     ]
   },

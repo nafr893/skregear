@@ -48,3 +48,35 @@
     observeCards();
   }
 })();
+
+// Auto-select a default size variant on product pages when no variant is pre-selected via URL.
+(function () {
+  var defaultSize = document.body.dataset.defaultSize;
+  if (!defaultSize) return;
+  if (new URLSearchParams(window.location.search).has('variant')) return;
+
+  function autoSelectDefaultSize() {
+    document.querySelectorAll('variant-picker').forEach(function (picker) {
+      picker.querySelectorAll('fieldset').forEach(function (fieldset) {
+        var legend = fieldset.querySelector('legend');
+        if (!legend) return;
+        if (!legend.textContent.trim().toLowerCase().includes('size')) return;
+
+        // Don't override if the user has already interacted
+        if (fieldset.querySelector('input[type="radio"]:checked[data-current-checked="false"]')) return;
+
+        var target = Array.from(fieldset.querySelectorAll('input[type="radio"]')).find(function (input) {
+          return input.value.trim().toLowerCase() === defaultSize.trim().toLowerCase()
+            && input.getAttribute('aria-disabled') !== 'true';
+        });
+        if (target && !target.checked) target.click();
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', autoSelectDefaultSize);
+  } else {
+    autoSelectDefaultSize();
+  }
+})();
