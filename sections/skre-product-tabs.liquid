@@ -1,8 +1,6 @@
 {% comment %}
-  SKRE Product Tabs — Tabbed product carousel.
-  Cards are rendered directly (no content_for _product-card) so the image wrapper
-  is fully under our control — background-color + isolation set inline, no theme
-  CSS chain to fight for the #f9f9f9 effect.
+  SKRE Product Tabs — Tabbed product carousel using the theme's native _product-card block.
+  Tabs at top switch between collections; cards render identically to the product-list section.
 {% endcomment %}
 
 {%- liquid
@@ -56,43 +54,10 @@
         {% if col != blank and col.products.size > 0 %}
           <ul class="skre-prod-tabs__grid list-unstyled" data-prod-carousel-list>
             {% for product in col.products limit: 20 %}
-              {%- assign img_loading = 'lazy' -%}
-              {%- if forloop.parentloop.first -%}
-                {%- comment -%} First tab: eager for first 4 when section is above fold {%- endcomment -%}
-                {%- if forloop.index <= 4 and section.index < 5 -%}
-                  {%- assign img_loading = 'eager' -%}
-                {%- endif -%}
-              {%- else -%}
-                {%- comment -%} Non-first tabs: eager for first 8 so they're cached before click {%- endcomment -%}
-                {%- if forloop.index <= 8 -%}
-                  {%- assign img_loading = 'eager' -%}
-                {%- endif -%}
-              {%- endif -%}
               <li class="skre-prod-tabs__item">
-                <a href="{{ product.selected_or_first_available_variant.url }}" class="skre-prod-tabs__card">
-                  <div class="skre-prod-tabs__img-wrap" style="background-color:#f9f9f9!important;position:relative!important;">
-                    {{- product.featured_image
-                      | image_url: width: 600
-                      | image_tag:
-                        class: 'skre-prod-tabs__img',
-                        loading: img_loading,
-                        alt: product.title,
-                        widths: '300, 400, 600',
-                        style: 'opacity:0!important;'
-                    -}}
-                  </div>
-                  <div class="skre-prod-tabs__card-info">
-                    <p class="skre-prod-tabs__card-title">{{ product.title }}</p>
-                    <p class="skre-prod-tabs__card-price">
-                      {%- if product.compare_at_price > product.price -%}
-                        <s class="skre-prod-tabs__card-compare">{{ product.compare_at_price | money }}</s>
-                        {{ product.price | money }}
-                      {%- else -%}
-                        {{ product.price | money }}
-                      {%- endif -%}
-                    </p>
-                  </div>
-                </a>
+                {% # theme-check-disable UniqueStaticBlockId %}
+                  {% content_for 'block', type: '_product-card', id: 'static-product-card', closest.product: product %}
+                {% # theme-check-enable UniqueStaticBlockId %}
               </li>
             {% endfor %}
           </ul>
@@ -180,16 +145,6 @@
 
   /* ── Carousel grid ────────────────────────────────────────── */
   .skre-prod-tabs__grid {
-    /*
-     * isolation: isolate mirrors .product-grid on collection pages.
-     * Cards inside have background-color: #f9f9f9 on .skre-prod-tabs__img-wrap;
-     * img with mix-blend-mode: multiply blends against that #f9f9f9 backdrop
-     * within this isolation group — white pixels in the photo become #f9f9f9.
-     * No theme slideshow/card-gallery stacking contexts exist in our custom card,
-     * so nothing breaks the isolation chain between the grid and the img.
-     */
-    isolation: isolate;
-
     display: flex;
     flex-wrap: nowrap;
     gap: var(--gap-sm);
@@ -214,59 +169,6 @@
     @media screen and (min-width: 750px) {
       flex: 0 0 calc(25% - var(--gap-md) * 3 / 4);
     }
-  }
-
-  /* ── Product card ─────────────────────────────────────────── */
-  .skre-prod-tabs__card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .skre-prod-tabs__img-wrap {
-    position: relative;
-    aspect-ratio: 4 / 5;
-    overflow: hidden;
-    background-color: #f9f9f9;
-    border-radius: var(--style-border-radius-cards, 0);
-  }
-
-  .skre-prod-tabs__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    mix-blend-mode: multiply;
-    opacity: 0;
-  }
-
-  .skre-prod-tabs__card-info {
-    padding-block-start: var(--padding-xs);
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .skre-prod-tabs__card-title {
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.4;
-    margin: 0;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-
-  .skre-prod-tabs__card-price {
-    font-size: 1rem;
-    font-weight: 500;
-    margin: 0;
-  }
-
-  .skre-prod-tabs__card-compare {
-    opacity: 0.5;
-    margin-inline-end: 0.35em;
   }
 
   /* ── Carousel footer ──────────────────────────────────────── */
@@ -356,7 +258,6 @@
       ink.style.width = tab.offsetWidth + 'px';
     }
 
-    // Position ink on first active tab immediately (no transition on init)
     var firstActive = document.querySelector('.skre-prod-tabs__tab[aria-selected="true"]');
     if (ink && firstActive) {
       ink.style.transition = 'none';
@@ -452,30 +353,6 @@
     }
 
     panels.forEach(function (panel) { initCarousel(panel); });
-
-    /* ── Preload lazy images in hidden panels ───────────────────
-     * Eager loading in the HTML covers the first visible set per tab.
-     * This covers the rest — runs at browser idle so it never blocks paint. */
-    var hiddenPanels = Array.prototype.slice.call(
-      document.querySelectorAll('.skre-prod-tabs__panel--hidden')
-    );
-    if (hiddenPanels.length) {
-      function preloadPanel(panel) {
-        panel.querySelectorAll('.skre-prod-tabs__img').forEach(function (img) {
-          if (img.complete) return;
-          var pre = new Image();
-          var srcset = img.getAttribute('srcset');
-          var sizes  = img.getAttribute('sizes');
-          if (srcset) pre.srcset = srcset;
-          if (sizes)  pre.sizes  = sizes;
-          pre.src = img.src;
-        });
-      }
-      var run = function () { hiddenPanels.forEach(preloadPanel); };
-      'requestIdleCallback' in window
-        ? requestIdleCallback(run, { timeout: 3000 })
-        : setTimeout(run, 1500);
-    }
   })();
 </script>
 
