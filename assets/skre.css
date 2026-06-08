@@ -151,29 +151,15 @@ h5, h6, p {
   font-weight: 500;
 }
 
-/* Product tabs, search results, and cart trending: match collection page card appearance */
-.skre-prod-tabs__item .resource-card__media,
+/* Search results and cart trending: match collection page card appearance */
 .skre-search-results__product-item .resource-card__media,
 .cart-empty__trending .resource-card__media {
   background-color: #f9f9f9;
 }
 
-.skre-prod-tabs__item .resource-card__image:not(.resource-card__image--secondary),
 .skre-search-results__product-item .resource-card__image:not(.resource-card__image--secondary),
 .cart-empty__trending .resource-card__image:not(.resource-card__image--secondary) {
   mix-blend-mode: multiply;
-}
-
-/*
- * Product tabs: isolate at the slideshow-slide (product-media-container) level.
- * The element's own background-color (#f9f9f9) is painted before any children,
- * so mix-blend-mode: multiply on the img correctly blends against #f9f9f9.
- * Isolating at .product-media (the inner div) was broken because positioned ::before
- * paints after inline img (paint steps 5 vs 6), leaving img blending against transparent.
- */
-.skre-prod-tabs__item .product-media-container {
-  isolation: isolate !important;
-  background-color: #f9f9f9 !important;
 }
 
 /* Keep cart drawer top-aligned when empty (theme centers by default) */

@@ -1,6 +1,8 @@
 {% comment %}
-  SKRE Product Tabs — Tabbed product carousel. Each tab picks one collection
-  and renders its products as swatchable product cards.
+  SKRE Product Tabs — Tabbed product carousel.
+  Cards are rendered directly (no content_for _product-card) so the image wrapper
+  is fully under our control — background-color + isolation set inline, no theme
+  CSS chain to fight for the #f9f9f9 effect.
 {% endcomment %}
 
 {%- liquid
@@ -49,15 +51,38 @@
         class="skre-prod-tabs__panel{% unless forloop.first %} skre-prod-tabs__panel--hidden{% endunless %}"
         id="skre-prod-panel-{{ forloop.index0 }}"
         role="tabpanel"
-        aria-labelledby="skre-prod-tab-{{ forloop.index0 }}"
       >
         {% if col != blank and col.products.size > 0 %}
           <ul class="skre-prod-tabs__grid list-unstyled" data-prod-carousel-list>
             {% for product in col.products limit: 20 %}
+              {%- assign img_loading = 'lazy' -%}
+              {%- if forloop.parentloop.first and forloop.index <= 4 and section.index < 5 -%}
+                {%- assign img_loading = 'eager' -%}
+              {%- endif -%}
               <li class="skre-prod-tabs__item">
-                {%- # theme-check-disable UniqueStaticBlockId -%}
-                {%- content_for 'block', type: '_product-card', id: 'static-product-card', closest.product: product -%}
-                {%- # theme-check-enable UniqueStaticBlockId -%}
+                <a href="{{ product.selected_or_first_available_variant.url }}" class="skre-prod-tabs__card">
+                  <div class="skre-prod-tabs__img-wrap">
+                    {{- product.featured_image
+                      | image_url: width: 600
+                      | image_tag:
+                        class: 'skre-prod-tabs__img',
+                        loading: img_loading,
+                        alt: product.title,
+                        widths: '300, 400, 600'
+                    -}}
+                  </div>
+                  <div class="skre-prod-tabs__card-info">
+                    <p class="skre-prod-tabs__card-title">{{ product.title }}</p>
+                    <p class="skre-prod-tabs__card-price">
+                      {%- if product.compare_at_price > product.price -%}
+                        <s class="skre-prod-tabs__card-compare">{{ product.compare_at_price | money }}</s>
+                        {{ product.price | money }}
+                      {%- else -%}
+                        {{ product.price | money }}
+                      {%- endif -%}
+                    </p>
+                  </div>
+                </a>
               </li>
             {% endfor %}
           </ul>
@@ -91,8 +116,6 @@
       </div>
     {% endfor %}
   </div>
-
-  {%- content_for 'blocks' -%}
 
 </section>
 
@@ -148,17 +171,7 @@
     display: none;
   }
 
-  /* ── Carousel ─────────────────────────────────────────────── */
-  /*
-   * isolation: isolate mirrors .product-grid on collection pages.
-   * Without it, mix-blend-mode: multiply on product images blends against
-   * the page's white background instead of the #f9f9f9 set on
-   * .product-media-container, so the off-white card background never appears.
-   */
-  .skre-prod-tabs__grid {
-    isolation: isolate;
-  }
-
+  /* ── Carousel grid ────────────────────────────────────────── */
   .skre-prod-tabs__grid {
     display: flex;
     flex-wrap: nowrap;
@@ -184,6 +197,65 @@
     @media screen and (min-width: 750px) {
       flex: 0 0 calc(25% - var(--gap-md) * 3 / 4);
     }
+  }
+
+  /* ── Product card ─────────────────────────────────────────── */
+  .skre-prod-tabs__card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /*
+   * isolation: isolate + background-color: #f9f9f9 on this wrapper means
+   * the element's own background is painted before any children within the
+   * isolated group. mix-blend-mode: multiply on the <img> then blends
+   * against #f9f9f9 — white pixels in the photo become #f9f9f9.
+   * No theme CSS chain involved; this element is fully under our control.
+   */
+  .skre-prod-tabs__img-wrap {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    isolation: isolate;
+    border-radius: var(--style-border-radius-cards, 0);
+  }
+
+  .skre-prod-tabs__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: multiply;
+    display: block;
+  }
+
+  .skre-prod-tabs__card-info {
+    padding-block-start: var(--padding-xs);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .skre-prod-tabs__card-title {
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.4;
+    margin: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .skre-prod-tabs__card-price {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .skre-prod-tabs__card-compare {
+    opacity: 0.5;
+    margin-inline-end: 0.35em;
   }
 
   /* ── Carousel footer ──────────────────────────────────────── */
@@ -284,7 +356,6 @@
       var footer = panel.querySelector('[data-prod-carousel-footer]');
       if (!list || !footer) return;
 
-      var track     = footer.querySelector('.skre-prod-tabs__scroll-track');
       var thumb     = footer.querySelector('.skre-prod-tabs__scroll-thumb');
       var prevBtn   = footer.querySelector('.skre-prod-tabs__nav-btn--prev');
       var nextBtn   = footer.querySelector('.skre-prod-tabs__nav-btn--next');
@@ -332,8 +403,7 @@
 
         var thumbWidthPct = (visible / total) * 100;
         var thumbLeftPct  = (first / (total - visible)) * (100 - thumbWidthPct);
-        thumb.style.width = thumbWidthPct + '%';
-        thumb.style.left  = thumbLeftPct + '%';
+        if (thumb) { thumb.style.width = thumbWidthPct + '%'; thumb.style.left = thumbLeftPct + '%'; }
 
         if (elCurrent) elCurrent.textContent = last;
         if (elTotal)   elTotal.textContent   = total;
@@ -481,9 +551,8 @@
     }
   ],
   "blocks": [
-    { "type": "@theme" },
-    { "type": "@app" },
-    { "type": "_product-card" }
+    { "type": "@theme", "name": "Theme block" },
+    { "type": "@app", "name": "App block" }
   ],
   "presets": [
     {
@@ -492,89 +561,7 @@
         "tabs_count": 2,
         "tab_1_label": "Featured",
         "tab_2_label": "New Arrivals"
-      },
-      "blocks": {
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "Product card",
-          "static": true,
-          "settings": {
-            "product_card_gap": 4,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product-card-gallery": {
-              "type": "_product-card-gallery",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "product_title": {
-              "type": "product-title",
-              "settings": {
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "paragraph",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            },
-            "price": {
-              "type": "price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "color": "var(--color-foreground)",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              }
-            }
-          },
-          "block_order": ["product-card-gallery", "product_title", "price"]
-        }
-      },
-      "block_order": []
+      }
     }
   ]
 }
