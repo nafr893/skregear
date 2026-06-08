@@ -69,14 +69,15 @@
               {%- endif -%}
               <li class="skre-prod-tabs__item">
                 <a href="{{ product.selected_or_first_available_variant.url }}" class="skre-prod-tabs__card">
-                  <div class="skre-prod-tabs__img-wrap" style="background-color:#f9f9f9!important;">
+                  <div class="skre-prod-tabs__img-wrap" style="background-color:#f9f9f9!important;position:relative!important;">
                     {{- product.featured_image
                       | image_url: width: 600
                       | image_tag:
                         class: 'skre-prod-tabs__img',
                         loading: img_loading,
                         alt: product.title,
-                        widths: '300, 400, 600'
+                        widths: '300, 400, 600',
+                        style: 'opacity:0!important;'
                     -}}
                   </div>
                   <div class="skre-prod-tabs__card-info">
