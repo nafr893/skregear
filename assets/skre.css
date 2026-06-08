@@ -165,6 +165,11 @@ h5, h6, p {
 }
 
 /* Empty cart promo block */
+/* Pull promo block tight against the 3 buttons above it */
+.cart-drawer--empty .cart-empty__buttons {
+  padding-bottom: var(--padding-sm);
+}
+
 .cart-empty__promo {
   display: flex;
   flex-direction: column;
