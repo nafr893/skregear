@@ -26,6 +26,9 @@ h5, h6, p {
   margin-block-start: var(--padding-xs);
 }
 
+/* Hide trending carousel in empty cart drawer until swatch stacking is resolved */
+.cart-empty__trending { display: none; }
+
 /* Fix swatch hover/selected */
 .predictive-search-swatches overflow-list::part(list),
 .cart-empty__trending overflow-list::part(list) {
