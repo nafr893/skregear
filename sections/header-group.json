@@ -162,6 +162,10 @@
         "home_color_scheme": "inverse",
         "enable_transparent_header_product": false,
         "product_color_scheme": "default",
+        "empty_cart_image": "shopify://shop_images/M6A8504.jpg",
+        "empty_cart_heading": "BUILD YOUR LAYERING SYSTEM",
+        "empty_cart_button_label": "Shop now",
+        "empty_cart_button_link": "shopify://pages/layering-system",
         "enable_transparent_header_collection": false,
         "collection_color_scheme": "default"
       }
