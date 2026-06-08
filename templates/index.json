@@ -480,18 +480,11 @@
             "padding-inline-end": 0
           },
           "blocks": {
-            "image_nFBfmU": {
-              "type": "image",
-              "name": "t:names.image",
+            "product-card-gallery": {
+              "type": "_product-card-gallery",
+              "name": "t:names.product_card_media",
               "settings": {
-                "image": "{{ closest.product.featured_image }}",
-                "link": "",
                 "image_ratio": "adapt",
-                "width": "fill",
-                "custom_width": 100,
-                "width_mobile": "fill",
-                "custom_width_mobile": 100,
-                "height": "fit",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
@@ -580,7 +573,7 @@
             }
           },
           "block_order": [
-            "image_nFBfmU",
+            "product-card-gallery",
             "swatches_KE64pA",
             "product_title_XJHti8",
             "review_rk4MBE",

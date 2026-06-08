@@ -164,15 +164,6 @@ h5, h6, p {
   mix-blend-mode: multiply;
 }
 
-/* Product tabs: off-white background on native product card images */
-.skre-prod-tabs__item .card-gallery {
-  background-color: #f9f9f9;
-}
-
-.skre-prod-tabs__item .card-gallery img {
-  mix-blend-mode: multiply;
-}
-
 /* Keep cart drawer top-aligned when empty (theme centers by default) */
 .cart-drawer--empty .cart-drawer__inner {
   justify-content: flex-start !important;
