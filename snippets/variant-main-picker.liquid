@@ -438,27 +438,27 @@
   {%- if has_size_guide -%}
     {%- assign sg_data = product_resource.metafields.custom.size_chart.value -%}
     <script type="application/json" id="skre-sg-data-{{ product_resource.id }}">{{ sg_data | json }}</script>
-    <dialog class="skre-sc__dialog dialog-drawer" id="skre-sg-dialog-{{ product_resource.id }}">
-      <div class="skre-sc__inner">
-        <div class="skre-sc__header">
-          <span class="skre-sc__title">Size Chart</span>
-          <button class="skre-sc__close" type="button" aria-label="Close size chart" id="skre-sg-close-{{ product_resource.id }}">
+    <dialog class="skre-lb__sc-dialog dialog-drawer" id="skre-sg-dialog-{{ product_resource.id }}">
+      <div class="skre-lb__sc-inner">
+        <div class="skre-lb__sc-header">
+          <span class="skre-lb__sc-title">Size Chart</span>
+          <button class="skre-lb__sc-close" type="button" aria-label="Close size chart" id="skre-sg-close-{{ product_resource.id }}">
             {{- 'icon-close.svg' | inline_asset_content -}}
           </button>
         </div>
-        <div class="skre-sc__body">
+        <div class="skre-lb__sc-body">
           {%- if settings.size_chart_header_image -%}
-            <div class="skre-sc__header-img-wrap">
+            <div class="skre-lb__sc-header-img-wrap">
               {{
                 settings.size_chart_header_image
                 | image_url: width: 800
-                | image_tag: alt: 'Size guide', loading: 'lazy', class: 'skre-sc__header-img'
+                | image_tag: alt: 'Size guide', loading: 'lazy', class: 'skre-lb__sc-header-img'
               }}
             </div>
           {%- endif -%}
-          <div class="skre-sc__chart-wrap">
-            <div class="skre-sc__table-wrap"></div>
-            <p class="skre-sc__empty" id="skre-sg-empty-{{ product_resource.id }}">No size chart available for this product.</p>
+          <div class="skre-lb__sc-chart-wrap">
+            <div class="skre-lb__sc-table-wrap"></div>
+            <p class="skre-lb__sc-empty" id="skre-sg-empty-{{ product_resource.id }}">No size chart available for this product.</p>
           </div>
         </div>
       </div>
@@ -467,7 +467,7 @@
       (function () {
         var pid = {{ product_resource.id | json }};
         var dialog = document.getElementById('skre-sg-dialog-' + pid);
-        var wrap = dialog ? dialog.querySelector('.skre-sc__table-wrap') : null;
+        var wrap = dialog ? dialog.querySelector('.skre-lb__sc-table-wrap') : null;
         var emptyEl = document.getElementById('skre-sg-empty-' + pid);
         var dataEl = document.getElementById('skre-sg-data-' + pid);
 
@@ -480,10 +480,10 @@
               var esc = function (s) {
                 return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
               };
-              wrap.innerHTML = '<table class="skre-sc__table">'
+              wrap.innerHTML = '<table class="skre-lb__sc-table">'
                 + '<thead><tr>' + headers.map(function (h) { return '<th>' + esc(h) + '</th>'; }).join('') + '</tr></thead>'
                 + '<tbody>' + rows.map(function (row, i) {
-                    return '<tr' + (i % 2 === 0 ? ' class="skre-sc__row--even"' : '') + '>'
+                    return '<tr' + (i % 2 === 0 ? ' class="skre-lb__sc-row--even"' : '') + '>'
                       + headers.map(function (h) { return '<td>' + esc(String(row[h] != null ? row[h] : '')) + '</td>'; }).join('')
                       + '</tr>';
                   }).join('') + '</tbody>'
