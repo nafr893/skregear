@@ -12,6 +12,29 @@
 {%- assign all_slots = shop.metaobjects.skre_layer_slot.values -%}
 {%- if all_slots == blank -%}{%- assign all_slots = '' | split: '' -%}{%- endif -%}
 
+{%- comment -%}
+  Pre-build a flat string lookup for shopify--color metaobjects so the inner loop
+  (previously O(products × color_values × shopify_colors)) runs only once here.
+  Format per entry: «Label»css|img_url|base_rgb¶
+{%- endcomment -%}
+{%- assign _sw_lookup = '' -%}
+{%- for _cmo in shop.metaobjects['shopify--color'].values -%}
+  {%- assign _sc = '' -%}
+  {%- assign _si = '' -%}
+  {%- assign _sr = '' -%}
+  {%- if _cmo.color.value != blank -%}
+    {%- assign _sc = 'rgb(' | append: _cmo.color.value.rgb | append: ')' -%}
+    {%- assign _sr = _cmo.color.value.rgb -%}
+  {%- endif -%}
+  {%- if _sr == blank and _cmo.base_color.value != blank and _cmo.base_color.value.color.value != blank -%}
+    {%- assign _sr = _cmo.base_color.value.color.value.rgb -%}
+  {%- endif -%}
+  {%- if _cmo.image.value != blank -%}
+    {%- assign _si = _cmo.image.value | image_url: width: 120 -%}
+  {%- endif -%}
+  {%- assign _sw_lookup = _sw_lookup | append: '«' | append: _cmo.label.value | append: '»' | append: _sc | append: '|' | append: _si | append: '|' | append: _sr | append: '¶' -%}
+{%- endfor -%}
+
 {%- capture lb_json -%}
 {
   "conditions": [
@@ -127,25 +150,15 @@
                               {%- assign sw_css = null -%}
                               {%- assign sw_img_url = null -%}
                               {%- assign sw_base_rgb = null -%}
-                              {%- comment -%} Direct shopify--color metaobject lookup by label -%}{%- endcomment -%}
-                              {%- for cmo in shop.metaobjects['shopify--color'].values -%}
-                                {%- if cmo.label.value == oval.name -%}
-                                  {%- if cmo.color.value != blank -%}
-                                    {%- assign sw_css = 'rgb(' | append: cmo.color.value.rgb | append: ')' -%}
-                                    {%- assign sw_base_rgb = cmo.color.value.rgb -%}
-                                  {%- endif -%}
-                                  {%- if cmo.image.value != blank -%}
-                                    {%- assign sw_img_url = cmo.image.value | image_url: width: 120 -%}
-                                  {%- endif -%}
-                                  {%- if sw_base_rgb == blank -%}
-                                    {%- assign bc_mo = cmo.base_color.value -%}
-                                    {%- if bc_mo != blank and bc_mo.color.value != blank -%}
-                                      {%- assign sw_base_rgb = bc_mo.color.value.rgb -%}
-                                    {%- endif -%}
-                                  {%- endif -%}
-                                  {%- break -%}
-                                {%- endif -%}
-                              {%- endfor -%}
+                              {%- comment -%} O(1) lookup against pre-built string — avoids inner metaobject loop -%}{%- endcomment -%}
+                              {%- assign _lk = '«' | append: oval.name | append: '»' -%}
+                              {%- if _sw_lookup contains _lk -%}
+                                {%- assign _lk_data = _sw_lookup | split: _lk | last | split: '¶' | first -%}
+                                {%- assign _lk_parts = _lk_data | split: '|' -%}
+                                {%- assign sw_css = _lk_parts[0] -%}
+                                {%- assign sw_img_url = _lk_parts[1] -%}
+                                {%- assign sw_base_rgb = _lk_parts[2] -%}
+                              {%- endif -%}
                               {%- comment -%} Fallback to oval.swatch if metaobject lookup yielded nothing -%}{%- endcomment -%}
                               {%- if sw_css == blank and sw_img_url == blank -%}
                                 {%- if oval.swatch.image != blank -%}
@@ -550,7 +563,8 @@
   </div>
 </skre-layer-builder>
 
-<script src="{{ 'skre-layer-builder.js' | asset_url }}" type="module"></script>
+<link rel="modulepreload" href="{{ 'skre-layer-builder.js' | asset_url }}">
+<script src="{{ 'skre-layer-builder.js' | asset_url }}" type="module" fetchpriority="high"></script>
 
 {% endpaginate %}
 
