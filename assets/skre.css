@@ -209,6 +209,11 @@ h5, h6, p {
   mix-blend-mode: multiply;
 }
 
+/* Hide duplicate "Your cart is empty" title at bottom of empty cart drawer */
+.cart-drawer--empty .cart-title {
+  display: none;
+}
+
 /* Keep cart drawer top-aligned when empty (theme centers by default) */
 .cart-drawer--empty .cart-drawer__inner {
   justify-content: flex-start !important;
