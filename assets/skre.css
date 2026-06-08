@@ -331,13 +331,17 @@ h5, h6, p {
 }
 
 .skre-promo-card:hover .skre-promo-card__btn {
-  background-color: transparent;
-  color: #fff;
+  background-color: #f5f5f5;
+  color: #000;
 }
 
 .close-button:focus,
 .close-button:focus-visible {
   outline: none;
+}
+
+.facets .checkbox .icon-checkmark {
+  --checkbox-border-radius: 0;
 }
 
 /* Hide the theme's native mobile filter toggle — handled by skre-sort-toolbar */
