@@ -801,3 +801,12 @@ input.search-input::placeholder,
     animation-duration: .01ms !important;
   }
 }
+
+div.yotpo-main-widget-layout.yotpo-align-text {
+  width: 90dvw !important; 
+  align-items: center !important; 
+}
+li.yotpo-pagination-number-container {
+  align-items: center !important; 
+  display: flex; 
+}
