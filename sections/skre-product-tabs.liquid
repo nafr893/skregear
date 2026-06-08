@@ -56,8 +56,16 @@
           <ul class="skre-prod-tabs__grid list-unstyled" data-prod-carousel-list>
             {% for product in col.products limit: 20 %}
               {%- assign img_loading = 'lazy' -%}
-              {%- if forloop.parentloop.first and forloop.index <= 4 and section.index < 5 -%}
-                {%- assign img_loading = 'eager' -%}
+              {%- if forloop.parentloop.first -%}
+                {%- comment -%} First tab: eager for first 4 when section is above fold {%- endcomment -%}
+                {%- if forloop.index <= 4 and section.index < 5 -%}
+                  {%- assign img_loading = 'eager' -%}
+                {%- endif -%}
+              {%- else -%}
+                {%- comment -%} Non-first tabs: eager for first 8 so they're cached before click {%- endcomment -%}
+                {%- if forloop.index <= 8 -%}
+                  {%- assign img_loading = 'eager' -%}
+                {%- endif -%}
               {%- endif -%}
               <li class="skre-prod-tabs__item">
                 <a href="{{ product.selected_or_first_available_variant.url }}" class="skre-prod-tabs__card">
@@ -434,6 +442,30 @@
     }
 
     panels.forEach(function (panel) { initCarousel(panel); });
+
+    /* ── Preload lazy images in hidden panels ───────────────────
+     * Eager loading in the HTML covers the first visible set per tab.
+     * This covers the rest — runs at browser idle so it never blocks paint. */
+    var hiddenPanels = Array.prototype.slice.call(
+      document.querySelectorAll('.skre-prod-tabs__panel--hidden')
+    );
+    if (hiddenPanels.length) {
+      function preloadPanel(panel) {
+        panel.querySelectorAll('.skre-prod-tabs__img').forEach(function (img) {
+          if (img.complete) return;
+          var pre = new Image();
+          var srcset = img.getAttribute('srcset');
+          var sizes  = img.getAttribute('sizes');
+          if (srcset) pre.srcset = srcset;
+          if (sizes)  pre.sizes  = sizes;
+          pre.src = img.src;
+        });
+      }
+      var run = function () { hiddenPanels.forEach(preloadPanel); };
+      'requestIdleCallback' in window
+        ? requestIdleCallback(run, { timeout: 3000 })
+        : setTimeout(run, 1500);
+    }
   })();
 </script>
 
