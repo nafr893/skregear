@@ -836,15 +836,8 @@ class SkreLayerBuilder extends HTMLElement {
       this.#renderTabs();
       this.#updateSkipLabel();
 
-      // Flash "Added ✓" — restore label after 1.5 s
-      if (labelEl) labelEl.textContent = 'Added ✓';
-      if (railLabel) railLabel.textContent = 'Added ✓';
       if (btn) btn.disabled = false;
       if (railAtc) railAtc.disabled = false;
-      setTimeout(() => {
-        if (labelEl) labelEl.textContent = 'ADD TO SYSTEM';
-        if (railLabel) railLabel.textContent = 'ADD TO SYSTEM';
-      }, 1500);
       return; // skip finally label-reset
 
     } catch (err) {

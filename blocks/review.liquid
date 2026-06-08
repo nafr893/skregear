@@ -33,11 +33,15 @@
     assign svg_filled_stars = rating | floor | plus: decimal_rounded
   %}
 
+  {%- if block_settings.anchor_link != blank -%}
+    <a href="{{ block_settings.anchor_link }}" class="rating-wrapper rating-color--{{ block_settings.rating_color }} justify-{{ block_settings.alignment }} size-style rating-wrapper--link" style="{% render 'size-style', settings: block_settings %}" {{ block.shopify_attributes }}>
+  {%- else -%}
   <div
     class="rating-wrapper rating-color--{{ block_settings.rating_color }} justify-{{ block_settings.alignment }} size-style"
     style="{% render 'size-style', settings: block_settings %}"
     {{ block.shopify_attributes }}
   >
+  {%- endif -%}
     <svg
       class="visually-hidden"
       style="width: 0; height: 0;"
@@ -106,7 +110,7 @@
         {%- endif -%}
       </p>
     {%- endif -%}
-  </div>
+  {%- if block_settings.anchor_link != blank -%}</a>{%- else -%}</div>{%- endif -%}
 {%- endif -%}
 
 {% stylesheet %}
@@ -166,6 +170,11 @@
   .skre-rating-count-num {
     text-decoration: underline;
   }
+
+  a.rating-wrapper--link {
+    text-decoration: none;
+    cursor: pointer;
+  }
 {% endstylesheet %}
 
 {% schema %}
@@ -180,6 +189,12 @@
     {
       "type": "paragraph",
       "content": "t:content.app_required_for_ratings"
+    },
+    {
+      "type": "text",
+      "id": "anchor_link",
+      "label": "Anchor link",
+      "info": "Enter an anchor ID to scroll to the reviews section, e.g. #shopify-section-section_Eb4QwW"
     },
     {
       "type": "select",
