@@ -106,7 +106,7 @@
             {% endif %}
             ref="menuitem"
           >
-            <span class="menu-list__link-title">{{- link.title -}}</span>
+            <span class="menu-list__link-title fs-link">{{- link.title -}}</span>
           </a>
           {%- if link.links != blank -%}
             {%- comment -%} Match promo slots to this nav item by case-sensitive identifier {%- endcomment -%}
@@ -130,7 +130,7 @@
               {%- assign matched_slots_arr = matched_slots | split: '|' -%}
             {%- endif -%}
 
-            <div class="menu-list__submenu{{ color_scheme_classes }}" ref="submenu[]">
+            <div class="menu-list__submenu{{ color_scheme_classes }} fs-menu" ref="submenu[]">
               <div
                 id="submenu-{{ forloop.index }}"
                 class="menu-list__submenu-inner{% if show_promo %} menu-list__submenu-inner--has-promo{% endif %}"

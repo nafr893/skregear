@@ -689,3 +689,135 @@ input.search-input::placeholder,
 }
 
 .skre-lb__sc-empty[hidden] { display: none; }
+
+/* ═══════════════════════════════════════════════════════════════
+   FIELD SHARP MOTION SYSTEM
+   Tokens + classes for (1) overlays  (2) navigation  (3) links
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --fs-dur-fast: 140ms;
+  --fs-dur-base: 170ms;
+  --fs-ease: cubic-bezier(.2, .7, .2, 1);
+  --fs-accent: var(--skre-rust, #b8431a);
+  --fs-line: 2px;
+}
+
+/* (3) LINKS — underline wipes in from the left */
+.fs-link {
+  position: relative;
+  text-decoration: none;
+}
+.fs-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: var(--fs-line);
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--fs-dur-fast) var(--fs-ease);
+}
+.fs-link:hover::after,
+.fs-link.is-active::after {
+  transform: scaleX(1);
+}
+
+/* (2) NAVIGATION — sliding tab ink indicator */
+.fs-tabs { position: relative; }
+.fs-tabs__ink {
+  position: absolute;
+  bottom: -1px;
+  height: var(--fs-line);
+  background: var(--fs-accent);
+  pointer-events: none;
+  transition: left var(--fs-dur-base) var(--fs-ease), width var(--fs-dur-base) var(--fs-ease);
+}
+
+/* (2) NAVIGATION — mega-menu / dropdown clip reveal from top */
+.fs-menu {
+  opacity: 0;
+  visibility: hidden;
+  clip-path: inset(0 0 100% 0);
+  transition:
+    opacity var(--fs-dur-base) var(--fs-ease),
+    clip-path var(--fs-dur-base) var(--fs-ease),
+    visibility 0s linear var(--fs-dur-base);
+}
+.fs-menu.is-open {
+  opacity: 1;
+  visibility: visible;
+  clip-path: inset(0 0 0% 0);
+  transition:
+    opacity var(--fs-dur-base) var(--fs-ease),
+    clip-path var(--fs-dur-base) var(--fs-ease);
+}
+/* Bridge: theme opens mega-menu via :hover / aria-expanded — map to fs-menu open state */
+.menu-list__list-item:has([aria-expanded='true']) > .menu-list__submenu.fs-menu,
+.menu-list__submenu.fs-menu:hover,
+.menu-list__list-item:hover > .menu-list__submenu.fs-menu {
+  opacity: 1;
+  visibility: visible;
+  clip-path: inset(0 0 0% 0);
+  transition:
+    opacity var(--fs-dur-base) var(--fs-ease),
+    clip-path var(--fs-dur-base) var(--fs-ease);
+}
+
+/* (1) OVERLAYS — scrim */
+.fs-scrim {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--fs-dur-base) var(--fs-ease), visibility 0s linear var(--fs-dur-base);
+}
+.is-open > .fs-scrim,
+.fs-scrim.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--fs-dur-base) var(--fs-ease);
+}
+
+/* (1) OVERLAYS — cart / side drawer */
+.fs-drawer {
+  transform: translateX(100%);
+  transition: transform var(--fs-dur-base) var(--fs-ease);
+}
+.fs-drawer.is-open {
+  transform: translateX(0);
+}
+
+/* (1) OVERLAYS — modal (scale + fade) */
+.fs-modal {
+  opacity: 0;
+  transform: scale(.98);
+  visibility: hidden;
+  transition:
+    opacity var(--fs-dur-base) var(--fs-ease),
+    transform var(--fs-dur-base) var(--fs-ease),
+    visibility 0s linear var(--fs-dur-base);
+}
+.fs-modal.is-open {
+  opacity: 1;
+  transform: scale(1);
+  visibility: visible;
+  transition:
+    opacity var(--fs-dur-base) var(--fs-ease),
+    transform var(--fs-dur-base) var(--fs-ease);
+}
+
+/* (1) OVERLAYS — search panel */
+.fs-search {
+  transform: translateY(-100%);
+  transition: transform var(--fs-dur-base) var(--fs-ease);
+}
+.fs-search.is-open { transform: translateY(0); }
+
+/* Reduced-motion override */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+  }
+}

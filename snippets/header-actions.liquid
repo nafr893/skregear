@@ -177,7 +177,7 @@
 
       <dialog
         ref="dialog"
-        class="cart-drawer__dialog dialog-modal dialog-drawer color-{{ settings.drawer_color_scheme }}{% if cart.empty? %} cart-drawer--empty{%endif%}"
+        class="cart-drawer__dialog dialog-modal dialog-drawer fs-drawer color-{{ settings.drawer_color_scheme }}{% if cart.empty? %} cart-drawer--empty{%endif%}"
         data-testid="cart-drawer-dialog"
         aria-labelledby="{% if cart.empty? %}cart-drawer-heading-empty{% else %}cart-drawer-heading{% endif %}"
         scroll-lock
@@ -285,8 +285,13 @@
 
         new MutationObserver(function (mutations) {
           for (var i = 0; i < mutations.length; i++) {
-            if (mutations[i].attributeName === 'open' && dialog.hasAttribute('open')) {
-              resetScroll();
+            if (mutations[i].attributeName === 'open') {
+              if (dialog.hasAttribute('open')) {
+                resetScroll();
+                requestAnimationFrame(function () { dialog.classList.add('is-open'); });
+              } else {
+                dialog.classList.remove('is-open');
+              }
             }
           }
         }).observe(dialog, { attributes: true });

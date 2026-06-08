@@ -27,7 +27,7 @@
     ref="dialog"
     on:click="/closeDialogOnClickOutside"
     on:keydown="/closeDialogOnEscapePress"
-    class="search-modal__content dialog-modal"
+    class="search-modal__content dialog-modal fs-modal"
     scroll-lock
     aria-labelledby="search-modal-heading"
   >
@@ -137,6 +137,24 @@
     </predictive-search-component>
   </dialog>
 </dialog-component>
+<script>
+  (function () {
+    var comp = document.getElementById('search-modal');
+    if (!comp) return;
+    var dlg = comp.querySelector('dialog');
+    if (!dlg) return;
+    new MutationObserver(function (mutations) {
+      mutations.forEach(function (m) {
+        if (m.attributeName !== 'open') return;
+        if (dlg.hasAttribute('open')) {
+          requestAnimationFrame(function () { dlg.classList.add('is-open'); });
+        } else {
+          dlg.classList.remove('is-open');
+        }
+      });
+    }).observe(dlg, { attributes: true });
+  })();
+</script>
 
 {% stylesheet %}
   /* Search modal style */

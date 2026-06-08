@@ -21,7 +21,8 @@
 >
 
   {%- comment -%} Tab navigation {%- endcomment -%}
-  <nav class="skre-prod-tabs__nav" role="tablist" aria-label="Product categories">
+  <nav class="skre-prod-tabs__nav fs-tabs" role="tablist" aria-label="Product categories">
+    <span class="fs-tabs__ink" aria-hidden="true"></span>
     {% for i in (1..tabs_count) %}
       {%- assign label_key = 'tab_' | append: i | append: '_label' -%}
       {%- assign tab_label = section.settings[label_key] | default: 'Tab' -%}
@@ -159,9 +160,6 @@
 
   .skre-prod-tabs__tab[aria-selected='true'] {
     color: var(--color-foreground);
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-decoration-thickness: 2px;
   }
 
   .skre-prod-tabs__tab:hover:not([aria-selected='true']) {
@@ -350,6 +348,21 @@
     /* ── Tab switching ──────────────────────────────────────── */
     var tabs   = document.querySelectorAll('.skre-prod-tabs__tab');
     var panels = document.querySelectorAll('.skre-prod-tabs__panel');
+    var ink    = document.querySelector('.skre-prod-tabs__nav .fs-tabs__ink');
+
+    function moveInk(tab) {
+      if (!ink || !tab) return;
+      ink.style.left  = tab.offsetLeft + 'px';
+      ink.style.width = tab.offsetWidth + 'px';
+    }
+
+    // Position ink on first active tab immediately (no transition on init)
+    var firstActive = document.querySelector('.skre-prod-tabs__tab[aria-selected="true"]');
+    if (ink && firstActive) {
+      ink.style.transition = 'none';
+      moveInk(firstActive);
+      requestAnimationFrame(function () { ink.style.transition = ''; });
+    }
 
     tabs.forEach(function (tab) {
       tab.addEventListener('click', function () {
@@ -360,6 +373,7 @@
         panels.forEach(function (p) {
           p.classList.toggle('skre-prod-tabs__panel--hidden', p.id !== 'skre-prod-panel-' + index);
         });
+        moveInk(tab);
       });
     });
 
