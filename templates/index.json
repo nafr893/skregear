@@ -678,7 +678,7 @@
             "text_QfMq4D": {
               "type": "text",
               "settings": {
-                "text": "<p><strong>Stay warm and protected from the elements. Choose your base, insulation and protective layers.</strong></p>",
+                "text": "<p>Stay warm and protected from the elements. Choose your base, insulation and protective layers.</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "center",
@@ -792,11 +792,11 @@
             "text_MJMccq": {
               "type": "text",
               "settings": {
-                "text": "<h3>Stay warm and dry </h3>",
+                "text": "<p>Stay warm and dry in rain, wind, and cold with waterproof protection built for long days in the field.</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "center",
-                "type_preset": "h3",
+                "type_preset": "paragraph",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
                 "line_height": "normal",
