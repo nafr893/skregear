@@ -202,6 +202,9 @@
             name="{{ filter.label }}"
           >
             {%- for value in filter.values -%}
+              {%- if should_use_pills and value.label.size > 2 -%}
+                {%- continue -%}
+              {%- endif -%}
               {% liquid
                 assign input_id = 'Filter-' | append: filter.param_name | escape | append: '-' | append: forloop.index | replace: '.', '-' | append: '-' | append: filter_style | append: '-' | append: in_drawer
                 assign is_disabled = false
