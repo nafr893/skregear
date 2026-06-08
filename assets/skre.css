@@ -36,10 +36,9 @@ h5, h6, p {
   padding-inline: calc(var(--focus-outline-offset) + var(--focus-outline-width) + 2px);
 }
 
-/* Prevent internal scroll so the overflow-list reflow detects overflow and hides items behind "+N" */
+/* Keep swatches on one row so overflow-list can count and show "+N" correctly */
 .predictive-search-swatches overflow-list::part(list),
 .cart-empty__trending overflow-list::part(list) {
-  overflow-x: hidden !important;
   flex-wrap: nowrap !important;
 }
 
@@ -703,7 +702,7 @@ input.search-input::placeholder,
   --fs-dur-base: 170ms;
   --fs-ease: cubic-bezier(.2, .7, .2, 1);
   --fs-accent: var(--skre-rust, #b8431a);
-  --fs-line: 2px;
+  --fs-line: 1px;
 }
 
 /* (3) LINKS — underline wipes in from the left */
@@ -739,34 +738,12 @@ input.search-input::placeholder,
   transition: left var(--fs-dur-base) var(--fs-ease), width var(--fs-dur-base) var(--fs-ease);
 }
 
-/* (2) NAVIGATION — mega-menu / dropdown clip reveal from top */
-.fs-menu {
-  opacity: 0;
-  visibility: hidden;
-  clip-path: inset(0 0 100% 0);
-  transition:
-    opacity var(--fs-dur-base) var(--fs-ease),
-    clip-path var(--fs-dur-base) var(--fs-ease),
-    visibility 0s linear var(--fs-dur-base);
-}
-.fs-menu.is-open {
-  opacity: 1;
-  visibility: visible;
-  clip-path: inset(0 0 0% 0);
-  transition:
-    opacity var(--fs-dur-base) var(--fs-ease),
-    clip-path var(--fs-dur-base) var(--fs-ease);
-}
-/* Bridge: theme opens mega-menu via :hover / aria-expanded — map to fs-menu open state */
-.menu-list__list-item:has([aria-expanded='true']) > .menu-list__submenu.fs-menu,
-.menu-list__submenu.fs-menu:hover,
-.menu-list__list-item:hover > .menu-list__submenu.fs-menu {
-  opacity: 1;
-  visibility: visible;
-  clip-path: inset(0 0 0% 0);
-  transition:
-    opacity var(--fs-dur-base) var(--fs-ease),
-    clip-path var(--fs-dur-base) var(--fs-ease);
+/* (2) NAVIGATION — header nav link hover underline */
+.menu-list__link:hover .menu-list__link-title.fs-link::after,
+.menu-list__link:focus-visible .menu-list__link-title.fs-link::after,
+.menu-list__link[aria-expanded='true'] .menu-list__link-title.fs-link::after {
+  transform: scaleX(1);
+  background: #3F3F37;
 }
 
 /* (1) OVERLAYS — scrim */
