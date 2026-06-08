@@ -921,10 +921,13 @@ class SkreLayerBuilder extends HTMLElement {
             <div class="skre-lb__rail-item">
               <span class="skre-lb__rail-prod">${this.#esc(line.title)}${line.variantTitle ? ' · ' + this.#esc(line.variantTitle) : ''}</span>
               <span class="skre-lb__rail-price">${line.price_display}</span>
-              <button class="skre-lb__rail-remove" data-cart-idx="${line._cartIdx}" data-key="${this.#esc(line.key)}" type="button" aria-label="Remove">&#215;</button>
             </div>`).join('')
         : `<span class="skre-lb__rail-prod skre-lb__rail-prod--empty">Not selected</span>`;
+      const removeBtn = lines.length
+        ? `<button class="skre-lb__rail-remove" data-rail-remove data-cart-idx="${lines[0]._cartIdx}" data-key="${this.#esc(lines[0].key)}" type="button" aria-label="Remove">&#215;</button>`
+        : '';
       return `<div class="skre-lb__rail-slot${active ? ' skre-lb__rail-slot--active' : ''}" data-rail-layer="${i}" role="button" tabindex="0">
+        ${removeBtn}
         ${thumb}
         <span class="skre-lb__rail-info">
           <span class="skre-lb__rail-layer">${this.#esc(slot.label)}</span>
