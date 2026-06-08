@@ -419,7 +419,7 @@
             "variant_picker_R3rGDr": {
               "type": "variant-picker",
               "settings": {
-                "variant_style": "dropdowns",
+                "variant_style": "buttons",
                 "show_swatches": true,
                 "alignment": "left",
                 "padding-block-start": 0,
@@ -896,7 +896,7 @@
                       "type": "_accordion-row",
                       "settings": {
                         "heading": "Features",
-                        "open_by_default": false,
+                        "open_by_default": true,
                         "icon": "none",
                         "width": 20
                       },
