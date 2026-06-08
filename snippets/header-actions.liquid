@@ -152,12 +152,12 @@
           {% render 'cart-products', force_empty: true %}
         </div>
 
-        {%- if section.settings.empty_cart_image != blank or section.settings.empty_cart_heading != blank or section.settings.empty_cart_button_label != blank -%}
+        {%- if settings.empty_cart_promo_image != blank or settings.empty_cart_promo_heading != blank or settings.empty_cart_promo_btn_label != blank -%}
           <div class="cart-empty__promo">
-            {%- if section.settings.empty_cart_image != blank -%}
+            {%- if settings.empty_cart_promo_image != blank -%}
               <div class="cart-empty__promo-img-wrap">
                 {{
-                  section.settings.empty_cart_image
+                  settings.empty_cart_promo_image
                   | image_url: width: 600
                   | image_tag:
                     loading: 'lazy',
@@ -166,12 +166,12 @@
                 }}
               </div>
             {%- endif -%}
-            {%- if section.settings.empty_cart_heading != blank -%}
-              <p class="cart-empty__promo-heading">{{ section.settings.empty_cart_heading }}</p>
+            {%- if settings.empty_cart_promo_heading != blank -%}
+              <h3 class="cart-empty__promo-heading">{{ settings.empty_cart_promo_heading }}</h3>
             {%- endif -%}
-            {%- if section.settings.empty_cart_button_label != blank and section.settings.empty_cart_button_link != blank -%}
-              <a href="{{ section.settings.empty_cart_button_link }}" class="button cart-empty__promo-btn">
-                {{ section.settings.empty_cart_button_label }}
+            {%- if settings.empty_cart_promo_btn_label != blank and settings.empty_cart_promo_btn_url != blank -%}
+              <a href="{{ settings.empty_cart_promo_btn_url }}" class="button cart-empty__promo-btn">
+                {{ settings.empty_cart_promo_btn_label }}
               </a>
             {%- endif -%}
           </div>

@@ -1788,6 +1788,30 @@
       },
       {
         "type": "header",
+        "content": "Empty Cart Promo Block"
+      },
+      {
+        "type": "image_picker",
+        "id": "empty_cart_promo_image",
+        "label": "Promo image"
+      },
+      {
+        "type": "text",
+        "id": "empty_cart_promo_heading",
+        "label": "Promo heading"
+      },
+      {
+        "type": "text",
+        "id": "empty_cart_promo_btn_label",
+        "label": "Promo button label"
+      },
+      {
+        "type": "url",
+        "id": "empty_cart_promo_btn_url",
+        "label": "Promo button link"
+      },
+      {
+        "type": "header",
         "content": "Empty Cart Drawer"
       },
       {
