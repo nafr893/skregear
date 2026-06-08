@@ -795,9 +795,7 @@ class SkreLayerBuilder extends HTMLElement {
     const railAtc = this.querySelector('.skre-lb__rail-atc');
     const railLabel = this.querySelector('.skre-lb__rail-atc-label');
     if (btn) btn.disabled = true;
-    if (labelEl) labelEl.textContent = 'Adding…';
     if (railAtc) railAtc.disabled = true;
-    if (railLabel) railLabel.textContent = 'Adding…';
 
     try {
       const res = await fetch('/cart/add.js', {
