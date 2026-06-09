@@ -876,7 +876,7 @@ li.yotpo-pagination-number-container {
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: var(--gap-xs);
+  gap: 0.35rem;
 }
 
 .skre-cart-footer .cart-totals__container {
