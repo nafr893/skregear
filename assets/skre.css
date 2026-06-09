@@ -877,9 +877,12 @@ li.yotpo-pagination-number-container {
   width: 100%;
   justify-content: space-between !important;
   align-items: baseline;
-  padding-block: 0.3rem;
 }
 
 .cart-totals__total text-component {
   display: block;
+}
+
+.cart-totals__container {
+  margin-block: 0.125rem !important;
 }
