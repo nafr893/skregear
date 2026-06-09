@@ -49,6 +49,7 @@ h5, h6, p {
 @media screen and (max-width: 749px) {
   .menu-drawer__menu-item--mainlist {
     font-size: 1.125rem !important;
+    font-weight: 600 !important;
   }
 }
 
