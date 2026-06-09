@@ -357,9 +357,9 @@
     {%- liquid
       assign skre_vfiles = selected_product.selected_or_first_available_variant.metafields.custom.variant_images.value
       if skre_vfiles != blank
-        assign _slide_count = skre_vfiles.size
+        assign skre_slide_count = skre_vfiles.size
       else
-        assign _slide_count = sorted_media.size
+        assign skre_slide_count = sorted_media.size
       endif
     -%}
 
@@ -456,13 +456,13 @@
       {%- endif -%}
     {% endcapture %}
 
-    {% if _slide_count > 1 %}
+    {% if skre_slide_count > 1 %}
       {% capture controls %}
         {% if render_slideshow_controls %}
           {%- render 'slideshow-controls',
             class: slideshow_controls_class,
             style: slideshow_controls_style,
-            item_count: _slide_count,
+            item_count: skre_slide_count,
             thumbnails: sorted_media,
             controls_on_media: controls_on_media,
             pagination_position: pagination_position,
@@ -475,7 +475,7 @@
           {%- render 'slideshow-controls',
             class: 'desktop:hidden media-gallery__mobile-controls',
             style: block_settings.slideshow_mobile_controls_style,
-            item_count: _slide_count,
+            item_count: skre_slide_count,
             thumbnails: sorted_media,
             controls_on_media: mobile_controls_on_media,
             pagination_position: 'center',
@@ -496,7 +496,7 @@
       ref: 'slideshow',
       class: slideshow_class,
       slides: slides,
-      slide_count: _slide_count,
+      slide_count: skre_slide_count,
       slideshow_arrows: slideshow_arrows,
       arrows_position: icons_position,
       controls: controls
@@ -504,7 +504,7 @@
 
     {% if media_presentation == 'grid' %}
       {%- liquid
-        assign skre_grid_count = _slide_count
+        assign skre_grid_count = skre_slide_count
       -%}
       <ul
         class="media-gallery__grid list-unstyled{% if skre_grid_count > 8 %} media-gallery__grid--collapsed{% endif %}"
@@ -759,27 +759,27 @@
     {%- endif -%}
 
     {%- liquid
-      assign _has_multi = false
-      if _slide_count > 1
-        assign _has_multi = true
-        assign _pmg_pct = 100.0 | divided_by: _slide_count | round
+      assign skre_has_multi = false
+      if skre_slide_count > 1
+        assign skre_has_multi = true
+        assign skre_pmg_pct = 100.0 | divided_by: skre_slide_count | round
       endif
-      assign _has_sim = false
+      assign skre_has_sim = false
       if selected_product != blank
-        assign _has_sim = true
+        assign skre_has_sim = true
       endif
     -%}
-    {%- if _has_multi or _has_sim -%}
-      <div class="skre-pmg-mob" id="skre-pmg-mob-{{ block_id }}" data-total="{{ _slide_count }}" aria-hidden="true">
+    {%- if skre_has_multi or skre_has_sim -%}
+      <div class="skre-pmg-mob" id="skre-pmg-mob-{{ block_id }}" data-total="{{ skre_slide_count }}" aria-hidden="true">
         <div class="skre-pmg-mob__row">
-          {%- if _has_multi -%}
+          {%- if skre_has_multi -%}
             <div class="skre-pmg-mob__ctr">
-              <span class="skre-pmg-mob__cur">1</span><span class="skre-pmg-mob__sep">/</span><span>{{ _slide_count }}</span>
+              <span class="skre-pmg-mob__cur">1</span><span class="skre-pmg-mob__sep">/</span><span>{{ skre_slide_count }}</span>
             </div>
           {%- else -%}
             <span></span>
           {%- endif -%}
-          {%- if _has_sim -%}
+          {%- if skre_has_sim -%}
             <button class="skre-pmg-mob__sim-btn" type="button"
               data-product-id="{{ selected_product.id }}"
               aria-controls="skre-sim-{{ block_id }}">
@@ -787,9 +787,9 @@
             </button>
           {%- endif -%}
         </div>
-        {%- if _has_multi -%}
+        {%- if skre_has_multi -%}
           <div class="skre-pmg-mob__track">
-            <div class="skre-pmg-mob__fill" style="width:{{ _pmg_pct }}%"></div>
+            <div class="skre-pmg-mob__fill" style="width:{{ skre_pmg_pct }}%"></div>
           </div>
         {%- endif -%}
       </div>
@@ -799,7 +799,7 @@
 
         /* All helpers re-query the DOM so they work after media-gallery.replaceWith() */
         function getMob()   { return document.getElementById('skre-pmg-mob-' + bid); }
-        {%- if _has_sim -%}
+        {%- if skre_has_sim -%}
         function getSheet() { return document.getElementById('skre-sim-' + bid); }
         {%- endif -%}
 
@@ -838,7 +838,7 @@
           /* Ignore events from a different gallery on the page */
           if (!mg || !mg.contains(e.target)) return;
 
-          {%- if _has_multi -%}
+          {%- if skre_has_multi -%}
           var n     = e.detail.index + 1;
           var total = parseInt(mob.dataset.total, 10) || 1;
           var cur   = mob.querySelector('.skre-pmg-mob__cur');
@@ -850,7 +850,7 @@
           mob.classList.toggle('skre-pmg-mob--light', e.detail.index === 0);
         });
 
-        {%- if _has_sim -%}
+        {%- if skre_has_sim -%}
         var simLoaded = false;
 
         function openSheet() {
@@ -888,6 +888,38 @@
                 body.innerHTML = '<p class="skre-sim__empty">No similar products found.</p>';
                 return;
               }
+              function buildSwatches(p) {
+                if (!p.options || !p.variants || !p.variants.length) return '';
+                var colorIdx = -1;
+                for (var i = 0; i < p.options.length; i++) {
+                  var n = (p.options[i] || '').toLowerCase();
+                  if (n === 'color' || n === 'colour') { colorIdx = i; break; }
+                }
+                if (colorIdx < 0) return '';
+                var key = 'option' + (colorIdx + 1);
+                var seen = {}, swatches = [];
+                p.variants.forEach(function(v) {
+                  var val = v[key];
+                  if (!val || seen[val]) return;
+                  seen[val] = true;
+                  var fi = v.featured_image;
+                  var src = fi && (fi.src || (typeof fi === 'string' && fi)) || '';
+                  swatches.push({ val: val, src: src });
+                });
+                if (!swatches.length) return '';
+                var max = 4, overflow = Math.max(0, swatches.length - max);
+                var html = '<div class="skre-swatches">';
+                swatches.slice(0, max).forEach(function(sw) {
+                  var style = sw.src
+                    ? '--skre-sw-bg: url(' + sw.src + ')'
+                    : '--skre-sw-bg: ' + sw.val.toLowerCase();
+                  html += '<span class="skre-sw" style="' + style + '" title="' + sw.val + '"></span>';
+                });
+                if (overflow > 0) html += '<span class="skre-sw skre-sw--more">+' + overflow + '</span>';
+                html += '</div>';
+                return html;
+              }
+
               body.innerHTML = prods.map(function(p){
                 var raw = p.featured_image;
                 var imgSrc = (raw && typeof raw === 'object' && raw.src)
@@ -899,6 +931,7 @@
                 return '<div class="skre-sim-pc">'
                   + '<a class="skre-sim-pc__link" href="' + p.url + '" aria-label="' + p.title + '"></a>'
                   + '<div class="skre-sim-pc__media">' + imgTag + '</div>'
+                  + buildSwatches(p)
                   + '<div class="skre-sim-pc__info">'
                   + '<p class="skre-sim-pc__title">' + p.title + '</p>'
                   + '<p class="skre-sim-pc__price">' + price + '</p>'

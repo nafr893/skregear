@@ -167,9 +167,42 @@
   </div>
 
   {%- if swatches_product != blank -%}
-    <div class="predictive-search-swatches" style="--product-swatches-alignment: flex-start; --product-swatches-alignment-mobile: flex-start; --product-swatches-padding-block-start: 0; --product-swatches-padding-block-end: 0; --product-swatches-padding-inline-start: 0; --product-swatches-padding-inline-end: 0;">
-      {% render 'variant-swatches', product_resource: swatches_product %}
-    </div>
+    {%- liquid
+      assign skre_sw_opt = nil
+      for opt in swatches_product.options_with_values
+        assign skre_sw_count = opt.values | map: 'swatch' | compact | size
+        if skre_sw_count > 0
+          assign skre_sw_opt = opt
+          break
+        endif
+      endfor
+    -%}
+    {%- if skre_sw_opt != nil -%}
+      <div class="skre-swatches">
+        {%- assign skre_sw_max = 4 -%}
+        {%- assign skre_sw_total = skre_sw_opt.values.size -%}
+        {%- for val in skre_sw_opt.values limit: skre_sw_max -%}
+          {%- liquid
+            assign sw = val.swatch
+            assign sw_style = '--skre-sw-bg: #ccc;'
+            if settings.show_variant_image and val.variant.featured_media
+              assign sw_img = val.variant.featured_media | image_url: width: 48
+              assign sw_style = '--skre-sw-bg: url(' | append: sw_img | append: ');'
+            elsif sw.image
+              assign sw_img = sw.image | image_url: width: 48
+              assign sw_style = '--skre-sw-bg: url(' | append: sw_img | append: ');'
+            elsif sw.color
+              assign sw_style = '--skre-sw-bg: rgb(' | append: sw.color.rgb | append: ');'
+            endif
+          -%}
+          <span class="skre-sw" style="{{ sw_style }}" title="{{ val.name }}"></span>
+        {%- endfor -%}
+        {%- if skre_sw_total > skre_sw_max -%}
+          {%- assign skre_sw_extra = skre_sw_total | minus: skre_sw_max -%}
+          <span class="skre-sw skre-sw--more">+{{ skre_sw_extra }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
   {%- endif -%}
 
   <div class="resource-card__content">

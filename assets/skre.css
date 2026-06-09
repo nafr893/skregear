@@ -3,6 +3,39 @@ html:has(dialog:modal) {
   overflow: hidden;
 }
 
+/* ── Shared swatch row (sim cards + search modal) ── */
+.skre-swatches {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 4px;
+  align-items: center;
+}
+
+.skre-sw {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--skre-sw-bg, #ccc);
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgb(0 0 0 / 0.08);
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.skre-sw--more {
+  background: transparent !important;
+  border: none !important;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgb(var(--color-foreground-rgb) / 0.6);
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  line-height: 1;
+}
+
 h1, h2, h3, h4 {
 font-family: 'United-Sans', sans-serif !important;
 }
