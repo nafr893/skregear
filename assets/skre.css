@@ -885,6 +885,12 @@ li.yotpo-pagination-number-container {
 
 .skre-cart-footer .cart-totals__tax-note {
   text-align: center;
+  width: 100%;
+}
+
+.skre-cart-footer .cart-totals__tax-note small {
+  display: block;
+  width: 100%;
 }
 
 /* Estimated total row: label left, price right */
