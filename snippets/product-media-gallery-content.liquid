@@ -838,13 +838,18 @@
               body.innerHTML = prods.map(function(p){
                 var imgSrc = (typeof p.featured_image === 'string' && p.featured_image)
                            || (Array.isArray(p.images) && p.images[0]) || '';
-                var imgTag = imgSrc ? '<img class="skre-sim-card__img" src="' + imgSrc + '" alt="" loading="lazy">' : '';
+                var media = imgSrc
+                  ? '<img class="resource-card__image" src="' + imgSrc + '" alt="" loading="lazy">'
+                  : '<div class="resource-card__image-placeholder" aria-hidden="true">' + p.title.substring(0, 40) + '</div>';
                 var price = '$' + (p.price_min / 100).toFixed(2).replace(/\.00$/, '');
-                return '<a class="skre-sim-card" href="' + p.url + '">'
-                  + '<div class="skre-sim-card__media">' + imgTag + '</div>'
-                  + '<p class="skre-sim-card__title">' + p.title + '</p>'
-                  + '<p class="skre-sim-card__price">' + price + '</p>'
-                  + '</a>';
+                return '<div class="resource-card" data-resource-type="product">'
+                  + '<a class="resource-card__link" href="' + p.url + '"><span class="visually-hidden">' + p.title + '</span></a>'
+                  + '<div class="resource-card__media" style="--resource-card-aspect-ratio: 4 / 5;">' + media + '</div>'
+                  + '<div class="resource-card__content">'
+                  + '<p class="resource-card__title paragraph">' + p.title + '</p>'
+                  + '<p class="price">' + price + '</p>'
+                  + '</div>'
+                  + '</div>';
               }).join('');
             })
             .catch(function(){
@@ -1510,45 +1515,17 @@
     font-size: var(--font-size--sm);
   }
 
-  .skre-sim-card {
-    display: flex;
-    flex-direction: column;
-    gap: var(--product-card-gap, 0.5rem);
-    text-decoration: none;
-    color: var(--color-foreground);
-    border: var(--product-card-border-width, 0px) solid rgb(var(--color-border-rgb) / var(--product-card-border-opacity, 0));
-  }
-
-  .skre-sim-card__media {
-    aspect-ratio: 3 / 4;
+  .skre-sim__body .resource-card__media {
     overflow: hidden;
-    border-radius: var(--style-border-radius-cards, 0px);
+    border-radius: var(--resource-card-corner-radius, var(--style-border-radius-cards, 0px));
     background: rgb(var(--color-foreground-rgb) / 0.05);
-    width: 100%;
+    position: relative;
   }
 
-  .skre-sim-card__img {
+  .skre-sim__body .resource-card__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-  }
-
-  .skre-sim-card__title {
-    font-family: 'United-Sans', sans-serif;
-    font-size: var(--font-h5--size, 0.85rem);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    line-height: 1.25;
-    margin: 0;
-    color: var(--color-foreground);
-  }
-
-  .skre-sim-card__price {
-    font-size: var(--font-size--sm, 0.875rem);
-    font-weight: 400;
-    color: var(--color-foreground);
-    margin: 0;
   }
 {% endstylesheet %}
