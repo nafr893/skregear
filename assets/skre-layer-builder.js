@@ -1129,6 +1129,12 @@ class SkreLayerBuilder extends HTMLElement {
     if (isExpanded) {
       this.#collapseExpand(true);
     } else {
+      /* Freeze media height before info leaves normal flow, preventing layout jump */
+      const media = this.#builder?.querySelector('.skre-lb__media');
+      if (media) {
+        media.style.flex = 'none';
+        media.style.height = media.offsetHeight + 'px';
+      }
       this.#builder?.classList.add('skre-lb__builder--info-expanded');
       if (label) label.innerHTML = 'Collapse Info <span class="skre-lb__expand-caret" style="display:inline-block;transform:rotate(180deg)">&#8963;</span>';
     }
@@ -1136,8 +1142,12 @@ class SkreLayerBuilder extends HTMLElement {
 
   #collapseExpand(animated = false) {
     const label = this.querySelector('.skre-lb__expand');
+    const media = this.#builder?.querySelector('.skre-lb__media');
     const resetLabel = () => {
       if (label) label.innerHTML = 'Expand Info <span class="skre-lb__expand-caret">&#8963;</span>';
+    };
+    const releaseMedia = () => {
+      if (media) { media.style.flex = ''; media.style.height = ''; }
     };
     if (animated && this.#builder?.classList.contains('skre-lb__builder--info-expanded')) {
       this.#builder.classList.add('skre-lb__builder--info-collapsing');
@@ -1145,10 +1155,12 @@ class SkreLayerBuilder extends HTMLElement {
       setTimeout(() => {
         this.#builder?.classList.remove('skre-lb__builder--info-expanded', 'skre-lb__builder--info-collapsing');
         resetLabel();
+        releaseMedia();
       }, speed);
     } else {
       this.#builder?.classList.remove('skre-lb__builder--info-expanded', 'skre-lb__builder--info-collapsing');
       resetLabel();
+      releaseMedia();
     }
   }
 
