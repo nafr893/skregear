@@ -315,7 +315,7 @@
 
   .cart-totals__tax-note {
     color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
-    padding-block-start: var(--padding-xs);
+    padding-block: 0.4rem;
   }
 
   .cart-totals__tax-note small {
@@ -387,8 +387,11 @@
   }
 
   .cart-totals__total {
+    display: flex;
+    width: 100%;
     align-items: baseline;
     justify-content: space-between;
+    padding-block: 0.4rem;
   }
 
   .cart-totals__total-label {
