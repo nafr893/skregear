@@ -1552,11 +1552,12 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     flex: 1;
-    padding: 0.75rem;
+    padding: var(--padding-xl);
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--product-grid-gap, 16px);
+    gap: var(--gap-md);
     align-content: start;
+    padding-block-end: var(--padding-sm);
   }
 
   .skre-sim__empty {
@@ -1568,19 +1569,64 @@
     font-size: var(--font-size--sm);
   }
 
+  /* resource-card styles scoped to sim sheet — mirrors search modal cards */
   .skre-sim__body .resource-card {
+    display: flex;
+    flex-direction: column;
+    row-gap: var(--padding-xs);
+    position: relative;
+    text-decoration: none;
+    height: 100%;
     opacity: 1;
     animation: none;
+  }
+
+  .skre-sim__body .resource-card__link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
   }
 
   .skre-sim__body .resource-card__media {
     overflow: hidden;
     position: relative;
+    border-radius: var(--resource-card-corner-radius, 0px);
   }
 
   .skre-sim__body .resource-card__image {
     width: 100%;
     height: auto;
     display: block;
+    aspect-ratio: var(--resource-card-aspect-ratio, auto);
+    object-fit: cover;
+    border-radius: var(--resource-card-corner-radius, 0px);
+  }
+
+  .skre-sim__body .resource-card__content {
+    display: flex;
+    flex-direction: column;
+    color: var(--color-foreground);
+    gap: var(--padding-3xs);
+  }
+
+  .skre-sim__body .resource-card__content .price {
+    font-weight: 500;
+  }
+
+  .skre-sim__body .resource-card__title {
+    margin-block: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    line-height: 1.3;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .skre-sim__body .resource-card__title.paragraph {
+    line-height: 1.3;
+    font-weight: bold;
+    font-size: 1rem;
   }
 {% endstylesheet %}
