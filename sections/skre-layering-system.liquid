@@ -857,12 +857,22 @@ body:has(.skre-lb) main {
   -webkit-user-select: none;
 }
 .skre-lb__header-btns .skre-lb__help-btn:focus,
-.skre-lb__header-btns .skre-lb__close:focus {
-  outline: none;
-}
+.skre-lb__header-btns .skre-lb__help-btn:focus-visible,
 .skre-lb__header-btns .skre-lb__help-btn:active,
-.skre-lb__header-btns .skre-lb__close:active {
-  background: #f0f0f0;
+.skre-lb__header-btns .skre-lb__help-btn:focus-within {
+  outline: none !important;
+  box-shadow: none !important;
+  background: #fff !important;
+  color: #333 !important;
+  border-color: #ededed !important;
+}
+.skre-lb__header-btns .skre-lb__close:focus,
+.skre-lb__header-btns .skre-lb__close:focus-visible,
+.skre-lb__header-btns .skre-lb__close:active,
+.skre-lb__header-btns .skre-lb__close:focus-within {
+  outline: none !important;
+  box-shadow: none !important;
+  background: #fff !important;
 }
 .skre-lb__header-btns .skre-lb__help-btn {
   font-size: 1.1rem;
