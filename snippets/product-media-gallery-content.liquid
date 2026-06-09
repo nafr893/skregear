@@ -900,9 +900,12 @@
                 document.head.appendChild(styleEl);
               }
             }
-            /* Extract cards from inside the section wrapper */
+            /* Extract top-level cards from inside the section wrapper */
             var wrapper = div.querySelector('[id^="shopify-section-"]') || div;
-            var cards = Array.from(wrapper.querySelectorAll('product-card, .resource-card'));
+            var cards = Array.from(wrapper.children).filter(function(el) {
+              var tag = el.tagName.toLowerCase();
+              return tag === 'product-card' || el.classList.contains('resource-card');
+            });
             if (!cards.length) throw new Error('empty');
             return cards;
           }
