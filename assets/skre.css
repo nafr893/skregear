@@ -884,13 +884,15 @@ li.yotpo-pagination-number-container {
 }
 
 /* Estimated total row: label left, price right */
-.cart-totals__total {
+span.cart-totals__item.cart-totals__total {
   display: flex !important;
-  width: 100%;
+  width: 100% !important;
   justify-content: space-between !important;
-  align-items: baseline;
+  align-items: baseline !important;
+  flex-wrap: nowrap !important;
 }
 
-.cart-totals__total text-component {
-  display: block;
+span.cart-totals__item.cart-totals__total > * {
+  display: block !important;
+  flex-shrink: 0;
 }
