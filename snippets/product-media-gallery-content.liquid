@@ -889,34 +889,36 @@
                 return;
               }
               function buildSwatches(p) {
-                if (!p.options || !p.variants || !p.variants.length) return '';
-                var colorIdx = -1;
-                for (var i = 0; i < p.options.length; i++) {
-                  var n = (p.options[i] || '').toLowerCase();
-                  if (n === 'color' || n === 'colour') { colorIdx = i; break; }
-                }
-                if (colorIdx < 0) return '';
-                var key = 'option' + (colorIdx + 1);
-                var seen = {}, swatches = [];
-                p.variants.forEach(function(v) {
-                  var val = v[key];
-                  if (!val || seen[val]) return;
-                  seen[val] = true;
-                  var fi = v.featured_image;
-                  var src = fi && (fi.src || (typeof fi === 'string' && fi)) || '';
-                  swatches.push({ val: val, src: src });
-                });
-                if (!swatches.length) return '';
-                var max = 4, overflow = Math.max(0, swatches.length - max);
-                var html = '<div class="skre-swatches">';
-                swatches.slice(0, max).forEach(function(sw) {
-                  var style = sw.src
-                    ? '--skre-sw-bg: url(' + sw.src + ')'
-                    : '--skre-sw-bg: ' + sw.val.toLowerCase();
-                  html += '<span class="skre-sw" style="' + style + '" title="' + sw.val + '"></span>';
-                });
-                html += '</div>';
-                return html;
+                try {
+                  if (!p.options || !p.variants || !p.variants.length) return '';
+                  var colorIdx = -1;
+                  for (var i = 0; i < p.options.length; i++) {
+                    var opt = p.options[i];
+                    var n = (typeof opt === 'string' ? opt : (opt && opt.name) || '').toLowerCase();
+                    if (n === 'color' || n === 'colour') { colorIdx = i; break; }
+                  }
+                  if (colorIdx < 0) return '';
+                  var key = 'option' + (colorIdx + 1);
+                  var seen = {}, swatches = [];
+                  p.variants.forEach(function(v) {
+                    var val = v[key];
+                    if (!val || seen[val]) return;
+                    seen[val] = true;
+                    var fi = v.featured_image;
+                    var src = (fi && fi.src) || (typeof fi === 'string' ? fi : '') || '';
+                    swatches.push({ val: val, src: src });
+                  });
+                  if (!swatches.length) return '';
+                  var html = '<div class="skre-swatches">';
+                  swatches.slice(0, 4).forEach(function(sw) {
+                    var style = sw.src
+                      ? '--skre-sw-bg: url(' + sw.src + ')'
+                      : '--skre-sw-bg: ' + sw.val.toLowerCase();
+                    html += '<span class="skre-sw" style="' + style + '" title="' + sw.val + '"></span>';
+                  });
+                  html += '</div>';
+                  return html;
+                } catch(e) { return ''; }
               }
 
               body.innerHTML = prods.map(function(p){
