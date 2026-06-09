@@ -354,57 +354,115 @@
     data-presentation="{{ media_presentation }}"
     {{ block_shopify_attributes }}
   >
-    {% capture slides %}
-      {% for media in sorted_media %}
-        {% capture children %}
-          {%- liquid
-              if needs_both_sizes and forloop.first
-                assign media_sizes = sizes_single
-              else
-                assign media_sizes = sizes
-              endif
-          -%}
-          {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
-            <div
-              class="product-media-constraint-wrapper">
-              {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
-            </div>
-          {% else %}
-            {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
-          {% endif %}
-        {% endcapture %}
-        {% capture class %}
-          {{ product_media_container_class }} product-media-container--{{ media.media_type }}{% if block_settings.zoom %} product-media-container--zoomable{% endif %}{% if forloop.index0 == lowest_aspect_ratio_index and block_settings.aspect_ratio == 'adapt' %} product-media-container--tallest{% endif %}
-        {% endcapture %}
-        {% if block_settings.aspect_ratio == 'adapt' %}
-          {% capture style %}
-            --media-preview-ratio: {{ media.preview_image.aspect_ratio | default: 1.0 }};
-          {% endcapture %}
-        {% endif %}
-        {% if block_settings.zoom and media.media_type == 'model' %}
-          {%- capture attributes -%}"{% if settings.transition_to_main_product and forloop.first %} data-view-transition-type="product-image-transition"{% endif %}{% endcapture -%}
-        {% elsif block_settings.zoom %}
-          {%- capture attributes -%}on:click="#zoom-dialog-{{ block_id }}/open/{{ forloop.index0 }}"{% if settings.transition_to_main_product and forloop.first %} data-view-transition-type="product-image-transition"{% endif %}{% endcapture -%}
-        {% endif %}
+    {%- liquid
+      assign skre_vfiles = selected_product.selected_or_first_available_variant.metafields.custom.variant_images.value
+      if skre_vfiles != blank
+        assign _slide_count = skre_vfiles.size
+      else
+        assign _slide_count = sorted_media.size
+      endif
+    -%}
 
-        {% render 'slideshow-slide',
-          index: forloop.index0,
-          children: children,
-          class: class,
-          style: style,
-          attributes: attributes,
-          media_fit: block_settings.media_fit,
-        %}
-      {% endfor %}
+    {% capture slides %}
+      {%- if skre_vfiles != blank -%}
+        {%- for vfile in skre_vfiles -%}
+          {%- liquid
+            if vfile.image != blank
+              assign skre_vf_img = vfile.image
+              assign skre_vf_type = 'image'
+            elsif vfile.preview_image != blank
+              assign skre_vf_img = vfile.preview_image
+              assign skre_vf_type = 'video'
+            else
+              assign skre_vf_img = null
+              assign skre_vf_type = 'image'
+            endif
+            if skre_vf_img != null
+              assign skre_vf_ratio = skre_vf_img.aspect_ratio | default: 1.0
+            else
+              assign skre_vf_ratio = 1.0
+            endif
+            if needs_both_sizes and forloop.first
+              assign skre_vf_sz = sizes_single
+            else
+              assign skre_vf_sz = sizes
+            endif
+          -%}
+          {%- if skre_vf_img != null -%}
+            {%- capture children -%}
+              <div class="product-media" style="--ratio: {{ skre_vf_ratio }}">
+                {{- skre_vf_img | image_url: width: 3840 | image_tag:
+                    widths: '240, 352, 832, 1200, 1600, 1920, 2560, 3840',
+                    alt: vfile.alt | default: skre_vf_img.alt,
+                    sizes: skre_vf_sz,
+                    loading: 'lazy',
+                    class: 'product-media__image'
+                -}}
+              </div>
+            {%- endcapture -%}
+            {%- capture vf_class -%}{{ product_media_container_class }} product-media-container--{{ skre_vf_type }}{% unless block_settings.aspect_ratio == 'adapt' %} product-media-container--force-aspect{% endunless %}{%- endcapture -%}
+            {%- capture vf_style -%}{% if block_settings.aspect_ratio == 'adapt' %}--media-preview-ratio: {{ skre_vf_ratio }};{% endif %}{%- endcapture -%}
+            {%- render 'slideshow-slide',
+              index: forloop.index0,
+              children: children,
+              class: vf_class,
+              style: vf_style,
+              media_fit: block_settings.media_fit
+            -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {% for media in sorted_media %}
+          {% capture children %}
+            {%- liquid
+                if needs_both_sizes and forloop.first
+                  assign media_sizes = sizes_single
+                else
+                  assign media_sizes = sizes
+                endif
+            -%}
+            {% if block_settings.aspect_ratio != 'adapt' and block_settings.constrain_to_viewport %}
+              <div
+                class="product-media-constraint-wrapper">
+                {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+              </div>
+            {% else %}
+              {%- render 'product-media', media: media, sizes: media_sizes, is_main_product_media: forloop.first -%}
+            {% endif %}
+          {% endcapture %}
+          {% capture class %}
+            {{ product_media_container_class }} product-media-container--{{ media.media_type }}{% if block_settings.zoom %} product-media-container--zoomable{% endif %}{% if forloop.index0 == lowest_aspect_ratio_index and block_settings.aspect_ratio == 'adapt' %} product-media-container--tallest{% endif %}
+          {% endcapture %}
+          {% if block_settings.aspect_ratio == 'adapt' %}
+            {% capture style %}
+              --media-preview-ratio: {{ media.preview_image.aspect_ratio | default: 1.0 }};
+            {% endcapture %}
+          {% endif %}
+          {% if block_settings.zoom and media.media_type == 'model' %}
+            {%- capture attributes -%}"{% if settings.transition_to_main_product and forloop.first %} data-view-transition-type="product-image-transition"{% endif %}{% endcapture -%}
+          {% elsif block_settings.zoom %}
+            {%- capture attributes -%}on:click="#zoom-dialog-{{ block_id }}/open/{{ forloop.index0 }}"{% if settings.transition_to_main_product and forloop.first %} data-view-transition-type="product-image-transition"{% endif %}{% endcapture -%}
+          {% endif %}
+
+          {% render 'slideshow-slide',
+            index: forloop.index0,
+            children: children,
+            class: class,
+            style: style,
+            attributes: attributes,
+            media_fit: block_settings.media_fit,
+          %}
+        {% endfor %}
+      {%- endif -%}
     {% endcapture %}
 
-    {% if sorted_media.size > 1 %}
+    {% if _slide_count > 1 %}
       {% capture controls %}
         {% if render_slideshow_controls %}
           {%- render 'slideshow-controls',
             class: slideshow_controls_class,
             style: slideshow_controls_style,
-            item_count: sorted_media.size,
+            item_count: _slide_count,
             thumbnails: sorted_media,
             controls_on_media: controls_on_media,
             pagination_position: pagination_position,
@@ -417,7 +475,7 @@
           {%- render 'slideshow-controls',
             class: 'desktop:hidden media-gallery__mobile-controls',
             style: block_settings.slideshow_mobile_controls_style,
-            item_count: sorted_media.size,
+            item_count: _slide_count,
             thumbnails: sorted_media,
             controls_on_media: mobile_controls_on_media,
             pagination_position: 'center',
@@ -438,7 +496,7 @@
       ref: 'slideshow',
       class: slideshow_class,
       slides: slides,
-      slide_count: sorted_media.size,
+      slide_count: _slide_count,
       slideshow_arrows: slideshow_arrows,
       arrows_position: icons_position,
       controls: controls
@@ -446,12 +504,7 @@
 
     {% if media_presentation == 'grid' %}
       {%- liquid
-        assign skre_vfiles = selected_product.selected_or_first_available_variant.metafields.custom.variant_images.value
-        if skre_vfiles != blank
-          assign skre_grid_count = skre_vfiles.size
-        else
-          assign skre_grid_count = sorted_media.size
-        endif
+        assign skre_grid_count = _slide_count
       -%}
       <ul
         class="media-gallery__grid list-unstyled{% if skre_grid_count > 8 %} media-gallery__grid--collapsed{% endif %}"
@@ -707,9 +760,9 @@
 
     {%- liquid
       assign _has_multi = false
-      if sorted_media.size > 1
+      if _slide_count > 1
         assign _has_multi = true
-        assign _pmg_pct = 100.0 | divided_by: sorted_media.size | round
+        assign _pmg_pct = 100.0 | divided_by: _slide_count | round
       endif
       assign _has_sim = false
       if selected_product != blank
@@ -717,11 +770,11 @@
       endif
     -%}
     {%- if _has_multi or _has_sim -%}
-      <div class="skre-pmg-mob" id="skre-pmg-mob-{{ block_id }}" data-total="{{ sorted_media.size }}" aria-hidden="true">
+      <div class="skre-pmg-mob" id="skre-pmg-mob-{{ block_id }}" data-total="{{ _slide_count }}" aria-hidden="true">
         <div class="skre-pmg-mob__row">
           {%- if _has_multi -%}
             <div class="skre-pmg-mob__ctr">
-              <span class="skre-pmg-mob__cur">1</span><span class="skre-pmg-mob__sep">/</span><span>{{ sorted_media.size }}</span>
+              <span class="skre-pmg-mob__cur">1</span><span class="skre-pmg-mob__sep">/</span><span>{{ _slide_count }}</span>
             </div>
           {%- else -%}
             <span></span>
