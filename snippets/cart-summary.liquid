@@ -388,19 +388,17 @@
 
   .cart-totals__total {
     align-items: baseline;
-    font-weight: var(--font-weight-bold);
+    justify-content: space-between;
   }
 
   .cart-totals__total-label {
     font-size: var(--cart-font-size--sm);
+    font-weight: 400;
   }
 
   .cart-totals__total-value {
-    font-size: var(--cart-font-size--xl);
-
-    @media screen and (max-width: 749px) {
-      font-size: var(--font-size--lg);
-    }
+    font-size: var(--cart-font-size--sm);
+    font-weight: 600;
   }
 
   .cart-totals__installments {
