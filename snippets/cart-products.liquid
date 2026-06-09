@@ -276,11 +276,8 @@
                         <dl class="cart-items__variants">
                           {%- for option in item.options_with_values -%}
                             <div class="cart-items__variant">
-                              <dt class="visually-hidden">{{ option.name }}:</dt>
-                              <dd>
-                                {{- option.value -}}
-                                {%- if forloop.last != true %},&nbsp;{% endif -%}
-                              </dd>
+                              <dt class="cart-items__variant-label">{{ option.name }}:</dt>
+                              <dd class="cart-items__variant-value">{{- option.value -}}</dd>
                             </div>
                           {%- endfor -%}
                         </dl>
@@ -625,17 +622,24 @@
   }
 
   .cart-items__variants {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
   }
-
 
   .cart-items__variant {
-    display: inline;
+    display: flex;
+    align-items: baseline;
+    gap: 0.3em;
   }
 
-  .cart-items__variant dt,
-  .cart-items__variant dd {
-    display: inline;
+  .cart-items__variant-label {
+    flex-shrink: 0;
+    margin: 0;
+    opacity: 0.55;
+  }
+
+  .cart-items__variant-value {
     margin: 0;
   }
 
