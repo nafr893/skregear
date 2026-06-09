@@ -397,6 +397,32 @@ h5, h6, p {
   border-bottom: 1px solid #ededed;
 }
 
+/* Layering system: circle around ? button, lighter weight */
+.skre-lb__header-btns .skre-lb__help-btn {
+  font-weight: 400;
+  position: relative;
+}
+.skre-lb__header-btns .skre-lb__help-btn::before {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid rgb(0 0 0 / 0.3);
+  pointer-events: none;
+}
+
+/* Cart drawer: remove per-item dividers, keep only the top summary divider */
+.cart-drawer .cart-items--dividers .cart-items__table-row {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+/* Extra breathing room after the last cart item */
+.cart-drawer .cart-items__table-row:last-child {
+  padding-bottom: var(--padding-lg) !important;
+}
+
 /* Product page: force all media items to square crop */
 .product-information__media .product-media {
   aspect-ratio: 1 / 1 !important;
