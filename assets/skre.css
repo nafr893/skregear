@@ -871,7 +871,19 @@ li.yotpo-pagination-number-container {
   display: flex;
 }
 
-/* Cart estimated total row */
+/* Cart footer wrapper — single gap-slot inside .cart-drawer__summary */
+.skre-cart-footer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: var(--gap-md);
+}
+
+.skre-cart-footer .cart-totals__container {
+  padding-block: 0.125rem;
+}
+
+/* Estimated total row: label left, price right */
 .cart-totals__total {
   display: flex !important;
   width: 100%;
@@ -881,20 +893,4 @@ li.yotpo-pagination-number-container {
 
 .cart-totals__total text-component {
   display: block;
-}
-
-.cart-drawer__summary {
-  gap: 0 !important;
-}
-
-.cart-drawer__summary .cart-totals {
-  margin-block-end: var(--gap-xl);
-}
-
-.cart-drawer__summary .cart-totals__container {
-  padding-block: 0.125rem;
-}
-
-.cart-drawer__summary .cart__ctas {
-  margin-block-start: var(--gap-xl);
 }

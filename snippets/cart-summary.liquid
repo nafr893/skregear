@@ -229,62 +229,64 @@
 
 </div>
 
-<div class="cart-totals__container{% if settings.show_installments %} cart-totals__container--has-installments{% endif %}">
-  <span
-    class="cart-totals__item cart-totals__total"
-    role="status"
-  >
-    <span class="cart-totals__total-label cart-primary-typography">{{ 'content.cart_estimated_total' | t }}</span>
-    <text-component
-      ref="cartTotal"
-      value="{{ total_price | strip_html }}"
-      class="cart-totals__total-value cart-secondary-typography"
-      {% comment %} Used by payment_terms web component {% endcomment %}
-      data-testid="cart-total-value"
-      data-cart-subtotal
+<div class="skre-cart-footer">
+  <div class="cart-totals__container{% if settings.show_installments %} cart-totals__container--has-installments{% endif %}">
+    <span
+      class="cart-totals__item cart-totals__total"
+      role="status"
     >
-      {{ total_price }}
-    </text-component>
-  </span>
-  {% if settings.show_installments %}
-    <span class="cart-totals__item cart-totals__installments">
-      {% form 'cart', cart %}
-        {{ form | payment_terms }}
-      {% endform %}
+      <span class="cart-totals__total-label cart-primary-typography">{{ 'content.cart_estimated_total' | t }}</span>
+      <text-component
+        ref="cartTotal"
+        value="{{ total_price | strip_html }}"
+        class="cart-totals__total-value cart-secondary-typography"
+        {% comment %} Used by payment_terms web component {% endcomment %}
+        data-testid="cart-total-value"
+        data-cart-subtotal
+      >
+        {{ total_price }}
+      </text-component>
     </span>
-  {% endif %}
-</div>
-
-<div class="cart__ctas">
-  <button
-    type="submit"
-    id="checkout"
-    class="cart__checkout-button button"
-    name="checkout"
-    {% if cart == empty %}
-      disabled
+    {% if settings.show_installments %}
+      <span class="cart-totals__item cart-totals__installments">
+        {% form 'cart', cart %}
+          {{ form | payment_terms }}
+        {% endform %}
+      </span>
     {% endif %}
-    form="cart-form"
-  >
-    <span class="button-text">
-      {{ 'content.checkout' | t }}
-    </span>
-  </button>
+  </div>
 
-  {% if additional_checkout_buttons and settings.show_accelerated_checkout_buttons %}
-    <div
-      class="
-        additional-checkout-buttons
-        {% if accelerated_checkout_buttons_layout == 'vertical' %}additional-checkout-buttons--vertical{% endif %}
-      "
+  <div class="cart__ctas">
+    <button
+      type="submit"
+      id="checkout"
+      class="cart__checkout-button button"
+      name="checkout"
+      {% if cart == empty %}
+        disabled
+      {% endif %}
+      form="cart-form"
     >
-      {{ content_for_additional_checkout_buttons }}
-    </div>
-  {% endif %}
-</div>
+      <span class="button-text">
+        {{ 'content.checkout' | t }}
+      </span>
+    </button>
 
-<div class="cart-totals__item cart-totals__tax-note cart-primary-typography">
-  {% render 'tax-info', has_discounts_enabled: settings.show_add_discount_code %}
+    {% if additional_checkout_buttons and settings.show_accelerated_checkout_buttons %}
+      <div
+        class="
+          additional-checkout-buttons
+          {% if accelerated_checkout_buttons_layout == 'vertical' %}additional-checkout-buttons--vertical{% endif %}
+        "
+      >
+        {{ content_for_additional_checkout_buttons }}
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="cart-totals__item cart-totals__tax-note cart-primary-typography">
+    {% render 'tax-info', has_discounts_enabled: settings.show_add_discount_code %}
+  </div>
 </div>
 
 {% stylesheet %}
