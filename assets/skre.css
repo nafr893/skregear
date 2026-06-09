@@ -893,6 +893,10 @@ li.yotpo-pagination-number-container {
   width: 100%;
 }
 
+._1b-0 {
+  margin-top: 0 !important;
+}
+
 /* Estimated total row: label left, price right */
 span.cart-totals__item.cart-totals__total {
   display: flex !important;
