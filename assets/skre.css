@@ -883,6 +883,18 @@ li.yotpo-pagination-number-container {
   display: block;
 }
 
-.cart-totals__container {
-  margin-block: 0.125rem !important;
+.cart-drawer__summary {
+  gap: 0 !important;
+}
+
+.cart-drawer__summary .cart-totals {
+  margin-block-end: var(--gap-xl);
+}
+
+.cart-drawer__summary .cart-totals__container {
+  padding-block: 0.125rem;
+}
+
+.cart-drawer__summary .cart__ctas {
+  margin-block-start: var(--gap-xl);
 }
