@@ -11,9 +11,11 @@
   @param {string} [image_sizes] - The sizes attribute for responsive images. Defaults to 'auto'
   @param {object} [swatches_product] - When provided, renders variant swatches between the image and content
   @param {boolean} [product_card_wrapper] - When true, wraps the card in a product-card custom element for full swatch interactivity
+  @param {string} [image_loading] - The loading attribute for the main image ('lazy' or 'eager'). Defaults to 'lazy'.
 {%- enddoc -%}
 
 {% liquid
+  assign image_loading = image_loading | default: 'lazy'
   if image_aspect_ratio == blank or image_aspect_ratio == 'adapt'
     assign ratio = resource.featured_image.aspect_ratio
   else
@@ -113,7 +115,7 @@
                 featured_image
                 | image_url: width: image_width, format: 'webp'
                 | image_tag:
-                  loading: 'lazy',
+                  loading: image_loading,
                   class: 'resource-card__image',
                   widths: widths,
                   sizes: image_sizes,
@@ -154,7 +156,7 @@
             featured_image
             | image_url: width: image_width, format: 'webp'
             | image_tag:
-              loading: 'lazy',
+              loading: image_loading,
               class: 'resource-card__image',
               widths: widths,
               sizes: image_sizes,
