@@ -15,7 +15,7 @@ html:has(dialog:modal) {
 .skre-sw {
   width: 18px;
   height: 18px;
-  border-radius: 50%;
+  border-radius: 3px;
   background: var(--skre-sw-bg, #ccc);
   background-size: cover;
   background-position: center;
@@ -429,9 +429,39 @@ h5, h6, p {
   }
 }
 
-/* Scale review block (stars + count) to 75% */
+/* Rating stars — ensure styles are present on pages that don't render the review block */
 .rating-wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-xs, 0.375rem);
   zoom: 0.75;
+}
+
+.rating-color--primary {
+  --star-fill-color: var(--color-primary);
+  --star-fill-color-rgb: var(--color-primary-rgb);
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-3xs, 0.125rem);
+}
+
+.stars {
+  height: var(--star-size, 1rem);
+  fill: var(--empty-star-fill-color, rgb(var(--star-fill-color-rgb) / 0.2));
+}
+
+.filled-star {
+  fill: var(--star-fill-color);
+}
+
+.skre-rc-rating .rating-count {
+  margin: 0;
+  color: var(--star-fill-color);
+  font-size: var(--font-size--body-sm, 0.875rem);
+  white-space: nowrap;
 }
 
 /* Default (unselected) swatch ring — matches activated outline position */
