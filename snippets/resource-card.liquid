@@ -168,33 +168,32 @@
 
   {%- if swatches_product != blank -%}
     {%- liquid
-      assign skre_sw_opt = nil
+      assign skre_sw_has = false
       for opt in swatches_product.options_with_values
         assign skre_sw_count = opt.values | map: 'swatch' | compact | size
         if skre_sw_count > 0
-          assign skre_sw_opt = opt
+          assign skre_sw_has = true
           break
         endif
       endfor
     -%}
-    {%- if skre_sw_opt != nil -%}
-      <div class="skre-swatches">
-        {%- assign skre_sw_max = 4 -%}
-        {%- assign skre_sw_total = skre_sw_opt.values.size -%}
-        {%- for val in skre_sw_opt.values limit: skre_sw_max -%}
-          {%- liquid
-            assign sw = val.swatch
-            assign sw_style = '--skre-sw-bg: #ccc;'
-            if sw.image
-              assign sw_img = sw.image | image_url: width: 48
-              assign sw_style = '--skre-sw-bg: url(' | append: sw_img | append: ');'
-            elsif sw.color
-              assign sw_style = '--skre-sw-bg: rgb(' | append: sw.color.rgb | append: ');'
-            endif
-          -%}
-          <span class="skre-sw" style="{{ sw_style }}" title="{{ val.name }}"></span>
-        {%- endfor -%}
-      </div>
+    {%- if skre_sw_has -%}
+      <product-swatches
+        data-product-id="{{ swatches_product.id }}"
+        data-product-url="{{ swatches_product.url }}"
+        style="
+          --overflow-list-alignment: flex-start;
+          --overflow-list-alignment-mobile: flex-start;
+          --product-swatches-alignment: start;
+          --product-swatches-alignment-mobile: start;
+          --product-swatches-padding-block-start: 4px;
+          --product-swatches-padding-block-end: 0px;
+          --product-swatches-padding-inline-start: 0px;
+          --product-swatches-padding-inline-end: 0px;
+        "
+      >
+        {%- render 'variant-swatches', product_resource: swatches_product -%}
+      </product-swatches>
     {%- endif -%}
   {%- endif -%}
 
@@ -251,10 +250,10 @@
         {{- 'content.search_results_resource_products_count' | t: count: resource.all_products_count -}}
       </p>
     {% else %}
-      {%- assign _excerpt_raw = resource.excerpt | default: resource.content | strip_html | strip -%}
-      {%- assign _excerpt_short = _excerpt_raw | truncatewords: 10, '' -%}
+      {%- assign skre_excerpt_raw = resource.excerpt | default: resource.content | strip_html | strip -%}
+      {%- assign skre_excerpt_short = skre_excerpt_raw | truncatewords: 10, '' -%}
       <p class="resource-card__subtext paragraph">
-        {{- _excerpt_short -}}{%- if _excerpt_short != _excerpt_raw -%}<span class="resource-card__read-more"> read more</span>{%- endif -%}
+        {{- skre_excerpt_short -}}{%- if skre_excerpt_short != skre_excerpt_raw -%}<span class="resource-card__read-more"> read more</span>{%- endif -%}
       </p>
     {% endif %}
   </div>
@@ -348,6 +347,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     overflow: hidden;
     line-height: 1.3;
     word-break: break-word;
