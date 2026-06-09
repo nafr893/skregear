@@ -69,6 +69,8 @@
     "enable_free_shipping_bar": true,
     "show_cart_note": false,
     "show_add_discount_code": true,
+    "show_installments": true,
+    "show_accelerated_checkout_buttons": false,
     "empty_cart_promo_image": "shopify://shop_images/FatalImpact_yukon-1233.webp",
     "empty_cart_promo_heading": "BUILD YOUR LAYERING SYSTEM",
     "empty_cart_promo_btn_label": "EXPLORE",
