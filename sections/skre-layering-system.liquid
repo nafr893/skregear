@@ -849,6 +849,20 @@ body:has(.skre-lb) main {
   font-size: 0.8rem;
   font-weight: 700;
   flex-shrink: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.skre-lb__header-btns .skre-lb__help-btn:focus,
+.skre-lb__header-btns .skre-lb__close:focus {
+  outline: none;
+}
+.skre-lb__header-btns .skre-lb__help-btn:active,
+.skre-lb__header-btns .skre-lb__close:active {
+  background: #f0f0f0;
 }
 .skre-lb__header-btns .skre-lb__help-btn {
   font-size: 1.1rem;
