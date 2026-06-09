@@ -74,8 +74,8 @@
             "drawer_accordion_expand_first": false,
             "drawer_dividers": false,
             "show_drawer_promo": true,
-            "drawer_promo_image": "shopify://shop_images/IMG_8188_1.webp",
-            "drawer_promo_heading": "Save 15% on your layering system.",
+            "drawer_promo_image": "shopify://shop_images/GB-Solace.jpg",
+            "drawer_promo_heading": "BUILD YOUR LAYERING SYSTEM",
             "drawer_promo_subheading": "",
             "drawer_promo_button_text": "START HERE",
             "drawer_promo_button_link": "shopify://pages/layering-system",
@@ -162,10 +162,6 @@
         "home_color_scheme": "inverse",
         "enable_transparent_header_product": false,
         "product_color_scheme": "default",
-        "empty_cart_image": "shopify://shop_images/M6A8504.jpg",
-        "empty_cart_heading": "BUILD YOUR LAYERING SYSTEM",
-        "empty_cart_button_label": "Shop now",
-        "empty_cart_button_link": "shopify://pages/layering-system",
         "enable_transparent_header_collection": false,
         "collection_color_scheme": "default"
       }
