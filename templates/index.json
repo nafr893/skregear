@@ -24,8 +24,8 @@
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
             "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
+            "width": "custom",
+            "custom_width": 50,
             "width_mobile": "fill",
             "custom_width_mobile": 100,
             "height": "fit",
@@ -57,7 +57,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>TURKEY SEASON GEAR</strong></p>",
+                "text": "<p><strong>MAD TRAPPER HOODIE</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -84,7 +84,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h1>BOSS TOMS <br/>DON'T COME EASY.</h1>",
+                "text": "<h1>SERIOUS GEAR FOR WORKING CLASS HUNTERS</h1>",
                 "width": "fit-content",
                 "max_width": "none",
                 "alignment": "left",
@@ -117,8 +117,8 @@
           "type": "button",
           "name": "t:names.button",
           "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
+            "label": "Shop Now",
+            "link": "shopify://products/mad-trapper-hoodie",
             "open_in_new_tab": false,
             "style_class": "button",
             "width": "fit-content",
@@ -136,7 +136,7 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/Shoot_with_Josh-65_1.webp",
+        "image_1": "shopify://shop_images/DSC05057_86086fff-b208-463f-bb6f-f3e0334b2efb.webp",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": true,
@@ -538,6 +538,7 @@
               "type": "review",
               "name": "t:names.product_review_stars",
               "settings": {
+                "anchor_link": "",
                 "stars_style": "shaded",
                 "show_number": true,
                 "rating_color": "primary",
