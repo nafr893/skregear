@@ -1525,17 +1525,37 @@ body:has(.skre-lb) main {
   display: none;
 }
 
-.skre-lb__builder--info-expanded .skre-lb__exp-only {
+.skre-lb__builder--info-expanded .skre-lb__exp-only,
+.skre-lb__builder--info-collapsing .skre-lb__exp-only {
   display: block;
 }
 
-.skre-lb__builder--info-expanded .skre-lb__info {
+.skre-lb__builder--info-expanded .skre-lb__info,
+.skre-lb__builder--info-collapsing .skre-lb__info {
   position: absolute;
   inset: 0;
   z-index: 10;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   background: #fff;
+}
+
+.skre-lb__builder--info-expanded .skre-lb__info {
+  animation: skre-info-slide-up var(--drawer-animation-speed, 0.2s) ease forwards;
+}
+
+.skre-lb__builder--info-collapsing .skre-lb__info {
+  animation: skre-info-slide-down var(--drawer-animation-speed, 0.2s) ease forwards;
+}
+
+@keyframes skre-info-slide-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes skre-info-slide-down {
+  from { transform: translateY(0); }
+  to   { transform: translateY(100%); }
 }
 
 /* Rotate caret when expanded */
@@ -2103,8 +2123,9 @@ body:has(.skre-lb) main {
   .skre-lb__info-close svg { width: 18px; height: 18px; }
   /* Accordions (overview / specs / performance) are always shown on desktop */
   .skre-lb__exp-only { display: block; }
-  /* Neutralise the mobile expand-overlay positioning, just in case */
-  .skre-lb__builder--info-expanded .skre-lb__info { position: static; inset: auto; }
+  /* Neutralise the mobile expand-overlay positioning and animation on desktop */
+  .skre-lb__builder--info-expanded .skre-lb__info,
+  .skre-lb__builder--info-collapsing .skre-lb__info { position: static; inset: auto; animation: none; }
 
   .skre-lb__title { font-size: 1.55rem; }
   .skre-lb__price { font-size: 1.15rem; }

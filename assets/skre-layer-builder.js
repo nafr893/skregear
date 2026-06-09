@@ -1124,19 +1124,32 @@ class SkreLayerBuilder extends HTMLElement {
   // ── Expand / Collapse info ───────────────────────────────────────────────
 
   #toggleExpand() {
-    const expanded = this.#builder?.classList.toggle('skre-lb__builder--info-expanded');
+    const isExpanded = this.#builder?.classList.contains('skre-lb__builder--info-expanded');
     const label = this.querySelector('.skre-lb__expand');
-    if (label) {
-      label.innerHTML = expanded
-        ? 'Collapse Info <span class="skre-lb__expand-caret" style="display:inline-block;transform:rotate(180deg)">&#8963;</span>'
-        : 'Expand Info <span class="skre-lb__expand-caret">&#8963;</span>';
+    if (isExpanded) {
+      this.#collapseExpand(true);
+    } else {
+      this.#builder?.classList.add('skre-lb__builder--info-expanded');
+      if (label) label.innerHTML = 'Collapse Info <span class="skre-lb__expand-caret" style="display:inline-block;transform:rotate(180deg)">&#8963;</span>';
     }
   }
 
-  #collapseExpand() {
-    this.#builder?.classList.remove('skre-lb__builder--info-expanded');
+  #collapseExpand(animated = false) {
     const label = this.querySelector('.skre-lb__expand');
-    if (label) label.innerHTML = 'Expand Info <span class="skre-lb__expand-caret">&#8963;</span>';
+    const resetLabel = () => {
+      if (label) label.innerHTML = 'Expand Info <span class="skre-lb__expand-caret">&#8963;</span>';
+    };
+    if (animated && this.#builder?.classList.contains('skre-lb__builder--info-expanded')) {
+      this.#builder.classList.add('skre-lb__builder--info-collapsing');
+      const speed = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--drawer-animation-speed') || '0.2') * 1000;
+      setTimeout(() => {
+        this.#builder?.classList.remove('skre-lb__builder--info-expanded', 'skre-lb__builder--info-collapsing');
+        resetLabel();
+      }, speed);
+    } else {
+      this.#builder?.classList.remove('skre-lb__builder--info-expanded', 'skre-lb__builder--info-collapsing');
+      resetLabel();
+    }
   }
 
   // ── Accordions ───────────────────────────────────────────────────────────
