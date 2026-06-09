@@ -904,17 +904,12 @@
                     var val = v[key];
                     if (!val || seen[val]) return;
                     seen[val] = true;
-                    var fi = v.featured_image;
-                    var src = (fi && fi.src) || (typeof fi === 'string' ? fi : '') || '';
-                    swatches.push({ val: val, src: src });
+                    swatches.push(val);
                   });
                   if (!swatches.length) return '';
                   var html = '<div class="skre-swatches">';
-                  swatches.slice(0, 4).forEach(function(sw) {
-                    var style = sw.src
-                      ? '--skre-sw-bg: url(' + sw.src + ')'
-                      : '--skre-sw-bg: ' + sw.val.toLowerCase();
-                    html += '<span class="skre-sw" style="' + style + '" title="' + sw.val + '"></span>';
+                  swatches.slice(0, 4).forEach(function(val) {
+                    html += '<span class="skre-sw" style="--skre-sw-bg: ' + val.toLowerCase() + '" title="' + val + '"></span>';
                   });
                   html += '</div>';
                   return html;

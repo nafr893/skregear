@@ -94,37 +94,94 @@
             assign ref_image_to_transition = 'imagesToTransition[]'
           endif
         %}
-        {{
-          featured_image
-          | image_url: width: image_width, format: 'webp'
-          | image_tag:
-            loading: 'lazy',
-            class: 'resource-card__image',
-            widths: widths,
-            sizes: image_sizes,
-            ref: ref_image_to_transition,
-            data-media-id: featured_image.id,
-            style: primary_focal_point_style
-        }}
-        {%- if image_hover and resource.media.size > 1 -%}
-          {% liquid
-            assign secondary_focal_point_style = ''
-            if resource.media[1].presentation.focal_point != blank
-              assign secondary_focal_point_style = 'object-position: ' | append: resource.media[1].presentation.focal_point | append: ';'
-            endif
-          %}
+        {%- if product_card_wrapper and resource_type == 'product' -%}
+          {%- liquid
+            assign skre_var_opt = nil
+            for opt in resource.options_with_values
+              assign skre_sw_cnt = opt.values | map: 'swatch' | compact | size
+              if skre_sw_cnt > 0
+                assign skre_var_opt = opt
+                break
+              endif
+            endfor
+            assign skre_main_mid = resource.featured_media.id | default: 'main'
+            assign skre_seen = skre_main_mid | prepend: '|' | append: '|'
+          -%}
+          <skre-card-gallery ref="slideshow">
+            <div class="skre-rc-slide" slide-id="{{ skre_main_mid }}">
+              {{
+                featured_image
+                | image_url: width: image_width, format: 'webp'
+                | image_tag:
+                  loading: 'lazy',
+                  class: 'resource-card__image',
+                  widths: widths,
+                  sizes: image_sizes,
+                  ref: ref_image_to_transition,
+                  data-media-id: featured_image.id,
+                  style: primary_focal_point_style
+              }}
+            </div>
+            {%- if skre_var_opt != nil -%}
+              {%- for val in skre_var_opt.values -%}
+                {%- liquid
+                  assign skre_vm = val.variant.featured_media
+                  if skre_vm == blank
+                    continue
+                  endif
+                  assign skre_vm_check = skre_vm.id | prepend: '|' | append: '|'
+                  if skre_seen contains skre_vm_check
+                    continue
+                  endif
+                  assign skre_seen = skre_seen | append: skre_vm.id | append: '|'
+                -%}
+                <div class="skre-rc-slide" slide-id="{{ skre_vm.id }}" hidden>
+                  {{
+                    skre_vm.preview_image
+                    | image_url: width: image_width, format: 'webp'
+                    | image_tag:
+                      loading: 'lazy',
+                      class: 'resource-card__image',
+                      widths: widths,
+                      sizes: image_sizes
+                  }}
+                </div>
+              {%- endfor -%}
+            {%- endif -%}
+          </skre-card-gallery>
+        {%- else -%}
           {{
-            resource.media[1]
+            featured_image
             | image_url: width: image_width, format: 'webp'
             | image_tag:
               loading: 'lazy',
-              class: 'resource-card__image resource-card__image--secondary',
+              class: 'resource-card__image',
               widths: widths,
               sizes: image_sizes,
               ref: ref_image_to_transition,
-              data-media-id: resource.media[1].id,
-              style: secondary_focal_point_style
+              data-media-id: featured_image.id,
+              style: primary_focal_point_style
           }}
+          {%- if image_hover and resource.media.size > 1 -%}
+            {% liquid
+              assign secondary_focal_point_style = ''
+              if resource.media[1].presentation.focal_point != blank
+                assign secondary_focal_point_style = 'object-position: ' | append: resource.media[1].presentation.focal_point | append: ';'
+              endif
+            %}
+            {{
+              resource.media[1]
+              | image_url: width: image_width, format: 'webp'
+              | image_tag:
+                loading: 'lazy',
+                class: 'resource-card__image resource-card__image--secondary',
+                widths: widths,
+                sizes: image_sizes,
+                ref: ref_image_to_transition,
+                data-media-id: resource.media[1].id,
+                style: secondary_focal_point_style
+            }}
+          {%- endif -%}
         {%- endif -%}
       {%- else -%}
         <div
@@ -285,6 +342,35 @@
     z-index: 1;
   }
 
+  /* Swatches + rating sit above the full-coverage link */
+  .resource-card product-swatches,
+  .resource-card .skre-rc-rating {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Lightweight gallery shim for variant hover-preview */
+  skre-card-gallery {
+    display: block;
+    width: 100%;
+    aspect-ratio: var(--resource-card-aspect-ratio, 4/5);
+    position: relative;
+  }
+  .skre-rc-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .skre-rc-slide[hidden] { display: none; }
+  .skre-rc-slide .resource-card__image {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: unset;
+    position: absolute;
+    inset: 0;
+  }
+
   .resource-card__content {
     display: flex;
     flex-direction: column;
@@ -426,3 +512,16 @@
     }
   }
 {% endstylesheet %}
+
+{% javascript %}
+  if (!customElements.get('skre-card-gallery')) {
+    customElements.define('skre-card-gallery', class extends HTMLElement {
+      get slides() { return Array.from(this.querySelectorAll('[slide-id]')); }
+      get initialSlide() { return this.querySelector('[slide-id]'); }
+      select({ id }) {
+        this.slides.forEach(el => { el.hidden = el.getAttribute('slide-id') != String(id); });
+      }
+      get refs() { return { slides: this.slides }; }
+    });
+  }
+{% endjavascript %}
