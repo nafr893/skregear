@@ -794,6 +794,17 @@
         {%- endif -%}
       </div>
       <script>
+      /* Register skre-card-gallery for sim card variant image switching */
+      if (!customElements.get('skre-card-gallery')) {
+        customElements.define('skre-card-gallery', class extends HTMLElement {
+          get slides() { return Array.from(this.querySelectorAll('[slide-id]')); }
+          get initialSlide() { return this.querySelector('[slide-id]'); }
+          select(o) {
+            this.slides.forEach(function(el) { el.hidden = el.getAttribute('slide-id') != String(o.id); });
+          }
+          get refs() { return { slides: this.slides }; }
+        });
+      }
       (function(){
         var bid = '{{ block_id }}';
 
@@ -872,71 +883,45 @@
           var pid = btn && btn.dataset.productId;
           if (!pid || !sheet) return;
           var body = sheet.querySelector('.skre-sim__body');
-          var base = '/recommendations/products.json?product_id=' + pid + '&limit=10';
-          fetch(base + '&intent=related')
-            .then(function(r){ return r.json(); })
-            .then(function(data){
-              if (!data.products || !data.products.length) {
-                return fetch(base + '&intent=complementary').then(function(r){ return r.json(); });
-              }
-              return data;
-            })
-            .then(function(data){
-              simLoaded = true;
-              var prods = data.products || [];
-              if (!prods.length) {
-                body.innerHTML = '<p class="skre-sim__empty">No similar products found.</p>';
-                return;
-              }
-              function buildSwatches(p) {
-                try {
-                  if (!p.options || !p.variants || !p.variants.length) return '';
-                  var colorIdx = -1;
-                  for (var i = 0; i < p.options.length; i++) {
-                    var opt = p.options[i];
-                    var n = (typeof opt === 'string' ? opt : (opt && opt.name) || '').toLowerCase();
-                    if (n === 'color' || n === 'colour') { colorIdx = i; break; }
-                  }
-                  if (colorIdx < 0) return '';
-                  var key = 'option' + (colorIdx + 1);
-                  var seen = {}, swatches = [];
-                  p.variants.forEach(function(v) {
-                    var val = v[key];
-                    if (!val || seen[val]) return;
-                    seen[val] = true;
-                    swatches.push(val);
-                  });
-                  if (!swatches.length) return '';
-                  var html = '<div class="skre-swatches">';
-                  swatches.slice(0, 4).forEach(function(val) {
-                    html += '<span class="skre-sw" style="--skre-sw-bg: ' + val.toLowerCase() + '" title="' + val + '"></span>';
-                  });
-                  html += '</div>';
-                  return html;
-                } catch(e) { return ''; }
-              }
+          var base = '/recommendations/products?product_id=' + pid + '&limit=10&section_id=skre-sim-products';
 
-              body.innerHTML = prods.map(function(p){
-                var raw = p.featured_image;
-                var imgSrc = (raw && typeof raw === 'object' && raw.src)
-                           || (typeof raw === 'string' && raw)
-                           || (Array.isArray(p.images) && p.images[0] && (p.images[0].src || p.images[0]))
-                           || '';
-                var imgTag = imgSrc ? '<img class="skre-sim-pc__img" src="' + imgSrc + '" alt="" loading="lazy">' : '';
-                var price = '$' + (p.price_min / 100).toFixed(2).replace(/\.00$/, '');
-                return '<div class="skre-sim-pc">'
-                  + '<a class="skre-sim-pc__link" href="' + p.url + '" aria-label="' + p.title + '"></a>'
-                  + '<div class="skre-sim-pc__media">' + imgTag + '</div>'
-                  + buildSwatches(p)
-                  + '<div class="skre-sim-pc__info">'
-                  + '<p class="skre-sim-pc__title">' + p.title + '</p>'
-                  + '<p class="skre-sim-pc__price">' + price + '</p>'
-                  + '</div>'
-                  + '</div>';
-              }).join('');
+          function parseCards(html) {
+            var div = document.createElement('div');
+            div.innerHTML = html;
+            /* Hoist any <style> tags from the section response into <head> (once) */
+            if (!document.getElementById('skre-sim-section-styles')) {
+              var styles = div.querySelectorAll('style');
+              if (styles.length) {
+                var combined = '';
+                styles.forEach(function(s) { combined += s.textContent; });
+                var styleEl = document.createElement('style');
+                styleEl.id = 'skre-sim-section-styles';
+                styleEl.textContent = combined;
+                document.head.appendChild(styleEl);
+              }
+            }
+            /* Extract cards from inside the section wrapper */
+            var wrapper = div.querySelector('[id^="shopify-section-"]') || div;
+            var cards = Array.from(wrapper.querySelectorAll('product-card, .resource-card'));
+            if (!cards.length) throw new Error('empty');
+            return cards;
+          }
+
+          function fetchCards(intent) {
+            return fetch(base + '&intent=' + intent)
+              .then(function(r) { return r.text(); })
+              .then(parseCards);
+          }
+
+          fetchCards('related')
+            .catch(function() { return fetchCards('complementary'); })
+            .then(function(cards) {
+              simLoaded = true;
+              body.innerHTML = '';
+              cards.forEach(function(card) { body.appendChild(card); });
             })
-            .catch(function(){
-              body.innerHTML = '<p class="skre-sim__empty">Could not load recommendations.</p>';
+            .catch(function() {
+              body.innerHTML = '<p class="skre-sim__empty">No similar products found.</p>';
             });
         }
 
@@ -1656,5 +1641,25 @@
     font-size: var(--font-size--body-sm, 0.875rem) !important;
     font-weight: 500 !important;
     color: var(--color-foreground) !important;
+  }
+
+  /* resource-card inside the sim grid */
+  .skre-sim__body product-card {
+    display: block;
+    min-width: 0;
+  }
+  .skre-sim__body .resource-card {
+    height: 100%;
+  }
+  .skre-sim__body .resource-card__media {
+    background-color: #f9f9f9;
+  }
+  .skre-sim__body .resource-card__image {
+    mix-blend-mode: multiply;
+  }
+  .skre-sim__body product-swatches,
+  .skre-sim__body .skre-rc-rating {
+    position: relative;
+    z-index: 2;
   }
 {% endstylesheet %}

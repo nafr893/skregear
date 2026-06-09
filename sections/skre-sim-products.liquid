@@ -1,0 +1,18 @@
+{% comment %}Called via Section Rendering API from the sim card bottom sheet. Renders recommended products as resource-cards.{% endcomment %}
+{%- for product in recommendations.products -%}
+  {%- render 'resource-card',
+    resource_type: 'product',
+    resource: product,
+    image_width: 400,
+    image_aspect_ratio: '4 / 5',
+    swatches_product: product,
+    product_card_wrapper: true
+  -%}
+{%- endfor -%}
+
+{% schema %}
+{
+  "name": "skre-sim-products",
+  "disabled_on": { "groups": ["*"] }
+}
+{% endschema %}
