@@ -898,6 +898,10 @@ li.yotpo-pagination-number-container {
   margin-top: 0 !important;
 }
 
+.cart-totals:not(:has(.cart-actions)) {
+  padding-block-start: 0 !important;
+}
+
 /* Estimated total row: label left, price right */
 span.cart-totals__item.cart-totals__total {
   display: flex !important;
