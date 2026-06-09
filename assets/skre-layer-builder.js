@@ -353,7 +353,8 @@ class SkreLayerBuilder extends HTMLElement {
       btn.addEventListener('click', () => this.#setLayer(Number(btn.dataset.layer)));
     });
 
-    this.#positionTabInk(tabs);
+    /* Defer ink positioning until after browser recalculates layout */
+    requestAnimationFrame(() => this.#positionTabInk(tabs));
   }
 
   #positionTabInk(tabs) {
@@ -363,12 +364,12 @@ class SkreLayerBuilder extends HTMLElement {
       ink.className = 'skre-lb__tabs-ink';
       ink.setAttribute('aria-hidden', 'true');
       tabs.appendChild(ink);
-      /* reposition on scroll so ink tracks visible active tab */
-      tabs.addEventListener('scroll', () => this.#positionTabInk(tabs), { passive: true });
     }
     const active = tabs.querySelector('.skre-lb__tab--active');
     if (active) {
-      ink.style.left = (active.offsetLeft - tabs.scrollLeft) + 'px';
+      /* ink is inside the scrollable container so it scrolls with it —
+         offsetLeft alone (no scrollLeft) gives the correct content position */
+      ink.style.left = active.offsetLeft + 'px';
       ink.style.width = active.offsetWidth + 'px';
     }
   }
