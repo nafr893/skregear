@@ -185,10 +185,7 @@
           {%- liquid
             assign sw = val.swatch
             assign sw_style = '--skre-sw-bg: #ccc;'
-            if settings.show_variant_image and val.variant.featured_media
-              assign sw_img = val.variant.featured_media | image_url: width: 48
-              assign sw_style = '--skre-sw-bg: url(' | append: sw_img | append: ');'
-            elsif sw.image
+            if sw.image
               assign sw_img = sw.image | image_url: width: 48
               assign sw_style = '--skre-sw-bg: url(' | append: sw_img | append: ');'
             elsif sw.color
