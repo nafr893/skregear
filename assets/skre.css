@@ -867,6 +867,19 @@ div.yotpo-main-widget-layout.yotpo-align-text {
   align-items: center !important; 
 }
 li.yotpo-pagination-number-container {
-  align-items: center !important; 
-  display: flex; 
+  align-items: center !important;
+  display: flex;
+}
+
+/* Cart estimated total row */
+.cart-totals__total {
+  display: flex !important;
+  width: 100%;
+  justify-content: space-between !important;
+  align-items: baseline;
+  padding-block: 0.3rem;
+}
+
+.cart-totals__total text-component {
+  display: block;
 }
