@@ -438,7 +438,7 @@
   {%- if has_size_guide -%}
     {%- assign sg_data = product_resource.metafields.custom.size_chart.value -%}
     <script type="application/json" id="skre-sg-data-{{ product_resource.id }}">{{ sg_data | json }}</script>
-    <dialog class="skre-lb__sc-dialog dialog-drawer" id="skre-sg-dialog-{{ product_resource.id }}">
+    <dialog class="skre-lb__sc-dialog dialog-drawer dialog-drawer--right" id="skre-sg-dialog-{{ product_resource.id }}">
       <div class="skre-lb__sc-inner">
         <div class="skre-lb__sc-header">
           <span class="skre-lb__sc-title">Size Chart</span>

@@ -442,17 +442,18 @@
       </div>
 
       <div class="skre-lb__sizes-wrap">
-        <span class="skre-lb__sizes-label">Select Size</span>
+        <div class="skre-lb__sizes-header">
+          <span class="skre-lb__sizes-label">Select Size</span>
+          <button class="skre-lb__size-chart-link" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M2 9h20M2 15h20M9 3v18M15 3v18"/></svg>
+            Size Guide
+          </button>
+        </div>
         <div class="skre-lb__sizes"></div>
       </div>
 
       {%- comment -%} ── Expanded-only content ── {%- endcomment -%}
       <div class="skre-lb__exp-only">
-
-        <button class="skre-lb__size-chart-link" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="15" height="15" aria-hidden="true"><path d="M2 9h20M2 15h20M9 3v18M15 3v18"/></svg>
-          Size Chart
-        </button>
 
         <div class="skre-lb__accordions">
 
@@ -519,7 +520,7 @@
   </dialog>
 
   {%- comment -%} ── Size chart drawer ── {%- endcomment -%}
-  <dialog class="skre-lb__sc-dialog dialog-drawer">
+  <dialog class="skre-lb__sc-dialog dialog-drawer dialog-drawer--right">
     <div class="skre-lb__sc-inner">
       <div class="skre-lb__sc-header">
         <span class="skre-lb__sc-title">Size Chart</span>
@@ -1254,6 +1255,11 @@ body:has(.skre-lb) main {
   overflow: hidden;
 }
 
+@media screen and (max-width: 749px) {
+  .skre-lb__summary-panel { justify-content: flex-start; }
+  .skre-lb__summary-inner { width: 95vw; max-width: none; }
+}
+
 .skre-lb__summary-header {
   display: flex;
   justify-content: space-between;
@@ -1472,6 +1478,13 @@ body:has(.skre-lb) main {
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
+  margin-block-end: 0.75rem;
+}
+
+.skre-lb__sizes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .skre-lb__sizes-label {
@@ -1522,7 +1535,6 @@ body:has(.skre-lb) main {
   color: #222;
   text-decoration: underline;
   text-underline-offset: 2px;
-  margin-top: 0.25rem;
 }
 
 /* ── Accordions ── */
@@ -2200,17 +2212,17 @@ body:has(.skre-lb) main {
 
 .skre-lb__help-btn--rail { color: #888; border-color: #ddd; }
 
-/* ── Size chart drawer — matches cart drawer behaviour ──────────────────────── */
+/* ── Size chart drawer — left-side like mobile nav ──────────────────────────── */
 .skre-lb__sc-dialog {
   position: fixed;
   overflow: hidden;
   border-radius: 0;
-  width: 100%;
+  width: 95vw;
   height: 100%;
-  margin: 0 0 0 auto;
+  margin: 0 auto 0 0;
   padding: 0;
   border: none;
-  border-left: var(--style-border-drawer);
+  border-right: var(--style-border-drawer);
   box-shadow: var(--shadow-drawer);
   background-color: var(--color-background, #fff);
 }

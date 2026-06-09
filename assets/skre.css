@@ -403,7 +403,8 @@ h5, h6, p {
   font-family: Georgia, serif;
   font-size: 0.9rem;
   font-weight: 400;
-  font-style: italic;
+  font-style: normal;
+  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -709,17 +710,17 @@ input.search-input::placeholder,
 
 .skre-sc-legend-btn:hover { opacity: 1; }
 
-/* ── Size guide drawer on product page (same styles as layering system .skre-lb__sc-*) ── */
+/* ── Size guide drawer — left-side like mobile nav ── */
 .skre-lb__sc-dialog {
   position: fixed;
   overflow: hidden;
   border-radius: 0;
-  width: 100%;
+  width: 95vw;
   height: 100%;
-  margin: 0 0 0 auto;
+  margin: 0 auto 0 0;
   padding: 0;
   border: none;
-  border-left: var(--style-border-drawer);
+  border-right: var(--style-border-drawer);
   box-shadow: var(--shadow-drawer);
   background-color: var(--color-background, #fff);
 }

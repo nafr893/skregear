@@ -592,6 +592,9 @@ class SkreLayerBuilder extends HTMLElement {
     container.querySelectorAll('[data-size]').forEach(btn => {
       btn.addEventListener('click', () => this.#selectSize(btn.dataset.size));
     });
+
+    const label = this.querySelector('.skre-lb__sizes-label');
+    if (label) label.textContent = selectedSize ? `Select Size: ${selectedSize}` : 'Select Size';
   }
 
   // ── Color selection ───────────────────────────────────────────────────────
@@ -661,6 +664,9 @@ class SkreLayerBuilder extends HTMLElement {
       btn.classList.toggle('skre-lb__size--active', active);
       btn.setAttribute('aria-pressed', String(active));
     });
+
+    const label = this.querySelector('.skre-lb__sizes-label');
+    if (label) label.textContent = `Select Size: ${sizeValue}`;
 
     if (variant) {
       this.#selectedVariants[this.#layerIndex] = {
