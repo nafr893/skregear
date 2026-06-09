@@ -1011,12 +1011,15 @@ class SkreLayerBuilder extends HTMLElement {
     if (!this.#summaryPanel) return;
     this.#renderSummaryItems();
     this.#summaryPanel.hidden = false;
+    requestAnimationFrame(() => this.#summaryPanel.classList.add('is-open'));
     document.body.style.overflow = 'hidden';
   }
 
   #hideSummary() {
     if (!this.#summaryPanel) return;
-    this.#summaryPanel.hidden = true;
+    this.#summaryPanel.classList.remove('is-open');
+    const speed = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--drawer-animation-speed') || '0.2') * 1000;
+    setTimeout(() => { this.#summaryPanel.hidden = true; }, speed);
     document.body.style.overflow = '';
   }
 

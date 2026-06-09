@@ -1233,31 +1233,54 @@ body:has(.skre-lb) main {
 .skre-lb__summary-panel {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.52);
   z-index: 200;
   display: flex;
   align-items: stretch;
   justify-content: flex-end;
+  background: rgba(0, 0, 0, 0);
+  transition: background var(--drawer-animation-speed, 0.2s) ease;
+  pointer-events: none;
 }
 
 .skre-lb__summary-panel[hidden] {
   display: none;
 }
 
+.skre-lb__summary-panel.is-open {
+  background: rgba(0, 0, 0, 0.52);
+  pointer-events: auto;
+}
+
 .skre-lb__summary-inner {
   background: #fff;
   width: min(400px, 100vw);
   max-width: 100vw;
-  max-height: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   border-radius: 0;
   overflow: hidden;
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform var(--drawer-animation-speed, 0.2s) ease, visibility var(--drawer-animation-speed, 0.2s) ease;
+  pointer-events: none;
+}
+
+.skre-lb__summary-panel.is-open .skre-lb__summary-inner {
+  transform: translateX(0);
+  visibility: visible;
+  pointer-events: auto;
 }
 
 @media screen and (max-width: 749px) {
   .skre-lb__summary-panel { justify-content: flex-start; }
-  .skre-lb__summary-inner { width: 95vw; max-width: none; }
+  .skre-lb__summary-inner {
+    width: 95vw;
+    max-width: none;
+    border-right: var(--style-border-drawer);
+    box-shadow: var(--shadow-drawer);
+    transform: translateX(-100%);
+  }
 }
 
 .skre-lb__summary-header {
@@ -2212,24 +2235,36 @@ body:has(.skre-lb) main {
 
 .skre-lb__help-btn--rail { color: #888; border-color: #ddd; }
 
-/* ── Size chart drawer — left-side like mobile nav ──────────────────────────── */
+/* ── Size chart drawer — same style as mobile nav drawer ────────────────────── */
 .skre-lb__sc-dialog {
   position: fixed;
   overflow: hidden;
   border-radius: 0;
   width: 95vw;
-  height: 100%;
+  height: 100dvh;
   margin: 0 auto 0 0;
   padding: 0;
   border: none;
   border-right: var(--style-border-drawer);
   box-shadow: var(--shadow-drawer);
   background-color: var(--color-background, #fff);
+  /* Match menu drawer animation speed */
+  --dialog-drawer-opening-animation: move-and-fade;
+  --dialog-drawer-closing-animation: move-and-fade;
+  animation-duration: var(--drawer-animation-speed, 0.2s) !important;
+  animation-timing-function: ease !important;
 }
 
 .skre-lb__sc-dialog:modal {
   max-height: 100dvh;
   overflow-y: hidden;
+}
+
+/* Backdrop matches menu drawer: brightness dim */
+.skre-lb__sc-dialog::backdrop {
+  -webkit-backdrop-filter: brightness(0.75);
+  backdrop-filter: brightness(0.75);
+  transition: opacity var(--drawer-animation-speed, 0.2s) ease;
 }
 
 @media screen and (min-width: 750px) {

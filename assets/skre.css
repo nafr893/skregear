@@ -397,29 +397,16 @@ h5, h6, p {
   border-bottom: 1px solid #ededed;
 }
 
-/* Layering system: circle around ? button, lighter weight, centered */
+/* Layering system: ? button — simple Inter, light weight, centered */
 .skre-lb__header-btns .skre-lb__help-btn {
-  position: relative;
-  font-family: Georgia, serif;
-  font-size: 0.9rem;
-  font-weight: 400;
+  font-family: var(--font-body--family, 'Inter', sans-serif);
+  font-size: 1rem;
+  font-weight: 300;
   font-style: normal;
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.skre-lb__header-btns .skre-lb__help-btn::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  border: 1.5px solid rgb(0 0 0 / 0.3);
-  pointer-events: none;
 }
 
 /* Cart drawer: remove per-item dividers, keep only the top summary divider */
@@ -710,24 +697,32 @@ input.search-input::placeholder,
 
 .skre-sc-legend-btn:hover { opacity: 1; }
 
-/* ── Size guide drawer — left-side like mobile nav ── */
+/* ── Size guide drawer — same style as mobile nav drawer ── */
 .skre-lb__sc-dialog {
   position: fixed;
   overflow: hidden;
   border-radius: 0;
   width: 95vw;
-  height: 100%;
+  height: 100dvh;
   margin: 0 auto 0 0;
   padding: 0;
   border: none;
   border-right: var(--style-border-drawer);
   box-shadow: var(--shadow-drawer);
   background-color: var(--color-background, #fff);
+  animation-duration: var(--drawer-animation-speed, 0.2s) !important;
+  animation-timing-function: ease !important;
 }
 
 .skre-lb__sc-dialog:modal {
   max-height: 100dvh;
   overflow-y: hidden;
+}
+
+.skre-lb__sc-dialog::backdrop {
+  -webkit-backdrop-filter: brightness(0.75);
+  backdrop-filter: brightness(0.75);
+  transition: opacity var(--drawer-animation-speed, 0.2s) ease;
 }
 
 @media screen and (min-width: 750px) {
