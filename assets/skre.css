@@ -397,14 +397,23 @@ h5, h6, p {
   border-bottom: 1px solid #ededed;
 }
 
-/* Layering system: circle around ? button, lighter weight */
+/* Layering system: circle around ? button, lighter weight, centered */
 .skre-lb__header-btns .skre-lb__help-btn {
-  font-weight: 400;
   position: relative;
+  font-family: Georgia, serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .skre-lb__header-btns .skre-lb__help-btn::before {
   content: '';
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 24px;
   height: 24px;
   border-radius: 50%;
