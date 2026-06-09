@@ -229,6 +229,32 @@
 
 </div>
 
+<div class="cart-totals__container{% if settings.show_installments %} cart-totals__container--has-installments{% endif %}">
+  <span
+    class="cart-totals__item cart-totals__total"
+    role="status"
+  >
+    <span class="cart-totals__total-label cart-primary-typography">{{ 'content.cart_estimated_total' | t }}</span>
+    <text-component
+      ref="cartTotal"
+      value="{{ total_price | strip_html }}"
+      class="cart-totals__total-value cart-secondary-typography"
+      {% comment %} Used by payment_terms web component {% endcomment %}
+      data-testid="cart-total-value"
+      data-cart-subtotal
+    >
+      {{ total_price }}
+    </text-component>
+  </span>
+  {% if settings.show_installments %}
+    <span class="cart-totals__item cart-totals__installments">
+      {% form 'cart', cart %}
+        {{ form | payment_terms }}
+      {% endform %}
+    </span>
+  {% endif %}
+</div>
+
 <div class="cart__ctas">
   <button
     type="submit"
@@ -254,32 +280,6 @@
     >
       {{ content_for_additional_checkout_buttons }}
     </div>
-  {% endif %}
-</div>
-
-<div class="cart-totals__container{% if settings.show_installments %} cart-totals__container--has-installments{% endif %}">
-  <span
-    class="cart-totals__item cart-totals__total"
-    role="status"
-  >
-    <span class="cart-totals__total-label cart-primary-typography">{{ 'content.cart_estimated_total' | t }}</span>
-    <text-component
-      ref="cartTotal"
-      value="{{ total_price | strip_html }}"
-      class="cart-totals__total-value cart-secondary-typography"
-      {% comment %} Used by payment_terms web component {% endcomment %}
-      data-testid="cart-total-value"
-      data-cart-subtotal
-    >
-      {{ total_price }}
-    </text-component>
-  </span>
-  {% if settings.show_installments %}
-    <span class="cart-totals__item cart-totals__installments">
-      {% form 'cart', cart %}
-        {{ form | payment_terms }}
-      {% endform %}
-    </span>
   {% endif %}
 </div>
 
@@ -350,7 +350,6 @@
   .cart-totals__container {
     display: flex;
     flex-direction: column;
-    margin-block-start: var(--margin-sm);
   }
 
   .cart-totals__container {
