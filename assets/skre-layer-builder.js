@@ -352,6 +352,25 @@ class SkreLayerBuilder extends HTMLElement {
     tabs.querySelectorAll('[data-layer]').forEach(btn => {
       btn.addEventListener('click', () => this.#setLayer(Number(btn.dataset.layer)));
     });
+
+    this.#positionTabInk(tabs);
+  }
+
+  #positionTabInk(tabs) {
+    let ink = tabs.querySelector('.skre-lb__tabs-ink');
+    if (!ink) {
+      ink = document.createElement('span');
+      ink.className = 'skre-lb__tabs-ink';
+      ink.setAttribute('aria-hidden', 'true');
+      tabs.appendChild(ink);
+      /* reposition on scroll so ink tracks visible active tab */
+      tabs.addEventListener('scroll', () => this.#positionTabInk(tabs), { passive: true });
+    }
+    const active = tabs.querySelector('.skre-lb__tab--active');
+    if (active) {
+      ink.style.left = (active.offsetLeft - tabs.scrollLeft) + 'px';
+      ink.style.width = active.offsetWidth + 'px';
+    }
   }
 
   // ── Layer navigation ─────────────────────────────────────────────────────

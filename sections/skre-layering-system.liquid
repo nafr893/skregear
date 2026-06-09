@@ -761,8 +761,21 @@ body:has(.skre-lb) main {
   overflow-x: auto;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+  position: relative;
+  border-bottom: 1px solid rgb(0 0 0 / 0.1);
 }
 .skre-lb__tabs::-webkit-scrollbar { display: none; }
+
+.skre-lb__tabs-ink {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: #b8431a;
+  pointer-events: none;
+  transition: left 170ms cubic-bezier(.2,.7,.2,1), width 170ms cubic-bezier(.2,.7,.2,1);
+}
 
 .skre-lb__tab {
   padding: 0.55rem 0.85rem;
@@ -773,19 +786,17 @@ body:has(.skre-lb) main {
   white-space: nowrap;
   background: none;
   border: none;
-  border-bottom: 2px solid transparent;
   cursor: pointer;
-  color: #aaa;
-  transition: color 0.15s, border-color 0.15s;
+  color: rgb(0 0 0 / 0.3);
+  transition: color 0.15s;
 }
 
 .skre-lb__tab--active {
   color: #111;
-  border-bottom-color: #111;
 }
 
 .skre-lb__tab--done {
-  color: #555;
+  color: rgb(0 0 0 / 0.55);
 }
 
 .skre-lb__close {
