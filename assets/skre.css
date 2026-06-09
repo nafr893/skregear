@@ -399,7 +399,7 @@ h5, h6, p {
 
 /* Layering system: ? button — simple Inter, light weight, centered */
 .skre-lb__header-btns .skre-lb__help-btn {
-  font-family: var(--font-body--family, 'Inter', sans-serif);
+  font-family: Avenir, sans-serif !important;
   font-size: 1rem;
   font-weight: 300;
   font-style: normal;
