@@ -197,10 +197,6 @@
           -%}
           <span class="skre-sw" style="{{ sw_style }}" title="{{ val.name }}"></span>
         {%- endfor -%}
-        {%- if skre_sw_total > skre_sw_max -%}
-          {%- assign skre_sw_extra = skre_sw_total | minus: skre_sw_max -%}
-          <span class="skre-sw skre-sw--more">+{{ skre_sw_extra }}</span>
-        {%- endif -%}
       </div>
     {%- endif -%}
   {%- endif -%}
