@@ -281,7 +281,7 @@
             </symbol>
           </defs>
         </svg>
-        <div class="rating" aria-label="{{ skre_rating }} out of {{ skre_scale_max }} stars" style="--star-size: 0.875rem;">
+        <div class="rating" aria-label="{{ skre_rating }} out of {{ skre_scale_max }} stars" style="--star-size: calc(var(--font-paragraph--size, 1rem) * 1.1);">
           {%- for skre_star in (1..skre_scale_max) -%}
             <svg class="stars {% if skre_star <= skre_filled %}filled-star{% endif %}" viewBox="0 0 32 32" style="--empty-star-fill-color: rgb(var(--star-fill-color-rgb) / 0.2)" role="presentation">
               <use xlink:href="#skre-rc-star"{% if skre_dec_r == 0.5 and skre_star == skre_filled %} fill="url(#skre-rc-half)"{% endif %}></use>
