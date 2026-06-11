@@ -272,30 +272,27 @@
         assign skre_filled = skre_rating | floor | plus: skre_dec_r | ceil
       -%}
       <div class="skre-rc-rating rating-wrapper rating-color--primary">
-        <svg class="visually-hidden" style="width:0;height:0;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="presentation">
+        <svg style="display:none;" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
             <linearGradient id="skre-rc-half" x1="0" x2="100%" y1="0" y2="0">
               <stop offset="50%" stop-color="var(--star-fill-color)"></stop>
-              <stop offset="50%" stop-color="rgb(var(--star-fill-color-rgb) / 0.2)"></stop>
+              <stop offset="50%" stop-color="#d5d5d5"></stop>
             </linearGradient>
-            <symbol viewBox="0 0 32 32" id="skre-rc-star">
-              <path d="M31.547 12a.848.848 0 00-.677-.577l-9.427-1.376-4.224-8.532a.847.847 0 00-1.516 0l-4.218 8.534-9.427 1.355a.847.847 0 00-.467 1.467l6.823 6.664-1.612 9.375a.847.847 0 001.23.893l8.428-4.434 8.432 4.432a.847.847 0 001.229-.894l-1.615-9.373 6.822-6.665a.845.845 0 00.214-.869z" />
-            </symbol>
           </defs>
         </svg>
         <div class="rating" aria-label="{{ skre_rating }} out of {{ skre_scale_max }} stars" style="--star-size: calc(var(--font-paragraph--size, 1rem) * 1.1);">
           {%- for skre_star in (1..skre_scale_max) -%}
             {%- if skre_dec_r == 0.5 and skre_star == skre_filled -%}
-              <svg class="stars filled-star" viewBox="0 0 32 32" role="presentation">
-                <use xlink:href="#skre-rc-star" fill="url(#skre-rc-half)"></use>
+              <svg class="stars filled-star" viewBox="0 0 32 32" role="presentation" style="fill:url(#skre-rc-half)">
+                <path d="M31.547 12a.848.848 0 00-.677-.577l-9.427-1.376-4.224-8.532a.847.847 0 00-1.516 0l-4.218 8.534-9.427 1.355a.847.847 0 00-.467 1.467l6.823 6.664-1.612 9.375a.847.847 0 001.23.893l8.428-4.434 8.432 4.432a.847.847 0 001.229-.894l-1.615-9.373 6.822-6.665a.845.845 0 00.214-.869z"/>
               </svg>
             {%- elsif skre_star <= skre_filled -%}
               <svg class="stars filled-star" viewBox="0 0 32 32" role="presentation">
-                <use xlink:href="#skre-rc-star"></use>
+                <path d="M31.547 12a.848.848 0 00-.677-.577l-9.427-1.376-4.224-8.532a.847.847 0 00-1.516 0l-4.218 8.534-9.427 1.355a.847.847 0 00-.467 1.467l6.823 6.664-1.612 9.375a.847.847 0 001.23.893l8.428-4.434 8.432 4.432a.847.847 0 001.229-.894l-1.615-9.373 6.822-6.665a.845.845 0 00.214-.869z"/>
               </svg>
             {%- else -%}
               <svg class="stars" viewBox="0 0 32 32" role="presentation">
-                <use xlink:href="#skre-rc-star" fill="#d5d5d5"></use>
+                <path d="M31.547 12a.848.848 0 00-.677-.577l-9.427-1.376-4.224-8.532a.847.847 0 00-1.516 0l-4.218 8.534-9.427 1.355a.847.847 0 00-.467 1.467l6.823 6.664-1.612 9.375a.847.847 0 001.23.893l8.428-4.434 8.432 4.432a.847.847 0 001.229-.894l-1.615-9.373 6.822-6.665a.845.845 0 00.214-.869z"/>
               </svg>
             {%- endif -%}
           {%- endfor -%}
