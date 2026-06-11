@@ -495,6 +495,14 @@ h5, h6, p {
   outline-offset: var(--focus-outline-offset);
 }
 
+/* ── Blog post featured image — desktop height cap ──────── */
+@media screen and (min-width: 750px) {
+  .blog-post-featured-image {
+    height: clamp(320px, 40vw, 520px);
+    overflow: hidden;
+  }
+}
+
 /* Collection carousel card title — force United-Sans */
 .collection-card .text-block {
   font-family: 'United-Sans', sans-serif !important;
