@@ -75,11 +75,16 @@
                     <div class="skre-sf__options">
                       {%- for sf_value in sf_filter.values -%}
                         {%- if sf_value.count == 0 and sf_value.active == false -%}{%- continue -%}{%- endif -%}
-                        {%- if sf_value.active -%}
-                          <a href="{{ sf_value.url_to_remove }}" class="skre-sf__option skre-sf__option--active">
-                        {%- else -%}
-                          <a href="{{ sf_value.url_to_add }}" class="skre-sf__option">
-                        {%- endif -%}
+                        {%- liquid
+                          if sf_value.active
+                            assign sf_opt_href = sf_value.url_to_remove
+                            assign sf_opt_class = 'skre-sf__option skre-sf__option--active'
+                          else
+                            assign sf_opt_href = sf_value.url_to_add
+                            assign sf_opt_class = 'skre-sf__option'
+                          endif
+                        -%}
+                        <a href="{{ sf_opt_href }}" class="{{ sf_opt_class }}">
                           <span class="skre-sf__check" aria-hidden="true"></span>
                           <span class="skre-sf__option-label">{{ sf_value.label }}</span>
                           <span class="skre-sf__count">({{ sf_value.count }})</span>
@@ -261,29 +266,53 @@
   }
 
   .skre-search-results__collection-item a {
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-xs);
+    display: block;
     text-decoration: none;
-    color: var(--color-foreground);
   }
 
   .skre-search-results__collection-thumb {
-    aspect-ratio: 1 / 1;
+    position: relative;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
     border-radius: var(--card-corner-radius);
-    background-color: rgb(var(--color-foreground-rgb) / 0.05);
+    background-color: rgb(var(--color-foreground-rgb) / 0.08);
   }
 
   .skre-search-results__collection-thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+    transition: transform 0.35s ease;
+  }
+
+  .skre-search-results__collection-item a:hover img {
+    transform: scale(1.04);
+  }
+
+  .skre-search-results__collection-thumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 0.3);
   }
 
   .skre-search-results__collection-name {
-    font-size: var(--font-size--sm);
-    font-weight: 500;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1rem;
+    margin: 0;
+    color: #fff;
+    font-size: clamp(0.9rem, 1.5vw, 1.25rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    z-index: 1;
   }
 
   /* ── Page grid ────────────────────────────────────────────── */
@@ -739,13 +768,14 @@
 
           var html = '<ul class="skre-search-results__collection-grid list-unstyled">';
           collections.forEach(function (col) {
-            var thumb = col.featured_image && col.featured_image.url
-              ? '<div class="skre-search-results__collection-thumb"><img src="' + col.featured_image.url + '" alt="" loading="lazy"></div>'
-              : '<div class="skre-search-results__collection-thumb"></div>';
-            html += '<li class="skre-search-results__collection-item"><a href="' + col.url + '">'
-              + thumb
-              + '<span class="skre-search-results__collection-name">' + col.title + '</span>'
-              + '</a></li>';
+            var imgHtml = col.featured_image && col.featured_image.url
+              ? '<img src="' + col.featured_image.url + '" alt="" loading="lazy">'
+              : '';
+            var thumb = '<div class="skre-search-results__collection-thumb">'
+              + imgHtml
+              + '<h3 class="skre-search-results__collection-name">' + col.title + '</h3>'
+              + '</div>';
+            html += '<li class="skre-search-results__collection-item"><a href="' + col.url + '">' + thumb + '</a></li>';
           });
           html += '</ul>';
           panel.innerHTML = html;
