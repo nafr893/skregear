@@ -495,11 +495,19 @@ h5, h6, p {
   outline-offset: var(--focus-outline-offset);
 }
 
-/* ── Blog post featured image — desktop height cap ──────── */
+/* ── Blog post featured image — force landscape on desktop ─ */
 @media screen and (min-width: 750px) {
-  .blog-post-featured-image {
-    height: clamp(320px, 40vw, 520px);
-    overflow: hidden;
+  /* Override --height-fit and any other modifier that resets the height */
+  [class*='blog-post-featured-image'] {
+    height: clamp(320px, 40vw, 520px) !important;
+    overflow: hidden !important;
+  }
+  .blog-post-featured-image__image {
+    aspect-ratio: unset !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center center !important;
   }
 }
 
