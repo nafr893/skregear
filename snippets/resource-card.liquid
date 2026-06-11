@@ -285,9 +285,19 @@
         </svg>
         <div class="rating" aria-label="{{ skre_rating }} out of {{ skre_scale_max }} stars" style="--star-size: calc(var(--font-paragraph--size, 1rem) * 1.1);">
           {%- for skre_star in (1..skre_scale_max) -%}
-            <svg class="stars {% if skre_star <= skre_filled %}filled-star{% endif %}" viewBox="0 0 32 32" style="--empty-star-fill-color: #d5d5d5" role="presentation">
-              <use xlink:href="#skre-rc-star"{% if skre_dec_r == 0.5 and skre_star == skre_filled %} fill="url(#skre-rc-half)"{% endif %}></use>
-            </svg>
+            {%- if skre_dec_r == 0.5 and skre_star == skre_filled -%}
+              <svg class="stars filled-star" viewBox="0 0 32 32" role="presentation">
+                <use xlink:href="#skre-rc-star" fill="url(#skre-rc-half)"></use>
+              </svg>
+            {%- elsif skre_star <= skre_filled -%}
+              <svg class="stars filled-star" viewBox="0 0 32 32" role="presentation">
+                <use xlink:href="#skre-rc-star"></use>
+              </svg>
+            {%- else -%}
+              <svg class="stars" viewBox="0 0 32 32" role="presentation">
+                <use xlink:href="#skre-rc-star" fill="#d5d5d5"></use>
+              </svg>
+            {%- endif -%}
           {%- endfor -%}
         </div>
         {%- if skre_rating_count != blank -%}
