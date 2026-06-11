@@ -46,21 +46,70 @@
       {%- comment -%} Products panel {%- endcomment -%}
       <div class="skre-search-results__panel" id="panel-products" role="tabpanel">
         {% if product_results.size > 0 %}
-          <ul class="skre-search-results__product-grid list-unstyled">
-            {% for product in product_results %}
-              <li class="skre-search-results__product-item">
-                {%- render 'resource-card',
-                  resource_type: 'product',
-                  resource: product,
-                  image_width: 500,
-                  image_aspect_ratio: '4 / 5',
-                  swatches_product: product,
-                  product_card_wrapper: true,
-                  image_loading: 'eager'
-                -%}
-              </li>
-            {% endfor %}
-          </ul>
+          {%- assign sf_clear_url = '?q=' | append: search.terms | url_encode | append: '&type=product%2Carticle%2Cpage&options%5Bprefix%5D=last&_typefix=1' -%}
+          {%- assign sf_has_active = false -%}
+          {%- for sf_f in search.filters -%}
+            {%- if sf_f.active_values.size > 0 -%}{%- assign sf_has_active = true -%}{%- endif -%}
+          {%- endfor -%}
+
+          <div class="skre-search-layout">
+
+            {%- if search.filters.size > 0 -%}
+              <button class="skre-sf__mobile-btn" id="skre-sf-toggle" type="button" aria-expanded="false" aria-controls="skre-sf-sidebar">
+                Filters
+                {%- if sf_has_active -%}<span class="skre-sf__mobile-dot"></span>{%- endif -%}
+              </button>
+
+              <aside class="skre-sf" id="skre-sf-sidebar">
+                <div class="skre-sf__head">
+                  <p class="skre-sf__heading">Filters</p>
+                  {%- if sf_has_active -%}
+                    <a href="{{ sf_clear_url }}" class="skre-sf__clear-all">Clear all</a>
+                  {%- endif -%}
+                </div>
+
+                {%- for sf_filter in search.filters -%}
+                  {%- if sf_filter.type == 'price_range' -%}{%- continue -%}{%- endif -%}
+                  <details class="skre-sf__group" open>
+                    <summary class="skre-sf__group-label">{{ sf_filter.label }}</summary>
+                    <div class="skre-sf__options">
+                      {%- for sf_value in sf_filter.values -%}
+                        {%- if sf_value.count == 0 and sf_value.active == false -%}{%- continue -%}{%- endif -%}
+                        {%- if sf_value.active -%}
+                          <a href="{{ sf_value.url_to_remove }}" class="skre-sf__option skre-sf__option--active">
+                        {%- else -%}
+                          <a href="{{ sf_value.url_to_add }}" class="skre-sf__option">
+                        {%- endif -%}
+                          <span class="skre-sf__check" aria-hidden="true"></span>
+                          <span class="skre-sf__option-label">{{ sf_value.label }}</span>
+                          <span class="skre-sf__count">({{ sf_value.count }})</span>
+                        </a>
+                      {%- endfor -%}
+                    </div>
+                  </details>
+                {%- endfor -%}
+              </aside>
+            {%- endif -%}
+
+            <div class="skre-search-products">
+              <ul class="skre-search-results__product-grid list-unstyled">
+                {% for product in product_results %}
+                  <li class="skre-search-results__product-item">
+                    {%- render 'resource-card',
+                      resource_type: 'product',
+                      resource: product,
+                      image_width: 500,
+                      image_aspect_ratio: '4 / 5',
+                      swatches_product: product,
+                      product_card_wrapper: true,
+                      image_loading: 'eager'
+                    -%}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+
+          </div>
         {% else %}
           <p class="skre-search-results__empty">No products found for &ldquo;{{ search.terms }}&rdquo;.</p>
         {% endif %}
@@ -285,6 +334,172 @@
     opacity: 0.6;
   }
 
+  /* ── Search layout (filters sidebar + products) ──────────── */
+  .skre-search-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .skre-search-layout {
+      grid-template-columns: 210px 1fr;
+      gap: var(--gap-2xl, 2.5rem);
+    }
+  }
+
+  /* ── Mobile filter toggle ────────────────────────────────── */
+  .skre-sf__mobile-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: 1px solid var(--color-border);
+    padding: 0.45rem 1.1rem;
+    font-family: inherit;
+    font-size: var(--font-size--sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    margin-block-end: var(--margin-md, 1rem);
+    color: var(--color-foreground);
+  }
+
+  .skre-sf__mobile-dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-foreground);
+  }
+
+  @media screen and (min-width: 750px) {
+    .skre-sf__mobile-btn { display: none; }
+  }
+
+  /* ── Filter sidebar ─────────────────────────────────────── */
+  .skre-sf {
+    padding-inline-end: var(--gap-lg, 1.5rem);
+    padding-block-end: var(--padding-lg, 1.5rem);
+    border-right: 1px solid var(--color-border);
+  }
+
+  @media screen and (max-width: 749px) {
+    .skre-sf {
+      display: none;
+      border-right: none;
+      border-bottom: 1px solid var(--color-border);
+      padding-inline-end: 0;
+      padding-block-end: var(--padding-md, 1rem);
+      margin-block-end: var(--margin-lg, 1.5rem);
+    }
+    .skre-sf.is-open { display: block; }
+  }
+
+  .skre-sf__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-block-end: var(--margin-md, 1rem);
+  }
+
+  .skre-sf__heading {
+    font-size: var(--font-size--sm);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+  }
+
+  .skre-sf__clear-all {
+    font-size: var(--font-size--xs, 0.75rem);
+    color: rgb(var(--color-foreground-rgb) / 0.5);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: rgb(var(--color-foreground-rgb) / 0.3);
+  }
+
+  .skre-sf__group {
+    border-top: 1px solid var(--color-border);
+    padding-block: 0.7rem;
+  }
+
+  .skre-sf__group-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--font-size--sm);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    padding-block-end: 0.4rem;
+  }
+
+  .skre-sf__group-label::-webkit-details-marker { display: none; }
+
+  .skre-sf__group-label::after {
+    content: '+';
+    font-weight: 300;
+    font-size: 1.1rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .skre-sf__group[open] > .skre-sf__group-label::after { content: '\2212'; }
+
+  .skre-sf__options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding-block-start: 0.3rem;
+  }
+
+  .skre-sf__option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--font-size--sm);
+    color: rgb(var(--color-foreground-rgb) / 0.75);
+    text-decoration: none;
+    padding-block: 0.2rem;
+    line-height: 1.3;
+  }
+
+  .skre-sf__option:hover { color: var(--color-foreground); }
+
+  .skre-sf__check {
+    flex-shrink: 0;
+    width: 13px;
+    height: 13px;
+    border: 1px solid rgb(var(--color-foreground-rgb) / 0.35);
+    border-radius: 2px;
+  }
+
+  .skre-sf__option--active { color: var(--color-foreground); }
+
+  .skre-sf__option--active .skre-sf__check {
+    background-color: var(--color-foreground);
+    border-color: var(--color-foreground);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 6l3 3 5-5' stroke='white' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: 90%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .skre-sf__option-label { flex: 1; }
+
+  .skre-sf__count {
+    font-size: var(--font-size--xs, 0.75rem);
+    color: rgb(var(--color-foreground-rgb) / 0.35);
+  }
+
+  /* ── Products column ────────────────────────────────────── */
+  .skre-search-products { min-width: 0; }
+
   /* ── Empty / loading states ───────────────────────────────── */
   .skre-search-results__empty,
   .skre-search-results__loading {
@@ -369,7 +584,7 @@
   (function () {
     /* ── Normalise URL: types + fields + prefix + synonyms ── */
     var url = new URL(window.location.href);
-    if (url.searchParams.get('q') && !url.searchParams.has('_typefix')) {
+    if (url.searchParams.get('q') && !url.searchParams.has('type')) {
       /* Synonym expansion */
       var rawQ = url.searchParams.get('q');
       var map = window.SkreSearchSynonyms;
@@ -482,6 +697,16 @@
     initLoadMore('panel-products', '.skre-search-results__product-grid');
     initLoadMore('panel-blogs', '.skre-search-results__article-grid');
     initLoadMore('panel-pages', '.skre-search-results__page-grid');
+
+    /* ── Mobile filter toggle ────────────────────────────────── */
+    var sfToggle = document.getElementById('skre-sf-toggle');
+    var sfSidebar = document.getElementById('skre-sf-sidebar');
+    if (sfToggle && sfSidebar) {
+      sfToggle.addEventListener('click', function () {
+        var open = sfSidebar.classList.toggle('is-open');
+        sfToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
 
     /* ── Collections: fetch from Predictive Search API ───── */
     var collectionsLoaded = false;
