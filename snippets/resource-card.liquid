@@ -257,49 +257,15 @@
   {%- endif -%}
 
   {%- if resource_type == 'product' -%}
-    {%- assign skre_rating = resource.metafields.reviews.rating.value.rating -%}
-    {%- if skre_rating != blank -%}
-      {%- liquid
-        assign skre_rating_count = resource.metafields.reviews.rating_count.value
-        assign skre_rc_decimal = skre_rating | modulo: 1
-        assign skre_rc_decimal_rating = 0
-        if skre_rc_decimal >= 0.3 and skre_rc_decimal <= 0.7
-          assign skre_rc_decimal_rating = 0.5
-        elsif skre_rc_decimal > 0.7
-          assign skre_rc_decimal_rating = 1
-        endif
-        assign skre_rc_decimal_rounded = skre_rc_decimal_rating | ceil
-        assign skre_rc_filled = skre_rating | floor | plus: skre_rc_decimal_rounded
-      -%}
-      <div class="skre-rc-rating rating-wrapper rating-color--primary">
-        <svg class="visually-hidden" style="width:0;height:0;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="presentation">
-          <defs>
-            <linearGradient id="skre-rc-half" x1="0" x2="100%" y1="0" y2="0">
-              <stop offset="50%" stop-color="var(--star-fill-color)"></stop>
-              <stop offset="50%" stop-color="#d5d5d5"></stop>
-            </linearGradient>
-            <symbol viewBox="0 0 32 32" id="skre-rc-star">
-              <path d="M31.547 12a.848.848 0 00-.677-.577l-9.427-1.376-4.224-8.532a.847.847 0 00-1.516 0l-4.218 8.534-9.427 1.355a.847.847 0 00-.467 1.467l6.823 6.664-1.612 9.375a.847.847 0 001.23.893l8.428-4.434 8.432 4.432a.847.847 0 001.229-.894l-1.615-9.373 6.822-6.665a.845.845 0 00.214-.869z"/>
-            </symbol>
-          </defs>
-        </svg>
-        <div class="rating" aria-label="{{ skre_rating }} out of 5 stars" style="--star-size: calc(var(--font-paragraph--size, 1rem) * 1.1);">
-          {%- for skre_rc_star in (1..5) -%}
-            <svg
-              class="stars{% if skre_rc_star <= skre_rc_filled %} filled-star{% endif %}"
-              viewBox="0 0 32 32"
-              style="--empty-star-fill-color: #d5d5d5"
-              role="presentation"
-            >
-              <use xlink:href="#skre-rc-star"{% if skre_rc_decimal_rating == 0.5 and skre_rc_star == skre_rc_filled %} fill="url(#skre-rc-half)"{% endif %}></use>
-            </svg>
-          {%- endfor -%}
-        </div>
-        {%- if skre_rating_count != blank -%}
-          <p class="rating-count paragraph">{{ skre_rating_count }}</p>
-        {%- endif -%}
+    <div class="skre-rc-rating rating-wrapper" style="--star-size: calc(var(--font-paragraph--size, 1rem) * 1.1);">
+      <div class="rating">
+        {%- for i in (1..5) -%}
+          <svg class="stars" viewBox="0 0 32 32" role="presentation">
+            <path style="fill:#000" d="M31.547 12a.848.848 0 00-.677-.577l-9.427-1.376-4.224-8.532a.847.847 0 00-1.516 0l-4.218 8.534-9.427 1.355a.847.847 0 00-.467 1.467l6.823 6.664-1.612 9.375a.847.847 0 001.23.893l8.428-4.434 8.432 4.432a.847.847 0 001.229-.894l-1.615-9.373 6.822-6.665a.845.845 0 00.214-.869z"/>
+          </svg>
+        {%- endfor -%}
       </div>
-    {%- endif -%}
+    </div>
   {%- endif -%}
 
   <div class="resource-card__content">
