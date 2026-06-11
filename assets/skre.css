@@ -474,7 +474,8 @@ h5, h6, p {
 
 .stars {
   height: var(--star-size, 1rem);
-  fill: var(--empty-star-fill-color, rgb(var(--star-fill-color-rgb) / 0.2));
+  width: var(--star-size, 1rem);
+  fill: var(--empty-star-fill-color, #d5d5d5);
 }
 
 .filled-star {
