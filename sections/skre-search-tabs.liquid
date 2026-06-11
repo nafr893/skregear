@@ -298,30 +298,70 @@
     display: none !important;
   }
 
-  .skre-search-results__load-more {
-    display: block;
+  /* Match collection page skre-lm component exactly */
+  .skre-search-lm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 2.5rem var(--page-margin) 2rem;
     width: 100%;
-    margin-block-start: var(--margin-xl);
-    padding-block: var(--padding-sm);
-    padding-inline: var(--padding-lg);
-    background: #000;
-    border: 1px solid #000;
-    border-radius: var(--button-corner-radius);
-    font-size: var(--font-size--sm);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    cursor: pointer;
-    color: #fff;
-    transition: opacity 0.15s ease;
-
-    @media screen and (min-width: 750px) {
-      width: auto;
-    }
+    box-sizing: border-box;
   }
 
-  .skre-search-results__load-more:hover {
-    opacity: 0.8;
+  .skre-search-lm .skre-lm__track {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    height: 2px;
+    background-color: #ededed;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .skre-search-lm .skre-lm__fill {
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    height: 100%;
+    background-color: #000;
+    border-radius: 2px;
+    transition: width 0.45s ease;
+  }
+
+  .skre-search-lm .skre-lm__label {
+    font-size: var(--font-size--sm);
+    color: rgb(var(--color-foreground-rgb) / 0.55);
+    margin: 0;
+    letter-spacing: 0.04em;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .skre-search-lm .skre-lm__btn {
+    margin-top: 0.1rem;
+    padding: 0.65rem 2.25rem;
+    background: black;
+    border: 1px solid currentColor;
+    color: white;
+    font-family: inherit;
+    font-size: var(--font-size--sm);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: var(--style-border-radius-buttons, 0);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .skre-search-lm .skre-lm__btn:hover:not(:disabled) {
+    background-color: var(--color-foreground);
+    color: var(--color-background);
+  }
+
+  .skre-search-lm .skre-lm__btn:disabled {
+    opacity: 0.45;
+    cursor: wait;
   }
 {% endstylesheet %}
 
@@ -390,10 +430,39 @@
         item.classList.add('skre-search-results__item--hidden');
       });
 
+      /* Build component matching collection page skre-lm */
+      var lm = document.createElement('div');
+      lm.className = 'skre-search-lm';
+
+      var track = document.createElement('div');
+      track.className = 'skre-lm__track';
+      var fill = document.createElement('div');
+      fill.className = 'skre-lm__fill';
+      track.appendChild(fill);
+
+      var label = document.createElement('p');
+      label.className = 'skre-lm__label';
+
       var btn = document.createElement('button');
-      btn.className = 'skre-search-results__load-more';
-      updateBtnText(btn, items);
-      panel.appendChild(btn);
+      btn.className = 'skre-lm__btn';
+      btn.type = 'button';
+      btn.textContent = 'Load More';
+
+      lm.appendChild(track);
+      lm.appendChild(label);
+      lm.appendChild(btn);
+      panel.appendChild(lm);
+
+      function update() {
+        var shown = items.filter(function (i) {
+          return !i.classList.contains('skre-search-results__item--hidden');
+        }).length;
+        var total = items.length;
+        fill.style.width = Math.round(shown / total * 100) + '%';
+        label.textContent = 'Showing ' + shown + ' of ' + total + ' results';
+      }
+
+      update();
 
       btn.addEventListener('click', function () {
         var hidden = items.filter(function (i) {
@@ -403,18 +472,11 @@
           i.classList.remove('skre-search-results__item--hidden');
         });
         if (hidden.length <= BATCH) {
-          btn.remove();
+          lm.remove();
         } else {
-          updateBtnText(btn, items);
+          update();
         }
       });
-    }
-
-    function updateBtnText(btn, items) {
-      var remaining = items.filter(function (i) {
-        return i.classList.contains('skre-search-results__item--hidden');
-      }).length;
-      btn.textContent = 'Load More (' + remaining + ')';
     }
 
     initLoadMore('panel-products', '.skre-search-results__product-grid');
