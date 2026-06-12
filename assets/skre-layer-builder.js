@@ -692,15 +692,7 @@ class SkreLayerBuilder extends HTMLElement {
   #updateMediaBackground(product, colorValue) {
     const heroWrap = this.querySelector('.skre-lb__hero-wrap');
     if (!heroWrap) return;
-    const swatch = product?.swatches?.[colorValue];
-
-    let bg = '#f9f9f9';
-    const src = swatch?.base_rgb ?? swatch?.color ?? null;
-    if (src) {
-      const m = String(src).match(/\d+/g);
-      if (m?.length >= 3) bg = `rgba(${m[0]}, ${m[1]}, ${m[2]}, 0.9)`;
-    }
-    heroWrap.style.backgroundColor = bg;
+    heroWrap.style.backgroundColor = '#fff';
   }
 
   // ── Images ────────────────────────────────────────────────────────────────
