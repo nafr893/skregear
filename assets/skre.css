@@ -478,6 +478,11 @@ h5, h6, p {
   fill: var(--empty-star-fill-color, #d5d5d5);
 }
 
+/* Force empty stars to always be gray, regardless of inline --empty-star-fill-color */
+.stars:not(.filled-star) {
+  --empty-star-fill-color: #d5d5d5 !important;
+}
+
 .filled-star {
   fill: var(--star-fill-color);
 }
