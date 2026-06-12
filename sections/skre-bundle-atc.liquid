@@ -1,0 +1,162 @@
+{% comment %} Bundle "Add all to cart" section {% endcomment %}
+
+{%- assign bundle_variants = '' -%}
+{%- for product in collection.products -%}
+  {%- if product.first_available_variant -%}
+    {%- assign bundle_variants = bundle_variants | append: product.first_available_variant.id -%}
+    {%- unless forloop.last -%}{%- assign bundle_variants = bundle_variants | append: ',' -%}{%- endunless -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<div class="skre-bundle-atc page-width" style="padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;">
+  <div class="skre-bundle-atc__inner">
+    {%- if section.settings.heading != blank -%}
+      <p class="skre-bundle-atc__heading">{{ section.settings.heading }}</p>
+    {%- endif -%}
+
+    <button
+      class="skre-bundle-atc__btn button"
+      data-variants="{{ bundle_variants }}"
+      data-redirect="{{ section.settings.redirect_to_cart }}"
+      {%- if bundle_variants == blank -%} disabled aria-disabled="true"{%- endif -%}
+    >
+      <span class="skre-bundle-atc__btn-label">{{ section.settings.button_label }}</span>
+      <span class="skre-bundle-atc__btn-loading" aria-hidden="true" hidden></span>
+    </button>
+
+    {%- if section.settings.subtext != blank -%}
+      <p class="skre-bundle-atc__subtext">{{ section.settings.subtext }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+<style>
+  .skre-bundle-atc {
+    text-align: center;
+  }
+  .skre-bundle-atc__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .skre-bundle-atc__heading {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .skre-bundle-atc__btn {
+    min-width: 220px;
+    position: relative;
+  }
+  .skre-bundle-atc__btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .skre-bundle-atc__subtext {
+    margin: 0;
+    font-size: 0.8rem;
+    opacity: 0.65;
+  }
+</style>
+
+<script>
+  (function () {
+    document.querySelectorAll('.skre-bundle-atc__btn').forEach(function (btn) {
+      btn.addEventListener('click', async function () {
+        var raw = btn.dataset.variants || '';
+        var ids = raw.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+        if (!ids.length) return;
+
+        var label = btn.querySelector('.skre-bundle-atc__btn-label');
+        var spinner = btn.querySelector('.skre-bundle-atc__btn-loading');
+        btn.disabled = true;
+        if (label) label.textContent = 'Adding…';
+        if (spinner) spinner.removeAttribute('hidden');
+
+        var items = ids.map(function (id) { return { id: parseInt(id, 10), quantity: 1 }; });
+
+        try {
+          var res = await fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items: items }),
+          });
+
+          if (!res.ok) throw new Error('cart error');
+
+          if (btn.dataset.redirect === 'true') {
+            window.location.href = '/cart';
+          } else {
+            if (label) label.textContent = 'Added to Cart';
+            if (spinner) spinner.setAttribute('hidden', '');
+            document.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true }));
+          }
+        } catch (e) {
+          if (label) label.textContent = 'Something went wrong';
+          if (spinner) spinner.setAttribute('hidden', '');
+          btn.disabled = false;
+        }
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Bundle Add to Cart",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Complete your bundle"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Add Bundle to Cart"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext (optional)",
+      "default": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "redirect_to_cart",
+      "label": "Go to cart after adding",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bundle Add to Cart"
+    }
+  ]
+}
+{% endschema %}
