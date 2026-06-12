@@ -103,6 +103,16 @@
     "size_chart_header_image": "shopify://shop_images/SKRE_Sizing_Chart.svg",
     "content_for_index": [],
     "blocks": {
+      "1057056175266400017": {
+        "type": "shopify://apps/yotpo-email-marketing-sms/blocks/app-embed/7a4b8bd9-dff0-44fc-aef9-a187a77a5d45",
+        "disabled": false,
+        "settings": {}
+      },
+      "10864971697205422121": {
+        "type": "shopify://apps/gorgias-live-chat-helpdesk/blocks/gorgias/a66db725-7b96-4e3f-916e-6c8e6f87aaaa",
+        "disabled": false,
+        "settings": {}
+      },
       "14339172867238703359": {
         "type": "shopify://apps/yotpo-product-reviews/blocks/reviews_tab/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
         "disabled": false,
@@ -110,33 +120,13 @@
           "product": ""
         }
       },
-      "7570552984445421165": {
-        "type": "shopify://apps/yotpo-product-reviews/blocks/settings/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
-        "disabled": false,
-        "settings": {}
-      },
-      "319724205969189013": {
-        "type": "shopify://apps/hulk-form-builder/blocks/app-embed/b6b8dd14-356b-4725-a4ed-77232212b3c3",
-        "disabled": false,
-        "settings": {}
-      },
-      "9005256451184024879": {
-        "type": "shopify://apps/uppromote-affiliate/blocks/customer-referral/64c32457-930d-4cb9-9641-e24c0d9cf1f4",
+      "1935445597218932304": {
+        "type": "shopify://apps/avada-seo-suite/blocks/avada-seo/15507c6e-1aa3-45d3-b698-7e175e033440",
         "disabled": false,
         "settings": {}
       },
       "1996061711396120121": {
         "type": "shopify://apps/uppromote-affiliate/blocks/message-bar/64c32457-930d-4cb9-9641-e24c0d9cf1f4",
-        "disabled": false,
-        "settings": {}
-      },
-      "3138269044488530766": {
-        "type": "shopify://apps/uppromote-affiliate/blocks/core-script/64c32457-930d-4cb9-9641-e24c0d9cf1f4",
-        "disabled": false,
-        "settings": {}
-      },
-      "8257630261509358238": {
-        "type": "shopify://apps/yotpo-subscriptions/blocks/app-embed-block/ef25e582-ada5-4bb0-b4e7-f94e97ab1bb4",
         "disabled": false,
         "settings": {}
       },
@@ -183,31 +173,13 @@
           "signup_success_message": "You're in! Start exploring your rewards."
         }
       },
-      "8962992520437913685": {
-        "type": "shopify://apps/yotpo-loyalty-rewards/blocks/loader-app-embed-block/2f9660df-5018-4e02-9868-ee1fb88d6ccd",
-        "disabled": false,
-        "settings": {
-          "inject_modules_loader": true,
-          "inject_sdk_loader": false
-        }
-      },
-      "1057056175266400017": {
-        "type": "shopify://apps/yotpo-email-marketing-sms/blocks/app-embed/7a4b8bd9-dff0-44fc-aef9-a187a77a5d45",
+      "3138269044488530766": {
+        "type": "shopify://apps/uppromote-affiliate/blocks/core-script/64c32457-930d-4cb9-9641-e24c0d9cf1f4",
         "disabled": false,
         "settings": {}
       },
-      "1935445597218932304": {
-        "type": "shopify://apps/avada-seo-suite/blocks/avada-seo/15507c6e-1aa3-45d3-b698-7e175e033440",
-        "disabled": false,
-        "settings": {}
-      },
-      "10864971697205422121": {
-        "type": "shopify://apps/gorgias-live-chat-helpdesk/blocks/gorgias/a66db725-7b96-4e3f-916e-6c8e6f87aaaa",
-        "disabled": false,
-        "settings": {}
-      },
-      "855628211100114053": {
-        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
+      "319724205969189013": {
+        "type": "shopify://apps/hulk-form-builder/blocks/app-embed/b6b8dd14-356b-4725-a4ed-77232212b3c3",
         "disabled": false,
         "settings": {}
       },
@@ -221,6 +193,39 @@
           "mobile_side_margin": 16,
           "mobile_bottom_margin": 46
         }
+      },
+      "6478312753674380289": {
+        "type": "shopify://apps/gempages-builder/blocks/embed-gp-script-head/20b379d4-1b20-474c-a6ca-665c331919f3",
+        "disabled": false,
+        "settings": {}
+      },
+      "7570552984445421165": {
+        "type": "shopify://apps/yotpo-product-reviews/blocks/settings/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
+        "disabled": false,
+        "settings": {}
+      },
+      "8257630261509358238": {
+        "type": "shopify://apps/yotpo-subscriptions/blocks/app-embed-block/ef25e582-ada5-4bb0-b4e7-f94e97ab1bb4",
+        "disabled": false,
+        "settings": {}
+      },
+      "855628211100114053": {
+        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {}
+      },
+      "8962992520437913685": {
+        "type": "shopify://apps/yotpo-loyalty-rewards/blocks/loader-app-embed-block/2f9660df-5018-4e02-9868-ee1fb88d6ccd",
+        "disabled": false,
+        "settings": {
+          "inject_modules_loader": true,
+          "inject_sdk_loader": false
+        }
+      },
+      "9005256451184024879": {
+        "type": "shopify://apps/uppromote-affiliate/blocks/customer-referral/64c32457-930d-4cb9-9641-e24c0d9cf1f4",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
