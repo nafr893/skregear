@@ -376,7 +376,7 @@
             "card-gallery": {
               "type": "_product-card-gallery",
               "settings": {
-                "image_ratio": "adapt",
+                "image_ratio": "square",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
@@ -459,6 +459,7 @@
               "type": "review",
               "name": "t:names.product_review_stars",
               "settings": {
+                "anchor_link": "",
                 "stars_style": "shaded",
                 "show_number": true,
                 "rating_color": "primary",
@@ -518,11 +519,11 @@
         "color_scheme": "scheme-1",
         "padding-block-start": 0,
         "padding-block-end": 60,
-        "promo_1_image": "shopify://shop_images/Skre-14_058df362-71d5-4837-9822-163c95c59c88.webp",
-        "promo_1_label": "20% OFF",
-        "promo_1_heading": "SHOP WINTER GEAR",
-        "promo_1_btn_label": "EXPLORE",
-        "promo_1_btn_link": "",
+        "promo_1_image": "shopify://shop_images/Stalk_Artist_DSC06428_cfc6b6f6-8713-4c7a-a8b2-5731d8973c9b.webp",
+        "promo_1_label": "",
+        "promo_1_heading": "ELITE STARTER BUNDLE",
+        "promo_1_btn_label": "SHOP NOW",
+        "promo_1_btn_link": "shopify://collections/starter-bundle-1",
         "promo_2_label": "",
         "promo_2_heading": "",
         "promo_2_btn_label": "",

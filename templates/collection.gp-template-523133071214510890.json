@@ -1,0 +1,66 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_523133206388540660": {
+      "settings": {
+        "checksum": "e9eaa3b4ef288e6f38f7f480a042d9f31e58ff519bf5dfc0a60caec716d8fdf2_1_1_0_12__1",
+        "gg8DxMsZDR4_text": "<p>Save 25% OFF on beautifully hand-glazed ceramics designed for every kind of meal.</p>",
+        "ggHuofdJWvq_text": "<p>Ceramic Tableware for a perfect home-dining</p>",
+        "ggKaf1bLhQ6_label": "Shop Now",
+        "ggtSrTG1ZPz_alt": "Alt Image",
+        "ggtSrTG1ZPz_srcSet_desktop_src": "https://ucarecdn.com/ee6d5074-1640-4cc7-8933-47c8589c3dee/-/format/auto/",
+        "ggtSrTG1ZPz_title": "Image Title",
+        "gguT-upzBCM_text": "<p>NEW COLLECTION</p>"
+      },
+      "type": "gp-section-523133206388540660"
+    },
+    "gp_section_523133206505981016": {
+      "settings": {
+        "checksum": "00f7da6c9c43a73a5a4f5fe085da6098221c3268a4f140be457cb51fd289a2d4_1_1_0_12__1",
+        "gg3FwxBuAaF_alt": "Alt Image",
+        "gg3FwxBuAaF_srcSet_desktop_src": "https://ucarecdn.com/ee6d5074-1640-4cc7-8933-47c8589c3dee/-/format/auto/",
+        "gg3FwxBuAaF_title": "Image Title",
+        "gg6G5yZspCm_text": "<p>Free Shipping<br>over $60</p>",
+        "ggBDlK8fsE1_alt": "Alt Image",
+        "ggBDlK8fsE1_srcSet_desktop_src": "https://ucarecdn.com/ee6d5074-1640-4cc7-8933-47c8589c3dee/-/format/auto/",
+        "ggBDlK8fsE1_title": "Image Title",
+        "ggXJVkepWz0_text": "<p>Secure Online<br>Payment</p>",
+        "gg_ZKMZre-Y_alt": "Alt Image",
+        "gg_ZKMZre-Y_srcSet_desktop_src": "https://ucarecdn.com/ee6d5074-1640-4cc7-8933-47c8589c3dee/-/format/auto/",
+        "gg_ZKMZre-Y_title": "Image Title",
+        "gghoBt9_Uto_alt": "Alt Image",
+        "gghoBt9_Uto_srcSet_desktop_src": "https://ucarecdn.com/ee6d5074-1640-4cc7-8933-47c8589c3dee/-/format/auto/",
+        "gghoBt9_Uto_title": "Image Title",
+        "ggmSmQh_M5B_text": "<p>24/7 Friendly<br>Support</p>",
+        "ggozF2jQ3tQ_text": "<p>Money-back</p><p>guarantee</p>"
+      },
+      "type": "gp-section-523133206505981016"
+    },
+    "gp_section_523133206556312664": {
+      "settings": {
+        "checksum": "c4780e80eeca99ef1e6b481831939c0b99e948093af524be8064b24d5032f61d_1_1_0_12__1",
+        "ggPkfkI0wi5_text": "GEAR FOR MULE DEER HUNTERS",
+        "ggfdmJnuIAA_errorMessage": "Cannot add product to cart",
+        "ggfdmJnuIAA_label": "Add to cart",
+        "ggfdmJnuIAA_outOfStockLabel": "Out of stocks",
+        "ggfdmJnuIAA_successMessage": "Add product to cart successfully",
+        "ggkeBJSeVbj_text": "<p>RECOMMENDED GEAR FOR MULE DEER HUNTERS</p>",
+        "section_preload": "true"
+      },
+      "type": "gp-section-523133206556312664"
+    }
+  },
+  "order": [
+    "gp_section_523133206556312664",
+    "gp_section_523133206388540660",
+    "gp_section_523133206505981016"
+  ]
+}

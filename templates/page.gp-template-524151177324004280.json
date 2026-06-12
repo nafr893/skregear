@@ -1,0 +1,65 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_524151177441444792": {
+      "settings": {
+        "checksum": "356b0888c65dda23cba0afb9b7d84805fbdeee39cbb8e0bd5ec4dcec15effd51_1_1_0_0__1",
+        "ggW3fI6tAIJ_errorMessage": "Cannot add product to cart",
+        "ggW3fI6tAIJ_label": "ADD TO CART",
+        "ggW3fI6tAIJ_outOfStockLabel": "Out Of Stock",
+        "ggW3fI6tAIJ_successMessage": "Add product to cart successfully",
+        "ggW3fI6tAIJ_unavailableLabel": "Unavailable"
+      },
+      "type": "gp-section-524151177441444792"
+    },
+    "gp_section_524151177491776440": {
+      "settings": {
+        "checksum": "f1ec9458ad7777a5115ade5aea6bab84baae4566347457fac63611b2b8793ca3_1_1_0_0__1",
+        "ggkMkwG-BHh_text": "<p>The Early Fall Bundle features temperature regulating technology that ensures comfort during the early fall. All Skre Gear features advanced camouflage patterns to keep you concealed in the most rugged terrain.</p>",
+        "ggtGB9G55_0_text": "BUNDLE PRICE: $787.70",
+        "ggv5YI59i8g_text": "EARLY FALL BUNDLE",
+        "section_preload": "true"
+      },
+      "type": "gp-section-524151177491776440"
+    },
+    "gp_section_524151177508553656": {
+      "settings": {
+        "checksum": "ce89c9bf17d9dcf7df0fa9fa1f9187b03b7876e42a034604a99e688313deab46_1_1_0_0__1",
+        "gg2LRvYAXN2_text": "<p>The bundle includes a water-resistant and breathable hunting jacket that features pit-zips for dumping heat and adjustable cuffs to ensure a perfect fit. The jacket also has a plethora of pockets for you to store your hunting gear, and its camo pattern ensures that you stay hidden from your prey.<br><br>&nbsp;Also included in this bundle is a pair of hunting pants that are made from a durable and water-resistant material that will keep you dry and comfortable in all conditions. The pants feature a camo pattern that will help you blend in with your surroundings, and its adjustable waist ensures a comfortable fit.<br><br>&nbsp;To complete this bundle, we've also included a merino wool baselayer to self-regulate body temperature and provide ultra-comfort against the skin. In addition, we have included the grid lite jacket to take the edge off those brisk mornings and cool evenings.</p><p>&nbsp;</p><p>&nbsp;</p>",
+        "gg52aBdf32x_text": "EARLY FALL Bundle",
+        "ggJdPdhStxK_text": "<p><strong>True Lifetime&nbsp;Warranty:</strong>&nbsp;We stand behind every product we craft, with our industry's best unconditional warranty for quality and workmanship. If for any reason you are unhappy with any&nbsp;SKRE gear, simply return it for a full refund or exchange<strong>.</strong><br>&nbsp;</p><p><strong>VIP Sizing &amp; Exchange</strong>:&nbsp;If you choose the wrong size we will pay for the cost of shipping until you are outfitted with the correct size of each item. All orders come with a pre-paid return shipping label&nbsp;to use.</p><p>&nbsp;</p>",
+        "ggMV5p1YYtS_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-86956b00-fe85-4fac-b8f5-f3888cd70d38.png?v=1721861512",
+        "ggznI23Pq7r_text": "<a href=\"https://skregear.com/products/starter-bundle#acc-unique-0\">SKRE Guarantee</a>"
+      },
+      "type": "gp-section-524151177508553656"
+    },
+    "gp_section_524158975843763175": {
+      "settings": {
+        "checksum": "681dd1bbcf0fceeefd281cd9888cf90b254a2b8922d8499b53f9d8655bdab1fc_1_1_0_0__1"
+      },
+      "type": "gp-section-524158975843763175"
+    },
+    "gp_section_524159178311205796": {
+      "settings": {
+        "checksum": "7ada075e0fcd2e2a5ba389a832efe2a189a5f2fb4cc3ed8e55a4e1d6850420be_1_1_0_0__1",
+        "ggwsiAubevR_text": "ACCESSORIES"
+      },
+      "type": "gp-section-524159178311205796"
+    }
+  },
+  "order": [
+    "gp_section_524151177491776440",
+    "gp_section_524151177441444792",
+    "gp_section_524151177508553656",
+    "gp_section_524159178311205796",
+    "gp_section_524158975843763175"
+  ]
+}

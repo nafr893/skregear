@@ -1,0 +1,61 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_523695293523297524": {
+      "settings": {
+        "checksum": "d2971efbb6e955d73855ad3b843422f25957b87e0ea9aa917aba2e48312f6996_1_1_0_0__1",
+        "ggG9D0Tp3Ed_label": "View All",
+        "ggW3fI6tAIJ_errorMessage": "Cannot add product to cart",
+        "ggW3fI6tAIJ_label": "ADD TO CART",
+        "ggW3fI6tAIJ_outOfStockLabel": "Out Of Stock",
+        "ggW3fI6tAIJ_successMessage": "Add product to cart successfully",
+        "ggW3fI6tAIJ_unavailableLabel": "Unavailable",
+        "ggWQQicUtjl_childItem_0": "<p>Early Season&nbsp;</p>",
+        "ggWQQicUtjl_childItem_1": "<p>Mid Season</p>",
+        "ggWQQicUtjl_childItem_2": "<p>Late Season</p>",
+        "gglKgydYsih_errorMessage": "Cannot add product to cart",
+        "gglKgydYsih_label": "ADD TO CART",
+        "gglKgydYsih_outOfStockLabel": "Out Of Stock",
+        "gglKgydYsih_successMessage": "Add product to cart successfully",
+        "gglKgydYsih_unavailableLabel": "Unavailable",
+        "ggpbrJB-ai0_errorMessage": "Cannot add product to cart",
+        "ggpbrJB-ai0_label": "ADD TO CART",
+        "ggpbrJB-ai0_outOfStockLabel": "Out Of Stock",
+        "ggpbrJB-ai0_successMessage": "Add product to cart successfully",
+        "ggpbrJB-ai0_unavailableLabel": "Unavailable"
+      },
+      "type": "gp-section-523695293523297524"
+    },
+    "gp_section_523695293573629172": {
+      "settings": {
+        "checksum": "89a66f356e4a492ccfea8a715d4579e4e9cce362a3542b5bbbd4db1ac0b2f340_1_1_0_0__1"
+      },
+      "type": "gp-section-523695293573629172"
+    },
+    "gp_section_534267974970770668": {
+      "settings": {
+        "checksum": "af77e35d3eefc72ca3be28e390415b89b6d99617a889cc72b605447033eddca3_1_1_0_0__1",
+        "ggJibWgvAQS_text": "<p>bundle and save - spend $600 and save 10%</p>",
+        "ggKKbvo_fzn_text": "Gear For Elk Hunters",
+        "ggeI93BpXnQ_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-71ecf88b-cd9a-484d-8654-2c466f372e6e.jpg",
+        "ggeI93BpXnQ_background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggeI93BpXnQ_background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "section_preload": "true"
+      },
+      "type": "gp-section-534267974970770668"
+    }
+  },
+  "order": [
+    "gp_section_534267974970770668",
+    "gp_section_523695293523297524",
+    "gp_section_523695293573629172"
+  ]
+}

@@ -1,0 +1,47 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_523441291187455220": {
+      "settings": {
+        "checksum": "361d1ae8ef00ac628813a15b9e546cd6a998cad810037a70021d7d4906b888dd_1_1_0_0__1",
+        "ggxcOrZe-p6_errorMessage": "Cannot add product to cart",
+        "ggxcOrZe-p6_label": "Add to cart",
+        "ggxcOrZe-p6_outOfStockLabel": "Out Of Stock",
+        "ggxcOrZe-p6_successMessage": "Add product to cart successfully",
+        "ggxcOrZe-p6_unavailableLabel": "Unavailable",
+        "ggxcOrZe-p6_variantSelectionRequiredMessage": "Please select a variant to add product to cart"
+      },
+      "type": "gp-section-523441291187455220"
+    },
+    "gp_section_523441291271341300": {
+      "settings": {
+        "checksum": "1708dbcd90eeb9b7698993739b398c34a09be1b9ebaac6e69ccbac8f996e2d98_1_1_0_0__1"
+      },
+      "type": "gp-section-523441291271341300"
+    },
+    "gp_section_534145654788719386": {
+      "settings": {
+        "checksum": "a1313a4088abfe961fcdf4e42dd7b0ba1e2396b3243e9187925762125eac1601_1_1_0_0__1",
+        "gg2kJtzBSG__background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-4d45538c-04b0-4a71-b2fd-70cf28de1415.jpg",
+        "gg2kJtzBSG__background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "gg2kJtzBSG__background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggKKbvo_fzn_text": "Gear For Whitetail Deer Hunters",
+        "section_preload": "true"
+      },
+      "type": "gp-section-534145654788719386"
+    }
+  },
+  "order": [
+    "gp_section_534145654788719386",
+    "gp_section_523441291187455220",
+    "gp_section_523441291271341300"
+  ]
+}

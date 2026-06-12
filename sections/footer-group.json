@@ -982,7 +982,7 @@
         "gap": 0,
         "color_scheme": "scheme-2",
         "padding-block-start": 30,
-        "padding-block-end": 0,
+        "padding-block-end": 48,
         "visibility": "mobile_only"
       }
     },
@@ -1094,7 +1094,7 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 42,
-        "padding-block-end": 0,
+        "padding-block-end": 32,
         "visibility": "mobile_only"
       }
     },

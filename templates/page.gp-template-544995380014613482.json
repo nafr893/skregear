@@ -1,0 +1,72 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_544995380132053994": {
+      "settings": {
+        "checksum": "d69d6863724e257c06f44981dc82104df856e7068bb77011c15996199739d93b_1_1_0_0__1",
+        "gg9ATvBXzlw_label": "Learn more"
+      },
+      "type": "gp-section-544995380132053994"
+    },
+    "gp_section_544995380132381674": {
+      "settings": {
+        "checksum": "3d1e394a0ee91592c33695aab28d26373d237ff8a2562e1ccf5f40fea87f44a0_1_1_0_0__1",
+        "gg5g56NQLu9_text": "<p><span style=\"color:#000000;\">Automatically adds at Checkout</span></p>",
+        "ggBfxkxk_A9_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-df52babf-3306-4a7a-b500-4f96a83088cd.png",
+        "ggL713-VSws_text": "BUY GEAR FOR YOU",
+        "ggiQkF-e6WS_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-2cdce182-754f-49ee-ae7b-133968aaec97.jpg",
+        "ggwmDXdoUUi_text": "share the gift card"
+      },
+      "type": "gp-section-544995380132381674"
+    },
+    "gp_section_544995380132447210": {
+      "settings": {
+        "checksum": "76cefde18bc5818b1c647d5ae7955ecc5caefe22ad56a883dff0a19ad5fdf40f_1_1_0_0__1",
+        "ggmI7UhroPF_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-3aede566-5071-458f-812b-41aa487a66a6.jpg",
+        "ggmI7UhroPF_background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggmI7UhroPF_background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "section_preload": "true"
+      },
+      "type": "gp-section-544995380132447210"
+    },
+    "gp_section_544995380132578282": {
+      "settings": {
+        "checksum": "a358edf7127f2c3b68e465bf6c64cb6ccb56fb2c4cc0372bc7e9e73bfa69830b_1_1_0_0__1",
+        "ggz17yjWulx_text": "BUY any jacket, Get a FREE TOPO HOodie"
+      },
+      "type": "gp-section-544995380132578282"
+    },
+    "gp_section_544995841555825793": {
+      "settings": {
+        "checksum": "a175be5e2a85a9998045ad09972152e1edb58785f04bcf3c15709a9501f3103e_1_1_0_0__1",
+        "ggGwQ4_ePni_text": "SPEND $500 GET A $100 Gift card"
+      },
+      "type": "gp-section-544995841555825793"
+    },
+    "gp_section_544996534085747841": {
+      "settings": {
+        "checksum": "b20bc4cf3128b357fe7b5a0154d4f7ef7dfb4e54890c7d59b2f269149f88c3e3_1_1_0_0__1",
+        "gg1c0eXQdX8_text": "<p>When you pruchase any jacket from Skre you will get a pop up asking you to select a size for a free hoodie. If you don't get the pop up selection make sure your browser allows them or call our support team at 435-295-4197.</p>",
+        "ggJ-S8fmoA3_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-c0e8ea5e-000f-4579-a2b7-f08de8aef98d.jpg",
+        "ggcTO_RDGCD_text": "Get a Free Topo Hoodie"
+      },
+      "type": "gp-section-544996534085747841"
+    }
+  },
+  "order": [
+    "gp_section_544995380132447210",
+    "gp_section_544995841555825793",
+    "gp_section_544995380132381674",
+    "gp_section_544995380132578282",
+    "gp_section_544995380132053994",
+    "gp_section_544996534085747841"
+  ]
+}

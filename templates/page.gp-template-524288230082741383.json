@@ -1,0 +1,80 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_524288230133073031": {
+      "settings": {
+        "checksum": "91e63593e84acc97c0acc8b1d6c875015a80cb8ce42bcb40ce2a52d967e95066_1_1_0_0__1",
+        "ggG9D0Tp3Ed_label": "View All",
+        "ggW3fI6tAIJ_errorMessage": "Cannot add product to cart",
+        "ggW3fI6tAIJ_label": "ADD TO CART",
+        "ggW3fI6tAIJ_outOfStockLabel": "Out Of Stock",
+        "ggW3fI6tAIJ_successMessage": "Add product to cart successfully",
+        "ggW3fI6tAIJ_unavailableLabel": "Unavailable",
+        "ggWQQicUtjl_childItem_0": "<p>Early Season</p>",
+        "ggWQQicUtjl_childItem_1": "<p>Late Season</p>",
+        "gglKgydYsih_errorMessage": "Cannot add product to cart",
+        "gglKgydYsih_label": "ADD TO CART",
+        "gglKgydYsih_outOfStockLabel": "Out Of Stock",
+        "gglKgydYsih_successMessage": "Add product to cart successfully",
+        "gglKgydYsih_unavailableLabel": "Unavailable"
+      },
+      "type": "gp-section-524288230133073031"
+    },
+    "gp_section_524288230149850247": {
+      "settings": {
+        "checksum": "ef6d898540bb817e45d159a87eba7803f3b19db349298df47fbc08d0e4343014_1_1_0_0__1",
+        "gg0loMVZ6f__text": "<p><strong>True Lifetime&nbsp;Warranty:</strong>&nbsp;We stand behind every product we craft, with our industry's best unconditional warranty for quality and workmanship. If for any reason you are unhappy with any&nbsp;SKRE gear, simply return it for a full refund or exchange<strong>.</strong><br>&nbsp;</p><p><strong>VIP Sizing &amp; Exchange</strong>:&nbsp;If you choose the wrong size we will pay for the cost of shipping until you are outfitted with the correct size of each item. All orders come with a pre-paid return shipping label&nbsp;to use.</p>",
+        "ggf1b53c1SP_text": "<a href=\"https://skregear.com/products/starter-bundle#acc-unique-0\">SKRE GUARANTEE</a>"
+      },
+      "type": "gp-section-524288230149850247"
+    },
+    "gp_section_524288578478408612": {
+      "settings": {
+        "checksum": "e2c89b4c80408fd2809fc83f96d1ef8bd35a0dbcca33b9ff833fd46101b340e4_1_1_0_0__1",
+        "gg_NraAVlZY_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-86956b00-fe85-4fac-b8f5-f3888cd70d38.png?v=1721861512"
+      },
+      "type": "gp-section-524288578478408612"
+    },
+    "gp_section_524289046327854055": {
+      "settings": {
+        "checksum": "51f83a9df52caa46970978645651b85b6fbfca323c20ede2e32fc770ff1f6125_1_1_0_0__1",
+        "gg8AmQFlvgS_text": "Accessories:"
+      },
+      "type": "gp-section-524289046327854055"
+    },
+    "gp_section_524289046613066660": {
+      "settings": {
+        "checksum": "1c276cf24055ab418bd9ce5d029e31ba8cd94cf8454b20b6bc05bff795841ab1_1_1_0_0__1"
+      },
+      "type": "gp-section-524289046613066660"
+    },
+    "gp_section_533276255714280206": {
+      "settings": {
+        "checksum": "c76bfd775fdaeeb438933e42de5accc19faea74288d9f840bb2a77704e081901_1_1_0_0__1",
+        "gg-V2nkn76T_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-3fad3f83-ccfd-41a3-abb2-532ce883f01a.jpg",
+        "gg-V2nkn76T_background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "gg-V2nkn76T_background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "gg6ZtQLHYvo_text": "<p>Recommended Gear for Bear Hunters</p>",
+        "gg8pJfhrd6n_text": "GEAR FOR BEAR HUNTERS",
+        "section_preload": "true"
+      },
+      "type": "gp-section-533276255714280206"
+    }
+  },
+  "order": [
+    "gp_section_533276255714280206",
+    "gp_section_524288230133073031",
+    "gp_section_524289046327854055",
+    "gp_section_524289046613066660",
+    "gp_section_524288578478408612",
+    "gp_section_524288230149850247"
+  ]
+}

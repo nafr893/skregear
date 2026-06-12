@@ -1,0 +1,144 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_512974386815304689": {
+      "settings": {
+        "checksum": "cab4e9cdee8b6e04b24f3a6c5d77fa2b1eff54f72db14261a2a487e1da6fd8fe_1_1_0_0__1",
+        "ggCHqXI661d_label": "GET YOUR ELITE BUNDLE",
+        "ggQA9d6sFer_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-8746e35b-686e-48a7-850c-fefd1371abf1.png?v=1715631820",
+        "ggRYsEwSjLg_text": "<p>Your hunt demands the best. Gear up with the Elite Starter Bundle</p>",
+        "ggrVdHkTsQ1_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-5a1c8663-ae03-4d1a-aed3-fafa906637ac.jpg?v=1721423944",
+        "ggrVdHkTsQ1_background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggrVdHkTsQ1_background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggrVdHkTsQ1_background_mobile_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-cee2bc2f-3558-4825-8f6e-8511d959218b.jpg?v=1721424113",
+        "ggrVdHkTsQ1_background_mobile_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggrVdHkTsQ1_background_mobile_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggyd1ZHmDB6_label": "LEARN MORE",
+        "section_preload": "true"
+      },
+      "type": "gp-section-512974386815304689"
+    },
+    "gp_section_512974490968261743": {
+      "settings": {
+        "checksum": "087605e62c4a0b079a4d5f7f1a533cb10a1a3d3cf91aa77d0be65380b8ac086c_1_1_0_0__1",
+        "gg3s5V-4ZUS_text": "<p><strong>Ben U &nbsp; &nbsp;| &nbsp; Verified Buyer</strong></p>",
+        "gg5XXKlpREk_text": "<p><i>“Love the hardscrabble set up. The vent system makes it great for cold mornings with hot afternoons. Gear fits very nice and very durable and quieter than expected. Highly Recommend Gear!”</i></p>",
+        "ggHA2BAnkaI_label": "Read More Customer Reviews",
+        "ggLpv8JsxZE_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-ce153a12-d50b-4609-bd7f-0871944baac4.png?v=1715631668",
+        "ggQ4yVmP-YO_text": "<p><i>“Great bundle. Pants, Shirt, and Jacket combo make it a great bundle for early to mid season hunting. Great customer service with VIP exchange to ensure you get the proper size. All items fit true to size.\"</i></p>",
+        "ggRYQV8AZBy_text": "<p><strong>Jeremy S &nbsp; &nbsp;| &nbsp; Verified Buyer</strong></p>",
+        "ggUh0pnoji9_text": "<p><strong>Daniel C &nbsp; &nbsp;| &nbsp; Verified Buyer</strong></p>",
+        "ggZtcpDmB3E_text": "<p><i>“The bundle is very tough and comfortable. I tested them in the woods of Missouri were every branch, stick and weed wants to poke and stab! The pants went thru it all, protected my legs and still look new .”</i></p>",
+        "ggouYvEl_QM_text": "<p><strong>Chris G &nbsp; &nbsp;| &nbsp; Verified Buyer</strong></p>",
+        "ggwbxCW31NR_text": "<p><i>“So many zippers to put things and create more air flow. The camouflage fits amazing. I’m able to move quick and quiet as a result. This company knows what they are doing when it comes to creating quality products.”</i></p>"
+      },
+      "type": "gp-section-512974490968261743"
+    },
+    "gp_section_512974784586318984": {
+      "settings": {
+        "checksum": "4f0e2a43a5ca606d3b981caa6f4ed48857452c5a2bf04e5209b0d3824989db93_1_1_0_0__1",
+        "gg0UjJsP-4l_errorMessage": "Cannot add product to cart",
+        "gg0UjJsP-4l_label": "Add to cart",
+        "gg0UjJsP-4l_outOfStockLabel": "Out of stock",
+        "gg0UjJsP-4l_successMessage": "Add product to cart successfully",
+        "gg2wPZLuq5D_text": "<p>17.5 Micron Superfine Merino Wool</p><p>Multi-Directional Stretch</p><p>Flatlock Seam Construction</p><p>150 GSM Insulation</p><p>Naturally Antimicrobial</p><p>Anatomical Fit</p><p>Moisture Wicking Merino</p><p>Chest Pocket with Vertical Zipper</p><p>Advanced Thermoregulation</p><p>YKK Zippers</p>",
+        "gg4Zs60jbfv_text": "<p>Quality Fabric and Features</p>",
+        "gg5g56NQLu9_text": "<p><span style=\"color:#000000;\">The ELITE STARTER BUNDLE includes a long-sleeve merino wool top, the hardscrabble pants, and the hardscrabble jacket. The top features a quarter zip and a chest pocket for convenient storage of small items. The pants have multiple pockets for storing essentials, a side vent to dump heat, and a multi-stretch for a comfortable fit. The hardscrabble jacket features a tough exterior with a pit zip release and a soft micro-fleece interior designed for comfort.</span></p><p>&nbsp;</p><p><span style=\"color:#000000;\"><i>Experience the pinnacle of hunting gear performance with SKRE Gear’s ELITE STARTER BUNDLE. Designed to keep you comfortable, concealed, and mobile in any environment!</i></span></p>",
+        "gg6XKnbQTl0_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-2a1a6563-233c-4bc3-83fa-f834ec3c0bbf.jpg?v=1715705936",
+        "ggL713-VSws_text": "ELITE",
+        "ggPTwdiuKkR_text": "<p><strong>480 Reviews</strong></p>",
+        "ggPabNcngN7_text": "<span style=\"color:#229E3F;font-size:18px;\">$342.28</span><span style=\"font-size:18px;\"> - <s>$427.85</s></span>",
+        "ggUC1za4JR2_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-6f4bd011-b3ea-4388-a57f-502d026469a0.jpg?v=1715705718",
+        "ggYc1c-QlSa_text": "<span style=\"color:#050505;\">What's Included?</span>",
+        "ggfajHRx10z_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-6f4bd011-b3ea-4388-a57f-502d026469a0.jpg?v=1715705718",
+        "ggiG6k2rmDn_text": "<p>Durability and Comfort</p>",
+        "ggiQkF-e6WS_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-6ad1cf20-4a13-4058-8523-b4ea89e10224.jpg?v=1721861743",
+        "ggkK3uI5heR_text": "<p><strong>428 Reviews</strong></p>",
+        "ggo5CUIcRAI_text": "<p>MTN-X2 Soft-Shell Face Fabric</p><p>100% Polyester</p><p>Anatomical Fit</p><p>Interior Waist Grip Band</p><p>Gusseted Crotch</p><p>Zippered Side Vents, Cargo &amp; Rear Pockets</p><p>Ultra-Quiet</p><p>Durable Water-Resistant Teflon Shield+</p><p>YKK Zippers</p>",
+        "ggoBhHdzxEU_html5Url": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggoBhHdzxEU_poster_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-44a607e4-3144-4b92-b141-01604fda0e6c.png?v=1715292829",
+        "ggoBhHdzxEU_vimeoUrl": "https://vimeo.com/916134777",
+        "ggoBhHdzxEU_youtubeUrl": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggpsN6biGDZ_text": "<p>Versatility and Protection</p>",
+        "gguKDQZa9JR_errorMessage": "Cannot add product to cart",
+        "gguKDQZa9JR_label": "Add to cart",
+        "gguKDQZa9JR_outOfStockLabel": "Out of stock",
+        "gguKDQZa9JR_successMessage": "Add product to cart successfully",
+        "gguT45_UKD8_text": "<p><span style=\"font-size:13px;\">MTN-X2 Face Fabric with Microfleece&nbsp;</span></p><p><span style=\"font-size:13px;\">100% Polyester</span></p><p><span style=\"font-size:13px;\">Athletic Fit</span></p><p><span style=\"font-size:13px;\">Fully Adjustable Storm Hood</span></p><p><span style=\"font-size:13px;\">Dual Waist Cord Locks</span></p><p><span style=\"font-size:13px;\">Chest, Pocket&nbsp;and Dual Vent Pit Zippers</span></p><p><span style=\"font-size:13px;\">Ultra-Quiet</span></p><p><span style=\"font-size:13px;\">Wind &amp; Water Resistant DWR Shield+&nbsp;</span></p><p><span style=\"font-size:13px;\">YKK Zippers</span></p>",
+        "gguZqpPsqj0_errorMessage": "Cannot add product to cart",
+        "gguZqpPsqj0_label": "Add to cart",
+        "gguZqpPsqj0_outOfStockLabel": "Out of stock",
+        "gguZqpPsqj0_successMessage": "Add product to cart successfully",
+        "gguoZxWUj9D_text": "<p><strong>143 Reviews</strong></p>",
+        "ggwmDXdoUUi_text": "starter bundle",
+        "ggzRwO1aKN8_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-8b377593-96a2-4e18-a5fc-6475c8219bcb.png?v=1715293516"
+      },
+      "type": "gp-section-512974784586318984"
+    },
+    "gp_section_512974836578911437": {
+      "settings": {
+        "checksum": "5d1d81fe7c408eaa2b15ddfd43403c487a6600d4298080dc703edb1d6ac5a9d8_1_1_0_0__1",
+        "gglL7TWT27m_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-65abfc78-4fd7-493f-88a4-7807b2073bfb.png?v=1715703744"
+      },
+      "type": "gp-section-512974836578911437"
+    },
+    "gp_section_513534751735284720": {
+      "settings": {
+        "checksum": "e300bdfd100973aa64ecb5f7d2fea0b889c95fb46ffc290a9887f7a0c4f31b54_1_1_0_0__1",
+        "ggXG_J_IkfB_html5Url": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggXG_J_IkfB_vimeoUrl": "https://vimeo.com/897035665?share=copy",
+        "ggXG_J_IkfB_youtubeUrl": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggkigmTqfDv_html5Url": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggkigmTqfDv_vimeoUrl": "https://vimeo.com/897034483?share=copy",
+        "ggkigmTqfDv_youtubeUrl": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggpPjfoC-Cu_label": "View More Customer Success Stories",
+        "ggrddFi5Pjv_html5Url": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggrddFi5Pjv_vimeoUrl": "https://vimeo.com/897033891?share=copy",
+        "ggrddFi5Pjv_youtubeUrl": "https://www.youtube.com/watch?v=cyzh48XRS4M"
+      },
+      "type": "gp-section-513534751735284720"
+    },
+    "gp_section_513535797358494746": {
+      "settings": {
+        "checksum": "5841d6280a9d85045348787c87f0f3d4c2ed4c02bcacf4b45f4421bc0f8a4a2c_1_1_0_0__1",
+        "gg3bhXioQtD_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-e51edb52-5ef9-4936-bdf5-a49532be8220.png?v=1715622757",
+        "gg4OPDKixj1_text": "Personalized Fit &amp; Service",
+        "gg6ELeapiJ-_text": "Why Get the Starter Bundle?",
+        "gg8MnMhdSM-_text": "Free Month of Hunt Club",
+        "ggEOwjy2117_text": "Lifetime Warranty",
+        "ggEglBbtjWO_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-78dcb26f-0131-49a6-8eba-f1778508390d.png?v=1715622864",
+        "ggEnEl_Qflm_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-7f8f3dc1-4e02-4e1d-895e-1279524662e1.png?v=1715623094",
+        "ggILfkDe0NJ_text": "<p>Community and Support: Connect with fellow enthusiasts and gain access to a wealth of knowledge and exclusive resources. Your first month is on us because community matters.</p>",
+        "ggJXrvfU9NJ_text": "<p>VIP Sizing &amp; Exchange: Perfect fit equals perfect hunts. Enjoy free exchanges and shipping until your gear fits perfectly, ensuring you move seamlessly in the wild.</p>",
+        "ggJeoeJF1dN_text": "Immediate Savings",
+        "ggOIbgBC6HD_text": "<p>Because we stand behind our product 100%.&nbsp; Because, like you, hunting is our passion and our product reflects our desire to do anything we can to assure your hunting experience is one to remember!</p>",
+        "ggReZL0ealj_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-ef0a0c3b-6307-4ec5-a549-ef662c059030.png?v=1715622847",
+        "ggSDnIF_idZ_text": "<p>Unmatched Quality Guarantee: Every piece of SKRE Gear comes with a lifetime warranty. We promise durability and function that lasts, supporting every season’s challenges.</p>",
+        "ggW4SsRJpey_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-0c138661-f952-4ed8-bfba-f6d0c36d3597.jpg?v=1715620794",
+        "ggYZG77wpdw_text": "<p>20% Off Your First Purchase: Begin your journey with SKRE Gear and enjoy 20% off. It’s our way of welcoming you into the fold with affordability and quality.</p>",
+        "ggabjb5xBUo_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-2e0f1b6b-783d-4322-a390-ebab02cbaf2d.jpg?v=1715634383",
+        "ggba-TpbviO_text": "Risk-Free Trial",
+        "ggh3yxmOe5D_label": "GET YOUR ELITE BUNDLE",
+        "ggkmEf5oP7T_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-6660d3f8-ce76-4c9a-b129-f3a7fed1351b.png?v=1715622699",
+        "ggpHnFSFsel_text": "<p>Confidence in Your Purchase: Take your gear on the hunt and put it to the test. If it doesn’t elevate your hunt, return it within 30 days for a full refund. We value your satisfaction above all.</p>"
+      },
+      "type": "gp-section-513535797358494746"
+    }
+  },
+  "order": [
+    "gp_section_512974386815304689",
+    "gp_section_512974490968261743",
+    "gp_section_512974784586318984",
+    "gp_section_512974836578911437",
+    "gp_section_513534751735284720",
+    "gp_section_513535797358494746"
+  ]
+}

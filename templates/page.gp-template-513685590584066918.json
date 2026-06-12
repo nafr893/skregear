@@ -1,0 +1,79 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_513685640747943067": {
+      "settings": {
+        "checksum": "b2406b6d19c77fee73bf3cad42733691431bc759853c360d2e80e6a52dced2d8_1_1_0_0__1",
+        "gg44nK9YLkY_srcSet_desktop_src": "https://ucarecdn.com/ee6d5074-1640-4cc7-8933-47c8589c3dee/-/format/auto/",
+        "section_preload": "true"
+      },
+      "type": "gp-section-513685640747943067"
+    },
+    "gp_section_513686055010960539": {
+      "settings": {
+        "checksum": "aec6cff7066350def047d3a05e68939fcc74e5c1a745cdb8f2fa5abc74d43a5a_1_1_0_0__1",
+        "gg9BmZCCNNz_text": "<p>Join the West Jordan Army Team in honoring the Veterans and Families that have made the ultimate sacrifice. This FREE event is open to everyone and anyone. You can participate in whatever way works best for you. Whether you want to tackle the full 24 hours solo, do a portion of the event, or form a relay team, your miles will go towards our grand total!</p>",
+        "ggge8w-W05A_text": "05.26 / 05.27 (NOON TO NOON) 24 HRS",
+        "ggmf9yeZarx_text": "ALL PROCEEDS GO TO THE SPECIAL FORCES FOUNDATION",
+        "ggsGPakdswy_text": "Honor the Fallen Ruck Run"
+      },
+      "type": "gp-section-513686055010960539"
+    },
+    "gp_section_513686407550600347": {
+      "settings": {
+        "checksum": "00515d12a9467e4a344850976fe2d498ea0af7bfe7aac0f42bc2f0890b1c9919_1_1_0_0__1",
+        "ggFd0htpmyX_text": "LEARN MORE",
+        "ggJeKyAasDl_text": "<p>Come join us for the Ruck Run this Memorial Day. If you can't join us in person, you can run/walk virtually. Find a sponsor or become a sponsor and give back to a great cause. Thank you to all the Men and Women who serve this great country.&nbsp;</p><p>&nbsp;</p>",
+        "ggSlZraJ4fe_text": "REGISTER",
+        "ggUHhD0LCHB_text": "DONATE",
+        "ggUTlpLaFRO_label": "DONATE",
+        "ggaEqS33soD_text": "<p>The Special Forces Foundation is a tax-exempt non-profit organization supporting U.S. Army Special Forces and their families through programs aligned with the POTFF program. We help maintain the mental and physical well-being of Green Berets and offer support for psychological, emotional, and relationship issues.</p>",
+        "ggkt2GinwNZ_label": "LEARN MORE",
+        "ggt9veuR1g0_label": "REGISTER",
+        "ggwslZCLDHA_text": "<p>Location: Cory Wride Memorial Park, Eagle Mountain, UT</p><p>View the map course (Click on link below)</p><p>Virtual Location: Anywhere</p><p>FAQ's: Click on the link below</p><p>Registration is free (find someone to sponsor you)</p>"
+      },
+      "type": "gp-section-513686407550600347"
+    },
+    "gp_section_513688558641349478": {
+      "settings": {
+        "checksum": "e5fab393cd9e8d556d2c121ef2bb991686e4c8f0c7a526f29a08cec6ed1de828_1_1_0_0__1",
+        "ggJHczSXaJ3_text": "ALL PROFITS OF THIS SHIRT GOES TOWARDS THE SPECIAL FORCES FOUNDATION"
+      },
+      "type": "gp-section-513688558641349478"
+    },
+    "gp_section_513688660680377499": {
+      "settings": {
+        "checksum": "fe8d92ee3e26e6cda687871844fa687da818789e812dfe4550993b4183ed83f3_1_1_0_0__1"
+      },
+      "type": "gp-section-513688660680377499"
+    },
+    "gp_section_513706043117667312": {
+      "settings": {
+        "checksum": "cc3837694c90f3d3ee12c2a18cc998787ac784467f3ead276f28422bb1d6f445_1_1_0_0__1",
+        "gg12Ap18lDm_viewLessText": "View less",
+        "gg12Ap18lDm_viewMoreText": "View more",
+        "ggToVzoatyp_errorMessage": "Cannot add product to cart",
+        "ggToVzoatyp_label": "Add To Cart",
+        "ggToVzoatyp_outOfStockLabel": "Out of stock",
+        "ggToVzoatyp_successMessage": "Add product to cart successfully"
+      },
+      "type": "gp-section-513706043117667312"
+    }
+  },
+  "order": [
+    "gp_section_513685640747943067",
+    "gp_section_513686055010960539",
+    "gp_section_513686407550600347",
+    "gp_section_513688558641349478",
+    "gp_section_513706043117667312",
+    "gp_section_513688660680377499"
+  ]
+}

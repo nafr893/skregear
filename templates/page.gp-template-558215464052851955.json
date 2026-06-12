@@ -1,0 +1,65 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_558215464137262323": {
+      "settings": {
+        "checksum": "873f208994444d1187ada4773da7357da06469920ac45efd2116c0e76296f04e_1_1_0_0__1",
+        "ggRYsEwSjLg_text": "<p>Spring Clean Sale</p>",
+        "ggTffNjZPRH_text": "Savings up to 50%",
+        "ggVijDDF-ZF_text": "Select sizing and color available",
+        "ggmI7UhroPF_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-6152a1ea-0f49-4d7f-a8a4-7c185a561c5a.jpg",
+        "ggmI7UhroPF_background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggmI7UhroPF_background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "section_preload": "true"
+      },
+      "type": "gp-section-558215464137262323"
+    },
+    "gp_section_558215464137327859": {
+      "settings": {
+        "checksum": "95575726bed66c31dd25a187953bcf40c48adfae06f2aec086c0a3a6ebfb015a_1_1_0_0__1",
+        "gg9ATvBXzlw_label": "Learn more",
+        "ggGwQ4_ePni_text": "BaseLayer Deals"
+      },
+      "type": "gp-section-558215464137327859"
+    },
+    "gp_section_558499724131304266": {
+      "settings": {
+        "checksum": "aa605335db80a690dff8c616fc3253540a727664fc07941c8c851438195353aa_1_1_0_0__1",
+        "ggu-4vFFvfC_label": "Learn more",
+        "ggyoZHjqjYR_text": "Jacket &amp; Vest Deals"
+      },
+      "type": "gp-section-558499724131304266"
+    },
+    "gp_section_558502161156146280": {
+      "settings": {
+        "checksum": "b0b5f4182ab2e3543acaf7ef7c89e926fb2c9954740e9f07834a1380d565531d_1_1_0_0__1",
+        "gggPhpV7uYs_label": "Learn more",
+        "ggkrF8fyQTR_text": "Pant &amp; Bib Deals"
+      },
+      "type": "gp-section-558502161156146280"
+    },
+    "gp_section_558502402227963123": {
+      "settings": {
+        "checksum": "df453e04556b1847d433722fea2335d58e6a6143083fd6650232e035d93661ef_1_1_0_0__1",
+        "gg3e27pLwRN_text": "Gloves &amp; Accesories",
+        "ggEXm5Dymvb_label": "Learn more"
+      },
+      "type": "gp-section-558502402227963123"
+    }
+  },
+  "order": [
+    "gp_section_558215464137262323",
+    "gp_section_558215464137327859",
+    "gp_section_558499724131304266",
+    "gp_section_558502161156146280",
+    "gp_section_558502402227963123"
+  ]
+}

@@ -1,0 +1,137 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_525261904218686301": {
+      "settings": {
+        "checksum": "238408138a5d8ccd961c48c4611045611c12002785b69a283b6ef4891ef0f2a1_1_1_0_0__1",
+        "ggMV5p1YYtS_alt": "Describes the appearance of the image",
+        "ggMV5p1YYtS_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-86956b00-fe85-4fac-b8f5-f3888cd70d38.png?v=1721861512"
+      },
+      "type": "gp-section-525261904218686301"
+    },
+    "gp_section_525261904269017949": {
+      "settings": {
+        "checksum": "82d43993f56e82504d40660c5fc80fa916437bfa5ad48e4aa9dc578e13868f03_1_1_0_0__1",
+        "gg-8K4vLST3_alt": "Rancher Long Sleeve",
+        "gg-8K4vLST3_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-fa47b5fa-f37b-4020-8ae8-f0b074263932.jpg",
+        "gg-WuGXfT62_alt": "Kaibab Boxers",
+        "gg-WuGXfT62_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-d4c308f7-cf3d-4274-bded-288c06cb13af.jpg",
+        "gg-eiOntrU3_label": "<p>LEARN MORE</p>",
+        "gg0ZLrH49j__text": "<p>SLATE GREY</p>",
+        "gg1mZNvdWP__text": "<p>2 MAN TENT</p>",
+        "gg1t-DwtdpB_alt": "deadfall gloves",
+        "gg1t-DwtdpB_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-ac1c033f-f250-420a-85e3-1ac18d7fba10.jpg",
+        "gg3hp8CIQWM_text": "Kaibab 150 Crew neck",
+        "gg3qOmg0NiQ_text": "BLACKTAIL SWEATER",
+        "gg4dA-Kw87g_text": "<p>SUMMIT | SOLACE | SLATE GREY</p>",
+        "gg60JL-MRhy_label": "<p>LEARN MORE</p>",
+        "gg69DGMc3cb_text": "DELTA FLANNEL TOPS",
+        "gg6ljkhiTxD_label": "<p>LEARN MORE</p>",
+        "gg6swt31WYZ_text": "<p>ASH BROWN</p>",
+        "gg79qQpy5fI_text": "<p>SLATE GREY</p>",
+        "gg8ICOzfsud_text": "Rancher Short Sleeve",
+        "gg8QsNXNwfI_label": "<p>LEARN MORE</p>",
+        "gg8XrwkOR8e_text": "<p>BLAZE ORANGE | SLATE GREY</p>",
+        "gg8wiWFHy8P_text": "<p>ASH BROWN | SLATE GREY</p>",
+        "gg9EzYP5IUB_alt": "guardian hand warmer",
+        "gg9EzYP5IUB_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-054addeb-f151-4771-a825-7e22e45d1139.jpg",
+        "gg9Qh37WCyu_text": "<p>SUMMIT | SOLACE</p>",
+        "ggAY8ZjauXo_text": "GUARDIAN NECK GAITER",
+        "ggAgKnc4Zkb_alt": "Hardscrabble Bibs",
+        "ggAgKnc4Zkb_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-7aac1dcc-ca75-4007-b4c9-d6b504d7c5cd.jpg",
+        "ggAwA2a0g67_text": "HARDSCRABBLE GAITERS PRO",
+        "ggBArcM3V3I_label": "<p>LEARN MORE</p>",
+        "ggBS2qdHJ7S_text": "BRIDGER GLASSING MITTS",
+        "ggEOBeikfxs_text": "<p>ASH BROWN</p>",
+        "ggFZGHZIsED_text": "KODIAK PANTS",
+        "ggG3jtBTWiq_text": "<p>SLATE GREY</p>",
+        "ggHCcKnf54h_text": "GUARDIAN BEANIE",
+        "ggHpCiqPAkM_label": "<p>LEARN MORE</p>",
+        "ggJED3fqri-_text": "VELOCITY GLOVES",
+        "ggK6RNkIoX7_alt": "guardian neck gaiter",
+        "ggK6RNkIoX7_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-9e78574f-2744-44df-9c33-29d77f726166.jpg",
+        "ggMLD4hnQ5V_text": "KAIBAB BOXERS",
+        "ggMk08AvyoS_text": "WOMENS MERINO TOP",
+        "ggNEA8qNbGm_label": "<p>LEARN MORE</p>",
+        "ggNqEpPqYCv_label": "<p>LEARN MORE</p>",
+        "ggOSJPCDns8_text": "GUARDIAN HAND WARMER",
+        "ggP9S8ysiRO_alt": "velocity gloves",
+        "ggP9S8ysiRO_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-0bbe87fb-ddab-4cc4-922d-d5ddf078abc1.jpg",
+        "ggPN5fJERch_text": "Hardscrabble bibs",
+        "ggQHU8s2-ec_text": "DEADFALL GLOVES",
+        "ggQzr_cBfPQ_label": "<p>LEARN MORE</p>",
+        "ggSj8qYGouq_text": "<p>ASH BROWN</p>",
+        "ggTg_Ri1_u-_text": "<p>SUMMIT | SOLACE | SLATE GREY</p>",
+        "ggUk91Z_rqQ_label": "<p>LEARN MORE</p>",
+        "ggV1Wt71xVk_text": "<p>SUMMIT</p>",
+        "ggVSVUsPszL_alt": "cascade tent",
+        "ggVSVUsPszL_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-8be4c7f7-5f3f-4ed9-b10a-b4c91319794f.jpg",
+        "ggX0QySFndx_text": "CASCADE TENT",
+        "ggXTw1iXHAG_label": "<p>LEARN MORE</p>",
+        "ggZNO7Kivlg_text": "<p>BLUE | BROWN | GREEN | GREY</p>",
+        "ggaTrL3phoH_text": "Rancher Long Sleeve",
+        "ggbKXlZ-Ika_alt": "womens merino top",
+        "ggbKXlZ-Ika_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-201625c8-2cfb-471e-9711-a3190be86ab1.jpg",
+        "ggbPDXlExXI_label": "<p>LEARN MORE</p>",
+        "gge-L_LM0KH_alt": "hardscrabble gaiters pro",
+        "gge-L_LM0KH_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-596f559f-6ff0-4e6d-9f3c-adda61199789.jpg",
+        "gge4E75FKfk_text": "<p>SLATE GREY</p>",
+        "ggeTDQajIp__text": "SAWTOOTH JACKET",
+        "ggfwnNLnhsq_text": "Kaibab 150 1/4 Zip",
+        "gggCgol7KGb_alt": "Kodiak Pants",
+        "gggCgol7KGb_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-5cf99a5d-434c-4a95-93a9-cf1782e84db1.jpg",
+        "gghbEJango4_label": "<p>LEARN MORE</p>",
+        "ggiynDXuAyJ_alt": "Sawtooth Jacket",
+        "ggiynDXuAyJ_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-b7a4a1d5-4ce6-48fd-8da4-3896b5b09a62.jpg",
+        "ggjDZx6n2zq_alt": "Kaibab 150 crew neck",
+        "ggjDZx6n2zq_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-7f094dc8-2f9b-41ef-ab83-cddc829133d8.jpg",
+        "gglc0udYvM0_label": "<p>LEARN MORE</p>",
+        "ggnIIiqjznb_alt": "Blacktail Sweater",
+        "ggnIIiqjznb_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-2ce736e0-d7b6-47d9-9b6d-f8f0725690ca.jpg",
+        "ggoCgvyiIv1_label": "<p>LEARN MORE</p>",
+        "ggoMpQj_7DI_text": "<p>SLATE GREY</p>",
+        "ggoo0d5A9kp_label": "<p>LEARN MORE</p>",
+        "ggoqlXIRKxv_alt": "kaibab 150 quarter zip",
+        "ggoqlXIRKxv_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-e90530bc-46b1-4985-b554-9e28566c170c.jpg",
+        "ggpOISG_HDw_alt": "guardian beanie",
+        "ggpOISG_HDw_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-9b6d0f4d-6830-4e36-9c31-7d0ac4a67e7f.jpg",
+        "ggq6snByz36_label": "<p>LEARN MORE</p>",
+        "ggqcnVlJyUB_alt": "Rancher Short Sleeve",
+        "ggqcnVlJyUB_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-3f0b0a8c-ae5a-4c2a-ae10-92d8d6298c55.jpg",
+        "ggr-AxyAS7A_label": "<p>LEARN MORE</p>",
+        "ggro7kHhkfB_alt": "bridger glassing mitts",
+        "ggro7kHhkfB_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-5983dbe4-b84d-4da7-836f-b368412d1049.jpg",
+        "ggssrcnlMGM_text": "<p>ASH BROWN | SLATE GREY</p>",
+        "gguYyQdYdnX_label": "<p>LEARN MORE</p>",
+        "ggv5YI59i8g_text": "New Arrivals",
+        "ggwe_43QbMc_text": "<p>SUMMIT | SOLACE | SLATE GREY</p>",
+        "ggyOm98Xrad_alt": "Delta Flannel Tops",
+        "ggyOm98Xrad_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-82206e5b-f1c8-4d21-9ffc-ef0e55d71e8a.jpg",
+        "ggz0spNcX0j_text": "<p>SUMMIT | SOLACE | SLATE GREY</p>",
+        "section_preload": "true"
+      },
+      "type": "gp-section-525261904269017949"
+    },
+    "gp_section_525274679112369204": {
+      "settings": {
+        "checksum": "e85f22716285e24a868e9ade2c13a08d90b89a827bb07cfc52e670862ad4b550_1_1_0_0__1",
+        "ggJdPdhStxK_text": "<p><strong>True Lifetime&nbsp;Warranty:</strong>&nbsp;We stand behind every product we craft, with our industry's best unconditional warranty for quality and workmanship. If for any reason you are unhappy with any&nbsp;SKRE gear, simply return it for a full refund or exchange<strong>.</strong><br>&nbsp;</p><p><strong>VIP Sizing &amp; Exchange</strong>:&nbsp;If you choose the wrong size we will pay for the cost of shipping until you are outfitted with the correct size of each item. All orders come with a pre-paid return shipping label&nbsp;to use.</p><p>&nbsp;</p>",
+        "ggznI23Pq7r_text": "<a href=\"https://skregear.com/products/starter-bundle#acc-unique-0\">SKRE Guarantee</a>"
+      },
+      "type": "gp-section-525274679112369204"
+    }
+  },
+  "order": [
+    "gp_section_525261904269017949",
+    "gp_section_525274679112369204",
+    "gp_section_525261904218686301"
+  ]
+}

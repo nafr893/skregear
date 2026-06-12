@@ -1,0 +1,51 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_530942260343210906": {
+      "settings": {
+        "checksum": "48448d9198a91cb2ad26a1d6ca668594d3891a2f2d06dda31131229c5e0014e8_1_1_0_0__1"
+      },
+      "type": "gp-section-530942260343210906"
+    },
+    "gp_section_530942260376765338": {
+      "settings": {
+        "checksum": "110e596597d2945df2b0dfddd90809c86b90e6e0cc5b67148aab8c4359d7fce7_1_1_0_0__1",
+        "ggG9D0Tp3Ed_label": "View All",
+        "ggJibWgvAQS_text": "<p>Top Rated Gear for Western Big Game Hunters</p>",
+        "ggKKbvo_fzn_text": "Gear For Western Big Game Hunters",
+        "ggW3fI6tAIJ_errorMessage": "Cannot add product to cart",
+        "ggW3fI6tAIJ_label": "ADD TO CART",
+        "ggW3fI6tAIJ_outOfStockLabel": "Out Of Stock",
+        "ggW3fI6tAIJ_successMessage": "Add product to cart successfully",
+        "ggW3fI6tAIJ_unavailableLabel": "Unavailable",
+        "ggWQQicUtjl_childItem_0": "<p>Early Season&nbsp;</p>",
+        "ggWQQicUtjl_childItem_1": "<p>Mid Season</p>",
+        "ggWQQicUtjl_childItem_2": "<p>Late Season</p>",
+        "gglKgydYsih_errorMessage": "Cannot add product to cart",
+        "gglKgydYsih_label": "ADD TO CART",
+        "gglKgydYsih_outOfStockLabel": "Out Of Stock",
+        "gglKgydYsih_successMessage": "Add product to cart successfully",
+        "gglKgydYsih_unavailableLabel": "Unavailable",
+        "ggpbrJB-ai0_errorMessage": "Cannot add product to cart",
+        "ggpbrJB-ai0_label": "ADD TO CART",
+        "ggpbrJB-ai0_outOfStockLabel": "Out Of Stock",
+        "ggpbrJB-ai0_successMessage": "Add product to cart successfully",
+        "ggpbrJB-ai0_unavailableLabel": "Unavailable",
+        "section_preload": "true"
+      },
+      "type": "gp-section-530942260376765338"
+    }
+  },
+  "order": [
+    "gp_section_530942260376765338",
+    "gp_section_530942260343210906"
+  ]
+}
