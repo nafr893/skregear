@@ -1126,7 +1126,7 @@
                                   "type": "text",
                                   "name": "t:names.text",
                                   "settings": {
-                                    "text": "<p>Machine wash in warm water with like colors.</p>",
+                                    "text": "<p><strong>Machine wash in warm water with like colors.</strong></p>",
                                     "width": "fit-content",
                                     "max_width": "normal",
                                     "alignment": "left",
