@@ -335,6 +335,10 @@
       <div class="skre-lb__rail-list"></div>
 
       <div class="skre-lb__rail-foot">
+        <div class="skre-lb__promo">
+          <span class="skre-lb__promo-icon">🏷</span>
+          <span class="skre-lb__promo-text">Add 3+ items · save 10%</span>
+        </div>
         <div class="skre-lb__rail-totals">
           <div class="skre-lb__rail-line">
             <span>Subtotal</span>
@@ -491,6 +495,10 @@
         </div>
       </div>
 
+      <div class="skre-lb__promo skre-lb__promo--mobile">
+        <span class="skre-lb__promo-icon">🏷</span>
+        <span class="skre-lb__promo-text">Add 3+ items · save 10%</span>
+      </div>
       <div class="skre-lb__action-row">
         <button class="skre-lb__atc" type="button" style="background-color: {{ atc_color }};">
           <span class="skre-lb__atc-label">ADD TO SYSTEM</span>
@@ -1227,6 +1235,51 @@ body:has(.skre-lb) main {
   text-underline-offset: 2px;
 }
 .skre-lb__skip-btn:hover { color: #333; }
+
+/* ── Promo badge: 3+ items = 10% off ── */
+.skre-lb__promo {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #fff8e6;
+  border: 1px solid #e8c96a;
+  border-radius: 3px;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.skre-lb__promo-icon {
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.skre-lb__promo-text {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #7a5a00;
+  line-height: 1.3;
+}
+
+.skre-lb__promo--unlocked {
+  background: #edfaf0;
+  border-color: #6abf7c;
+}
+
+.skre-lb__promo--unlocked .skre-lb__promo-text {
+  color: #1a6b30;
+}
+
+/* Mobile promo sits above ATC */
+.skre-lb__promo--mobile {
+  margin-bottom: 0.5rem;
+}
+
+/* Hide mobile promo on desktop (rail handles it) */
+@media screen and (min-width: 750px) {
+  .skre-lb__promo--mobile { display: none; }
+}
 
 /* Footer bar */
 .skre-lb__footer {

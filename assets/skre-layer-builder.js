@@ -1009,6 +1009,25 @@ class SkreLayerBuilder extends HTMLElement {
 
     const checkoutBtn = this.querySelector('.skre-lb__rail-checkout');
     if (checkoutBtn) checkoutBtn.disabled = this.#cartLines.length === 0;
+
+    // Promo badge: 3+ items = 10% off
+    this.querySelectorAll('.skre-lb__promo').forEach(el => {
+      const textEl = el.querySelector('.skre-lb__promo-text');
+      const iconEl = el.querySelector('.skre-lb__promo-icon');
+      if (!textEl) return;
+      if (filledLayers >= 3) {
+        el.classList.add('skre-lb__promo--unlocked');
+        if (iconEl) iconEl.textContent = '✓';
+        textEl.textContent = '10% discount unlocked — applied at checkout';
+      } else {
+        el.classList.remove('skre-lb__promo--unlocked');
+        if (iconEl) iconEl.textContent = '🏷';
+        const needed = 3 - filledLayers;
+        textEl.textContent = needed === 1
+          ? 'Add 1 more item to save 10%'
+          : `Add ${needed} more items · save 10%`;
+      }
+    });
   }
 
   // ── Summary panel ─────────────────────────────────────────────────────────
