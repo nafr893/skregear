@@ -6,6 +6,12 @@
   lang="{{ request.locale.iso_code }}"
 >
   <head>
+
+{% include 'canonicals_app' %}
+
+<link rel="canonical" href="{{ canonical_url }}">
+
+
     {%- if settings.favicon != blank -%}
       <link
         rel="icon"
