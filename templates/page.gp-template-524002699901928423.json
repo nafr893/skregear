@@ -1,0 +1,83 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_524002699969037287": {
+      "settings": {
+        "checksum": "1f4ac7d261f681fbcb6226e32163d254d56034bb0842e49c57aaafde5edd3779_1_1_0_0__1",
+        "ggW3fI6tAIJ_errorMessage": "Cannot add product to cart",
+        "ggW3fI6tAIJ_label": "ADD TO CART",
+        "ggW3fI6tAIJ_outOfStockLabel": "Out Of Stock",
+        "ggW3fI6tAIJ_successMessage": "Add product to cart successfully",
+        "ggW3fI6tAIJ_unavailableLabel": "Unavailable"
+      },
+      "type": "gp-section-524002699969037287"
+    },
+    "gp_section_524002700019368935": {
+      "settings": {
+        "checksum": "e81078ba1bca9b996d0a5fd418c5f7ec9114cd4d4fe67cd1ea3b38cc8779d9d3_1_1_0_0__1",
+        "gg2LRvYAXN2_text": "<p>The elite starter bundle includes a long-sleeve merino wool top, the hardscrabble pants, and the hardscrabble jacket. The top features a quarter zip and a chest pocket for convenient storage of small items. The pants have multiple pockets for storing essentials, a side vent to dump heat, and a multi-stretch for a comfortable fit. The hardscrabble jacket features a tough exterior with a pitt zip release and a soft micro-fleece interior designed for comfort.</p><p>Don't let your lack of gear hold you back from experiencing the thrill of the hunt. Get your hands on our high-performance elite stater bundle today and get ready to hunt with confidence!</p>",
+        "gg52aBdf32x_text": "Elite Starter Bundle",
+        "ggJdPdhStxK_text": "<p><strong>True Lifetime&nbsp;Warranty:</strong>&nbsp;We stand behind every product we craft, with our industry's best unconditional warranty for quality and workmanship. If for any reason you are unhappy with any&nbsp;SKRE gear, simply return it for a full refund or exchange<strong>.</strong><br>&nbsp;</p><p><strong>VIP Sizing &amp; Exchange</strong>:&nbsp;If you choose the wrong size we will pay for the cost of shipping until you are outfitted with the correct size of each item. All orders come with a pre-paid return shipping label&nbsp;to use.</p><p>&nbsp;</p>",
+        "ggMV5p1YYtS_alt": "30 day risk free guarantee. sizing and exchange guarantee. lifetime warranty.",
+        "ggMV5p1YYtS_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-86956b00-fe85-4fac-b8f5-f3888cd70d38.png?v=1721861512",
+        "ggznI23Pq7r_text": "<a href=\"https://skregear.com/products/starter-bundle#acc-unique-0\">SKRE Guarantee</a>"
+      },
+      "type": "gp-section-524002700019368935"
+    },
+    "gp_section_524004596683637735": {
+      "settings": {
+        "checksum": "9f21c4368520326f725f6e676db31286c9b150c801cba4013d03aea072c5ffa1_1_1_0_0__1",
+        "ggkMkwG-BHh_text": "<p>At the core of all layering systems the Elite Starter Bundle contains the three \"must-have\" pieces for every season. As you expand your range from hot to cold, additional pieces will be necessary to stay comfortable in the field.</p>",
+        "ggtT6O4NvMB_text": "Bundle Price: $427.85",
+        "ggv5YI59i8g_text": "ELITE STARTER BUNDLE",
+        "section_preload": "true"
+      },
+      "type": "gp-section-524004596683637735"
+    },
+    "gp_section_524159314626086023": {
+      "settings": {
+        "checksum": "053ca4c8ac702306b230e6d90202afdacf1ab1bbd6d140abd4ec278bc3c89b27_1_1_0_0__1"
+      },
+      "type": "gp-section-524159314626086023"
+    },
+    "gp_section_524159440136438987": {
+      "settings": {
+        "checksum": "92f929f0d73c90d11447120d04fd08202433031c79d1295f4116ed35a26b0c7d_1_1_0_0__1",
+        "ggeM22iVZQw_text": "ACCESSORIES"
+      },
+      "type": "gp-section-524159440136438987"
+    },
+    "gp_section_579039654561448753": {
+      "settings": {
+        "checksum": "f92af47451128688b172c1dc718a8feb55475868cca26929d47dc52541498690_1_1_0_0__1",
+        "ggxPbGSSvl3_alt": "Gear up with the elite starter bundle. Shop our bundle.",
+        "ggxPbGSSvl3_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-4f2e6c83-4517-4b60-87dc-4de2632eb90b.jpg?v=1721943854",
+        "ggxPbGSSvl3_background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggxPbGSSvl3_background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggxPbGSSvl3_background_mobile_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-cee2bc2f-3558-4825-8f6e-8511d959218b.jpg?v=1721424113",
+        "ggxPbGSSvl3_background_mobile_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggxPbGSSvl3_background_mobile_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggxPbGSSvl3_background_tablet_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-4f2e6c83-4517-4b60-87dc-4de2632eb90b.jpg?v=1721943854",
+        "ggxPbGSSvl3_background_tablet_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggxPbGSSvl3_background_tablet_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4"
+      },
+      "type": "gp-section-579039654561448753"
+    }
+  },
+  "order": [
+    "gp_section_524004596683637735",
+    "gp_section_524002699969037287",
+    "gp_section_579039654561448753",
+    "gp_section_524002700019368935",
+    "gp_section_524159440136438987",
+    "gp_section_524159314626086023"
+  ]
+}

@@ -1,0 +1,52 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_529070904756405210": {
+      "settings": {
+        "checksum": "2c8f4ef6b283340de0a60afa2ec6e776e2cfac38e99a46e73f23a7168180e604_1_1_0_0__1",
+        "ggxPbGSSvl3_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-59fec3af-fb24-4cf9-b509-f59fca106150.jpg",
+        "ggxPbGSSvl3_background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggxPbGSSvl3_background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggxPbGSSvl3_background_mobile_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-59fec3af-fb24-4cf9-b509-f59fca106150.jpg",
+        "ggxPbGSSvl3_background_mobile_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggxPbGSSvl3_background_mobile_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggxPbGSSvl3_background_tablet_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-4f2e6c83-4517-4b60-87dc-4de2632eb90b.jpg?v=1721943854",
+        "ggxPbGSSvl3_background_tablet_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggxPbGSSvl3_background_tablet_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4"
+      },
+      "type": "gp-section-529070904756405210"
+    },
+    "gp_section_529070904789959642": {
+      "settings": {
+        "checksum": "2ebf5b741444ace5f2a44be81d4071ade2f51640a4973ffb340ac9d6b9736b2d_1_1_0_0__1",
+        "ggkMkwG-BHh_text": "<p>Add any two shirts to the cart and select a free hat</p>",
+        "ggv5YI59i8g_text": "BUy TWO Shirts Get A Free HAT",
+        "section_preload": "true"
+      },
+      "type": "gp-section-529070904789959642"
+    },
+    "gp_section_529070904823514074": {
+      "settings": {
+        "checksum": "08aad6a268c519f849def93233aa667d5fcf21cce46c50b00ca49d210bd49886_1_1_0_0__1",
+        "ggW3fI6tAIJ_errorMessage": "Cannot add product to cart",
+        "ggW3fI6tAIJ_label": "ADD TO CART",
+        "ggW3fI6tAIJ_outOfStockLabel": "Out Of Stock",
+        "ggW3fI6tAIJ_successMessage": "Add product to cart successfully"
+      },
+      "type": "gp-section-529070904823514074"
+    }
+  },
+  "order": [
+    "gp_section_529070904789959642",
+    "gp_section_529070904823514074",
+    "gp_section_529070904756405210"
+  ]
+}
