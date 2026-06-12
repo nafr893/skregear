@@ -50,6 +50,7 @@
         "heading",
         "page-content"
       ],
+      "disabled": true,
       "settings": {
         "content_direction": "column",
         "gap": 32,
@@ -57,9 +58,25 @@
         "padding-block-start": 40,
         "padding-block-end": 80
       }
+    },
+    "custom_liquid_FCLGXK": {
+      "type": "custom-liquid",
+      "custom_css": [
+        ".klaviyo-form-YhGHYW {padding-left: 10rem; padding-right: 10rem;}",
+        "@media (max-width: 768px) {.klaviyo-form-YhGHYW {padding-left: 0; padding-right: 0; }}"
+      ],
+      "name": "t:names.custom_liquid",
+      "settings": {
+        "custom_liquid": "<div class=\"klaviyo-form-YhGHYW\"></div>",
+        "color_scheme": "",
+        "section_width": "page-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "custom_liquid_FCLGXK"
   ]
 }
