@@ -34,7 +34,8 @@
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-inline-end": 0,
+            "visibility": "both"
           },
           "blocks": {}
         },
@@ -48,6 +49,7 @@
         "heading",
         "page-content"
       ],
+      "disabled": true,
       "settings": {
         "content_direction": "column",
         "gap": 32,
@@ -55,9 +57,152 @@
         "padding-block-start": 40,
         "padding-block-end": 80
       }
+    },
+    "hero_gie3JV": {
+      "type": "hero",
+      "blocks": {
+        "text_jXGfNP": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>SKRE EVENT SCHEDULE</h2>",
+            "width": "fit-content",
+            "max_width": "narrow",
+            "alignment": "left",
+            "type_preset": "h1",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "visibility": "both"
+          },
+          "blocks": {}
+        },
+        "text_6FAhpK": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>Book your calendar and come see us at one of the following events listed out below!</strong></p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 10,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "visibility": "both"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_jXGfNP",
+        "text_6FAhpK"
+      ],
+      "name": "t:names.hero",
+      "settings": {
+        "media_type_1": "image",
+        "image_1": "shopify://shop_images/09.08.21_Lone_Rock_w_Phil-1.jpg",
+        "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
+        "link": "",
+        "open_in_new_tab": false,
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "flex-end",
+        "gap": 8,
+        "section_width": "page-width",
+        "section_height": "large",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-5",
+        "toggle_overlay": true,
+        "overlay_color": "#00000050",
+        "overlay_style": "gradient",
+        "gradient_direction": "to top",
+        "blurred_reflection": false,
+        "reflection_opacity": 75,
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
+    },
+    "17812702379116c936": {
+      "type": "_blocks",
+      "blocks": {
+        "the_shop_calendar_the_shop_calendar_n8cX3b": {
+          "type": "shopify://apps/the-shop-calendar/blocks/the_shop_calendar/217451ff-da34-48a6-90b4-e904111bb75a",
+          "settings": {
+            "title": "",
+            "calendar_uuid": "",
+            "center_header_text": false,
+            "list_calendar": true,
+            "accordion_calendar": false,
+            "width": 100,
+            "padding_top": 0,
+            "padding_bottom": 0
+          }
+        }
+      },
+      "block_order": [
+        "the_shop_calendar_the_shop_calendar_n8cX3b"
+      ],
+      "settings": {
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 12,
+        "section_width": "page-width",
+        "section_height": "small",
+        "section_height_custom": 50,
+        "color_scheme": "",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": false,
+        "overlay_color": "#00000026",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "hero_gie3JV",
+    "17812702379116c936"
   ]
 }

@@ -403,7 +403,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h3>SHOP BY SEASON</h3>",
+            "text": "<h3>BEST SELLERS BY SEASON</h3>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
