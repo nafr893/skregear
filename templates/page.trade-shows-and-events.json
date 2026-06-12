@@ -90,7 +90,7 @@
         "text_6FAhpK": {
           "type": "text",
           "settings": {
-            "text": "<p>Book your calendar and come see us at one of the following events listed out below!</p>",
+            "text": "<p><strong>Book your calendar and come see us at one of the following events listed out below!</strong></p>",
             "width": "fit-content",
             "max_width": "none",
             "alignment": "left",
@@ -136,7 +136,7 @@
         "align_baseline": false,
         "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 16,
+        "gap": 8,
         "section_width": "page-width",
         "section_height": "large",
         "section_height_custom": 50,
