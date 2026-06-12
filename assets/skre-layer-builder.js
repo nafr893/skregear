@@ -36,6 +36,12 @@ class SkreLayerBuilder extends HTMLElement {
       cardSide: 'right',
     },
     {
+      selector: '.skre-lb__cap-left',
+      label: 'Base Layer Options',
+      desc: 'This is where you select your base layer options. Use Back and Next to move between layers, and track your progress through the system.',
+      cardSide: 'right',
+    },
+    {
       selector: '.skre-lb__info',
       label: 'Product Info',
       desc: 'Read specs, performance ratings, and product overview. Select your color and size here.',
