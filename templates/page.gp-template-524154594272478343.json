@@ -1,0 +1,65 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_524154594322809991": {
+      "settings": {
+        "checksum": "1e36135635049edcfeee0f891529a25a9cebd7328def638fa32237c51fbd153b_1_1_0_0__1",
+        "ggW3fI6tAIJ_errorMessage": "Cannot add product to cart",
+        "ggW3fI6tAIJ_label": "ADD TO CART",
+        "ggW3fI6tAIJ_outOfStockLabel": "Out Of Stock",
+        "ggW3fI6tAIJ_successMessage": "Add product to cart successfully",
+        "ggW3fI6tAIJ_unavailableLabel": "Unavailable"
+      },
+      "type": "gp-section-524154594322809991"
+    },
+    "gp_section_524154594356364423": {
+      "settings": {
+        "checksum": "e8dec7865f330bf088747a304ed09d405e9a25b5667dcdfe524b90277a5275d0_1_1_0_0__1",
+        "gg2LRvYAXN2_text": "<p>The bundle includes a water-resistant and breathable hunting jacket that features pit-zips for dumping heat and adjustable cuffs to ensure a perfect fit. The jacket also has a plethora of pockets for you to store your hunting gear, and its camo pattern ensures that you stay hidden from your prey.<br>&nbsp;</p><p>Also included in this bundle is a pair of hunting pants that are made from a durable and water-resistant material that will keep you dry and comfortable in all conditions. The pants feature a camo pattern that will help you blend in with your surroundings, and its adjustable waist ensures a comfortable fit.<br>&nbsp;</p><p>To complete this bundle, we've also included a merino wool baselayer to self-regulate body temperature and provide ultra-comfort against the skin. In addition, we have included the grid lite jacket to take the edge off those brisk mornings and cool evenings.</p><p>&nbsp;</p><p>&nbsp;</p>",
+        "gg52aBdf32x_text": "Late FALL Bundle",
+        "ggJdPdhStxK_text": "<p><strong>True Lifetime&nbsp;Warranty:</strong>&nbsp;We stand behind every product we craft, with our industry's best unconditional warranty for quality and workmanship. If for any reason you are unhappy with any&nbsp;SKRE gear, simply return it for a full refund or exchange<strong>.</strong><br>&nbsp;</p><p><strong>VIP Sizing &amp; Exchange</strong>:&nbsp;If you choose the wrong size we will pay for the cost of shipping until you are outfitted with the correct size of each item. All orders come with a pre-paid return shipping label&nbsp;to use.</p><p>&nbsp;</p>",
+        "ggMV5p1YYtS_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-86956b00-fe85-4fac-b8f5-f3888cd70d38.png?v=1721861512",
+        "ggznI23Pq7r_text": "<a href=\"https://skregear.com/products/starter-bundle#acc-unique-0\">SKRE Guarantee</a>"
+      },
+      "type": "gp-section-524154594356364423"
+    },
+    "gp_section_524154594356429959": {
+      "settings": {
+        "checksum": "0e6c99dea7d2eae441b31b63dc61fe5fd8ce7213ed2c093d5e8d108ede8e1757_1_1_0_0__1",
+        "ggkMkwG-BHh_text": "<p>The late fall bundle was designed to layer against the cold days of October and November. Protect yourself against the elements and stay in the field longer for optimal opportunity.</p>",
+        "ggv5YI59i8g_text": "LATE FALL BUNDLE",
+        "ggyd0QmJsBb_text": "BUNDLE Price: 1,102.70",
+        "section_preload": "true"
+      },
+      "type": "gp-section-524154594356429959"
+    },
+    "gp_section_524158337470694535": {
+      "settings": {
+        "checksum": "4fdfcea27340d3ced4b1ca438938a59bc54e6b4db3c6746576503f0702cab311_1_1_0_0__1"
+      },
+      "type": "gp-section-524158337470694535"
+    },
+    "gp_section_524158538293969895": {
+      "settings": {
+        "checksum": "ac728f9d17093b435da6e78c9aeb2289fe2b4a25d579dbfc111a905b576981d5_1_1_0_0__1",
+        "gguroVtI7Yd_text": "Accessories"
+      },
+      "type": "gp-section-524158538293969895"
+    }
+  },
+  "order": [
+    "gp_section_524154594356429959",
+    "gp_section_524154594322809991",
+    "gp_section_524154594356364423",
+    "gp_section_524158538293969895",
+    "gp_section_524158337470694535"
+  ]
+}
