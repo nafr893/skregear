@@ -92,7 +92,7 @@
           "settings": {
             "text": "<p><strong>Book your calendar and come see us at one of the following events listed out below!</strong></p>",
             "width": "fit-content",
-            "max_width": "none",
+            "max_width": "normal",
             "alignment": "left",
             "type_preset": "rte",
             "font": "var(--font-body--family)",
