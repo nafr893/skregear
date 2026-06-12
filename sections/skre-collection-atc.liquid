@@ -1,0 +1,211 @@
+{%- assign atc_collection = section.settings.collection -%}
+
+{%- assign variant_ids = '' -%}
+{%- if atc_collection != blank -%}
+  {%- for product in atc_collection.products -%}
+    {%- if product.first_available_variant -%}
+      {%- assign variant_ids = variant_ids | append: product.first_available_variant.id -%}
+      {%- unless forloop.last -%}{%- assign variant_ids = variant_ids | append: ',' -%}{%- endunless -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+<div class="skre-catc" style="padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px; background: {{ section.settings.background_color }}; color: {{ section.settings.text_color }};">
+  <div class="skre-catc__inner page-width">
+
+    {%- if section.settings.heading != blank -%}
+      <p class="skre-catc__heading">{{ section.settings.heading }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.subtext != blank -%}
+      <p class="skre-catc__subtext">{{ section.settings.subtext }}</p>
+    {%- endif -%}
+
+    <button
+      class="skre-catc__btn button"
+      data-variants="{{ variant_ids }}"
+      data-redirect="{{ section.settings.redirect_to_cart }}"
+      {%- if variant_ids == blank -%} disabled aria-disabled="true"{%- endif -%}
+    >
+      <span class="skre-catc__btn-label">{{ section.settings.button_label | default: 'Add All to Cart' }}</span>
+    </button>
+
+  </div>
+</div>
+
+<style>
+  .skre-catc {
+    text-align: {{ section.settings.alignment }};
+  }
+  .skre-catc__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: {{ section.settings.alignment | replace: 'left', 'flex-start' | replace: 'center', 'center' | replace: 'right', 'flex-end' }};
+    gap: 0.6rem;
+  }
+  .skre-catc__heading {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+  .skre-catc__subtext {
+    margin: 0;
+    font-size: 0.85rem;
+    opacity: 0.65;
+  }
+  .skre-catc__btn {
+    min-width: 200px;
+  }
+  .skre-catc__btn[disabled] {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+</style>
+
+<script>
+  (function () {
+    document.querySelectorAll('.skre-catc__btn').forEach(function (btn) {
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = '1';
+
+      btn.addEventListener('click', async function () {
+        var raw = btn.dataset.variants || '';
+        var ids = raw.split(',').map(function (s) { return s.trim(); }).filter(Boolean);
+        if (!ids.length) return;
+
+        var label = btn.querySelector('.skre-catc__btn-label');
+        var original = label ? label.textContent : '';
+        btn.disabled = true;
+        if (label) label.textContent = 'Adding…';
+
+        var items = ids.map(function (id) { return { id: parseInt(id, 10), quantity: 1 }; });
+
+        try {
+          var res = await fetch('/cart/add.js', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items: items }),
+          });
+
+          if (!res.ok) throw new Error('cart error');
+
+          if (btn.dataset.redirect === 'true') {
+            window.location.href = '/cart';
+          } else {
+            if (label) label.textContent = 'Added to Cart';
+            document.dispatchEvent(new CustomEvent('cart:refresh', { bubbles: true }));
+            setTimeout(function () {
+              if (label) label.textContent = original;
+              btn.disabled = false;
+            }, 2500);
+          }
+        } catch (e) {
+          if (label) label.textContent = 'Something went wrong';
+          setTimeout(function () {
+            if (label) label.textContent = original;
+            btn.disabled = false;
+          }, 2500);
+        }
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Collection Add to Cart",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text",
+      "default": "Add All to Cart"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading (optional)",
+      "default": ""
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext (optional)",
+      "default": ""
+    },
+    {
+      "type": "checkbox",
+      "id": "redirect_to_cart",
+      "label": "Go to cart after adding",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#111111"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Add to Cart"
+    }
+  ],
+  "templates": [
+    "index",
+    "collection",
+    "list-collections",
+    "product",
+    "page",
+    "blog",
+    "article",
+    "cart",
+    "search",
+    "404"
+  ]
+}
+{% endschema %}
