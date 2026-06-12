@@ -1957,7 +1957,7 @@ body:has(.skre-lb) main {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    height: var(--skre-lb-bar-h);
+    height: auto;
     padding: 0;
     gap: 1.1rem;
     background: transparent;
@@ -1967,18 +1967,18 @@ body:has(.skre-lb) main {
     box-sizing: border-box;
   }
 
-  /* Left pill: layer label + Back/Next in one row */
+  /* Left pill: label stacked above nav — taller rectangle */
   .skre-lb__cap-left {
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    gap: 1.3rem;
+    gap: 0.2rem;
     flex-shrink: 0;
     background: rgba(0, 0, 0, 0.52);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 3px;
-    padding: 0 0.9rem;
-    height: 100%;
+    padding: 0.55rem 1.1rem;
+    height: auto;
     box-sizing: border-box;
   }
   .skre-lb__layer-label {
@@ -2004,14 +2004,14 @@ body:has(.skre-lb) main {
   /* Divider no longer needed — cap-left is its own pill */
   .skre-lb__cap-div { display: none !important; }
 
-  /* Right zone: filmstrip floats over the image, no background */
-  /* Right zone: hard-clipped to exactly 5-thumb-width */
+  /* Right zone: filmstrip, aligned to center of the taller left pill */
   .skre-lb__cap-right {
     display: block;
     width: 260px;
     max-width: 260px;
     flex: none;
-    height: 100%;
+    align-self: center;
+    height: auto;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.52);
     backdrop-filter: blur(12px);
@@ -2022,7 +2022,7 @@ body:has(.skre-lb) main {
     position: relative;
     width: 260px;
     max-width: 260px;
-    height: 100%;
+    height: 42px;
     overflow: hidden;
   }
   /* Fade edges for the "hint" effect */
@@ -2102,7 +2102,7 @@ body:has(.skre-lb) main {
     position: absolute;
     inset: 0;
     /* Stop above the footer strip so arrows don't bleed into the caption row */
-    bottom: calc(var(--skre-lb-bar-h) + 0.9rem);
+    bottom: 4.5rem;
     align-items: center;
     justify-content: space-between;
     pointer-events: none;
