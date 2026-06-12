@@ -1,0 +1,66 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_526030605167625461": {
+      "settings": {
+        "checksum": "95e97e96e4c09c416857b46a170f0791d0ea7df6cad97547e3b3b1615dbda236_1_1_0_0__1"
+      },
+      "type": "gp-section-526030605167625461"
+    },
+    "gp_section_526030605201179893": {
+      "settings": {
+        "checksum": "caf869888bf4c3d40c7a163b338d579a1fe4aeaa592711966c020042a31a7d86_1_1_0_0__1",
+        "gg3l7zV8BiD_errorMessage": "Cannot add product to cart",
+        "gg3l7zV8BiD_label": "Add To cart",
+        "gg3l7zV8BiD_outOfStockLabel": "Out Of Stock",
+        "gg3l7zV8BiD_successMessage": "Add product to cart successfully",
+        "ggG9D0Tp3Ed_label": "View All",
+        "ggJiL117scM_text": "Hunt club members save an additional 10%",
+        "ggKKbvo_fzn_text": "KICK OFF THE SEASON SALE",
+        "ggNAzwULofE_dayLabel": "Days",
+        "ggNAzwULofE_hourLabel": "Hours",
+        "ggNAzwULofE_minuteLabel": "Minutes",
+        "ggNAzwULofE_secondLabel": "Seconds",
+        "ggNAzwULofE_weekLabel": "Weeks",
+        "ggQUsro4lgF_text": "<p>Hunt Club Members Save Additional 10%</p>",
+        "ggW3fI6tAIJ_errorMessage": "Cannot add product to cart",
+        "ggW3fI6tAIJ_label": "ADD TO CART",
+        "ggW3fI6tAIJ_outOfStockLabel": "Out Of Stock",
+        "ggW3fI6tAIJ_successMessage": "Add product to cart successfully",
+        "ggWQQicUtjl_childItem_0": "<p>Save 40%</p>",
+        "ggWQQicUtjl_childItem_1": "<p>Save 30%</p>",
+        "ggWQQicUtjl_childItem_2": "<p>Save 25%</p>",
+        "ggWQQicUtjl_childItem_3": "<p>Save 20%</p>",
+        "gglKgydYsih_errorMessage": "Cannot add product to cart",
+        "gglKgydYsih_label": "ADD TO CART",
+        "gglKgydYsih_outOfStockLabel": "Out Of Stock",
+        "gglKgydYsih_successMessage": "Add product to cart successfully",
+        "ggpbrJB-ai0_errorMessage": "Cannot add product to cart",
+        "ggpbrJB-ai0_label": "ADD TO CART",
+        "ggpbrJB-ai0_outOfStockLabel": "Out Of Stock",
+        "ggpbrJB-ai0_successMessage": "Add product to cart successfully",
+        "ggqbIKdOxv7_errorMessage": "Cannot add product to cart",
+        "ggqbIKdOxv7_label": "Add To cart",
+        "ggqbIKdOxv7_outOfStockLabel": "Out Of Stock",
+        "ggqbIKdOxv7_successMessage": "Add product to cart successfully",
+        "ggrp3FnMXye_text": "<p>Hunt Club Members Save Additional 10%</p>",
+        "ggsfWbu2SPj_text": "<p>Hunt Club Members Save Additional 10%</p>",
+        "ggxeknWRj_E_text": "<p>Hunt Club Members Save Additional 10%</p>",
+        "section_preload": "true"
+      },
+      "type": "gp-section-526030605201179893"
+    }
+  },
+  "order": [
+    "gp_section_526030605201179893",
+    "gp_section_526030605167625461"
+  ]
+}
