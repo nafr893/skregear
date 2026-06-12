@@ -1,0 +1,120 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_547594279002834064": {
+      "settings": {
+        "checksum": "d0624d5bd234bff22a37acc4dcae0acfc4c95c469d9ba5453feba02d42d4491b_1_1_0_0__1",
+        "gg8_fm6wOt9_text": "Pants &amp; Bottoms"
+      },
+      "type": "gp-section-547594279002834064"
+    },
+    "gp_section_547594279002899600": {
+      "settings": {
+        "checksum": "292415b69b8a09cc3157bb3426338a598431d266d134de275ac3da3b99652aa7_1_1_0_0__1",
+        "ggHqSEpr696_text": "SIZE CHART",
+        "ggMXtaN4y_y_text": "<p><strong>How to Measure:</strong></p><p><strong>Head</strong>:&nbsp;Measure the circumference of head just above the top of ears, and 1 inch above eyebrows.</p><p><strong>Sleeve:</strong>&nbsp;With your arm bent at the elbow and hand on your hip measure from the back of the neck to the elbow and finish at the wrist.</p><p><strong>Chest:</strong>&nbsp;Measure under arms around the fullest part of the chest. Be sure to keep tape level across back and comfortably loose.</p><p><strong>Waist:</strong>&nbsp;Measure around natural waist with a loose tape.</p><p><strong>Hip &amp; Seat:</strong>&nbsp;Place the measuring tape around the body at the fullest part of the lower hip, feet together.</p><p><strong>Inseam:&nbsp;</strong>Without shoes; measure on inside of the leg from groin to the floor.</p>",
+        "section_preload": "true"
+      },
+      "type": "gp-section-547594279002899600"
+    },
+    "gp_section_547594279002965136": {
+      "settings": {
+        "checksum": "04186f4800c2b3016937019542b87b9bd922b5650f975dee8ff22528dfb9f637_1_1_0_0__1",
+        "gg07wLmR5fs_text": "<p>37 - 37.5</p>",
+        "ggDEKpm1Sss_text": "<p>31 - 33</p>",
+        "ggEaaekBuaQ_text": "<p>2XL</p>",
+        "ggF0yCq6-hk_text": "<p>3XL</p>",
+        "ggGcih-QPBq_text": "ARM LENGTH",
+        "ggJ7fXXYyjg_text": "<p>34 - 34.5</p>",
+        "ggLjxM4hCfd_text": "<p>X-Large</p>",
+        "ggLvSUCRtxp_text": "<p>37.5 - 38</p>",
+        "ggO4KTUjTwQ_text": "<p>Large</p>",
+        "ggOjHTVXqSI_text": "<p>Small</p>",
+        "ggOnVWYCTXv_text": "<p>47 - 49&nbsp;</p>",
+        "ggQAp3b6Kme_text": "<p>33 - 33.5</p>",
+        "ggQ_2KhZ50i_text": "SIZE",
+        "ggR3QC5c1dQ_text": "<p>35 - 37</p>",
+        "ggSmqu0uW5m_text": "<p>36.5 - 37</p>",
+        "ggXovVJTEnH_text": "<p>43 - 45</p>",
+        "gg_0WBViuy5_text": "<p>39 - 41</p>",
+        "gg__QQtYkEl_text": "CHEST",
+        "ggbWxDdu2JE_text": "<p>34 - 36</p>",
+        "ggc8eqlr4Db_text": "WAIST",
+        "ggeO94Q5PT2_text": "<p>36 - 36.5</p>",
+        "gggb7hopwdH_text": "<p>27 - 29</p>",
+        "ggh9CuvrNmp_text": "<p>56 - 58</p>",
+        "ggn3rZiy-u5_text": "<p>51 - 53</p>",
+        "ggnTvEE-kPH_text": "<p>49 - 52</p>",
+        "ggo784gfItH_text": "<p>42 - 44</p>",
+        "ggpmLn0W6VB_text": "<p>46 - 48</p>",
+        "ggpycARaf-Y_text": "<p>38 - 40</p>",
+        "ggsyy6uxLca_text": "<p>Medium</p>",
+        "gguFZEbuxom_text": "<p>4XL</p>",
+        "gguaoH-ZR92_text": "<p>53 - 55</p>",
+        "ggurX-jsFmU_text": "<p>35 - 35.5</p>"
+      },
+      "type": "gp-section-547594279002965136"
+    },
+    "gp_section_547594279003030672": {
+      "settings": {
+        "checksum": "fbd417ced3acbb2aaca61128deabed68fe32177816bfa0fbfcc459c7c10fe4c9_1_1_0_0__1",
+        "gg5-bGRUeA6_text": "<p>36</p>",
+        "gg9F0-HJeB8_text": "WAIST",
+        "gg9Kbovi-LH_text": "<p>34</p>",
+        "ggAfVwk4JPu_text": "<p>33 - 34</p>",
+        "ggCaOLtvQHN_text": "<p>36</p>",
+        "ggE2HXfoVqd_text": "<p>30</p>",
+        "ggEDoXT35qD_text": "INSEAM",
+        "ggHylZoKmVI_text": "<p>33 - 34</p>",
+        "ggJ-AviKMk5_text": "<p>36</p>",
+        "ggM9NFj7b6D_text": "<p>34</p>",
+        "ggNuZP4XsqT_text": "<p>35 - 36</p>",
+        "ggPDdCy-dn8_text": "<p>41 - 42</p>",
+        "ggQ8H8VmPLF_text": "<p>34</p>",
+        "ggTdpWZ2PO3_text": "<p>35 - 36</p>",
+        "ggTwSRO11aK_text": "<p>34</p>",
+        "ggU23ndQuFn_text": "<p>36</p>",
+        "ggUOONdDP5C_text": "<p>34T</p>",
+        "ggUOU4roxtN_text": "<p>37 - 38</p>",
+        "ggV70irECqf_text": "<p>42</p>",
+        "ggVm7QqtUDY_text": "<p>34</p>",
+        "ggWpYq1P4y4_text": "SIZE",
+        "ggYcPhxedL-_text": "<p>28 - 30</p>",
+        "gge7RUhmZLL_text": "<p>34</p>",
+        "gghQO7DEX1z_text": "<p>31 - 32</p>",
+        "gglmKf_otR4_text": "<p>38</p>",
+        "ggnIdoK7DdK_text": "<p>40</p>",
+        "ggnucQkfAhb_text": "<p>36T</p>",
+        "ggv0YEGpJkm_text": "<p>38T</p>",
+        "ggvWeN2MXT6_text": "<p>34</p>",
+        "ggxY2fJJ1_W_text": "<p>34</p>",
+        "ggyl0rKw9Io_text": "<p>39 - 40</p>",
+        "ggzDb1hKe_Z_text": "<p>32</p>",
+        "ggzWjvymj2h_text": "<p>37 - 38</p>"
+      },
+      "type": "gp-section-547594279003030672"
+    },
+    "gp_section_547594279003096208": {
+      "settings": {
+        "checksum": "e0d7c96963aee4a25cbb9e5f67f3bdeae136f84670f3067a5b9d294327f2cd32_1_1_0_0__1",
+        "ggFaUeXfbrK_text": "Jacket, Vest &amp; Tops"
+      },
+      "type": "gp-section-547594279003096208"
+    }
+  },
+  "order": [
+    "gp_section_547594279002899600",
+    "gp_section_547594279003096208",
+    "gp_section_547594279002965136",
+    "gp_section_547594279002834064",
+    "gp_section_547594279003030672"
+  ]
+}
