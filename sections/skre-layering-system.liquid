@@ -1928,13 +1928,28 @@ body:has(.skre-lb) main {
   .skre-lb__rail-skip:hover { color: #333; }
 
   /* ── CENTER MEDIA ──────────────────────────────────────────────────────── */
-  .skre-lb__media { grid-column: 2; min-height: 0; }
+  .skre-lb__media { grid-column: 2; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
 
-  /* Media footer: float up, stretch edge-to-edge with small inset */
+  /* Hero: square aspect-ratio block, not absolute-filling the whole column */
+  .skre-lb__hero-wrap {
+    position: relative;
+    inset: auto;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    flex: 0 1 auto;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* Footer: sits below the square image as a normal flow element */
   .skre-lb__media-footer {
-    left: 1.25rem;
-    right: 1.25rem;
-    bottom: 1.25rem;
+    position: static;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    flex-shrink: 0;
+    background: #111;
+    padding: 0.45rem 1rem;
   }
   /* Caption outer: transparent on desktop — only cap-left has the dark pill */
   .skre-lb__media-caption {
@@ -2086,6 +2101,8 @@ body:has(.skre-lb) main {
     display: flex;
     position: absolute;
     inset: 0;
+    /* Stop above the footer strip so arrows don't bleed into the caption row */
+    bottom: calc(var(--skre-lb-bar-h) + 0.9rem);
     align-items: center;
     justify-content: space-between;
     pointer-events: none;
