@@ -392,7 +392,7 @@ class SkreLayerBuilder extends HTMLElement {
     const pi = this.#productIndexes[i] ?? 0;
 
     const labelEl = this.querySelector('.skre-lb__layer-label');
-    if (labelEl) labelEl.textContent = `${slot.label} Options`;
+    if (labelEl) labelEl.textContent = `More ${slot.label} Options`;
 
     if (slot.products.length > 0) {
       this.#renderProduct(slot.products[Math.min(pi, slot.products.length - 1)], pi, slot.products.length);
