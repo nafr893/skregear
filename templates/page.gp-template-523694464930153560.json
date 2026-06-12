@@ -1,0 +1,60 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_523694464997262424": {
+      "settings": {
+        "checksum": "25af3220e0a00d30878f4e832f07c082ad33ca255130f83eccd6ecf88d7fa23b_1_1_0_0__1",
+        "ggG9D0Tp3Ed_label": "View All",
+        "ggW3fI6tAIJ_errorMessage": "Cannot add product to cart",
+        "ggW3fI6tAIJ_label": "ADD TO CART",
+        "ggW3fI6tAIJ_outOfStockLabel": "Out Of Stock",
+        "ggW3fI6tAIJ_successMessage": "Add product to cart successfully",
+        "ggW3fI6tAIJ_unavailableLabel": "Unavailable",
+        "ggWQQicUtjl_childItem_0": "<p>Early Season&nbsp;</p>",
+        "ggWQQicUtjl_childItem_1": "<p>Mid Season</p>",
+        "ggWQQicUtjl_childItem_2": "<p>Late Season</p>",
+        "gglKgydYsih_errorMessage": "Cannot add product to cart",
+        "gglKgydYsih_label": "ADD TO CART",
+        "gglKgydYsih_outOfStockLabel": "Out Of Stock",
+        "gglKgydYsih_successMessage": "Add product to cart successfully",
+        "gglKgydYsih_unavailableLabel": "Unavailable",
+        "ggpbrJB-ai0_errorMessage": "Cannot add product to cart",
+        "ggpbrJB-ai0_label": "ADD TO CART",
+        "ggpbrJB-ai0_outOfStockLabel": "Out Of Stock",
+        "ggpbrJB-ai0_successMessage": "Add product to cart successfully",
+        "ggpbrJB-ai0_unavailableLabel": "Unavailable"
+      },
+      "type": "gp-section-523694464997262424"
+    },
+    "gp_section_523694465030816856": {
+      "settings": {
+        "checksum": "4bfb42e23f37bf5efb0777098c1f4f282df5d3ba923c1f3aca5abb5bd49ce60e_1_1_0_0__1"
+      },
+      "type": "gp-section-523694465030816856"
+    },
+    "gp_section_534146990624212064": {
+      "settings": {
+        "checksum": "8adc6df6beb1c0dd773c9b8035b464ff2610de6cf3bb8797456c61069b0064e9_1_1_0_0__1",
+        "ggKKbvo_fzn_text": "Gear For Mule Deer Hunters",
+        "ggdHvj4uoVF_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-83c77980-5e03-44bc-a9d3-d8ea2a43dbc4.jpg",
+        "ggdHvj4uoVF_background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggdHvj4uoVF_background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "section_preload": "true"
+      },
+      "type": "gp-section-534146990624212064"
+    }
+  },
+  "order": [
+    "gp_section_534146990624212064",
+    "gp_section_523694464997262424",
+    "gp_section_523694465030816856"
+  ]
+}

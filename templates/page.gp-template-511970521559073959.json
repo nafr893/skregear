@@ -1,0 +1,140 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_511970521642960039": {
+      "settings": {
+        "checksum": "635dd17040c532b2ebffb059b06186a2a11a17f1e5472d999b9b855d6dc43907_1_1_0_0__1",
+        "ggKCW6Z4ruH_text": "Select Accessories:",
+        "ggQFVTfLJJq_errorMessage": "Cannot add product to cart",
+        "ggQFVTfLJJq_label": "Add to cart",
+        "ggQFVTfLJJq_outOfStockLabel": "Out of stock",
+        "ggQFVTfLJJq_successMessage": "Add product to cart successfully"
+      },
+      "type": "gp-section-511970521642960039"
+    },
+    "gp_section_511970521693291687": {
+      "settings": {
+        "checksum": "0a1b678780f39eca9986abac2f3cfd22a8c43e598a3517d2218844c1a9f65159_1_1_0_0__1",
+        "gg18CLZa79y_text": "Chiliwack 4882 &nbsp;Pack",
+        "gg9iPcCXGvU_html5Url": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "gg9iPcCXGvU_vimeoUrl": "https://vimeo.com/944131085?share=copy",
+        "gg9iPcCXGvU_youtubeUrl": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggEZl4kJCXl_text": "Watch the Videos",
+        "ggMhI6Qm8Ri_text": "Narn Bino Harness",
+        "ggbXbvBRcvG_text": "Timberline 2400 Pack",
+        "ggj-astYqHm_html5Url": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggj-astYqHm_vimeoUrl": "https://vimeo.com/944131057?share=copy",
+        "ggj-astYqHm_youtubeUrl": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggmErzpY3wR_text": "Pioneer 1860 Pack",
+        "ggthYBtUumB_html5Url": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggthYBtUumB_vimeoUrl": "https://vimeo.com/944131010?share=copy",
+        "ggthYBtUumB_youtubeUrl": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggyRgpXH_5z_html5Url": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggyRgpXH_5z_vimeoUrl": "https://vimeo.com/944130951?share=copy",
+        "ggyRgpXH_5z_youtubeUrl": "https://www.youtube.com/watch?v=cyzh48XRS4M"
+      },
+      "type": "gp-section-511970521693291687"
+    },
+    "gp_section_511970521710134439": {
+      "settings": {
+        "checksum": "aabbe6e28d2b689543f69c3bc5e5f9e754b6ad1ba755aefeb8344c01020d2857_1_1_0_0__1",
+        "gg5tP2ITujt_alt": "Alt Image",
+        "gg5tP2ITujt_srcSet_desktop_src": "https://ucarecdn.com/ee6d5074-1640-4cc7-8933-47c8589c3dee/-/format/auto/",
+        "gg5tP2ITujt_title": "Image Title",
+        "ggMSn5F8OgH_text": "<p>All Packs, Bino Harness and Accessories will be filled in the order they are purchased. Products will be in stock and out for delivery in July 2024.</p>",
+        "gguHrqcCABo_dayLabel": "Days",
+        "gguHrqcCABo_hourLabel": "Hours",
+        "gguHrqcCABo_minuteLabel": "Mins",
+        "gguHrqcCABo_secondLabel": "Secs",
+        "gguHrqcCABo_weekLabel": "Weeks",
+        "ggyqwAATipi_text": "This Offer will End Soon"
+      },
+      "type": "gp-section-511970521710134439"
+    },
+    "gp_section_511970521726911655": {
+      "settings": {
+        "checksum": "20dad9cb13f737da013ed3dba81997450d3db70b940652522833ae5ff1913da7_1_1_0_0__1",
+        "gg3dmSfmP78_label": "Learn More",
+        "ggG-KGRS16-_text": "Select Packs:",
+        "ggJR2RAdWEW_text": "Quantity",
+        "ggJeIsSpyeC_errorMessage": "Cannot add product to cart",
+        "ggJeIsSpyeC_label": "Add to cart",
+        "ggJeIsSpyeC_outOfStockLabel": "Out of stock",
+        "ggJeIsSpyeC_successMessage": "Add product to cart successfully",
+        "ggMrXgqpCXK_viewLessText": "Show less",
+        "ggMrXgqpCXK_viewMoreText": "Show more",
+        "ggQUgUPzDne_errorMessage": "Cannot add product to cart",
+        "ggQUgUPzDne_label": "Add to cart",
+        "ggQUgUPzDne_outOfStockLabel": "Out of stock",
+        "ggQUgUPzDne_successMessage": "Add product to cart successfully",
+        "ggYApltR4YB_text": "Quantity",
+        "ggYfKBKdDK9_label": "Learn More",
+        "gganDMpiU3A_label": "Learn More",
+        "ggjEe-OeaH2_viewLessText": "Show less",
+        "ggjEe-OeaH2_viewMoreText": "Show more",
+        "ggjqoR_8SMH_viewLessText": "Show less",
+        "ggjqoR_8SMH_viewMoreText": "Show more",
+        "ggk2DKb6PVV_label": "Learn More",
+        "ggoLlXihNuU_errorMessage": "Cannot add product to cart",
+        "ggoLlXihNuU_label": "Add to cart",
+        "ggoLlXihNuU_outOfStockLabel": "Out of stock",
+        "ggoLlXihNuU_successMessage": "Add product to cart successfully",
+        "ggqx618ZStk_text": "Quantity",
+        "ggr9XW4IX_u_viewLessText": "Show less",
+        "ggr9XW4IX_u_viewMoreText": "Show more",
+        "ggrQamNhnx4_errorMessage": "Cannot add product to cart",
+        "ggrQamNhnx4_label": "Add to cart",
+        "ggrQamNhnx4_outOfStockLabel": "Out of stock",
+        "ggrQamNhnx4_successMessage": "Add product to cart successfully",
+        "ggsN63L06Rg_text": "Quantity"
+      },
+      "type": "gp-section-511970521726911655"
+    },
+    "gp_section_511970521861129383": {
+      "settings": {
+        "checksum": "3764d76488cf1d35351eafe2d259295567ee5e5467103993884f5c6d02bb9031_1_1_0_0__1",
+        "gg9bRY0guI7_text": "Get a $500 Gift Card",
+        "ggRwZnOQzc2_text": "<p>Once you have added $600 worth of the Pack Sytem Gear a $500 Gift Card will be added to your cart.</p>"
+      },
+      "type": "gp-section-511970521861129383"
+    },
+    "gp_section_511970521911395495": {
+      "settings": {
+        "checksum": "3fc231b528ad13e25b25c94f9f059ba8b1ba1a221205272bffa6456b66bbeece_1_1_0_0__1",
+        "section_preload": "true"
+      },
+      "type": "gp-section-511970521911395495"
+    },
+    "gp_section_512838083142484977": {
+      "settings": {
+        "checksum": "21856251819def20b26561f191b18b1602b220bf6d3e49c1c1a2fd4fbdb8474b_1_1_0_0__1",
+        "ggKIgcYUPO2_text": "Build your Own Bundle",
+        "ggO6cZyxRcF_text": "Skre Gear Pack System",
+        "ggON3uM9PqD_text": "<p>Select your packs or bino harness below. Next, add any accessories that you will use while hunting. Finally, if you spend over $600 we will automatically include a $500 Gift Card that you can use on your next purchase.</p>",
+        "gggv8-a9Jks_html5Url": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "gggv8-a9Jks_poster_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-9c1f00f5-3b2e-42db-9182-ee3ec5bc0cf3.png?v=1715199890",
+        "gggv8-a9Jks_vimeoUrl": "https://vimeo.com/944213098",
+        "gggv8-a9Jks_youtubeUrl": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggrGybcQIYX_text": "Spend $600 on a Pack System<br>Get a $500 Skre Gift Card&nbsp;"
+      },
+      "type": "gp-section-512838083142484977"
+    }
+  },
+  "order": [
+    "gp_section_511970521911395495",
+    "gp_section_512838083142484977",
+    "gp_section_511970521726911655",
+    "gp_section_511970521642960039",
+    "gp_section_511970521710134439",
+    "gp_section_511970521693291687",
+    "gp_section_511970521861129383"
+  ]
+}
