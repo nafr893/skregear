@@ -1928,26 +1928,13 @@ body:has(.skre-lb) main {
   .skre-lb__rail-skip:hover { color: #333; }
 
   /* ── CENTER MEDIA ──────────────────────────────────────────────────────── */
-  .skre-lb__media { grid-column: 2; min-height: 0; display: flex; flex-direction: column; overflow: hidden; }
+  .skre-lb__media { grid-column: 2; min-height: 0; }
 
-  /* Hero: square aspect-ratio block, not absolute-filling the whole column */
-  .skre-lb__hero-wrap {
-    position: relative;
-    inset: auto;
-    aspect-ratio: 1 / 1;
-    width: 100%;
-    flex: 0 1 auto;
-    min-height: 0;
-    overflow: hidden;
-  }
-
-  /* Footer: sits below the square image as a normal flow element */
+  /* Footer: overlays the bottom of the full-bleed image */
   .skre-lb__media-footer {
-    position: static;
-    left: auto;
-    right: auto;
-    bottom: auto;
-    flex-shrink: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     background: #3F3F37;
     padding: 1.5rem 1rem;
   }
