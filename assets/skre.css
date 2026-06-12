@@ -213,6 +213,12 @@ h5, h6, p {
   text-align: left;
 }
 
+@media screen and (max-width: 749px) {
+  .cart-empty__promo {
+    padding: 0.4rem 0.6rem;
+  }
+}
+
 .cart-empty__promo-img-wrap {
   width: 100%;
   aspect-ratio: 16 / 9;
