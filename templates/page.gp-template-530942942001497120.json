@@ -1,0 +1,48 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_530942942102160416": {
+      "settings": {
+        "checksum": "9366c313090073b99d0ea658052b86504361e6ca9d0b611485c8f099f34014e2_1_1_0_0__1"
+      },
+      "type": "gp-section-530942942102160416"
+    },
+    "gp_section_530942942135714848": {
+      "settings": {
+        "checksum": "39e607cb969969d281b4ebd6cda518834de9b26c464f0278dbf97bf83a8cfdc9_1_1_0_0__1",
+        "ggG9D0Tp3Ed_label": "View All",
+        "ggJibWgvAQS_text": "<p>Recommended Gear for Whitetail Hunting&nbsp;</p>",
+        "ggKKbvo_fzn_text": "Gear For Whitetail Deer Hunters",
+        "ggW3fI6tAIJ_errorMessage": "Cannot add product to cart",
+        "ggW3fI6tAIJ_label": "ADD TO CART",
+        "ggW3fI6tAIJ_outOfStockLabel": "Out Of Stock",
+        "ggW3fI6tAIJ_successMessage": "Add product to cart successfully",
+        "ggWQQicUtjl_childItem_0": "<p>Early Season&nbsp;</p>",
+        "ggWQQicUtjl_childItem_1": "<p>Mid Season</p>",
+        "ggWQQicUtjl_childItem_2": "<p>Late Season</p>",
+        "gglKgydYsih_errorMessage": "Cannot add product to cart",
+        "gglKgydYsih_label": "ADD TO CART",
+        "gglKgydYsih_outOfStockLabel": "Out Of Stock",
+        "gglKgydYsih_successMessage": "Add product to cart successfully",
+        "ggpbrJB-ai0_errorMessage": "Cannot add product to cart",
+        "ggpbrJB-ai0_label": "ADD TO CART",
+        "ggpbrJB-ai0_outOfStockLabel": "Out Of Stock",
+        "ggpbrJB-ai0_successMessage": "Add product to cart successfully",
+        "section_preload": "true"
+      },
+      "type": "gp-section-530942942135714848"
+    }
+  },
+  "order": [
+    "gp_section_530942942135714848",
+    "gp_section_530942942102160416"
+  ]
+}
