@@ -202,6 +202,7 @@
               "type": "review",
               "name": "t:names.product_review_stars",
               "settings": {
+                "anchor_link": "",
                 "stars_style": "shaded",
                 "show_number": true,
                 "rating_color": "primary",
@@ -260,8 +261,8 @@
         "color_scheme": "scheme-1",
         "padding-block-start": 0,
         "padding-block-end": 32,
-        "promo_1_label": "",
-        "promo_1_heading": "",
+        "promo_1_label": "FOUNDATION TO EVERY GOOD LAYERING SYSTEM.",
+        "promo_1_heading": "ELITE STARTER BUNDLE",
         "promo_1_btn_label": "",
         "promo_1_btn_link": "",
         "promo_2_label": "",
