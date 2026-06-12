@@ -1,0 +1,67 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_524287894236431335": {
+      "settings": {
+        "checksum": "9a72182f04d1fe0ae496f743dc9c2757c8f7f7f5d404e587fbf2d36c36833c68_1_1_0_0__1",
+        "ggW3fI6tAIJ_errorMessage": "Cannot add product to cart",
+        "ggW3fI6tAIJ_label": "ADD TO CART",
+        "ggW3fI6tAIJ_outOfStockLabel": "Out Of Stock",
+        "ggW3fI6tAIJ_successMessage": "Add product to cart successfully",
+        "ggW3fI6tAIJ_unavailableLabel": "Unavailable"
+      },
+      "type": "gp-section-524287894236431335"
+    },
+    "gp_section_524287894269985767": {
+      "settings": {
+        "checksum": "56502eb431160757994eb70e4d966b4d49fee97f74e49677fa365d355dff2600_1_1_0_0__1",
+        "gg2LRvYAXN2_text": "<p><span style=\"background-color:rgb(255,255,255);color:rgb(72,72,72);font-size:15px;\">As the name implies, the Alaska Big Game Bundle has you covered from warm days to the frigid cold. When layered correctly with Skre Gear you will stay in the field longer with greater success.</span></p><p>&nbsp;</p><p>&nbsp;</p>",
+        "gg52aBdf32x_text": "AlAska Big Game BUNDLE",
+        "ggJdPdhStxK_text": "<p><strong>True Lifetime&nbsp;Warranty:</strong>&nbsp;We stand behind every product we craft, with our industry's best unconditional warranty for quality and workmanship. If for any reason you are unhappy with any&nbsp;SKRE gear, simply return it for a full refund or exchange<strong>.</strong><br>&nbsp;</p><p><strong>VIP Sizing &amp; Exchange</strong>:&nbsp;If you choose the wrong size we will pay for the cost of shipping until you are outfitted with the correct size of each item. All orders come with a pre-paid return shipping label&nbsp;to use.</p><p>&nbsp;</p>",
+        "ggMV5p1YYtS_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-86956b00-fe85-4fac-b8f5-f3888cd70d38.png?v=1721861512",
+        "ggznI23Pq7r_text": "<a href=\"https://skregear.com/products/starter-bundle#acc-unique-0\">SKRE Guarantee</a>"
+      },
+      "type": "gp-section-524287894269985767"
+    },
+    "gp_section_524287894286762983": {
+      "settings": {
+        "checksum": "0302ab42bba9aa30e6d79cee71804e86758ee0dd8fd97da8e8347edace2e7100_1_1_0_0__1"
+      },
+      "type": "gp-section-524287894286762983"
+    },
+    "gp_section_524287894303540199": {
+      "settings": {
+        "checksum": "57cf44063f0bc1c94520db15df885771a6f762a19da02b6ff4c82bd5afe57259_1_1_0_0__1",
+        "ggsgS_4pAag_text": "Accessories for All Bundles"
+      },
+      "type": "gp-section-524287894303540199"
+    },
+    "gp_section_534145214034477834": {
+      "settings": {
+        "checksum": "fd5ca66ebcd11ac5f9f5f1e1d11a4f1672779d7555a8a04979932873ef452f06_1_1_0_0__1",
+        "ggga9nNVnuo_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-d2e71b69-ca88-4a77-a98b-3fbd71a40ed6.jpg",
+        "ggga9nNVnuo_background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggga9nNVnuo_background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggkMkwG-BHh_text": "<p>Gear Designed for Alaska Big Game Hunts</p>",
+        "ggv5YI59i8g_text": "Gear For All ALaskan hunts",
+        "section_preload": "true"
+      },
+      "type": "gp-section-534145214034477834"
+    }
+  },
+  "order": [
+    "gp_section_534145214034477834",
+    "gp_section_524287894236431335",
+    "gp_section_524287894269985767",
+    "gp_section_524287894303540199",
+    "gp_section_524287894286762983"
+  ]
+}
