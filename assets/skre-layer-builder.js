@@ -1017,11 +1017,9 @@ class SkreLayerBuilder extends HTMLElement {
       if (!textEl) return;
       if (filledLayers >= 3) {
         el.classList.add('skre-lb__promo--unlocked');
-        if (iconEl) iconEl.textContent = '✓';
         textEl.textContent = '10% discount unlocked — applied at checkout';
       } else {
         el.classList.remove('skre-lb__promo--unlocked');
-        if (iconEl) iconEl.textContent = '🏷';
         const needed = 3 - filledLayers;
         textEl.textContent = needed === 1
           ? 'Add 1 more item to save 10%'
