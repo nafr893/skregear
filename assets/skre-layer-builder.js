@@ -710,45 +710,13 @@ class SkreLayerBuilder extends HTMLElement {
     this.#renderHeroImage();
   }
 
-  #applyObjectFit(hero) {
-    if (!hero || !hero.naturalWidth) return;
-    try {
-      const size = 12;
-      const canvas = document.createElement('canvas');
-      canvas.width = size;
-      canvas.height = size;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(hero, 0, 0, size, size);
-      // Sample the 4 corners of the thumbnail
-      const corners = [[0,0],[size-1,0],[0,size-1],[size-1,size-1]];
-      const threshold = 230;
-      const isWhite = corners.every(([x,y]) => {
-        const d = ctx.getImageData(x, y, 1, 1).data;
-        return d[0] > threshold && d[1] > threshold && d[2] > threshold;
-      });
-      hero.style.objectFit = isWhite ? 'contain' : 'cover';
-    } catch (e) {
-      hero.style.objectFit = 'contain';
-    }
-  }
-
   #renderHeroImage() {
     const hero = this.querySelector('.skre-lb__hero');
     const fill = this.querySelector('.skre-lb__img-fill');
     const track = this.querySelector('.skre-lb__img-track');
     const urls = this.#imgUrls;
 
-    if (hero) {
-      const nextSrc = urls[this.#imgIndex] ?? '';
-      if (hero.src !== nextSrc) {
-        hero.crossOrigin = 'anonymous';
-        hero.style.objectFit = 'contain';
-        hero.addEventListener('load', () => this.#applyObjectFit(hero), { once: true });
-        hero.src = nextSrc;
-      } else {
-        this.#applyObjectFit(hero);
-      }
-    }
+    if (hero) hero.src = urls[this.#imgIndex] ?? '';
 
     const total = urls.length;
     const pct = total > 1 ? ((this.#imgIndex + 1) / total) * 100 : 100;

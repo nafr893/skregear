@@ -9,17 +9,127 @@
  */
 {
   "sections": {
-    "bundle_heading": {
+    "hero_yMhnAg": {
+      "type": "hero",
+      "blocks": {
+        "text_hG79KV": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>ELITE STARTER BUNDLE</h2>",
+            "width": "fit-content",
+            "max_width": "narrow",
+            "alignment": "left",
+            "type_preset": "h1",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "visibility": "both"
+          },
+          "blocks": {}
+        },
+        "text_M9kDVt": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>At the core of all layering systems the Elite Starter Bundle contains the three \"must-have\" pieces for every season. As you expand your range from hot to cold, additional pieces will be necessary to stay comfortable in the field.</strong></p>",
+            "width": "fit-content",
+            "max_width": "normal",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 32,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "visibility": "both"
+          },
+          "blocks": {}
+        },
+        "button_DwVppw": {
+          "type": "button",
+          "name": "t:names.button",
+          "disabled": true,
+          "settings": {
+            "label": "Shop now",
+            "link": "shopify://collections/all",
+            "open_in_new_tab": false,
+            "style_class": "button",
+            "width": "fit-content",
+            "custom_width": 100,
+            "width_mobile": "fit-content",
+            "custom_width_mobile": 100
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "text_hG79KV",
+        "text_M9kDVt",
+        "button_DwVppw"
+      ],
+      "name": "t:names.hero",
+      "settings": {
+        "media_type_1": "image",
+        "image_1": "shopify://shop_images/Stalk_Artist_DSC06428_cfc6b6f6-8713-4c7a-a8b2-5731d8973c9b.webp",
+        "media_type_2": "image",
+        "stack_media_on_mobile": false,
+        "custom_mobile_media": false,
+        "media_type_1_mobile": "image",
+        "media_type_2_mobile": "image",
+        "link": "",
+        "open_in_new_tab": false,
+        "content_direction": "column",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "center",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 16,
+        "section_width": "page-width",
+        "section_height": "large",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-5",
+        "toggle_overlay": true,
+        "overlay_color": "#00000026",
+        "overlay_style": "gradient",
+        "gradient_direction": "to top",
+        "blurred_reflection": false,
+        "reflection_opacity": 75,
+        "padding-block-start": 40,
+        "padding-block-end": 40
+      }
+    },
+    "section": {
       "type": "section",
       "blocks": {
-        "text_title": {
+        "text_tqQTNE": {
           "type": "text",
           "name": "Title",
           "settings": {
             "text": "<h1>{{ closest.collection.title }}</h1>",
             "width": "fit-content",
             "max_width": "normal",
-            "alignment": "center",
+            "alignment": "left",
             "type_preset": "h2",
             "font": "var(--font-primary--family)",
             "font_size": "",
@@ -39,14 +149,14 @@
           },
           "blocks": {}
         },
-        "text_desc": {
+        "text_twGGkJ": {
           "type": "text",
           "name": "Description",
           "settings": {
             "text": "{{ closest.collection.description }}",
             "width": "fit-content",
             "max_width": "normal",
-            "alignment": "center",
+            "alignment": "left",
             "type_preset": "rte",
             "font": "var(--font-primary--family)",
             "font_size": "",
@@ -68,17 +178,18 @@
         }
       },
       "block_order": [
-        "text_title",
-        "text_desc"
+        "text_tqQTNE",
+        "text_twGGkJ"
       ],
-      "name": "Bundle heading",
+      "disabled": true,
+      "name": "Collection heading",
       "settings": {
         "content_direction": "column",
         "vertical_on_mobile": true,
-        "horizontal_alignment": "center",
+        "horizontal_alignment": "flex-start",
         "vertical_alignment": "center",
         "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "center",
+        "horizontal_alignment_flex_direction_column": "flex-start",
         "vertical_alignment_flex_direction_column": "center",
         "gap": 12,
         "section_width": "page-width",
@@ -97,19 +208,8 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 48,
-        "padding-block-end": 24,
+        "padding-block-end": 48,
         "visibility": "both"
-      }
-    },
-    "bundle_atc": {
-      "type": "skre-bundle-atc",
-      "settings": {
-        "heading": "Complete your bundle",
-        "button_label": "Add Bundle to Cart",
-        "subtext": "",
-        "redirect_to_cart": true,
-        "padding_top": 0,
-        "padding_bottom": 32
       }
     },
     "main": {
@@ -119,7 +219,7 @@
           "type": "filters",
           "static": true,
           "settings": {
-            "enable_filtering": false,
+            "enable_filtering": true,
             "filter_style": "vertical",
             "filter_width": "centered",
             "text_label_case": "uppercase",
@@ -213,6 +313,7 @@
               "type": "review",
               "name": "t:names.product_review_stars",
               "settings": {
+                "anchor_link": "",
                 "stars_style": "shaded",
                 "show_number": true,
                 "rating_color": "primary",
@@ -260,7 +361,7 @@
         "mobile_product_card_size": "small",
         "enable_load_more": false,
         "load_more_per_page": 16,
-        "enable_infinite_scroll": false,
+        "enable_infinite_scroll": true,
         "products_per_page": 24,
         "product_grid_width": "centered",
         "full_width_on_mobile": true,
@@ -454,8 +555,8 @@
     }
   },
   "order": [
-    "bundle_heading",
-    "bundle_atc",
+    "hero_yMhnAg",
+    "section",
     "main",
     "collection_list_8Ng978"
   ]
