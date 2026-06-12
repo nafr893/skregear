@@ -57,11 +57,14 @@
                   <a href="{{ col.url }}" class="skre-col-tabs__card">
                     <div class="skre-col-tabs__media">
                       {%- if col.featured_image != blank -%}
+                        {%- assign _fp = 'low' -%}
+                        {%- if forloop.parentloop.first -%}{%- assign _fp = 'high' -%}{%- endif -%}
                         {{
                           col.featured_image
                           | image_url: width: 900
                           | image_tag:
-                            loading: 'lazy',
+                            loading: 'eager',
+                            fetchpriority: _fp,
                             class: 'skre-col-tabs__img',
                             widths: '400, 600, 900',
                             sizes: '(min-width: 750px) 25vw, 50vw'
