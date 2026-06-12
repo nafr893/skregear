@@ -1,0 +1,97 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_556320472053121804": {
+      "settings": {
+        "checksum": "3562b8a84e00b35dbc2fc438830e9f63c632b03dccf4e77849d5ab04290bbcc2_1_1_0_0__1",
+        "gg0UjJsP-4l_errorMessage": "Cannot add product to cart",
+        "gg0UjJsP-4l_label": "Add to cart",
+        "gg0UjJsP-4l_outOfStockLabel": "Out of stock",
+        "gg0UjJsP-4l_successMessage": "Add product to cart successfully",
+        "gg0UjJsP-4l_unavailableLabel": "Unavailable",
+        "gg2wPZLuq5D_text": "<p>Short Sleeve</p><p>Bird Eye Fabric 105 GSM</p><p>100% Polyester Knitted</p><p>Breathable and Quick Dry</p><p>Athletic Fit</p>",
+        "gg4Zs60jbfv_text": "<p>EARLY SEASON GEAR</p>",
+        "ggYc1c-QlSa_text": "<span style=\"color:#FFFFFF;\">Torrid Series</span>",
+        "ggiG6k2rmDn_text": "<p>DURABLE AND COMFORT</p>",
+        "ggiQkF-e6WS_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-2dff1e0d-26e2-47e2-ba0e-468cdac26c68.jpg",
+        "ggo5CUIcRAI_text": "<p>1/4 Zip Ventilation</p><p>Bird Eye Fabric 105 GSM</p><p>100% Polyester Knitted</p><p>Breathable and Quick Dry</p><p>Athletic Fit</p>",
+        "ggpsN6biGDZ_text": "<p>BUILT FOR THE HEAT</p>",
+        "gguKDQZa9JR_errorMessage": "Cannot add product to cart",
+        "gguKDQZa9JR_label": "Add to cart",
+        "gguKDQZa9JR_outOfStockLabel": "Out of stock",
+        "gguKDQZa9JR_successMessage": "Add product to cart successfully",
+        "gguKDQZa9JR_unavailableLabel": "Unavailable",
+        "gguT45_UKD8_text": "<p>Long Sleeve</p><p>Hooded for Sun Protection</p><p>Built-In Face Mask</p><p>Bird Eye Fabric 105 GSM</p><p>100% Polyester Knitted</p><p>Breathable and Quick Dry</p><p>Athletic Fit</p>",
+        "gguZqpPsqj0_errorMessage": "Cannot add product to cart",
+        "gguZqpPsqj0_label": "Add to cart",
+        "gguZqpPsqj0_outOfStockLabel": "Out of stock",
+        "gguZqpPsqj0_successMessage": "Add product to cart successfully",
+        "gguZqpPsqj0_unavailableLabel": "Unavailable"
+      },
+      "type": "gp-section-556320472053121804"
+    },
+    "gp_section_556320472053187340": {
+      "settings": {
+        "checksum": "42ae94289da00615b057ae3eb85f3ac063147cb088a7969a63d543827b1dcc17_1_1_0_0__1",
+        "ggYloXD9PtG_text": "TORRID IN THE FIELD"
+      },
+      "type": "gp-section-556320472053187340"
+    },
+    "gp_section_556320472053252876": {
+      "settings": {
+        "checksum": "6c1e76c87c3b17f52fd393b3fb82283b0920b46135f5ec60e6493c3fe326d18c_1_1_0_0__1",
+        "gg3s5V-4ZUS_text": "<p><strong>Jared S &nbsp; &nbsp;| &nbsp; Verified Buyer</strong></p>",
+        "gg5XXKlpREk_text": "<p><i>“I have been waiting for the hoodie for awhile. The built-in mask is a must have concealment piece.”</i></p>",
+        "ggQ4yVmP-YO_text": "<p><i>“The Torrid Series is perfect for early-season hunting. I am so excited for my upcoming turkey hunt.\"</i></p>",
+        "ggRYQV8AZBy_text": "<p><strong>Andrew W &nbsp; &nbsp;| &nbsp; Verified Buyer</strong></p>",
+        "ggUh0pnoji9_text": "<p><strong>Jordan M &nbsp; &nbsp;| &nbsp; Verified Buyer</strong></p>",
+        "ggZtcpDmB3E_text": "<p><i>“The Torrid Series is the incredible. It is the most comfortable shirts I have ever worn. Highly Recommended!”</i></p>",
+        "ggouYvEl_QM_text": "<p><strong>Mike C &nbsp; &nbsp;| &nbsp; Verified Buyer</strong></p>",
+        "ggvCa6pz_VN_text": "TORRID REVIEWS",
+        "ggwbxCW31NR_text": "<p><i>“I love that Skre offers these pieces in solid colors. The short sleeve shirt is light-weight and &nbsp;so comfortable. ”</i></p>"
+      },
+      "type": "gp-section-556320472053252876"
+    },
+    "gp_section_556320472053318412": {
+      "settings": {
+        "checksum": "bc516be4315432dcc8ce27b042b8340e358a41a91bca4108c58846fb0826e481_1_1_0_0__1",
+        "ggTYjJYrFGD_label": "<p>SHOP TORRID</p>",
+        "ggrVdHkTsQ1_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-e2cfbe0b-2d50-4a0f-8a6d-11fe20c9f86a.jpg",
+        "ggrVdHkTsQ1_background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggrVdHkTsQ1_background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggrVdHkTsQ1_background_mobile_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-68641362-6ec8-4a69-bcc2-ccc96baa6969.jpg",
+        "ggrVdHkTsQ1_background_mobile_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggrVdHkTsQ1_background_mobile_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "section_preload": "true"
+      },
+      "type": "gp-section-556320472053318412"
+    },
+    "gp_section_556320472053383948": {
+      "settings": {
+        "checksum": "041edda2dd81f2f5d1b4f213b952f9d65a9a445cd22935dae64a2c0e7b8f8498_1_1_0_0__1",
+        "gg6DC7SinER_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-236a470a-7cc2-485d-9bd6-d10e9c2f6ae0.jpg",
+        "ggBA3f0qFDg_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-86c33f4d-eb9c-49f5-b1d3-5876c1519fa0.jpg",
+        "ggTWDQCvbU-_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-f56bb9ed-ce9b-4814-b5ac-495c344b5c8e.jpg",
+        "gggby7aqe5y_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-d63fc462-df8e-43d1-b0c5-99354ca03303.jpg",
+        "ggiE-X95lNb_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-b3bf6516-efd2-4f2c-8bb9-8fbb75545613.jpg",
+        "ggw8WHrlVkF_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-87a14925-f0e0-49de-b3c9-b50edbfc06de.jpg"
+      },
+      "type": "gp-section-556320472053383948"
+    }
+  },
+  "order": [
+    "gp_section_556320472053318412",
+    "gp_section_556320472053252876",
+    "gp_section_556320472053121804",
+    "gp_section_556320472053187340",
+    "gp_section_556320472053383948"
+  ]
+}
