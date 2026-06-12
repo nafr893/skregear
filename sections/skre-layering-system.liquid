@@ -1978,31 +1978,34 @@ body:has(.skre-lb) main {
   /* ── CENTER MEDIA ──────────────────────────────────────────────────────── */
   .skre-lb__media { grid-column: 2; min-height: 0; }
 
-  /* Footer: overlays the bottom of the full-bleed image */
+  /* Footer: covers the full image so cap-left can sit at top-left */
   .skre-lb__media-footer {
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background: transparent;
     padding: 1.5rem 1rem;
+    pointer-events: none;
   }
-  /* Caption outer: transparent on desktop — only cap-left has the dark pill */
+  /* Caption outer: full-height column — cap-left at top, filmstrip at bottom */
   .skre-lb__media-caption {
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: space-between;
     width: 100%;
-    height: auto;
+    height: 100%;
     padding: 0;
-    gap: 1.1rem;
+    gap: 0;
     background: transparent;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
     border-radius: 0;
     box-sizing: border-box;
+    pointer-events: none;
   }
 
-  /* Left pill: label stacked above nav — taller rectangle */
+  /* Left pill: upper-left corner */
   .skre-lb__cap-left {
     flex-direction: column;
     align-items: center;
@@ -2015,6 +2018,7 @@ body:has(.skre-lb) main {
     padding: 0.63rem 1.27rem;
     height: auto;
     box-sizing: border-box;
+    pointer-events: auto;
   }
   .skre-lb__layer-label {
     font-size: 0.87rem;
@@ -2039,7 +2043,7 @@ body:has(.skre-lb) main {
   /* Divider no longer needed — cap-left is its own pill */
   .skre-lb__cap-div { display: none !important; }
 
-  /* Right zone: filmstrip, aligned to center of the taller left pill */
+  /* Right zone: filmstrip at bottom-center */
   .skre-lb__cap-right {
     display: block;
     width: 260px;
@@ -2052,6 +2056,7 @@ body:has(.skre-lb) main {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 3px;
+    pointer-events: auto;
   }
   .skre-lb__strip-viewport {
     position: relative;
