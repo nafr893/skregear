@@ -374,6 +374,9 @@ h5, h6, p {
   .skre-promo-card__content {
     padding: 0.75rem;
   }
+  .skre-promo-card__heading {
+    font-size: 1.4rem;
+  }
 }
 
 .close-button:focus,
