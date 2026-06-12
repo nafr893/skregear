@@ -1,0 +1,48 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_526142542568227723": {
+      "settings": {
+        "checksum": "5f20802029e767e9fe73d4012b5fa06212523c759153d5ae41df8337fd6eb307_1_1_0_0__1",
+        "ggG9D0Tp3Ed_label": "View All",
+        "ggJibWgvAQS_text": "<p>Recommended Gear for Antelope/Pronghorn Hunting&nbsp;</p>",
+        "ggKKbvo_fzn_text": "Gear For Antelope/Pronghorn Hunters",
+        "ggW3fI6tAIJ_errorMessage": "Cannot add product to cart",
+        "ggW3fI6tAIJ_label": "ADD TO CART",
+        "ggW3fI6tAIJ_outOfStockLabel": "Out Of Stock",
+        "ggW3fI6tAIJ_successMessage": "Add product to cart successfully",
+        "ggWQQicUtjl_childItem_0": "<p>Early Season&nbsp;</p>",
+        "ggWQQicUtjl_childItem_1": "<p>Mid Season</p>",
+        "ggWQQicUtjl_childItem_2": "<p>Late Season</p>",
+        "gglKgydYsih_errorMessage": "Cannot add product to cart",
+        "gglKgydYsih_label": "ADD TO CART",
+        "gglKgydYsih_outOfStockLabel": "Out Of Stock",
+        "gglKgydYsih_successMessage": "Add product to cart successfully",
+        "ggpbrJB-ai0_errorMessage": "Cannot add product to cart",
+        "ggpbrJB-ai0_label": "ADD TO CART",
+        "ggpbrJB-ai0_outOfStockLabel": "Out Of Stock",
+        "ggpbrJB-ai0_successMessage": "Add product to cart successfully",
+        "section_preload": "true"
+      },
+      "type": "gp-section-526142542568227723"
+    },
+    "gp_section_526142542618559371": {
+      "settings": {
+        "checksum": "8dffd7829ef3b0b71762facf25de4d1b015efe8fa00a549cab893813ab742232_1_1_0_0__1"
+      },
+      "type": "gp-section-526142542618559371"
+    }
+  },
+  "order": [
+    "gp_section_526142542568227723",
+    "gp_section_526142542618559371"
+  ]
+}

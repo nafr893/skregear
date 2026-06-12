@@ -1,0 +1,153 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_539472668919858323": {
+      "settings": {
+        "checksum": "fa123b9e075836c98c87189583d0f43490121ed3a9ce2ef10e75faa04e72dafd_1_1_0_0__1",
+        "gg1iPBoWH2R_text": "jackets",
+        "gg3E9BgdAF8_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-a3e19652-99c5-4703-8193-387f3e673b1f.jpg",
+        "gg3E9BgdAF8_background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "gg3E9BgdAF8_background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggGbIv84zyN_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-6554c6a4-a351-4213-9676-bef7481c9da5.jpg",
+        "ggGbIv84zyN_background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggGbIv84zyN_background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggX-PqBMg5R_text": "accessories",
+        "ggZsN7l6t4g_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-161653ca-998d-4e81-8660-b41b5147245b.jpg",
+        "ggZsN7l6t4g_background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggZsN7l6t4g_background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggds5uI-hu4_text": "Branded Gear",
+        "ggfYrJQCuPo_text": "Solids",
+        "gghXREVNpoZ_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-a29adbc5-1569-4af3-a2c6-eee26f59c3f4.jpg",
+        "gghXREVNpoZ_background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "gghXREVNpoZ_background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggjJL0mTHMx_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-b6684242-9ff7-4a06-993a-24791dab46c0.jpg",
+        "ggjJL0mTHMx_background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggjJL0mTHMx_background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "gglpFLU0Cpv_text": "Pants",
+        "ggvwA4qFlUZ_text": "women",
+        "ggwJSPIT9ut_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-aecf6b69-7f28-4ddf-b05f-fd579ef16032.jpg",
+        "ggwJSPIT9ut_background_desktop_video": "https://www.youtube.com/watch?v=cyzh48XRS4M",
+        "ggwJSPIT9ut_background_desktop_videoHtml5": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggz17yjWulx_text": "Top rated gifts"
+      },
+      "type": "gp-section-539472668919858323"
+    },
+    "gp_section_539472669003744403": {
+      "settings": {
+        "checksum": "5713586353fca084d9c6168827ef2d9a23c7d70b8c7a4efaf2b854d3fe383c7e_1_1_0_0__1",
+        "gg6ELeapiJ-_text": "STOCKING STUFFERS",
+        "ggGVyDreiu3_label": "LEARN MORE",
+        "ggW4SsRJpey_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-0c138661-f952-4ed8-bfba-f6d0c36d3597.jpg?v=1715620794"
+      },
+      "type": "gp-section-539472669003744403"
+    },
+    "gp_section_539472669070853267": {
+      "settings": {
+        "checksum": "f2e99f4a0c90e789b508dbeeed126a50729bd51a9a2a92ef9afdc6cdaaffcd96_1_1_0_0__1",
+        "gg5g56NQLu9_text": "<p><span style=\"color:#000000;\">The perfect gift for the holidays</span></p><p>&nbsp;</p>",
+        "ggBfxkxk_A9_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-df52babf-3306-4a7a-b500-4f96a83088cd.png",
+        "ggL713-VSws_text": "SKRE GEAR",
+        "ggcNtNZaE_4_label": "<p>Buy Now</p>",
+        "ggiQkF-e6WS_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-2cdce182-754f-49ee-ae7b-133968aaec97.jpg",
+        "ggwmDXdoUUi_text": "E-Gift Card"
+      },
+      "type": "gp-section-539472669070853267"
+    },
+    "gp_section_539472669104407699": {
+      "settings": {
+        "checksum": "595f0b1503e333e283a5139abf66bcf687cbcb5f265b89f1ff483ba0e1a26191_1_1_0_0__1",
+        "ggHXep0VZNs_text": "Branded wear gifts"
+      },
+      "type": "gp-section-539472669104407699"
+    },
+    "gp_section_539917470866080900": {
+      "settings": {
+        "checksum": "8b87c576aa1cc8a6e7c2a909fa504fd7da872ab4ed86a6fc29102ab9a7e19621_1_1_0_0__1",
+        "ggmI7UhroPF_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/Gift-Guide-LP-Desk.jpg",
+        "ggmI7UhroPF_background_mobile_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/Gift-Guide-LP-Mobile.jpg",
+        "section_preload": "true"
+      },
+      "type": "gp-section-539917470866080900"
+    },
+    "gp_section_539931906922251169": {
+      "settings": {
+        "checksum": "ccd0d107cd23d95d7d8a51d372c1423a23bd17298c4cc429f572299dfef1168b_1_1_0_0__1",
+        "ggPM94R3RcY_background_desktop_image_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-6ad1cf20-4a13-4058-8523-b4ea89e10224.jpg?v=1721861743",
+        "ggPl9UWmre-_text": "starter bundle",
+        "ggPqfyFM5qd_text": "ELITE",
+        "ggljzA5apZ__text": "<p><span style=\"color:#000000;\">The ELITE STARTER BUNDLE includes a long-sleeve merino wool top, the hardscrabble pants, and the hardscrabble jacket. The top features a quarter zip and a chest pocket for convenient storage of small items. The pants have multiple pockets for storing essentials, a side vent to dump heat, and a multi-stretch for a comfortable fit. The hardscrabble jacket features a tough exterior with a pit zip release and a soft micro-fleece interior designed for comfort.</span></p><p>&nbsp;</p>",
+        "ggmrMvW6wYE_label": "<p>Learn More</p>",
+        "ggnkBGdetyn_html5Url": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+        "ggnkBGdetyn_poster_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-44a607e4-3144-4b92-b141-01604fda0e6c.png?v=1715292829",
+        "ggnkBGdetyn_vimeoUrl": "https://vimeo.com/916134777",
+        "ggnkBGdetyn_youtubeUrl": "https://www.youtube.com/watch?v=cyzh48XRS4M"
+      },
+      "type": "gp-section-539931906922251169"
+    },
+    "gp_section_539931959837590432": {
+      "settings": {
+        "checksum": "2d417d960623fcb58217959ce362806afd16d09a4038d4a35bee1866282fe9cb_1_1_0_0__1",
+        "gg9ATvBXzlw_label": "Learn more"
+      },
+      "type": "gp-section-539931959837590432"
+    },
+    "gp_section_539932664111563681": {
+      "settings": {
+        "checksum": "5f9f05963308200620e4a0eca9fd3400b1d520eaf8dc9cb88ab48bcdea47c1bc_1_1_0_0__1",
+        "ggGwQ4_ePni_text": "#1 Selling Hardscrabble Series"
+      },
+      "type": "gp-section-539932664111563681"
+    },
+    "gp_section_539933874185044896": {
+      "settings": {
+        "checksum": "c5fe98f8d9dea510c532971d5ef0b462215fa26282ae2ee66b4d55c051bbf870_1_1_0_0__1",
+        "ggnZP1CFxo6_label": "Learn more"
+      },
+      "type": "gp-section-539933874185044896"
+    },
+    "gp_section_539933925137449889": {
+      "settings": {
+        "checksum": "a5ef1543d9e934a1bd847d8d107c11c167716d1b0f9d986a0463206d0f5933fd_1_1_0_0__1",
+        "ggfXYebd4aJ_text": "cold weather gifts"
+      },
+      "type": "gp-section-539933925137449889"
+    },
+    "gp_section_539935113182446497": {
+      "settings": {
+        "checksum": "389d608c16f9042a53ee4f181d535ac78deacc145f43d3c6f707c8e9ca08e7ca_1_1_0_0__1",
+        "gg1trOz8aw-_label": "LEARN MORE",
+        "ggyB9-v9PIB_label": "LEARN MORE"
+      },
+      "type": "gp-section-539935113182446497"
+    },
+    "gp_section_539935980614845345": {
+      "settings": {
+        "checksum": "35d62548fddd358472db091fc5f3565f3249973cac43a268575f4a9ccc0e74f3_1_1_0_0__1",
+        "ggasQEMCjS6_label": "<p>SEE ALL PRODUCTS</p>"
+      },
+      "type": "gp-section-539935980614845345"
+    }
+  },
+  "order": [
+    "gp_section_539917470866080900",
+    "gp_section_539472668919858323",
+    "gp_section_539932664111563681",
+    "gp_section_539931959837590432",
+    "gp_section_539472669070853267",
+    "gp_section_539933925137449889",
+    "gp_section_539933874185044896",
+    "gp_section_539931906922251169",
+    "gp_section_539472669104407699",
+    "gp_section_539935113182446497",
+    "gp_section_539935980614845345",
+    "gp_section_539472669003744403"
+  ]
+}
