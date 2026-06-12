@@ -348,7 +348,7 @@
           "foreground": "#000000",
           "primary": "#000000",
           "primary_hover": "#000000",
-          "border": "#ededed",
+          "border": "#000000",
           "shadow": "#000000",
           "primary_button_background": "#000000",
           "primary_button_text": "#ffffff",

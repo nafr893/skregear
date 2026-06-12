@@ -1047,7 +1047,7 @@
                                 "video_position": "cover",
                                 "background_image_position": "cover",
                                 "border": "solid",
-                                "border_width": 1,
+                                "border_width": 2,
                                 "border_opacity": 100,
                                 "border_radius": 0,
                                 "toggle_overlay": false,
