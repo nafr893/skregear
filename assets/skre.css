@@ -370,6 +370,12 @@ h5, h6, p {
   color: #000;
 }
 
+@media screen and (max-width: 749px) {
+  .skre-promo-card__content {
+    padding: 0.75rem;
+  }
+}
+
 .close-button:focus,
 .close-button:focus-visible {
   outline: none;
