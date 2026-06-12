@@ -1,0 +1,29 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "gp_section_535158018862482353": {
+      "settings": {
+        "checksum": "58553cd9f74ce5157e630b196cbaf1d3d007ebce3ddaa064d609ce7d9e17096a_1_1_0_0__1",
+        "gg-HtLcO5Hk_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-aa481a2a-a066-4d1f-8913-ef52afa835e1.jpg",
+        "ggML_MbUD7G_text": "<p>Voting will end 10/18 at midnight</p>",
+        "ggUPbNrP1tD_text": "Limited edition pattern",
+        "ggc84hysSpk_text": "Light-Weight Tops",
+        "ggmZVXH2K7K_text": "Submit your Final Vote?",
+        "ggtUvdntp_y_srcSet_desktop_src": "https://cdn.shopify.com/s/files/1/0603/0360/5923/files/gempages_490658923649434481-c79df662-863e-42ce-9067-5cfb6d70f3ca.jpg",
+        "section_preload": "true"
+      },
+      "type": "gp-section-535158018862482353"
+    }
+  },
+  "order": [
+    "gp_section_535158018862482353"
+  ]
+}
