@@ -828,7 +828,7 @@ class SkreLayerBuilder extends HTMLElement {
         body: JSON.stringify({ items: [{ id: variantData.id, quantity: 1 }] }),
       });
       const data = await res.json();
-      if (data.status) throw new Error(data.message ?? 'Cart error');
+      if (data.status && data.status >= 400) throw new Error(data.message ?? 'Cart error');
 
       const addedItem = Array.isArray(data.items) ? data.items[0] : data;
       const layerLabel = this.#activeSlot()?.label ?? '';
