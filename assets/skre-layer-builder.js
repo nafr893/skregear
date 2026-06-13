@@ -827,8 +827,9 @@ class SkreLayerBuilder extends HTMLElement {
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({ items: [{ id: variantData.id, quantity: 1 }] }),
       });
-      const data = await res.json();
-      if (data.status && data.status >= 400) throw new Error(data.message ?? 'Cart error');
+      let data = {};
+      try { data = await res.json(); } catch (_) {}
+      if (!res.ok) throw new Error(data.message ?? 'Cart error');
 
       const addedItem = Array.isArray(data.items) ? data.items[0] : data;
       const layerLabel = this.#activeSlot()?.label ?? '';
@@ -864,7 +865,6 @@ class SkreLayerBuilder extends HTMLElement {
 
     } catch (err) {
       console.error('[skre-layer-builder] Cart add failed', err);
-      alert('Something went wrong adding to cart. Please try again.');
     } finally {
       if (btn) btn.disabled = false;
       if (railAtc) railAtc.disabled = false;
