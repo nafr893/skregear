@@ -136,7 +136,6 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/DSC05057.webp",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": true,
