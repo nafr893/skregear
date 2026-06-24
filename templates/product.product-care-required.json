@@ -599,7 +599,6 @@
                       "name": "t:names.icon",
                       "settings": {
                         "icon": "star",
-                        "image_upload": "shopify://shop_images/icon-skre.png",
                         "width": 28,
                         "link": "",
                         "open_in_new_tab": false
@@ -685,7 +684,6 @@
                       "name": "t:names.icon",
                       "settings": {
                         "icon": "star",
-                        "image_upload": "shopify://shop_images/icon-similar_1d0d140a-bd88-4dc4-95e0-ee9d07d22a83.png",
                         "width": 28,
                         "link": "",
                         "open_in_new_tab": false
@@ -771,7 +769,6 @@
                       "name": "t:names.icon",
                       "settings": {
                         "icon": "star",
-                        "image_upload": "shopify://shop_images/icon-delivery.png",
                         "width": 28,
                         "link": "",
                         "open_in_new_tab": false
@@ -1069,7 +1066,7 @@
                                   "name": "t:names.icon",
                                   "settings": {
                                     "icon": "price_tag",
-                                    "image_upload": "shopify://shop_images/SKRE_40_Degree_Icon_b3a4eded-a9b7-4904-912e-60214a6e6ffc.png",
+                                    "image_upload": "shopify://shop_images/SKRE_40_Degree_Icon_e80452f3-7eb9-4263-b859-813c1b52b313.png",
                                     "width": 50,
                                     "link": "",
                                     "open_in_new_tab": false
@@ -1247,7 +1244,7 @@
                                   "name": "t:names.icon",
                                   "settings": {
                                     "icon": "price_tag",
-                                    "image_upload": "shopify://shop_images/SKRE_Tumble_Dry_Icon_1b3516a6-f69d-49c5-9736-b63409b4932b.png",
+                                    "image_upload": "shopify://shop_images/SKRE_Tumble_Dry_Icon_85b9e24c-0875-4955-94ff-59cc09401f10.png",
                                     "width": 50,
                                     "link": "",
                                     "open_in_new_tab": false
@@ -1425,7 +1422,7 @@
                                   "name": "t:names.icon",
                                   "settings": {
                                     "icon": "price_tag",
-                                    "image_upload": "shopify://shop_images/SKRE_Detergent_Bottle_Icon_73de561e-041c-4f7a-a18b-fad2dfc8a82a.png",
+                                    "image_upload": "shopify://shop_images/SKRE_Detergent_Icon_94fa713a-4f54-45b1-be01-73994797feaf.png",
                                     "width": 50,
                                     "link": "",
                                     "open_in_new_tab": false
@@ -1781,7 +1778,7 @@
                                   "name": "t:names.icon",
                                   "settings": {
                                     "icon": "price_tag",
-                                    "image_upload": "shopify://shop_images/SKRE_Detergent_Icon_2a837dee-cd8e-44e7-baa0-23c8361c459b.png",
+                                    "image_upload": "shopify://shop_images/SKRE_Detergent_Icon_94fa713a-4f54-45b1-be01-73994797feaf.png",
                                     "width": 50,
                                     "link": "",
                                     "open_in_new_tab": false
