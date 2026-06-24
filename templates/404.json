@@ -392,13 +392,13 @@
       "name": "t:names.collections_grid",
       "settings": {
         "collection_list": [
-          "baselayer-tops",
           "fleece",
-          "hardscrabble-series",
-          "insulation-1",
           "jackets-vests",
-          "pants-bibs",
-          "packs-bags-equipment"
+          "packs-bags-equipment",
+          "tops",
+          "base-layer-tops",
+          "accessories",
+          "hats-gloves-accessories"
         ],
         "layout_type": "carousel",
         "carousel_on_mobile": true,
