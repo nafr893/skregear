@@ -9,8 +9,8 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/Skre-Logo-Dark.png",
-    "logo_inverse": "shopify://shop_images/Skre-White-Logo.png",
+    "logo": "shopify://shop_images/SKRE_Logo_Gray.png",
+    "logo_inverse": "shopify://shop_images/SKRE_Extreme_Logo_White_e4a4c93f-d9c2-432d-a88b-914d9fb46cf2.png",
     "logo_height": 42,
     "logo_height_mobile": 40,
     "favicon": "shopify://shop_images/SKRE_Favicon.png",
@@ -103,11 +103,6 @@
     "size_chart_header_image": "shopify://shop_images/SKRE_Sizing_Chart.svg",
     "content_for_index": [],
     "blocks": {
-      "1057056175266400017": {
-        "type": "shopify://apps/yotpo-email-marketing-sms/blocks/app-embed/7a4b8bd9-dff0-44fc-aef9-a187a77a5d45",
-        "disabled": false,
-        "settings": {}
-      },
       "10864971697205422121": {
         "type": "shopify://apps/gorgias-live-chat-helpdesk/blocks/gorgias/a66db725-7b96-4e3f-916e-6c8e6f87aaaa",
         "disabled": false,
@@ -119,11 +114,6 @@
         "settings": {
           "product": ""
         }
-      },
-      "1935445597218932304": {
-        "type": "shopify://apps/avada-seo-suite/blocks/avada-seo/15507c6e-1aa3-45d3-b698-7e175e033440",
-        "disabled": false,
-        "settings": {}
       },
       "1996061711396120121": {
         "type": "shopify://apps/uppromote-affiliate/blocks/message-bar/64c32457-930d-4cb9-9641-e24c0d9cf1f4",
@@ -178,11 +168,6 @@
         "disabled": false,
         "settings": {}
       },
-      "319724205969189013": {
-        "type": "shopify://apps/hulk-form-builder/blocks/app-embed/b6b8dd14-356b-4725-a4ed-77232212b3c3",
-        "disabled": false,
-        "settings": {}
-      },
       "6159598353363395418": {
         "type": "shopify://apps/google-youtube/blocks/store_widget/14ec7bd0-ac77-49a9-9417-90752398bdff",
         "disabled": true,
@@ -224,11 +209,6 @@
       },
       "9005256451184024879": {
         "type": "shopify://apps/uppromote-affiliate/blocks/customer-referral/64c32457-930d-4cb9-9641-e24c0d9cf1f4",
-        "disabled": false,
-        "settings": {}
-      },
-      "2567389343055140935": {
-        "type": "shopify://apps/microsoft-clarity/blocks/clarity_js/31c3d126-8116-4b4a-8ba1-baeda7c4aeea",
         "disabled": false,
         "settings": {}
       }
