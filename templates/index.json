@@ -584,7 +584,7 @@
       "settings": {
         "tabs_count": 3,
         "tab_1_label": "EARLY",
-        "tab_1_collection": "",
+        "tab_1_collection": "shopify://collections/early-season",
         "tab_2_label": "MID",
         "tab_2_collection": "shopify://collections/mid-season",
         "tab_3_label": "LATE",
@@ -1089,7 +1089,7 @@
       "name": "Blog Carousel",
       "settings": {
         "heading": "Field Guides",
-        "blog": "news",
+        "blog": "resources",
         "color_scheme": "scheme-1",
         "padding-block-start": 40,
         "padding-block-end": 60,
