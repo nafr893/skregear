@@ -44,11 +44,18 @@
           "type": "page-content",
           "settings": {},
           "blocks": {}
+        },
+        "powerful_form_builder_app_block_yY68Ew": {
+          "type": "shopify://apps/powerful-form-builder/blocks/app-block/e4bcb1eb-35b2-42e6-bc37-bfe0e1542c9d",
+          "settings": {
+            "shortcode": "<div class=\"globo-formbuilder\" data-id=\"NTMwMjI=\"></div>"
+          }
         }
       },
       "block_order": [
         "heading",
-        "page-content"
+        "page-content",
+        "powerful_form_builder_app_block_yY68Ew"
       ],
       "settings": {
         "content_direction": "column",
