@@ -65,11 +65,18 @@
             "visibility": "both"
           },
           "blocks": {}
+        },
+        "powerful_form_builder_app_block_j9YH3H": {
+          "type": "shopify://apps/powerful-form-builder/blocks/app-block/e4bcb1eb-35b2-42e6-bc37-bfe0e1542c9d",
+          "settings": {
+            "shortcode": "<div class=\"globo-formbuilder\" data-id=\"MTI4NDA1\"></div>"
+          }
         }
       },
       "block_order": [
         "text_NyeeeH",
-        "text_4aB36r"
+        "text_4aB36r",
+        "powerful_form_builder_app_block_j9YH3H"
       ],
       "name": "t:names.custom_section",
       "settings": {
