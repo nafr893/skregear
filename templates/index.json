@@ -1090,7 +1090,7 @@
       "name": "Blog Carousel",
       "settings": {
         "heading": "Field Guides",
-        "blog": "resources",
+        "blog": "news",
         "color_scheme": "scheme-1",
         "padding-block-start": 40,
         "padding-block-end": 60,
