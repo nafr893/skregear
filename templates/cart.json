@@ -269,7 +269,7 @@
       },
       "name": "Featured collection",
       "settings": {
-        "collection": "baselayer-tops",
+        "collection": "base-layer-tops",
         "layout_type": "grid",
         "carousel_on_mobile": false,
         "max_products": 4,
