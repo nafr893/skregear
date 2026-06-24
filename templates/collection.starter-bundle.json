@@ -89,7 +89,6 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/Stalk_Artist_DSC06428_cfc6b6f6-8713-4c7a-a8b2-5731d8973c9b.webp",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": false,
@@ -454,7 +453,7 @@
       "type": "skre-collection-atc",
       "name": "Collection Add to Cart",
       "settings": {
-        "collection": "starter-bundle-1",
+        "collection": "starter-bundle",
         "button_label": "PURCHASE BUNDLE",
         "heading": "",
         "subtext": "",
