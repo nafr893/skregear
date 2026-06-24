@@ -58,7 +58,7 @@
           "type": "_header-menu",
           "static": true,
           "settings": {
-            "menu": "desktop-main-menu-v2",
+            "menu": "desktop-menu",
             "color_scheme": "",
             "type_font_primary_size": "0.625rem",
             "menu_font_style": "regular",
