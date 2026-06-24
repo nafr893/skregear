@@ -136,7 +136,6 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/DSC05057_86086fff-b208-463f-bb6f-f3e0334b2efb.webp",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": true,
@@ -176,7 +175,7 @@
           "settings": {
             "label": "Gear",
             "collection_1": "jackets-vests",
-            "collection_2": "lightweight-bottoms",
+            "collection_2": "button-ups",
             "collection_3": "base-layer-tops",
             "collection_4": "sotfshell-bottoms",
             "collection_5": "womens-gear",
