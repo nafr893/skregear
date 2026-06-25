@@ -599,6 +599,7 @@
                       "name": "t:names.icon",
                       "settings": {
                         "icon": "star",
+                        "image_upload": "shopify://shop_images/Skre-Canada.png",
                         "width": 28,
                         "link": "",
                         "open_in_new_tab": false
@@ -684,6 +685,7 @@
                       "name": "t:names.icon",
                       "settings": {
                         "icon": "star",
+                        "image_upload": "shopify://shop_images/icon-similar_1d0d140a-bd88-4dc4-95e0-ee9d07d22a83.png",
                         "width": 28,
                         "link": "",
                         "open_in_new_tab": false
@@ -769,6 +771,7 @@
                       "name": "t:names.icon",
                       "settings": {
                         "icon": "star",
+                        "image_upload": "shopify://shop_images/icon-delivery.png",
                         "width": 28,
                         "link": "",
                         "open_in_new_tab": false
