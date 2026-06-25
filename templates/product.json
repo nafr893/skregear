@@ -351,6 +351,7 @@
                           "type": "review",
                           "name": "t:names.product_review_stars",
                           "settings": {
+                            "anchor_link": "",
                             "stars_style": "shaded_with_numbers",
                             "show_number": true,
                             "rating_color": "primary",
@@ -598,7 +599,7 @@
                       "name": "t:names.icon",
                       "settings": {
                         "icon": "star",
-                        "image_upload": "shopify://shop_images/icon-skre.png",
+                        "image_upload": "shopify://shop_images/Skre-Canada.png",
                         "width": 28,
                         "link": "",
                         "open_in_new_tab": false
@@ -1213,6 +1214,7 @@
               "type": "review",
               "name": "t:names.product_review_stars",
               "settings": {
+                "anchor_link": "",
                 "stars_style": "shaded",
                 "show_number": true,
                 "rating_color": "primary",
