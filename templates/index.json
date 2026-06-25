@@ -118,7 +118,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "Shop Now",
-            "link": "shopify://products/mad-trapper-hoodie",
+            "link": "shopify://products/mad-trapper-hoodie-1",
             "open_in_new_tab": false,
             "style_class": "button",
             "width": "fit-content",
