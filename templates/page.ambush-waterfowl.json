@@ -63,8 +63,8 @@
       "type": "skre-launch-page",
       "name": "Launch Page",
       "settings": {
-        "klaviyo_public_key": "",
-        "klaviyo_list_id": "",
+        "klaviyo_public_key": "SGui4C",
+        "klaviyo_list_id": "SBtaeX",
         "background_image": "shopify://shop_images/DSC06048.jpg",
         "logo": "shopify://shop_images/SKRE_Logo_Brown.png",
         "logo_alignment": "center",
