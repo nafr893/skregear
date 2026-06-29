@@ -171,7 +171,7 @@
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 520px;
+    max-width: 90vw;
     padding: 3rem 3rem 3rem 2rem;
   }
 
@@ -186,13 +186,20 @@
     .skre-launch__overlay {
       background: rgba(0,0,0,0.65);
     }
+    .skre-launch__panel {
+      width: 100%;
+    }
+    .skre-launch__heading {
+      white-space: normal;
+    }
   }
 
   .skre-launch__panel {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    width: 100%;
+    width: fit-content;
+    max-width: 100%;
   }
 
   .skre-launch__logo {
@@ -241,6 +248,7 @@
     text-transform: uppercase;
     color: {{ sec.heading_color | default: '#c8d0d8' }};
     line-height: 1;
+    white-space: nowrap;
     text-shadow:
       0 0 40px rgba(100,140,180,0.4),
       0 2px 8px rgba(0,0,0,0.8);
