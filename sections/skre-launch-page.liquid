@@ -7,7 +7,6 @@
 
 <section class="skre-launch" id="{{ sec_id }}" aria-label="{{ sec.heading | escape }}">
 
-  {{- /* Background image */ -}}
   {%- if sec.background_image != blank -%}
     <img
       class="skre-launch__bg"
@@ -36,7 +35,7 @@
 
       {%- if sec.logo != blank -%}
         <img
-          class="skre-launch__logo"
+          class="skre-launch__logo skre-launch__logo--{{ sec.logo_alignment | default: 'left' }}"
           src="{{ sec.logo | image_url: width: 200 }}"
           alt="{{ sec.logo.alt | default: 'Logo' | escape }}"
           width="80"
@@ -45,15 +44,21 @@
         >
       {%- endif -%}
 
-      {%- if sec.eyebrow != blank -%}
-        <p class="skre-launch__eyebrow">{{ sec.eyebrow }}</p>
+      {%- if sec.eyebrow != blank or sec.eyebrow_right != blank -%}
+        <div class="skre-launch__eyebrow-row">
+          {%- if sec.eyebrow != blank -%}
+            <p class="skre-launch__eyebrow">{{ sec.eyebrow }}</p>
+          {%- endif -%}
+          {%- if sec.eyebrow_right != blank -%}
+            <span class="skre-launch__eyebrow-right">{{ sec.eyebrow_right }}</span>
+          {%- endif -%}
+        </div>
       {%- endif -%}
 
       {%- if sec.heading != blank -%}
         <h1 class="skre-launch__heading">{{ sec.heading }}</h1>
       {%- endif -%}
 
-      {{- /* Form */ -}}
       <form class="skre-launch__form" id="{{ sec_id }}-form" novalidate>
 
         <input
@@ -185,6 +190,16 @@
     filter: drop-shadow(0 0 6px rgba(0,0,0,0.6));
   }
 
+  .skre-launch__logo--center { margin-left: auto; margin-right: auto; }
+  .skre-launch__logo--right  { margin-left: auto; }
+
+  .skre-launch__eyebrow-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
   .skre-launch__eyebrow {
     margin: 0;
     font-family: 'Dancing Script', cursive;
@@ -192,6 +207,14 @@
     color: {{ sec.eyebrow_color | default: '#d4c5a9' }};
     line-height: 1.2;
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  }
+
+  .skre-launch__eyebrow-right {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(0.9rem, 1.8vw, 1.3rem);
+    color: {{ sec.eyebrow_color | default: '#d4c5a9' }};
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    white-space: nowrap;
   }
 
   .skre-launch__heading {
@@ -222,7 +245,7 @@
   .skre-launch__input {
     width: 100%;
     padding: 0.6rem 0.9rem;
-    background: rgba(10,15,25,0.65);
+    background: transparent;
     border: 1px solid {{ sec.input_border_color | default: '#4a7aab' }};
     border-radius: 2px;
     color: #e8e8e8;
@@ -429,10 +452,26 @@
       "label": "Logo (optional)"
     },
     {
+      "type": "select",
+      "id": "logo_alignment",
+      "label": "Logo alignment",
+      "options": [
+        { "value": "left",   "label": "Left"   },
+        { "value": "center", "label": "Center" },
+        { "value": "right",  "label": "Right"  }
+      ],
+      "default": "left"
+    },
+    {
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow text",
       "default": "It's almost here..."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_right",
+      "label": "Eyebrow right text (date, season, etc.)"
     },
     {
       "type": "text",
