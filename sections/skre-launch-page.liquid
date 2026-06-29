@@ -1,0 +1,548 @@
+{%- assign sec = section.settings -%}
+{%- assign sec_id = 'skre-launch-' | append: section.id -%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+<section class="skre-launch" id="{{ sec_id }}" aria-label="{{ sec.heading | escape }}">
+
+  {{- /* Background image */ -}}
+  {%- if sec.background_image != blank -%}
+    <img
+      class="skre-launch__bg"
+      src="{{ sec.background_image | image_url: width: 2400 }}"
+      srcset="
+        {{ sec.background_image | image_url: width: 800 }} 800w,
+        {{ sec.background_image | image_url: width: 1400 }} 1400w,
+        {{ sec.background_image | image_url: width: 2400 }} 2400w
+      "
+      sizes="100vw"
+      alt="{{ sec.background_image.alt | default: sec.heading | escape }}"
+      width="{{ sec.background_image.width }}"
+      height="{{ sec.background_image.height }}"
+      loading="eager"
+      fetchpriority="high"
+    >
+  {%- else -%}
+    <div class="skre-launch__bg skre-launch__bg--placeholder"></div>
+  {%- endif -%}
+
+  <div class="skre-launch__overlay"></div>
+
+  <div class="skre-launch__inner">
+
+    <div class="skre-launch__panel">
+
+      {%- if sec.logo != blank -%}
+        <img
+          class="skre-launch__logo"
+          src="{{ sec.logo | image_url: width: 200 }}"
+          alt="{{ sec.logo.alt | default: 'Logo' | escape }}"
+          width="80"
+          height="auto"
+          loading="eager"
+        >
+      {%- endif -%}
+
+      {%- if sec.eyebrow != blank -%}
+        <p class="skre-launch__eyebrow">{{ sec.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if sec.heading != blank -%}
+        <h1 class="skre-launch__heading">{{ sec.heading }}</h1>
+      {%- endif -%}
+
+      {{- /* Form */ -}}
+      <form class="skre-launch__form" id="{{ sec_id }}-form" novalidate>
+
+        <input
+          type="text"
+          name="first_name"
+          class="skre-launch__input"
+          placeholder="{{ sec.label_name | default: 'First Name' }}"
+          autocomplete="given-name"
+        >
+
+        {%- if sec.show_last_name -%}
+          <input
+            type="text"
+            name="last_name"
+            class="skre-launch__input"
+            placeholder="{{ sec.label_last_name | default: 'Last Name' }}"
+            autocomplete="family-name"
+          >
+        {%- endif -%}
+
+        <input
+          type="email"
+          name="email"
+          class="skre-launch__input"
+          placeholder="{{ sec.label_email | default: 'Email Address' }}"
+          required
+          autocomplete="email"
+        >
+
+        {%- if sec.show_phone -%}
+          <input
+            type="tel"
+            name="phone"
+            class="skre-launch__input"
+            placeholder="{{ sec.label_phone | default: 'Phone (optional)' }}"
+            autocomplete="tel"
+          >
+        {%- endif -%}
+
+        <button type="submit" class="skre-launch__btn">
+          <span class="skre-launch__btn-label">{{ sec.button_label | default: 'NOTIFY ME' }}</span>
+          <span class="skre-launch__btn-loading" aria-hidden="true" style="display:none;">...</span>
+        </button>
+
+        <p class="skre-launch__form-msg" id="{{ sec_id }}-msg" aria-live="polite"></p>
+
+      </form>
+
+      {%- if sec.tagline != blank -%}
+        <p class="skre-launch__tagline">{{ sec.tagline }}</p>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .skre-launch {
+    position: relative;
+    width: 100%;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+    outline: 2px solid {{ sec.border_color | default: '#b8956a' }};
+    outline-offset: -8px;
+  }
+
+  .skre-launch__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+  }
+
+  .skre-launch__bg--placeholder {
+    background: #1a1a1a;
+  }
+
+  .skre-launch__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      to left,
+      rgba(0,0,0,0.82) 0%,
+      rgba(0,0,0,0.55) 50%,
+      rgba(0,0,0,0.1) 100%
+    );
+  }
+
+  .skre-launch__inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 520px;
+    padding: 3rem 3rem 3rem 2rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .skre-launch__inner {
+      max-width: 100%;
+      padding: 2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .skre-launch__overlay {
+      background: rgba(0,0,0,0.65);
+    }
+  }
+
+  .skre-launch__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .skre-launch__logo {
+    width: 72px;
+    height: auto;
+    display: block;
+    margin-bottom: 0.25rem;
+    filter: drop-shadow(0 0 6px rgba(0,0,0,0.6));
+  }
+
+  .skre-launch__eyebrow {
+    margin: 0;
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1.2rem, 2.5vw, 1.75rem);
+    color: {{ sec.eyebrow_color | default: '#d4c5a9' }};
+    line-height: 1.2;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  }
+
+  .skre-launch__heading {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: {{ sec.heading_color | default: '#c8d0d8' }};
+    line-height: 1;
+    text-shadow:
+      0 0 40px rgba(100,140,180,0.4),
+      0 2px 8px rgba(0,0,0,0.8);
+    border: 1px solid {{ sec.border_color | default: '#b8956a' }};
+    padding: 0.35rem 0.6rem;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(2px);
+  }
+
+  .skre-launch__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-top: 0.5rem;
+  }
+
+  .skre-launch__input {
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+    background: rgba(10,15,25,0.65);
+    border: 1px solid {{ sec.input_border_color | default: '#4a7aab' }};
+    border-radius: 2px;
+    color: #e8e8e8;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+    backdrop-filter: blur(4px);
+  }
+
+  .skre-launch__input::placeholder {
+    color: rgba(200,210,220,0.5);
+    font-size: 0.85rem;
+  }
+
+  .skre-launch__input:focus {
+    border-color: {{ sec.input_border_color | default: '#4a7aab' }};
+    box-shadow: 0 0 0 2px rgba(74,122,171,0.25);
+  }
+
+  .skre-launch__btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: {{ sec.button_color | default: '#b8956a' }};
+    color: {{ sec.button_text_color | default: '#ffffff' }};
+    border: none;
+    border-radius: 2px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s, background 0.2s;
+    margin-top: 0.25rem;
+  }
+
+  .skre-launch__btn:hover {
+    opacity: 0.88;
+  }
+
+  .skre-launch__btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .skre-launch__tagline {
+    margin: 0.25rem 0 0;
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1rem, 2vw, 1.4rem);
+    color: {{ sec.eyebrow_color | default: '#d4c5a9' }};
+    text-align: right;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    border: 1px solid {{ sec.border_color | default: '#b8956a' }};
+    padding: 0.25rem 0.6rem;
+    background: rgba(0,0,0,0.3);
+    align-self: flex-end;
+  }
+
+  .skre-launch__form-msg {
+    margin: 0;
+    font-size: 0.82rem;
+    min-height: 1.2em;
+    text-align: center;
+  }
+
+  .skre-launch__form-msg--success {
+    color: #7dd87d;
+  }
+
+  .skre-launch__form-msg--error {
+    color: #f08080;
+  }
+</style>
+
+<script>
+(function () {
+  var form    = document.getElementById({{ sec_id | append: '-form' | json }});
+  var msgEl   = document.getElementById({{ sec_id | append: '-msg' | json }});
+  var listId  = {{ sec.klaviyo_list_id | json }};
+  var pubKey  = {{ sec.klaviyo_public_key | json }};
+
+  if (!form) return;
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    var email = form.querySelector('[name="email"]').value.trim();
+    if (!email) {
+      showMsg('Please enter a valid email address.', 'error');
+      return;
+    }
+
+    var firstName = (form.querySelector('[name="first_name"]') || {}).value || '';
+    var lastName  = (form.querySelector('[name="last_name"]')  || {}).value || '';
+    var phone     = (form.querySelector('[name="phone"]')      || {}).value || '';
+
+    var btn       = form.querySelector('.skre-launch__btn');
+    var labelEl   = form.querySelector('.skre-launch__btn-label');
+    var loadEl    = form.querySelector('.skre-launch__btn-loading');
+
+    btn.disabled = true;
+    if (labelEl) labelEl.style.display = 'none';
+    if (loadEl)  loadEl.style.display  = 'inline';
+    showMsg('', '');
+
+    if (!listId || !pubKey) {
+      showMsg('Signup is not configured yet. Check back soon!', 'error');
+      reset(btn, labelEl, loadEl);
+      return;
+    }
+
+    var properties = {};
+    if (firstName) properties['$first_name'] = firstName;
+    if (lastName)  properties['$last_name']  = lastName;
+    if (phone)     properties['$phone_number'] = phone;
+
+    var payload = {
+      data: {
+        type: 'subscription',
+        attributes: {
+          list_id: listId,
+          email: email,
+          custom_source: 'Launch Page',
+          properties: properties
+        }
+      }
+    };
+
+    try {
+      var res = await fetch(
+        'https://a.klaviyo.com/client/subscriptions/?company_id=' + encodeURIComponent(pubKey),
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'revision': '2023-12-15'
+          },
+          body: JSON.stringify(payload)
+        }
+      );
+
+      if (res.ok || res.status === 202) {
+        showMsg({{ sec.success_message | default: "You're on the list. Be the first to know." | json }}, 'success');
+        form.reset();
+      } else {
+        var data = {};
+        try { data = await res.json(); } catch (_) {}
+        var msg = (data.errors && data.errors[0] && data.errors[0].detail) || 'Something went wrong. Please try again.';
+        showMsg(msg, 'error');
+      }
+    } catch (_) {
+      showMsg('Something went wrong. Please try again.', 'error');
+    }
+
+    reset(btn, labelEl, loadEl);
+  });
+
+  function showMsg(text, type) {
+    msgEl.textContent = text;
+    msgEl.className   = 'skre-launch__form-msg' + (type ? ' skre-launch__form-msg--' + type : '');
+  }
+
+  function reset(btn, labelEl, loadEl) {
+    btn.disabled = false;
+    if (labelEl) labelEl.style.display = '';
+    if (loadEl)  loadEl.style.display  = 'none';
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Launch Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Klaviyo"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_public_key",
+      "label": "Klaviyo Public API Key",
+      "info": "Found in Klaviyo → Account → Settings → API Keys (starts with pk_)"
+    },
+    {
+      "type": "text",
+      "id": "klaviyo_list_id",
+      "label": "Klaviyo List ID",
+      "info": "Found in Klaviyo → Lists → click your list → Settings tab → List ID"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo (optional)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "It's almost here..."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "AMBUSH"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Be the first."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button text",
+      "default": "NOTIFY ME"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "You're on the list. Be the first to know."
+    },
+    {
+      "type": "header",
+      "content": "Form fields"
+    },
+    {
+      "type": "text",
+      "id": "label_name",
+      "label": "First name placeholder",
+      "default": "First Name"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_last_name",
+      "label": "Show last name field",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "label_last_name",
+      "label": "Last name placeholder",
+      "default": "Last Name"
+    },
+    {
+      "type": "text",
+      "id": "label_email",
+      "label": "Email placeholder",
+      "default": "Email Address"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_phone",
+      "label": "Show phone field",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "label_phone",
+      "label": "Phone placeholder",
+      "default": "Phone (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Accent border color",
+      "default": "#b8956a"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#c8d0d8"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Script text color",
+      "default": "#d4c5a9"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border color",
+      "default": "#4a7aab"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button background",
+      "default": "#b8956a"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Launch Page"
+    }
+  ]
+}
+{% endschema %}
