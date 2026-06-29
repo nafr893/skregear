@@ -57,9 +57,37 @@
         "padding-block-start": 40,
         "padding-block-end": 80
       }
+    },
+    "skre_launch_page_QeUr7K": {
+      "type": "skre-launch-page",
+      "name": "Launch Page",
+      "settings": {
+        "klaviyo_public_key": "Xy393m",
+        "klaviyo_list_id": "S8w8eq",
+        "background_image": "shopify://shop_images/DSC06048.jpg",
+        "logo": "shopify://shop_images/SKRE_Logo_Brown.png",
+        "eyebrow": "It's almost here...",
+        "heading": "AMBUSH",
+        "tagline": "Be the first.",
+        "button_label": "NOTIFY ME",
+        "success_message": "You're on the list. Be the first to know.",
+        "label_name": "First Name",
+        "show_last_name": false,
+        "label_last_name": "Last Name",
+        "label_email": "Email Address",
+        "show_phone": true,
+        "label_phone": "Phone (optional)",
+        "border_color": "#b8956a",
+        "heading_color": "#c8d0d8",
+        "eyebrow_color": "#d4c5a9",
+        "input_border_color": "#4a7aab",
+        "button_color": "#b8956a",
+        "button_text_color": "#ffffff"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "skre_launch_page_QeUr7K"
   ]
 }
