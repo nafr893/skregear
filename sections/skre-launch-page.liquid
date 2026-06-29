@@ -48,7 +48,7 @@
 
       {%- if sec.logo != blank -%}
         <img
-          class="skre-launch__logo skre-launch__logo--{{ sec.logo_alignment | default: 'left' }}"
+          class="skre-launch__logo skre-launch__logo--{{ sec.logo_alignment | default: 'center' }}"
           src="{{ sec.logo | image_url: width: 200 }}"
           alt="{{ sec.logo.alt | default: 'Logo' | escape }}"
           width="80"
@@ -63,7 +63,7 @@
             <p class="skre-launch__eyebrow">{{ sec.eyebrow }}</p>
           {%- endif -%}
           {%- if sec.eyebrow_right != blank -%}
-            <span class="skre-launch__eyebrow-right">{{ sec.eyebrow_right }}</span>
+            <h3 class="skre-launch__eyebrow-right">{{ sec.eyebrow_right }}</h3>
           {%- endif -%}
         </div>
       {%- endif -%}
@@ -199,7 +199,7 @@
     width: 72px;
     height: auto;
     display: block;
-    margin-bottom: 0.25rem;
+    margin-bottom: 1.25rem;
     filter: drop-shadow(0 0 6px rgba(0,0,0,0.6));
   }
 
@@ -223,8 +223,9 @@
   }
 
   .skre-launch__eyebrow-right {
-    font-family: 'UnitedSans', sans-serif;
-    font-weight: normal;
+    margin: 0;
+    font-family: 'UnitedSans', sans-serif !important;
+    font-weight: normal !important;
     font-size: clamp(0.9rem, 1.8vw, 1.3rem);
     color: {{ sec.eyebrow_color | default: '#d4c5a9' }};
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
@@ -474,7 +475,7 @@
         { "value": "center", "label": "Center" },
         { "value": "right",  "label": "Right"  }
       ],
-      "default": "left"
+      "default": "center"
     },
     {
       "type": "text",
