@@ -7,7 +7,7 @@
 
 <section class="skre-launch" id="{{ sec_id }}" aria-label="{{ sec.heading | escape }}">
 
-  {%- comment -%}Background image{%- endcomment -%}
+  {{- /* Background image */ -}}
   {%- if sec.background_image != blank -%}
     <img
       class="skre-launch__bg"
@@ -53,7 +53,7 @@
         <h1 class="skre-launch__heading">{{ sec.heading }}</h1>
       {%- endif -%}
 
-      {%- comment -%}Form{%- endcomment -%}
+      {{- /* Form */ -}}
       <form class="skre-launch__form" id="{{ sec_id }}-form" novalidate>
 
         <input
