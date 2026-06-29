@@ -241,7 +241,7 @@
     font-family: 'UnitedSans', sans-serif !important;
     font-weight: normal !important;
     font-size: clamp(0.9rem, 1.8vw, 1.3rem);
-    color: {{ sec.eyebrow_color | default: '#d4c5a9' }};
+    color: {{ sec.eyebrow_right_color | default: '#d4c5a9' }};
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
     white-space: nowrap;
   }
@@ -325,7 +325,7 @@
     margin: 0.25rem 0 0;
     font-family: 'GeorgiaBrush', cursive;
     font-size: clamp(1rem, 2vw, 1.4rem);
-    color: {{ sec.eyebrow_color | default: '#d4c5a9' }};
+    color: {{ sec.tagline_color | default: '#d4c5a9' }};
     text-align: right;
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
     padding: 0.25rem 0.6rem;
@@ -585,6 +585,18 @@
       "type": "color",
       "id": "eyebrow_color",
       "label": "Script text color",
+      "default": "#d4c5a9"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_right_color",
+      "label": "Date / right text color",
+      "default": "#d4c5a9"
+    },
+    {
+      "type": "color",
+      "id": "tagline_color",
+      "label": "Tagline color (\"Be the first.\")",
       "default": "#d4c5a9"
     },
     {
