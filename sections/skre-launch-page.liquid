@@ -176,7 +176,7 @@
     max-width: 90vw;
     padding: 3rem 3rem 3rem 2rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
   }
 
   @media screen and (max-width: 749px) {
@@ -242,7 +242,7 @@
   .skre-launch__eyebrow-right {
     margin: 0;
     font-family: 'UnitedSans', sans-serif !important;
-    font-weight: normal !important;
+    font-weight: 900 !important;
     font-size: clamp(0.9rem, 1.8vw, 1.3rem);
     color: {{ sec.eyebrow_right_color | default: '#d4c5a9' }};
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
