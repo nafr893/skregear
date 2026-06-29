@@ -47,14 +47,16 @@
     <div class="skre-launch__panel">
 
       {%- if sec.logo != blank -%}
-        <img
-          class="skre-launch__logo skre-launch__logo--{{ sec.logo_alignment | default: 'center' }}"
-          src="{{ sec.logo | image_url: width: 200 }}"
-          alt="{{ sec.logo.alt | default: 'Logo' | escape }}"
-          width="80"
-          height="auto"
-          loading="eager"
-        >
+        <div class="skre-launch__logo-wrap skre-launch__logo-wrap--{{ sec.logo_alignment | default: 'center' }}">
+          <img
+            class="skre-launch__logo"
+            src="{{ sec.logo | image_url: width: 200 }}"
+            alt="{{ sec.logo.alt | default: 'Logo' | escape }}"
+            width="80"
+            height="auto"
+            loading="eager"
+          >
+        </div>
       {%- endif -%}
 
       {%- if sec.eyebrow != blank or sec.eyebrow_right != blank -%}
@@ -202,16 +204,21 @@
     max-width: 100%;
   }
 
+  .skre-launch__logo-wrap {
+    display: flex;
+    margin-bottom: 1.25rem;
+  }
+
+  .skre-launch__logo-wrap--left   { justify-content: flex-start; }
+  .skre-launch__logo-wrap--center { justify-content: center; }
+  .skre-launch__logo-wrap--right  { justify-content: flex-end; }
+
   .skre-launch__logo {
     width: 72px;
     height: auto;
     display: block;
-    margin-bottom: 1.25rem;
     filter: drop-shadow(0 0 6px rgba(0,0,0,0.6));
   }
-
-  .skre-launch__logo--center { align-self: center; margin-left: auto; margin-right: auto; }
-  .skre-launch__logo--right  { align-self: flex-end; margin-left: auto; }
 
   .skre-launch__eyebrow-row {
     display: flex;
