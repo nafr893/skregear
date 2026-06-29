@@ -284,8 +284,8 @@
               "type": "menu",
               "name": "t:names.menu",
               "settings": {
-                "menu": "resources-new",
-                "heading": "",
+                "menu": "resources",
+                "heading": "Resources",
                 "menu_spacing": 12,
                 "show_as_accordion": true,
                 "accordion_icon": "plus",
@@ -307,7 +307,7 @@
               "name": "t:names.menu",
               "settings": {
                 "menu": "partnership-portal",
-                "heading": "",
+                "heading": "Partnership Portal",
                 "menu_spacing": 12,
                 "show_as_accordion": true,
                 "accordion_icon": "plus",
@@ -329,7 +329,7 @@
               "name": "t:names.menu",
               "settings": {
                 "menu": "about-us",
-                "heading": "",
+                "heading": "About Us",
                 "menu_spacing": 12,
                 "show_as_accordion": true,
                 "accordion_icon": "plus",
@@ -801,8 +801,8 @@
               "type": "menu",
               "name": "t:names.menu",
               "settings": {
-                "menu": "resources-new",
-                "heading": "",
+                "menu": "resources",
+                "heading": "Resources",
                 "menu_spacing": 12,
                 "show_as_accordion": true,
                 "accordion_icon": "plus",
@@ -823,8 +823,8 @@
               "type": "menu",
               "name": "t:names.menu",
               "settings": {
-                "menu": "partnership-portal",
-                "heading": "",
+                "menu": "footer-2",
+                "heading": "Partnership Portal",
                 "menu_spacing": 12,
                 "show_as_accordion": true,
                 "accordion_icon": "plus",

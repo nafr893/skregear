@@ -2,89 +2,11 @@
 {%- assign locale = request.locale.iso_code | prepend:'/' -%}
 {%- assign new_canonical_url = blank -%}
 
-{%- if shop.metafields.WNcjxM_canonical_app.settings.value.all_pagination_first_page != blank and shop.metafields.WNcjxM_canonical_app.settings.value.all_pagination_first_page == 1 and current_page > 1 -%}
-    {%- assign new_canonical_url = request.origin | append: request.path -%}
-{%- elsif request.page_type == 'product' -%}
-    {%- if product.metafields.WNcjxM_canonical_app.canonical_url.value != blank -%}
-        {%- if product.metafields.WNcjxM_canonical_app.canonical_url.value contains request.host or product.metafields.WNcjxM_canonical_app.canonical_url.value contains 'https://' or product.metafields.WNcjxM_canonical_app.canonical_url.value contains 'www.' -%}
-            {%- assign new_canonical_url = product.metafields.WNcjxM_canonical_app.canonical_url.value -%}
-        {%- else -%}
-            {%- if request.path contains checkLocale -%}
-                {%- assign new_canonical_url = product.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: locale | prepend: request.origin -%}
-            {%- else -%}
-                {%- assign new_canonical_url = product.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: request.origin -%}
-            {%- endif -%}
-        {%- endif -%}
-    {%- else -%}
-        {%- if shop.metafields.WNcjxM_canonical_app.settings.value.product_no_parameters != blank and shop.metafields.WNcjxM_canonical_app.settings.value.product_no_parameters == 1 -%}
-            {%- assign new_canonical_url = request.origin | append: request.path -%}
-        {%- endif -%}
-    {%- endif -%}
-{%- elsif request.page_type == 'collection' or request.page_type == 'list-collections' -%}
-    {%- if collection.metafields.WNcjxM_canonical_app.canonical_url.value != blank -%}
-        {%- if collection.metafields.WNcjxM_canonical_app.canonical_url.value contains request.host or collection.metafields.WNcjxM_canonical_app.canonical_url.value contains 'https://' or collection.metafields.WNcjxM_canonical_app.canonical_url.value contains 'www.' -%}
-            {%- assign new_canonical_url = collection.metafields.WNcjxM_canonical_app.canonical_url.value -%}
-        {%- else -%}
-            {%- if request.path contains checkLocale -%}
-                {%- assign new_canonical_url = collection.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: locale | prepend: request.origin -%}
-            {%- else -%}
-                {%- assign new_canonical_url = collection.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: request.origin -%}
-            {%- endif -%}
-        {%- endif -%}
-    {%- else -%}
-        {%- if shop.metafields.WNcjxM_canonical_app.settings.value.collection_filters_first_page != blank and shop.metafields.WNcjxM_canonical_app.settings.value.collection_filters_first_page == 1 and current_tags -%}
-            {%- if request.path contains checkLocale -%}
-                {%- assign new_canonical_url = collection.url | prepend: locale | prepend: request.origin  -%}
-            {%- else -%}
-                {%- assign new_canonical_url = collection.url | prepend: request.origin  -%}
-            {%- endif -%}
-        {%- elsif shop.metafields.WNcjxM_canonical_app.settings.value.collection_vendor_to_collection != blank and shop.metafields.WNcjxM_canonical_app.settings.value.collection_vendor_to_collection == 1 and collection.current_vendor != blank -%}
-            {%- if request.path contains checkLocale -%}
-                {%- assign new_canonical_url = "/collections/" | prepend: locale | prepend: request.origin | append: collection.current_vendor -%}
-            {%- else -%}
-                {%- assign new_canonical_url = "/collections/" | prepend: request.origin | append: collection.current_vendor -%}
-            {%- endif -%}
-        {%- elsif shop.metafields.WNcjxM_canonical_app.settings.value.collection_no_parameters != blank and shop.metafields.WNcjxM_canonical_app.settings.value.collection_no_parameters == 1 -%}
-            {%- assign new_canonical_url = request.origin | append: request.path  -%}
-        {%- endif -%}
-    {%- endif -%}
-{%- elsif request.page_type == 'page' and page.metafields.WNcjxM_canonical_app.canonical_url.value != blank -%}
-    {%- if page.metafields.WNcjxM_canonical_app.canonical_url.value contains request.host or page.metafields.WNcjxM_canonical_app.canonical_url.value contains 'https://' or page.metafields.WNcjxM_canonical_app.canonical_url.value contains 'www.' -%}
-        {%- assign new_canonical_url = page.metafields.WNcjxM_canonical_app.canonical_url.value -%}
-    {%- else -%}
-        {%- if request.path contains checkLocale -%}
-            {%- assign new_canonical_url = page.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: locale | prepend: request.origin -%}
-        {%- else -%}
-            {%- assign new_canonical_url = page.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: request.origin -%}
-        {%- endif -%}
-    {%- endif -%}
-{%- elsif request.page_type == 'article' and article.metafields.WNcjxM_canonical_app.canonical_url.value != blank -%}
-    {%- if article.metafields.WNcjxM_canonical_app.canonical_url.value contains request.host or article.metafields.WNcjxM_canonical_app.canonical_url.value contains 'https://' or article.metafields.WNcjxM_canonical_app.canonical_url.value contains 'www.' -%}
-        {%- assign new_canonical_url = article.metafields.WNcjxM_canonical_app.canonical_url.value -%}
-    {%- else -%}
-        {%- if request.path contains checkLocale -%}
-            {%- assign new_canonical_url = article.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: locale | prepend: request.origin -%}
-        {%- else -%}
-            {%- assign new_canonical_url = article.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: request.origin -%}
-        {%- endif -%}
-    {%- endif -%}
-{%- elsif request.page_type == 'blog' and blog.metafields.WNcjxM_canonical_app.canonical_url.value != blank -%}
-    {%- if blog.metafields.WNcjxM_canonical_app.canonical_url.value contains request.host or blog.metafields.WNcjxM_canonical_app.canonical_url.value contains 'https://' or blog.metafields.WNcjxM_canonical_app.canonical_url.value contains 'www.' -%}
-        {%- assign new_canonical_url = blog.metafields.WNcjxM_canonical_app.canonical_url.value -%}
-    {%- else -%}
-        {%- if request.path contains checkLocale -%}
-            {%- assign new_canonical_url = blog.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: locale | prepend: request.origin -%}
-        {%- else -%}
-            {%- assign new_canonical_url = blog.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: request.origin -%}
-        {%- endif -%}
-    {%- endif -%}
-{%- endif -%}
-{%- if shop.metafields.WNcjxM_canonical_app.target_urls != blank and new_canonical_url == blank -%}
+{%- if shop.metafields.WNcjxM_canonical_app.target_urls != blank -%}
     {%- assign full_url = request.origin | append: request.path -%}
     {%- for target_urls in shop.metafields.WNcjxM_canonical_app.target_urls.value -%}
         {%- for original_url in target_urls.original_urls -%}
             {%- if full_url == original_url -%}
-
                 {%- if target_urls.target_url contains 'https://' or target_urls.target_url contains 'www.' -%}
                     {%- assign new_canonical_url = target_urls.target_url -%}
                     {%- break -%}
@@ -92,11 +14,8 @@
                     {%- assign new_canonical_url = target_urls.target_url | prepend: request.origin -%}
                     {%- break -%}
                 {%- endif -%}
-
-                {%- break -%}
             {%- elsif request.path == original_url -%}
                 {%- assign new_canonical_url = target_urls.target_url | prepend: request.origin -%}
-
                 {%- break -%}
             {%- endif -%}
         {%- endfor -%}
@@ -104,6 +23,85 @@
             {%- break -%}
         {%- endif -%}
     {%- endfor -%}
+{%- endif -%}
+{%- if new_canonical_url == blank -%}
+    {%- if shop.metafields.WNcjxM_canonical_app.settings.value.all_pagination_first_page != blank and shop.metafields.WNcjxM_canonical_app.settings.value.all_pagination_first_page == 1 and current_page > 1 -%}
+        {%- assign new_canonical_url = request.origin | append: request.path -%}
+    {%- elsif request.page_type == 'product' -%}
+        {%- if product.metafields.WNcjxM_canonical_app.canonical_url.value != blank -%}
+            {%- if product.metafields.WNcjxM_canonical_app.canonical_url.value contains request.host or product.metafields.WNcjxM_canonical_app.canonical_url.value contains 'https://' or product.metafields.WNcjxM_canonical_app.canonical_url.value contains 'www.' -%}
+                {%- assign new_canonical_url = product.metafields.WNcjxM_canonical_app.canonical_url.value -%}
+            {%- else -%}
+                {%- if request.path contains checkLocale -%}
+                    {%- assign new_canonical_url = product.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: locale | prepend: request.origin -%}
+                {%- else -%}
+                    {%- assign new_canonical_url = product.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: request.origin -%}
+                {%- endif -%}
+            {%- endif -%}
+        {%- else -%}
+            {%- if shop.metafields.WNcjxM_canonical_app.settings.value.product_no_parameters != blank and shop.metafields.WNcjxM_canonical_app.settings.value.product_no_parameters == 1 -%}
+                {%- assign new_canonical_url = request.origin | append: request.path -%}
+            {%- endif -%}
+        {%- endif -%}
+    {%- elsif request.page_type == 'collection' or request.page_type == 'list-collections' -%}
+        {%- if collection.metafields.WNcjxM_canonical_app.canonical_url.value != blank -%}
+            {%- if collection.metafields.WNcjxM_canonical_app.canonical_url.value contains request.host or collection.metafields.WNcjxM_canonical_app.canonical_url.value contains 'https://' or collection.metafields.WNcjxM_canonical_app.canonical_url.value contains 'www.' -%}
+                {%- assign new_canonical_url = collection.metafields.WNcjxM_canonical_app.canonical_url.value -%}
+            {%- else -%}
+                {%- if request.path contains checkLocale -%}
+                    {%- assign new_canonical_url = collection.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: locale | prepend: request.origin -%}
+                {%- else -%}
+                    {%- assign new_canonical_url = collection.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: request.origin -%}
+                {%- endif -%}
+            {%- endif -%}
+        {%- else -%}
+            {%- if shop.metafields.WNcjxM_canonical_app.settings.value.collection_filters_first_page != blank and shop.metafields.WNcjxM_canonical_app.settings.value.collection_filters_first_page == 1 and current_tags -%}
+                {%- if request.path contains checkLocale -%}
+                    {%- assign new_canonical_url = collection.url | prepend: locale | prepend: request.origin  -%}
+                {%- else -%}
+                    {%- assign new_canonical_url = collection.url | prepend: request.origin  -%}
+                {%- endif -%}
+            {%- elsif shop.metafields.WNcjxM_canonical_app.settings.value.collection_vendor_to_collection != blank and shop.metafields.WNcjxM_canonical_app.settings.value.collection_vendor_to_collection == 1 and collection.current_vendor != blank -%}
+                {%- if request.path contains checkLocale -%}
+                    {%- assign new_canonical_url = "/collections/" | prepend: locale | prepend: request.origin | append: collection.current_vendor -%}
+                {%- else -%}
+                    {%- assign new_canonical_url = "/collections/" | prepend: request.origin | append: collection.current_vendor -%}
+                {%- endif -%}
+            {%- elsif shop.metafields.WNcjxM_canonical_app.settings.value.collection_no_parameters != blank and shop.metafields.WNcjxM_canonical_app.settings.value.collection_no_parameters == 1 -%}
+                {%- assign new_canonical_url = request.origin | append: request.path  -%}
+            {%- endif -%}
+        {%- endif -%}
+    {%- elsif request.page_type == 'page' and page.metafields.WNcjxM_canonical_app.canonical_url.value != blank -%}
+        {%- if page.metafields.WNcjxM_canonical_app.canonical_url.value contains request.host or page.metafields.WNcjxM_canonical_app.canonical_url.value contains 'https://' or page.metafields.WNcjxM_canonical_app.canonical_url.value contains 'www.' -%}
+            {%- assign new_canonical_url = page.metafields.WNcjxM_canonical_app.canonical_url.value -%}
+        {%- else -%}
+            {%- if request.path contains checkLocale -%}
+                {%- assign new_canonical_url = page.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: locale | prepend: request.origin -%}
+            {%- else -%}
+                {%- assign new_canonical_url = page.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: request.origin -%}
+            {%- endif -%}
+        {%- endif -%}
+    {%- elsif request.page_type == 'article' and article.metafields.WNcjxM_canonical_app.canonical_url.value != blank -%}
+        {%- if article.metafields.WNcjxM_canonical_app.canonical_url.value contains request.host or article.metafields.WNcjxM_canonical_app.canonical_url.value contains 'https://' or article.metafields.WNcjxM_canonical_app.canonical_url.value contains 'www.' -%}
+            {%- assign new_canonical_url = article.metafields.WNcjxM_canonical_app.canonical_url.value -%}
+        {%- else -%}
+            {%- if request.path contains checkLocale -%}
+                {%- assign new_canonical_url = article.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: locale | prepend: request.origin -%}
+            {%- else -%}
+                {%- assign new_canonical_url = article.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: request.origin -%}
+            {%- endif -%}
+        {%- endif -%}
+    {%- elsif request.page_type == 'blog' and blog.metafields.WNcjxM_canonical_app.canonical_url.value != blank -%}
+        {%- if blog.metafields.WNcjxM_canonical_app.canonical_url.value contains request.host or blog.metafields.WNcjxM_canonical_app.canonical_url.value contains 'https://' or blog.metafields.WNcjxM_canonical_app.canonical_url.value contains 'www.' -%}
+            {%- assign new_canonical_url = blog.metafields.WNcjxM_canonical_app.canonical_url.value -%}
+        {%- else -%}
+            {%- if request.path contains checkLocale -%}
+                {%- assign new_canonical_url = blog.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: locale | prepend: request.origin -%}
+            {%- else -%}
+                {%- assign new_canonical_url = blog.metafields.WNcjxM_canonical_app.canonical_url.value | prepend: request.origin -%}
+            {%- endif -%}
+        {%- endif -%}
+    {%- endif -%}
 {%- endif -%}
 {%- if new_canonical_url != blank -%}
     {%- assign canonical_url = new_canonical_url -%}
