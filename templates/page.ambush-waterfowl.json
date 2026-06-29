@@ -80,11 +80,13 @@
         "label_email": "Email Address",
         "show_phone": true,
         "label_phone": "Phone (optional)",
-        "border_color": "#7B5842",
+        "border_color": "#7b5842",
         "heading_color": "#c8d0d8",
-        "eyebrow_color": "#7B5842",
+        "eyebrow_color": "#7b5842",
+        "eyebrow_right_color": "#FFFFFF",
+        "tagline_color": "#FFFFFF",
         "input_border_color": "#4a7aab",
-        "button_color": "#7B5842",
+        "button_color": "#7b5842",
         "button_text_color": "#ffffff"
       }
     }
