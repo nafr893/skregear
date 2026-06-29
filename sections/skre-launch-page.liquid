@@ -201,18 +201,22 @@
   .skre-launch__panel {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 0.75rem;
     width: fit-content;
     max-width: 100%;
   }
 
   .skre-launch__logo-wrap {
+    align-self: stretch;
+    display: flex;
+    justify-content: center;
     margin-bottom: 1.25rem;
   }
 
-  .skre-launch__logo-wrap--left   { align-self: flex-start; }
-  .skre-launch__logo-wrap--center { align-self: center; }
-  .skre-launch__logo-wrap--right  { align-self: flex-end; }
+  .skre-launch__logo-wrap--left   { justify-content: center; }
+  .skre-launch__logo-wrap--center { justify-content: center; }
+  .skre-launch__logo-wrap--right  { justify-content: flex-end; }
 
   .skre-launch__logo {
     width: 72px;
@@ -225,6 +229,7 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
+    align-self: stretch;
     gap: 0.75rem;
   }
 
@@ -239,9 +244,8 @@
 
   .skre-launch__eyebrow-right {
     margin: 0;
-    font-family: 'UnitedSans', sans-serif !important;
-    font-weight: normal !important;
-    font-size: clamp(0.9rem, 1.8vw, 1.3rem);
+    font-weight: 400 !important;
+    font-size: 0.75rem !important;
     color: {{ sec.eyebrow_right_color | default: '#d4c5a9' }};
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
     white-space: nowrap;
@@ -250,7 +254,7 @@
   .skre-launch__heading {
     margin: 0;
     font-family: 'UnitedSans', var(--font-heading--family), sans-serif;
-    font-size: clamp(3.6rem, 9vw, 6.5rem);
+    font-size: clamp(6.9rem, 9vw, 6.5rem);
     font-weight: 900;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -271,7 +275,7 @@
     flex-direction: column;
     gap: 0.55rem;
     margin-top: 0.5rem;
-    width: 480px;
+    align-self: stretch;
     max-width: 100%;
   }
 
