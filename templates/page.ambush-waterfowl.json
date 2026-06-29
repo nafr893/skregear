@@ -50,6 +50,7 @@
         "heading",
         "page-content"
       ],
+      "disabled": true,
       "settings": {
         "content_direction": "column",
         "gap": 32,
@@ -57,9 +58,41 @@
         "padding-block-start": 40,
         "padding-block-end": 80
       }
+    },
+    "skre_launch_page_4DXNdp": {
+      "type": "skre-launch-page",
+      "name": "Launch Page",
+      "settings": {
+        "klaviyo_public_key": "",
+        "klaviyo_list_id": "",
+        "background_image": "shopify://shop_images/DSC06048.jpg",
+        "logo": "shopify://shop_images/SKRE_Logo_Brown.png",
+        "logo_alignment": "center",
+        "eyebrow": "It's almost here...",
+        "eyebrow_right": "07.23.26",
+        "heading": "AMBUSH",
+        "tagline": "Be the first.",
+        "button_label": "NOTIFY ME",
+        "success_message": "You're on the list.",
+        "label_name": "First Name",
+        "show_last_name": false,
+        "label_last_name": "Last Name",
+        "label_email": "Email Address",
+        "show_phone": true,
+        "label_phone": "Phone (optional)",
+        "border_color": "#b8956a",
+        "heading_color": "#c8d0d8",
+        "eyebrow_color": "#7B5842",
+        "eyebrow_right_color": "#FFFFFF",
+        "tagline_color": "#FFFFFF",
+        "input_border_color": "#4a7aab",
+        "button_color": "#7B5842",
+        "button_text_color": "#ffffff"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "skre_launch_page_4DXNdp"
   ]
 }
