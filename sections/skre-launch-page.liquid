@@ -1,9 +1,22 @@
 {%- assign sec = section.settings -%}
 {%- assign sec_id = 'skre-launch-' | append: section.id -%}
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'GeorgiaBrush';
+    src: url('{{ 'georgia-brush.woff2' | asset_url }}') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: 'UnitedSans';
+    src: url('{{ 'united-sans-black.woff2' | asset_url }}') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+</style>
 
 <section class="skre-launch" id="{{ sec_id }}" aria-label="{{ sec.heading | escape }}">
 
@@ -202,7 +215,7 @@
 
   .skre-launch__eyebrow {
     margin: 0;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'GeorgiaBrush', cursive;
     font-size: clamp(1.2rem, 2.5vw, 1.75rem);
     color: {{ sec.eyebrow_color | default: '#d4c5a9' }};
     line-height: 1.2;
@@ -210,7 +223,7 @@
   }
 
   .skre-launch__eyebrow-right {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'GeorgiaBrush', cursive;
     font-size: clamp(0.9rem, 1.8vw, 1.3rem);
     color: {{ sec.eyebrow_color | default: '#d4c5a9' }};
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
@@ -219,7 +232,7 @@
 
   .skre-launch__heading {
     margin: 0;
-    font-family: var(--font-heading--family);
+    font-family: 'UnitedSans', var(--font-heading--family), sans-serif;
     font-size: clamp(2.8rem, 7vw, 5rem);
     font-weight: 900;
     letter-spacing: 0.08em;
@@ -294,7 +307,7 @@
 
   .skre-launch__tagline {
     margin: 0.25rem 0 0;
-    font-family: 'Dancing Script', cursive;
+    font-family: 'GeorgiaBrush', cursive;
     font-size: clamp(1rem, 2vw, 1.4rem);
     color: {{ sec.eyebrow_color | default: '#d4c5a9' }};
     text-align: right;
