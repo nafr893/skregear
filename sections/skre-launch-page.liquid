@@ -395,19 +395,27 @@
       return;
     }
 
-    var properties = {};
-    if (firstName) properties['$first_name'] = firstName;
-    if (lastName)  properties['$last_name']  = lastName;
-    if (phone)     properties['$phone_number'] = phone;
+    var profileAttrs = { email: email };
+    if (firstName) profileAttrs.first_name   = firstName;
+    if (lastName)  profileAttrs.last_name    = lastName;
+    if (phone)     profileAttrs.phone_number = phone;
 
     var payload = {
       data: {
         type: 'subscription',
         attributes: {
-          list_id: listId,
-          email: email,
           custom_source: 'Launch Page',
-          properties: properties
+          profile: {
+            data: {
+              type: 'profile',
+              attributes: profileAttrs
+            }
+          }
+        },
+        relationships: {
+          list: {
+            data: { type: 'list', id: listId }
+          }
         }
       }
     };
