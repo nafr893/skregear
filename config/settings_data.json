@@ -216,6 +216,11 @@
         "type": "shopify://apps/hulk-form-builder/blocks/app-embed/b6b8dd14-356b-4725-a4ed-77232212b3c3",
         "disabled": false,
         "settings": {}
+      },
+      "1057056175266400017": {
+        "type": "shopify://apps/yotpo-email-marketing-sms/blocks/app-embed/7a4b8bd9-dff0-44fc-aef9-a187a77a5d45",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
