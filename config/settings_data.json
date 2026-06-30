@@ -275,7 +275,7 @@
         "type": "shopify://apps/loop-returns-exchanges/blocks/loop-storefront/e32ccd84-40d6-4b16-98bf-b6b9da010afd",
         "disabled": false,
         "settings": {
-          "order-protection-feature": false
+          "order-protection-feature": true
         }
       }
     },
