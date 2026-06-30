@@ -302,7 +302,7 @@
       },
       "6263565299450869220": {
         "type": "shopify://apps/loop-returns-exchanges/blocks/return-coverage/e32ccd84-40d6-4b16-98bf-b6b9da010afd",
-        "disabled": false,
+        "disabled": true,
         "settings": {
           "element-to-watch-for-cart-updates": "",
           "event-system": "dom-event-system",
