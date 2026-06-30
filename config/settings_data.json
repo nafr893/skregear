@@ -260,6 +260,23 @@
           "bump-side-cart": false,
           "side-cart-selector": ".sidecart"
         }
+      },
+      "7735469494667817498": {
+        "type": "shopify://apps/cookiefy-privacy-policy/blocks/rcc-widget/73038c83-bed0-4085-8aae-bb5c3539c0c6",
+        "disabled": false,
+        "settings": {
+          "new_frontend": true
+        }
+      },
+      "1935445597218932304": {
+        "type": "shopify://apps/avada-seo-suite/blocks/avada-seo/15507c6e-1aa3-45d3-b698-7e175e033440",
+        "disabled": false,
+        "settings": {}
+      },
+      "6279071938380501511": {
+        "type": "shopify://apps/powerful-form-builder/blocks/app-embed/e4bcb1eb-35b2-42e6-bc37-bfe0e1542c9d",
+        "disabled": true,
+        "settings": {}
       }
     },
     "color_schemes": {
