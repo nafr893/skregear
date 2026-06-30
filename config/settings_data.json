@@ -266,11 +266,6 @@
           "swym_variant_selector_create_list_title": "Name Your Wishlist"
         }
       },
-      "6143736321357441667": {
-        "type": "shopify://apps/tidio-live-chat-chatbots/blocks/app-embed/1002274d-fb18-4939-98f6-5f05a8deeadc",
-        "disabled": false,
-        "settings": {}
-      },
       "14928883602818719019": {
         "type": "shopify://apps/loop-returns-exchanges/blocks/loop-storefront/e32ccd84-40d6-4b16-98bf-b6b9da010afd",
         "disabled": false,
@@ -309,6 +304,11 @@
           "auto-refresh": true,
           "auto-refresh-option": "every-page"
         }
+      },
+      "6143736321357441667": {
+        "type": "shopify://apps/tidio-live-chat-chatbots/blocks/app-embed/1002274d-fb18-4939-98f6-5f05a8deeadc",
+        "disabled": true,
+        "settings": {}
       }
     },
     "color_schemes": {
