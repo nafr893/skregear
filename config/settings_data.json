@@ -80,7 +80,7 @@
     "empty_cart_btn_2_url": "shopify://pages/pursuit",
     "empty_cart_btn_3_url": "shopify://collections/clearance",
     "empty_cart_btn_4_text": "",
-    "empty_cart_trending_collection": "cold-weather",
+    "empty_cart_trending_collection": "",
     "drawer_drop_shadow": true,
     "icon_stroke": "default",
     "input_border_width": 1,
@@ -261,13 +261,6 @@
           "side-cart-selector": ".sidecart"
         }
       },
-      "7735469494667817498": {
-        "type": "shopify://apps/cookiefy-privacy-policy/blocks/rcc-widget/73038c83-bed0-4085-8aae-bb5c3539c0c6",
-        "disabled": false,
-        "settings": {
-          "new_frontend": true
-        }
-      },
       "1935445597218932304": {
         "type": "shopify://apps/avada-seo-suite/blocks/avada-seo/15507c6e-1aa3-45d3-b698-7e175e033440",
         "disabled": false,
@@ -277,6 +270,13 @@
         "type": "shopify://apps/powerful-form-builder/blocks/app-embed/e4bcb1eb-35b2-42e6-bc37-bfe0e1542c9d",
         "disabled": true,
         "settings": {}
+      },
+      "7735469494667817498": {
+        "type": "shopify://apps/cookiefy-privacy-policy/blocks/rcc-widget/73038c83-bed0-4085-8aae-bb5c3539c0c6",
+        "disabled": false,
+        "settings": {
+          "new_frontend": true
+        }
       }
     },
     "color_schemes": {
