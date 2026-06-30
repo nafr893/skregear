@@ -7,7 +7,7 @@
     src: url('{{ 'georgia-brush.woff2' | asset_url }}') format('woff2');
     font-weight: normal;
     font-style: normal;
-    font-display: swap;
+    font-display: block;
   }
   @font-face {
     font-family: 'UnitedSans';
@@ -62,7 +62,7 @@
       {%- if sec.eyebrow != blank or sec.eyebrow_right != blank -%}
         <div class="skre-launch__eyebrow-row">
           {%- if sec.eyebrow != blank -%}
-            <p class="skre-launch__eyebrow" style="font-family: 'GeorgiaBrush', cursive;">{{ sec.eyebrow }}</p>
+            <p class="skre-launch__eyebrow" style="font-family: 'GeorgiaBrush', serif;">{{ sec.eyebrow }}</p>
           {%- endif -%}
           {%- if sec.eyebrow_right != blank -%}
             <h2 class="skre-launch__eyebrow-right">{{ sec.eyebrow_right }}</h2>
@@ -123,7 +123,7 @@
       </form>
 
       {%- if sec.tagline != blank -%}
-        <p class="skre-launch__tagline" style="font-family: 'GeorgiaBrush', cursive;">{{ sec.tagline }}</p>
+        <p class="skre-launch__tagline" style="font-family: 'GeorgiaBrush', serif;">{{ sec.tagline }}</p>
       {%- endif -%}
 
     </div>
@@ -199,7 +199,7 @@
     }
     .skre-launch .skre-launch__eyebrow,
     .skre-launch .skre-launch__tagline {
-      font-family: 'GeorgiaBrush', cursive !important;
+      font-family: 'GeorgiaBrush', serif !important;
     }
   }
 
@@ -339,7 +339,7 @@
 
   .skre-launch .skre-launch__tagline {
     margin: 0.25rem 0 0;
-    font-family: 'GeorgiaBrush', cursive !important;
+    font-family: 'GeorgiaBrush', serif !important;
     font-size: 2rem;
     color: {{ sec.tagline_color | default: '#d4c5a9' }};
     text-align: right;
