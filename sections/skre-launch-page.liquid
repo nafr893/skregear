@@ -195,6 +195,7 @@
     }
     .skre-launch__heading {
       white-space: normal;
+      font-size: clamp(3.4rem, 18vw, 5.5rem) !important;
     }
   }
 
@@ -244,7 +245,8 @@
 
   .skre-launch__eyebrow-right {
     margin: 0;
-    font-weight: 100 !important;
+    font-weight: 400 !important;
+    font-size: clamp(0.9rem, 1.8vw, 1.3rem);
     font-size: 1.25rem !important;
     color: {{ sec.eyebrow_right_color | default: '#d4c5a9' }};
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
@@ -261,10 +263,10 @@
     color: {{ sec.heading_color | default: '#c8d0d8' }};
     line-height: 1;
     white-space: nowrap;
+    padding: 0;
     text-shadow:
       0 0 40px rgba(100,140,180,0.4),
       0 2px 8px rgba(0,0,0,0.8);
-    padding: 0.35rem 0.6rem;
     background: rgba(0,0,0,0.35);
     backdrop-filter: blur(2px);
     opacity: 0.3;
@@ -393,19 +395,31 @@
       return;
     }
 
-    var properties = {};
-    if (firstName) properties['$first_name'] = firstName;
-    if (lastName)  properties['$last_name']  = lastName;
-    if (phone)     properties['$phone_number'] = phone;
+    var profileAttrs = { email: email };
+    if (firstName) {
+      var nameParts = firstName.trim().split(/\s+/);
+      profileAttrs.first_name = nameParts[0];
+      if (nameParts.length > 1) profileAttrs.last_name = nameParts.slice(1).join(' ');
+    }
+    if (lastName)  profileAttrs.last_name    = lastName;
+    if (phone)     profileAttrs.phone_number = phone;
 
     var payload = {
       data: {
         type: 'subscription',
         attributes: {
-          list_id: listId,
-          email: email,
           custom_source: 'Launch Page',
-          properties: properties
+          profile: {
+            data: {
+              type: 'profile',
+              attributes: profileAttrs
+            }
+          }
+        },
+        relationships: {
+          list: {
+            data: { type: 'list', id: listId }
+          }
         }
       }
     };
