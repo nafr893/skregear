@@ -197,6 +197,10 @@
       white-space: normal;
       font-size: clamp(3.4rem, 18vw, 5.5rem) !important;
     }
+    .skre-launch__eyebrow,
+    .skre-launch__tagline {
+      font-family: 'GeorgiaBrush', cursive !important;
+    }
   }
 
   .skre-launch__panel {
@@ -236,7 +240,7 @@
 
   .skre-launch__eyebrow {
     margin: 0;
-    font-family: 'GeorgiaBrush', cursive;
+    font-family: 'GeorgiaBrush', cursive !important;
     font-size: 2rem;
     color: {{ sec.eyebrow_color | default: '#d4c5a9' }};
     line-height: 1.2;
@@ -333,7 +337,7 @@
 
   .skre-launch__tagline {
     margin: 0.25rem 0 0;
-    font-family: 'GeorgiaBrush', cursive;
+    font-family: 'GeorgiaBrush', cursive !important;
     font-size: 2rem;
     color: {{ sec.tagline_color | default: '#d4c5a9' }};
     text-align: right;
