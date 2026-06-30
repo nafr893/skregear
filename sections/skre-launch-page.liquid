@@ -4,7 +4,7 @@
 <style>
   @font-face {
     font-family: 'GeorgiaBrush';
-    src: url('{{ 'georgia-brush.woff2' | asset_url }}') format('woff2');
+    src: local(''), url('{{ 'georgia-brush.woff2' | asset_url }}') format('woff2');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -245,6 +245,8 @@
     color: {{ sec.eyebrow_color | default: '#d4c5a9' }};
     line-height: 1.2;
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    text-rendering: optimizeSpeed;
+    font-synthesis: none;
   }
 
   .skre-launch__eyebrow-right {
@@ -344,6 +346,8 @@
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
     padding: 0.25rem 0.6rem;
     align-self: flex-end;
+    text-rendering: optimizeSpeed;
+    font-synthesis: none;
   }
 
   .skre-launch__form-msg {
