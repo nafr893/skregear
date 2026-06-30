@@ -396,7 +396,11 @@
     }
 
     var profileAttrs = { email: email };
-    if (firstName) profileAttrs.first_name   = firstName;
+    if (firstName) {
+      var nameParts = firstName.trim().split(/\s+/);
+      profileAttrs.first_name = nameParts[0];
+      if (nameParts.length > 1) profileAttrs.last_name = nameParts.slice(1).join(' ');
+    }
     if (lastName)  profileAttrs.last_name    = lastName;
     if (phone)     profileAttrs.phone_number = phone;
 
