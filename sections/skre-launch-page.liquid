@@ -174,7 +174,7 @@
     z-index: 2;
     width: 100%;
     max-width: 90vw;
-    padding: 3rem 3rem 3rem 2rem;
+    padding: 3rem 18rem 3rem 2rem;
     display: flex;
     justify-content: flex-end;
   }
@@ -237,7 +237,7 @@
   .skre-launch__eyebrow {
     margin: 0;
     font-family: 'GeorgiaBrush', cursive;
-    font-size: clamp(1.4rem, 2.8vw, 2rem);
+    font-size: 2rem;
     color: {{ sec.eyebrow_color | default: '#d4c5a9' }};
     line-height: 1.2;
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
@@ -247,6 +247,7 @@
     margin: 0;
     font-weight: 400 !important;
     font-size: clamp(0.9rem, 1.8vw, 1.3rem);
+    font-size: 1.25rem !important;
     color: {{ sec.eyebrow_right_color | default: '#d4c5a9' }};
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
     white-space: nowrap;
@@ -263,7 +264,6 @@
     line-height: 1;
     white-space: nowrap;
     padding: 0;
-    padding-top: 0.5rem !important;
     text-shadow:
       0 0 40px rgba(100,140,180,0.4),
       0 2px 8px rgba(0,0,0,0.8);
@@ -334,12 +334,11 @@
   .skre-launch__tagline {
     margin: 0.25rem 0 0;
     font-family: 'GeorgiaBrush', cursive;
-    font-size: clamp(1rem, 2vw, 1.4rem);
+    font-size: 2rem;
     color: {{ sec.tagline_color | default: '#d4c5a9' }};
     text-align: right;
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
     padding: 0.25rem 0.6rem;
-    background: rgba(0,0,0,0.3);
     align-self: flex-end;
   }
 
