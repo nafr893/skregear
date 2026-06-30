@@ -1,0 +1,91 @@
+{% comment %}
+	GEMPAGES BUILDER (https://apps.shopify.com/gempages)
+
+	You SHOULD NOT modify source code in this file because
+	It is automatically generated from GEMPAGES BUILDER
+	Try to edit page with the live editor.
+{% endcomment %}
+<!doctype html>
+<html
+  {% if request.design_mode %}
+    class="shopify-design-mode"
+  {% endif %}
+  lang="{{ request.locale.iso_code }}"
+>
+  <head>
+
+{% include 'canonicals_app' %}
+
+<link rel="canonical" href="{{ canonical_url }}">
+
+
+    {%- if settings.favicon != blank -%}
+      <link
+        rel="icon"
+        type="image/png"
+        href="{{ settings.favicon | image_url: width: 32, height: 32 }}"
+      >
+    {%- endif -%}
+
+    {% # theme-check-disable RemoteAsset %}
+    {% comment %} This a way to wait for main content to load when navigating to a new page so that the view transitions can work consistently {% endcomment %}
+    {% if settings.transition_to_main_product or settings.page_transition_enabled %}
+      <link
+        rel="expect"
+        href="#MainContent"
+        blocking="render"
+        id="view-transition-render-blocker"
+      >
+    {% endif %}
+
+    {%- render 'meta-tags' -%}
+    {%- render 'stylesheets' -%}
+    {%- render 'fonts' -%}
+    {%- render 'scripts' -%}
+    {%- render 'theme-styles-variables' -%}
+    {%- render 'color-schemes' -%}
+
+    {% if request.design_mode %}
+      {%- render 'theme-editor' -%}
+    {% endif %}
+
+    {{ content_for_header }}
+    {% # theme-check-enable RemoteAsset %}
+    <link rel="prefetch" href="{{ 'skre-layer-builder.js' | asset_url }}" as="script">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+<div class="gem-container">
+	{{ content_for_layout }}
+</div><!-- end .gem-container --><!--Gem_Page_Footer_Script-->
+  {%- liquid
+    assign gpTemplateSuffix = template.suffix
+    assign arrSplitSuffix = gpTemplateSuffix | split: '-'
+    if gpTemplateSuffix contains 'gem-' and gpTemplateSuffix contains '-template' and arrSplitSuffix.size == 3
+      assign isV6GpTemplate = true
+    endif
+    assign gpShopMeta = shop.metafields.gempages
+    if gpShopMeta
+      if gpShopMeta['productV6-default'] == 'true' and request.page_type == 'product'
+        assign isProductDefault = true
+      endif
+      if gpShopMeta['collectionV6-default'] == 'true' and request.page_type == 'collection'
+        assign isCollectionDefault = true
+      endif
+      if gpShopMeta['indexV6-default'] == 'true' and request.page_type == 'index'
+        assign isIndexDefault = true
+      endif
+      if isProductDefault or isCollectionDefault or isIndexDefault or isPreviewV6
+        assign isV6GpTemplate = true
+      endif
+    endif
+  %}
+  {% if isV6GpTemplate %}
+    {% render 'gem-app-footer-scripts', GEM_FOOTER_SCRIPT: GEM_FOOTER_SCRIPT %}
+  {% endif %}
+<!--End_Gem_Page_Footer_Script-->
+</body>
+</html>
