@@ -278,16 +278,6 @@
           "order-protection-feature": true
         }
       },
-      "6263565299450869220": {
-        "type": "shopify://apps/loop-returns-exchanges/blocks/return-coverage/e32ccd84-40d6-4b16-98bf-b6b9da010afd",
-        "disabled": false,
-        "settings": {
-          "element-to-watch-for-cart-updates": "",
-          "event-system": "dom-event-system",
-          "auto-refresh": false,
-          "auto-refresh-option": "every-page"
-        }
-      },
       "5888675206956468567": {
         "type": "shopify://apps/loop-returns-exchanges/blocks/onstore/e32ccd84-40d6-4b16-98bf-b6b9da010afd",
         "disabled": false,
@@ -308,6 +298,16 @@
           "bar-text-color": "#ffffff",
           "bump-side-cart": false,
           "side-cart-selector": ".sidecart"
+        }
+      },
+      "6263565299450869220": {
+        "type": "shopify://apps/loop-returns-exchanges/blocks/return-coverage/e32ccd84-40d6-4b16-98bf-b6b9da010afd",
+        "disabled": false,
+        "settings": {
+          "element-to-watch-for-cart-updates": "",
+          "event-system": "dom-event-system",
+          "auto-refresh": true,
+          "auto-refresh-option": "every-page"
         }
       }
     },
