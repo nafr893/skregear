@@ -2,8 +2,8 @@
  * Quick Filter
  * Filters product grid items based on their data-filter-group attribute,
  * which is set server-side from the custom.filter_group metafield.
- * Also syncs the skre-load-more component so its count and button reflect
- * the filtered set rather than the whole collection.
+ * A MutationObserver re-applies the active filter whenever infinite scroll
+ * appends new products to the grid.
  */
 
 (function () {
@@ -13,12 +13,16 @@
     container: '.quick-filter',
     button: '.quick-filter__button',
     productItem: '.product-grid__item',
+    grid: '.product-grid',
   };
 
   const CLASSES = {
     active: 'quick-filter__button--active',
     hidden: 'quick-filter-hidden',
   };
+
+  /** @type {string} */
+  let activeFilter = 'all';
 
   function init() {
     const container = /** @type {HTMLElement|null} */ (document.querySelector(SELECTORS.container));
@@ -29,32 +33,41 @@
 
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
-        handleFilterClick(button, buttons);
+        allButtons.forEach((btn) => btn.classList.remove(CLASSES.active));
+        button.classList.add(CLASSES.active);
+        activeFilter = button.dataset.filter || 'all';
+        applyFilter(activeFilter);
+        syncLoadMore(activeFilter);
       });
     });
+
+    // Re-apply the active filter whenever infinite scroll adds new products
+    const grid = document.querySelector(SELECTORS.grid);
+    if (grid) {
+      const observer = new MutationObserver(() => {
+        if (activeFilter !== 'all') applyFilter(activeFilter);
+      });
+      observer.observe(grid, { childList: true });
+    }
+
+    // Keep a reference so the click handler above can access buttons
+    var allButtons = buttons;
   }
 
   /**
-   * @param {HTMLElement} clickedButton
-   * @param {NodeListOf<HTMLElement>} allButtons
+   * Show/hide every product item based on the active filter.
+   * @param {string} filterValue
    */
-  function handleFilterClick(clickedButton, allButtons) {
-    allButtons.forEach((btn) => btn.classList.remove(CLASSES.active));
-    clickedButton.classList.add(CLASSES.active);
-
-    const filterValue = clickedButton.dataset.filter || 'all';
+  function applyFilter(filterValue) {
     const productItems = /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll(SELECTORS.productItem));
-
     productItems.forEach((item) => {
-      const group = item.dataset.filterGroup || '';
+      const group = (item.dataset.filterGroup || '').trim();
       if (filterValue === 'all' || group === filterValue) {
         item.classList.remove(CLASSES.hidden);
       } else {
         item.classList.add(CLASSES.hidden);
       }
     });
-
-    syncLoadMore(filterValue);
   }
 
   /**
@@ -78,14 +91,12 @@
       return;
     }
 
-    // Save the original state once, before any filter is applied
     if (!lm.dataset.savedLabel && label) {
       lm.dataset.savedLabel = label.innerHTML;
       lm.dataset.savedPctD  = (fillD ? fillD.style.width : '').replace('%', '') || lm.dataset.pctDesk || '0';
       lm.dataset.savedPctM  = (fillM ? fillM.style.width : '').replace('%', '') || lm.dataset.pctMob  || '0';
     }
 
-    // Filter active — all matched products are already in the DOM, nothing more to load
     lm.style.display = 'none';
   }
 
