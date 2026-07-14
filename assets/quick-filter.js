@@ -33,9 +33,9 @@
 
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
-        allButtons.forEach((btn) => btn.classList.remove(CLASSES.active));
+        buttons.forEach((btn) => btn.classList.remove(CLASSES.active));
         button.classList.add(CLASSES.active);
-        activeFilter = button.dataset.filter || 'all';
+        activeFilter = (button.dataset.filter || 'all').trim();
         applyFilter(activeFilter);
         syncLoadMore(activeFilter);
       });
@@ -49,9 +49,6 @@
       });
       observer.observe(grid, { childList: true });
     }
-
-    // Keep a reference so the click handler above can access buttons
-    var allButtons = buttons;
   }
 
   /**
