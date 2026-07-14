@@ -1,17 +1,16 @@
 /**
  * Quick Filter
  *
- * When a specific filter is active:
- *  - Hides non-matching products in the DOM.
- *  - Auto-loads pages in the background until every expected product for
- *    that filter group is in the DOM (avoids the user needing to manually
- *    click "load more" to reveal filtered results on later pages).
- *  - Hides the load-more element once all expected products are present;
- *    keeps it visible (and keeps auto-loading) while there are still
- *    unloaded products remaining for that group.
+ * When a specific filter is active, fetches every remaining page of the
+ * collection directly (bypassing the load-more button entirely) so that
+ * filtering always operates on the full collection, not just the products
+ * already in the DOM.
  *
- * When "All" is selected the load-more element is restored to its
- * natural state and no auto-loading runs.
+ * Pages are fetched in sequence; each batch is appended to the existing
+ * product grid and filtered immediately as it arrives.  Once every expected
+ * product is present the load-more element is hidden (user has nothing left
+ * to page through for this filter group).  Switching back to "All" restores
+ * normal load-more behaviour.
  */
 
 (function () {
@@ -23,7 +22,6 @@
     productItem: '.product-grid__item',
     grid:        '.product-grid',
     loadMore:    'skre-load-more',
-    loadMoreBtn: '.skre-lm__btn',
   };
 
   const CLASSES = {
@@ -33,6 +31,9 @@
 
   let activeFilter        = 'all';
   let activeExpectedCount = 0;
+
+  /** Set to true while an async fetch-and-load cycle is running. */
+  let loading = false;
 
   function init() {
     const container = /** @type {HTMLElement|null} */ (document.querySelector(SELECTORS.container));
@@ -50,23 +51,12 @@
         activeExpectedCount = parseInt(button.dataset.count || '0', 10);
 
         applyFilter(activeFilter);
-        updateLoadMore();
+        handleLoadMore();
       });
     });
-
-    // Each time new products are appended re-apply the filter and
-    // re-evaluate whether more pages need loading.
-    const grid = document.querySelector(SELECTORS.grid);
-    if (grid) {
-      const observer = new MutationObserver(() => {
-        if (activeFilter !== 'all') {
-          applyFilter(activeFilter);
-          updateLoadMore();
-        }
-      });
-      observer.observe(grid, { childList: true });
-    }
   }
+
+  // ─── filtering ──────────────────────────────────────────────────────────────
 
   /** @param {string} filterValue */
   function applyFilter(filterValue) {
@@ -91,62 +81,126 @@
     return n;
   }
 
+  // ─── pagination ─────────────────────────────────────────────────────────────
+
   /**
-   * Decide whether to show or hide the load-more element, and if products
-   * are still missing for the active filter, trigger the next page load.
+   * After a filter change, decide whether to fetch remaining pages or just
+   * toggle load-more visibility.
    */
-  function updateLoadMore() {
-    const lm  = /** @type {HTMLElement|null} */ (document.querySelector(SELECTORS.loadMore));
-    if (!lm) return;
+  function handleLoadMore() {
+    const lm = /** @type {HTMLElement|null} */ (document.querySelector(SELECTORS.loadMore));
 
     if (activeFilter === 'all') {
-      lm.style.display = '';   // restore normal behaviour
+      if (lm) lm.style.display = '';
       return;
     }
 
-    const domCount = countInDom(activeFilter);
-    const allFound = domCount >= activeExpectedCount;
+    // If all expected products are already in the DOM, just hide load-more.
+    if (countInDom(activeFilter) >= activeExpectedCount) {
+      if (lm) lm.style.display = 'none';
+      return;
+    }
 
-    // Hide load-more once every expected product is present
-    lm.style.display = allFound ? 'none' : '';
+    // Some products are on later pages — fetch them now.
+    if (lm) lm.style.display = 'none'; // hide while we auto-load
+    fetchRemainingPages();
+  }
 
-    if (!allFound) {
-      // Trigger the next page load — keep lm VISIBLE so the button
-      // click is guaranteed to fire in all browsers/custom-element
-      // implementations.
-      triggerNextPage(lm);
+  /**
+   * Walk through every page of the collection (starting from page 2) and
+   * append any product <li> elements that are not already in the DOM.
+   * Stops early once all expected products for the active filter are present.
+   */
+  async function fetchRemainingPages() {
+    if (loading) return;
+    loading = true;
+
+    const grid = /** @type {HTMLElement|null} */ (document.querySelector(SELECTORS.grid));
+    if (!grid) { loading = false; return; }
+
+    // Total pages is stored on the grid by the Liquid template.
+    const lastPage = parseInt(grid.dataset.lastPage || '1', 10);
+    if (lastPage <= 1) { loading = false; restoreLoadMore(); return; }
+
+    // Collect IDs already in the DOM so we never duplicate.
+    /** @type {Set<string>} */
+    const existing = new Set();
+    /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll(SELECTORS.productItem))
+      .forEach((el) => { if (el.dataset.productId) existing.add(el.dataset.productId); });
+
+    const capturedFilter = activeFilter; // snapshot — user may re-click mid-fetch
+
+    for (let page = 2; page <= lastPage; page++) {
+      // Abort if user changed the filter while we were fetching.
+      if (activeFilter !== capturedFilter) break;
+
+      const items = await fetchPageItems(page);
+      if (!items || !items.length) break;
+
+      items.forEach((item) => {
+        const id = /** @type {HTMLElement} */ (item).dataset.productId;
+        if (!id || existing.has(id)) return; // skip duplicates
+        existing.add(id);
+        grid.appendChild(item);
+      });
+
+      // Apply filter immediately so newly appended items show/hide correctly.
+      applyFilter(activeFilter);
+
+      // Early-exit if we already have everything we need.
+      if (countInDom(activeFilter) >= activeExpectedCount) break;
+    }
+
+    loading = false;
+
+    // Final load-more decision.
+    if (activeFilter === capturedFilter) {
+      restoreLoadMore();
     }
   }
 
   /**
-   * Click the load-more button to fetch the next page.
-   * If the button is currently disabled (a request is already in flight),
-   * wait for it to re-enable using a MutationObserver then retry.
-   * @param {HTMLElement} lm
+   * Fetch one page of the collection and return its product <li> elements.
+   * @param {number} pageNum
+   * @returns {Promise<HTMLElement[]>}
    */
-  function triggerNextPage(lm) {
-    const btn = /** @type {HTMLButtonElement|null} */ (lm.querySelector(SELECTORS.loadMoreBtn));
-    if (!btn) return; // No more pages
+  async function fetchPageItems(pageNum) {
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('page', String(pageNum));
 
-    if (btn.disabled) {
-      // A fetch is in flight — observe the button's disabled attribute and
-      // retry as soon as it clears.
-      const watcher = new MutationObserver(() => {
-        if (!btn.disabled) {
-          watcher.disconnect();
-          // Re-check count in case the in-flight load already satisfied it
-          if (countInDom(activeFilter) < activeExpectedCount) {
-            triggerNextPage(lm);
-          }
-        }
+      const response = await fetch(url.toString(), {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
       });
-      watcher.observe(btn, { attributes: true, attributeFilter: ['disabled'] });
+
+      if (!response.ok) return [];
+
+      const html = await response.text();
+      const doc  = new DOMParser().parseFromString(html, 'text/html');
+
+      const items = /** @type {NodeListOf<HTMLElement>} */ (doc.querySelectorAll(SELECTORS.productItem));
+      const result = /** @type {HTMLElement[]} */ ([]);
+      items.forEach((item) => result.push(item));
+      return result;
+    } catch (_) {
+      return [];
+    }
+  }
+
+  /**
+   * After auto-loading completes, decide final load-more visibility.
+   * Hide if all expected products are present; show otherwise.
+   */
+  function restoreLoadMore() {
+    const lm = /** @type {HTMLElement|null} */ (document.querySelector(SELECTORS.loadMore));
+    if (!lm) return;
+
+    if (activeFilter === 'all') {
+      lm.style.display = '';
       return;
     }
 
-    btn.click();
-    // The grid MutationObserver fires when new <li> elements arrive →
-    // calls updateLoadMore → repeats until allFound.
+    lm.style.display = countInDom(activeFilter) >= activeExpectedCount ? 'none' : '';
   }
 
   if (document.readyState === 'loading') {
