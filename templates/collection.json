@@ -65,11 +65,21 @@
             "visibility": "both"
           },
           "blocks": {}
+        },
+        "quick_filter_9a8xJL": {
+          "type": "quick-filter",
+          "name": "Quick Filter",
+          "settings": {
+            "all_button_label": "All",
+            "button_gap": 8
+          },
+          "blocks": {}
         }
       },
       "block_order": [
         "text_tqQTNE",
-        "text_twGGkJ"
+        "text_twGGkJ",
+        "quick_filter_9a8xJL"
       ],
       "name": "Collection heading",
       "settings": {
