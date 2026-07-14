@@ -1,25 +1,24 @@
 /**
  * Quick Filter
  * Filters product grid items based on their data-filter-group attribute,
- * which is set server-side from the custom.filter_group metafield.
+ * set server-side from the custom.filter_group metafield.
  *
- * Load-more visibility: when a specific filter is active, the load-more
- * button is hidden once all expected products for that group are in the DOM,
- * and shown while there are still unloaded products remaining.
- *
- * A MutationObserver re-applies the active filter and re-evaluates load-more
- * visibility whenever infinite scroll / load-more appends new products.
+ * When a filter is active the load-more element is hidden from the user and
+ * auto-clicked in the background until every expected product for that group
+ * is in the DOM. This avoids forcing the user to manually paginate through
+ * unrelated products to find the rest of their filtered results.
  */
 
 (function () {
   'use strict';
 
   const SELECTORS = {
-    container: '.quick-filter',
-    button: '.quick-filter__button',
-    productItem: '.product-grid__item',
-    grid: '.product-grid',
-    loadMore: 'skre-load-more',
+    container:    '.quick-filter',
+    button:       '.quick-filter__button',
+    productItem:  '.product-grid__item',
+    grid:         '.product-grid',
+    loadMore:     'skre-load-more',
+    loadMoreBtn:  '.skre-lm__btn',
   };
 
   const CLASSES = {
@@ -27,11 +26,10 @@
     hidden: 'quick-filter-hidden',
   };
 
-  /** @type {string} */
-  let activeFilter = 'all';
-
-  /** @type {number} */
+  let activeFilter        = 'all';
   let activeExpectedCount = 0;
+  /** @type {ReturnType<typeof setTimeout>|null} */
+  let retryTimer = null;
 
   function init() {
     const container = /** @type {HTMLElement|null} */ (document.querySelector(SELECTORS.container));
@@ -44,73 +42,90 @@
       button.addEventListener('click', () => {
         buttons.forEach((btn) => btn.classList.remove(CLASSES.active));
         button.classList.add(CLASSES.active);
-        activeFilter = (button.dataset.filter || 'all').trim();
+
+        activeFilter        = (button.dataset.filter || 'all').trim();
         activeExpectedCount = parseInt(button.dataset.count || '0', 10);
+
         applyFilter(activeFilter);
-        updateLoadMore();
+        syncLoadMore();
       });
     });
 
-    // Re-apply filter and re-check load-more when new products arrive in the DOM
+    // Re-apply filter each time a new batch of products lands in the DOM
     const grid = document.querySelector(SELECTORS.grid);
     if (grid) {
       const observer = new MutationObserver(() => {
         if (activeFilter !== 'all') {
           applyFilter(activeFilter);
-          updateLoadMore();
+          autoLoadNextIfNeeded();
         }
       });
       observer.observe(grid, { childList: true });
     }
   }
 
-  /**
-   * Show/hide every product item based on the active filter.
-   * @param {string} filterValue
-   */
+  /** @param {string} filterValue */
   function applyFilter(filterValue) {
-    const productItems = /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll(SELECTORS.productItem));
-    productItems.forEach((item) => {
-      const group = (item.dataset.filterGroup || '').trim();
-      if (filterValue === 'all' || group === filterValue) {
-        item.classList.remove(CLASSES.hidden);
-      } else {
-        item.classList.add(CLASSES.hidden);
-      }
-    });
+    /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll(SELECTORS.productItem))
+      .forEach((item) => {
+        const group = (item.dataset.filterGroup || '').trim();
+        if (filterValue === 'all' || group === filterValue) {
+          item.classList.remove(CLASSES.hidden);
+        } else {
+          item.classList.add(CLASSES.hidden);
+        }
+      });
   }
 
-  /**
-   * Count how many product items in the DOM match the active filter.
-   * @param {string} filterValue
-   * @returns {number}
-   */
+  /** @param {string} filterValue @returns {number} */
   function countInDom(filterValue) {
     let n = 0;
-    /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll(SELECTORS.productItem)).forEach((item) => {
-      if ((item.dataset.filterGroup || '').trim() === filterValue) n++;
-    });
+    /** @type {NodeListOf<HTMLElement>} */ (document.querySelectorAll(SELECTORS.productItem))
+      .forEach((item) => {
+        if ((item.dataset.filterGroup || '').trim() === filterValue) n++;
+      });
     return n;
   }
 
   /**
-   * Show or hide the load-more element based on whether all expected
-   * products for the active filter are already in the DOM.
+   * Hide load-more while a filter is active (auto-loading handles pagination).
+   * Restore it when "All" is selected.
    */
-  function updateLoadMore() {
+  function syncLoadMore() {
     const lm = /** @type {HTMLElement|null} */ (document.querySelector(SELECTORS.loadMore));
     if (!lm) return;
 
     if (activeFilter === 'all') {
       lm.style.display = '';
+    } else {
+      lm.style.display = 'none';
+      autoLoadNextIfNeeded();
+    }
+  }
+
+  /**
+   * If there are still unloaded products for the active filter, programmatically
+   * trigger the load-more button. Retries until the button is ready or all
+   * expected products are found.
+   */
+  function autoLoadNextIfNeeded() {
+    if (retryTimer) { clearTimeout(retryTimer); retryTimer = null; }
+    if (activeFilter === 'all') return;
+
+    const domCount = countInDom(activeFilter);
+    if (domCount >= activeExpectedCount) return; // All accounted for
+
+    const lm  = document.querySelector(SELECTORS.loadMore);
+    const btn = /** @type {HTMLButtonElement|null} */ (lm && lm.querySelector(SELECTORS.loadMoreBtn));
+    if (!btn) return; // No more pages left
+
+    // Button may be temporarily disabled while a request is in flight — retry shortly
+    if (btn.disabled || btn.getAttribute('aria-busy') === 'true') {
+      retryTimer = setTimeout(autoLoadNextIfNeeded, 400);
       return;
     }
 
-    // Hide load-more only once every expected product is in the DOM.
-    // While some are still on unloaded pages, keep the button visible
-    // so the user can load more and see the rest of their filtered results.
-    const domCount = countInDom(activeFilter);
-    lm.style.display = domCount >= activeExpectedCount ? 'none' : '';
+    btn.click(); // MutationObserver fires when items arrive → calls us again
   }
 
   if (document.readyState === 'loading') {
