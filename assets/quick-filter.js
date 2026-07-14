@@ -37,7 +37,6 @@
         button.classList.add(CLASSES.active);
         activeFilter = (button.dataset.filter || 'all').trim();
         applyFilter(activeFilter);
-        syncLoadMore(activeFilter);
       });
     });
 
@@ -67,35 +66,10 @@
     });
   }
 
-  /**
-   * @param {string} filterValue
-   */
-  function syncLoadMore(filterValue) {
-    const lm = /** @type {HTMLElement|null} */ (document.querySelector('skre-load-more'));
-    if (!lm) return;
-
-    const btn   = /** @type {HTMLElement|null} */ (lm.querySelector('.skre-lm__btn'));
-    const label = /** @type {HTMLElement|null} */ (lm.querySelector('.skre-lm__label'));
-    const fillD = /** @type {HTMLElement|null} */ (lm.querySelector('.skre-lm__fill--desk'));
-    const fillM = /** @type {HTMLElement|null} */ (lm.querySelector('.skre-lm__fill--mob'));
-
-    if (filterValue === 'all') {
-      lm.style.display = '';
-      if (lm.dataset.savedLabel && label) label.innerHTML = lm.dataset.savedLabel;
-      if (fillD) fillD.style.width = (lm.dataset.savedPctD || lm.dataset.pctDesk || '0') + '%';
-      if (fillM) fillM.style.width = (lm.dataset.savedPctM || lm.dataset.pctMob  || '0') + '%';
-      if (btn)   btn.style.display = '';
-      return;
-    }
-
-    if (!lm.dataset.savedLabel && label) {
-      lm.dataset.savedLabel = label.innerHTML;
-      lm.dataset.savedPctD  = (fillD ? fillD.style.width : '').replace('%', '') || lm.dataset.pctDesk || '0';
-      lm.dataset.savedPctM  = (fillM ? fillM.style.width : '').replace('%', '') || lm.dataset.pctMob  || '0';
-    }
-
-    lm.style.display = 'none';
-  }
+  // syncLoadMore intentionally omitted: hiding the load-more/infinite-scroll
+  // trigger when a filter is active prevents later pages from loading, so
+  // filtered products that live on page 2+ never appear. Pagination runs
+  // normally; the MutationObserver above filters each batch as it arrives.
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
