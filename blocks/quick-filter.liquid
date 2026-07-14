@@ -6,21 +6,12 @@
 
 {% liquid
   assign unique_filters = ''
-  assign product_filter_map = ''
   assign filter_count = 0
 
   for product in collection.products
     assign filter_group = product.metafields.custom.filter_group | strip
 
     if filter_group != blank
-      # Build product -> filter map entry
-      if product_filter_map != ''
-        assign product_filter_map = product_filter_map | append: ','
-      endif
-      assign map_entry = '"' | append: product.id | append: '":"' | append: filter_group | append: '"'
-      assign product_filter_map = product_filter_map | append: map_entry
-
-      # Track unique filters
       assign filter_exists = false
       assign filters_array = unique_filters | split: '|||'
 
@@ -81,9 +72,6 @@
       {% endfor %}
     </div>
 
-    <script type="application/json" id="quick-filter-map">
-      { {{ product_filter_map }} }
-    </script>
   </div>
 {% endif %}
 
