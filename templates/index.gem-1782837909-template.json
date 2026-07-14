@@ -57,7 +57,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>MAD TRAPPER HOODIE</strong></p>",
+                "text": "<p><strong>MAD TRAPPER HOODIE<\/strong><\/p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -84,7 +84,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h1>SERIOUS GEAR FOR WORKING CLASS HUNTERS</h1>",
+                "text": "<h1>SERIOUS GEAR FOR WORKING CLASS HUNTERS<\/h1>",
                 "width": "fit-content",
                 "max_width": "none",
                 "alignment": "left",
@@ -118,7 +118,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "Shop Now",
-            "link": "shopify://products/mad-trapper-hoodie-1",
+            "link": "shopify:\/\/products\/mad-trapper-hoodie-1",
             "open_in_new_tab": false,
             "style_class": "button",
             "width": "fit-content",
@@ -136,12 +136,12 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/DSC05057.webp",
+        "image_1": "shopify:\/\/shop_images\/DSC05057.webp",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": true,
         "media_type_1_mobile": "image",
-        "image_1_mobile": "shopify://shop_images/DSC05057.webp",
+        "image_1_mobile": "shopify:\/\/shop_images\/DSC05057.webp",
         "media_type_2_mobile": "image",
         "link": "",
         "open_in_new_tab": false,
@@ -261,7 +261,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>BESTSELLER</strong></p>",
+                "text": "<p><strong>BESTSELLER<\/strong><\/p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -287,7 +287,7 @@
             "text_TcgaPT": {
               "type": "text",
               "settings": {
-                "text": "<h2>HARDSCRABBLE JACKET</h2>",
+                "text": "<h2>HARDSCRABBLE JACKET<\/h2>",
                 "width": "fit-content",
                 "max_width": "narrow",
                 "alignment": "left",
@@ -313,7 +313,7 @@
             "text_Xy6tqd": {
               "type": "text",
               "settings": {
-                "text": "<p><strong>The go-to all season soft-shell jacket with micro-fleece lining for warmth and wind resistance.</strong></p>",
+                "text": "<p><strong>The go-to all season soft-shell jacket with micro-fleece lining for warmth and wind resistance.<\/strong><\/p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -348,7 +348,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "EXPLORE",
-            "link": "shopify://collections/hardscrabble-series",
+            "link": "shopify:\/\/collections\/hardscrabble-series",
             "open_in_new_tab": false,
             "style_class": "button",
             "width": "fit-content",
@@ -366,7 +366,7 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/chase_derilich_9.webp",
+        "image_1": "shopify:\/\/shop_images\/chase_derilich_9.webp",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": false,
@@ -403,7 +403,7 @@
           "type": "text",
           "name": "t:names.heading",
           "settings": {
-            "text": "<h3>BEST SELLERS BY SEASON</h3>",
+            "text": "<h3>BEST SELLERS BY SEASON<\/h3>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -585,11 +585,11 @@
       "settings": {
         "tabs_count": 3,
         "tab_1_label": "EARLY",
-        "tab_1_collection": "shopify://collections/early-season",
+        "tab_1_collection": "shopify:\/\/collections\/early-season",
         "tab_2_label": "MID",
-        "tab_2_collection": "shopify://collections/mid-season",
+        "tab_2_collection": "shopify:\/\/collections\/mid-season",
         "tab_3_label": "LATE",
-        "tab_3_collection": "shopify://collections/late-season",
+        "tab_3_collection": "shopify:\/\/collections\/late-season",
         "tab_4_label": "Sale",
         "tab_4_collection": "",
         "color_scheme": "scheme-1",
@@ -622,7 +622,7 @@
             "color_scheme": "scheme-2",
             "background_media": "image",
             "video_position": "cover",
-            "background_image": "shopify://shop_images/DSC09264.webp",
+            "background_image": "shopify:\/\/shop_images\/DSC09264.webp",
             "background_image_position": "cover",
             "border": "none",
             "border_width": 1,
@@ -645,7 +645,7 @@
             "text_pnADwB": {
               "type": "text",
               "settings": {
-                "text": "<h2>BUILD YOUR LAYERING SYSTEM</h2>",
+                "text": "<h2>BUILD YOUR\u2028LAYERING SYSTEM<\/h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "center",
@@ -671,7 +671,7 @@
             "text_QfMq4D": {
               "type": "text",
               "settings": {
-                "text": "<p>Stay warm and protected from the elements. Choose your base, insulation and protective layers.</p>",
+                "text": "<p>Stay warm and protected from the elements. Choose your base, insulation and protective layers.<\/p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "center",
@@ -698,7 +698,7 @@
               "type": "button",
               "settings": {
                 "label": "EXPLORE",
-                "link": "shopify://pages/layering-system",
+                "link": "shopify:\/\/pages\/layering-system",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
@@ -736,7 +736,7 @@
             "color_scheme": "scheme-2",
             "background_media": "image",
             "video_position": "cover",
-            "background_image": "shopify://shop_images/NJ2.jpg",
+            "background_image": "shopify:\/\/shop_images\/NJ2.jpg",
             "background_image_position": "cover",
             "border": "none",
             "border_width": 1,
@@ -759,7 +759,7 @@
             "text_HMXLgQ": {
               "type": "text",
               "settings": {
-                "text": "<h3>WATERPROOF GEAR</h3>",
+                "text": "<h3>WATERPROOF GEAR<\/h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "center",
@@ -785,7 +785,7 @@
             "text_MJMccq": {
               "type": "text",
               "settings": {
-                "text": "<p>Stay warm and dry in rain, wind, and cold with waterproof protection built for long days in the field.</p>",
+                "text": "<p>Stay warm and dry in rain, wind, and cold with waterproof protection built for long days in the field.<\/p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "center",
@@ -812,7 +812,7 @@
               "type": "button",
               "settings": {
                 "label": "Shop now",
-                "link": "shopify://collections/waterproof",
+                "link": "shopify:\/\/collections\/waterproof",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
@@ -870,7 +870,7 @@
         "image_TmccnH": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/DSC09264.webp",
+            "image": "shopify:\/\/shop_images\/DSC09264.webp",
             "link": "",
             "image_ratio": "landscape",
             "width": "fill",
@@ -974,7 +974,7 @@
                   "type": "text",
                   "name": "t:names.heading",
                   "settings": {
-                    "text": "<h2>BUILD YOUR LAYERING SYSTEM</h2>",
+                    "text": "<h2>BUILD YOUR\u2028LAYERING SYSTEM<\/h2>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1000,7 +1000,7 @@
                 "text_4RPHQh": {
                   "type": "text",
                   "settings": {
-                    "text": "<p><strong>Stay warm and protected from the elements.<br/>Choose your base, insulation and protective layers.</strong></p>",
+                    "text": "<p><strong>Stay warm and protected from the elements.<br\/>Choose your base, insulation and protective layers.<\/strong><\/p>",
                     "width": "fit-content",
                     "max_width": "none",
                     "alignment": "left",
@@ -1033,7 +1033,7 @@
               "type": "button",
               "settings": {
                 "label": "Start Building",
-                "link": "shopify://pages/layering-system",
+                "link": "shopify:\/\/pages\/layering-system",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
@@ -1145,7 +1145,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>OUR WARRANTY</strong></p>",
+                "text": "<p><strong>OUR WARRANTY<\/strong><\/p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -1171,7 +1171,7 @@
             "text_y9gbtH": {
               "type": "text",
               "settings": {
-                "text": "<h2>GUARANTEED FOR LIFE.</h2>",
+                "text": "<h2>GUARANTEED FOR LIFE.<\/h2>",
                 "width": "fit-content",
                 "max_width": "narrow",
                 "alignment": "left",
@@ -1197,7 +1197,7 @@
             "text_DqFRkr": {
               "type": "text",
               "settings": {
-                "text": "<p><strong>Our commitment doesn’t end after your purchase. We stand behind each of our products for life. </strong></p>",
+                "text": "<p><strong>Our commitment doesn’t end after your purchase. We stand behind each of our products for life. <\/strong><\/p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -1232,7 +1232,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "EXPLORE",
-            "link": "shopify://pages/warranty",
+            "link": "shopify:\/\/pages\/warranty",
             "open_in_new_tab": false,
             "style_class": "button",
             "width": "fit-content",
@@ -1250,7 +1250,7 @@
       "name": "Lifetime Warranty",
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/DSC00589.webp",
+        "image_1": "shopify:\/\/shop_images\/DSC00589.webp",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": true,

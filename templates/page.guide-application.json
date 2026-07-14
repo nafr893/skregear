@@ -12,6 +12,33 @@
     "main": {
       "type": "main-page",
       "blocks": {
+        "text_BGXjzx": {
+          "type": "text",
+          "name": "t:names.text",
+          "settings": {
+            "text": "{{ closest.page.content }}",
+            "width": "fit-content",
+            "max_width": "none",
+            "alignment": "left",
+            "type_preset": "rte",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "line_height": "normal",
+            "letter_spacing": "normal",
+            "case": "none",
+            "wrap": "pretty",
+            "color": "var(--color-foreground)",
+            "background": false,
+            "background_color": "#00000026",
+            "corner_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "visibility": "both"
+          },
+          "blocks": {}
+        },
         "heading": {
           "type": "text",
           "name": "Title",
@@ -39,18 +66,12 @@
             "visibility": "both"
           },
           "blocks": {}
-        },
-        "page-content": {
-          "type": "page-content",
-          "settings": {},
-          "blocks": {}
         }
       },
       "block_order": [
-        "heading",
-        "page-content"
+        "text_BGXjzx",
+        "heading"
       ],
-      "disabled": true,
       "settings": {
         "content_direction": "column",
         "gap": 32,
@@ -59,78 +80,19 @@
         "padding-block-end": 80
       }
     },
-    "1780677059b222dcbc": {
+    "178242828479fb4ddd": {
       "type": "_blocks",
       "blocks": {
-        "text_9gG6mc": {
-          "type": "text",
-          "name": "t:names.heading",
+        "powerful_form_builder_app_block_c4wJBi": {
+          "type": "shopify://apps/powerful-form-builder/blocks/app-block/e4bcb1eb-35b2-42e6-bc37-bfe0e1542c9d",
+          "disabled": true,
           "settings": {
-            "text": "<h2>STORE LOCATOR</h2>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "rte",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0,
-            "visibility": "both"
-          },
-          "blocks": {}
+            "shortcode": "<div class=\"globo-formbuilder\" data-id=\"NTMwMjI=\"></div>"
+          }
         }
       },
       "block_order": [
-        "text_9gG6mc"
-      ],
-      "settings": {
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "flex-start",
-        "vertical_alignment": "center",
-        "align_baseline": false,
-        "horizontal_alignment_flex_direction_column": "flex-start",
-        "vertical_alignment_flex_direction_column": "center",
-        "gap": 12,
-        "section_width": "page-width",
-        "section_height": "custom",
-        "section_height_custom": 0,
-        "color_scheme": "",
-        "background_media": "none",
-        "video_position": "cover",
-        "background_image_position": "cover",
-        "border": "none",
-        "border_width": 1,
-        "border_opacity": 100,
-        "border_radius": 0,
-        "toggle_overlay": false,
-        "overlay_color": "#00000026",
-        "overlay_style": "solid",
-        "gradient_direction": "to top",
-        "padding-block-start": 100,
-        "padding-block-end": 60
-      }
-    },
-    "1782332614873a8930": {
-      "type": "_blocks",
-      "blocks": {
-        "s_store_locator_storeify_storelocator_tt9XRn": {
-          "type": "shopify://apps/s-store-locator/blocks/storeify-storelocator/e7003487-cc51-4321-9488-2c47c07a5b17",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "s_store_locator_storeify_storelocator_tt9XRn"
+        "powerful_form_builder_app_block_c4wJBi"
       ],
       "settings": {
         "content_direction": "column",
@@ -163,7 +125,6 @@
   },
   "order": [
     "main",
-    "1780677059b222dcbc",
-    "1782332614873a8930"
+    "178242828479fb4ddd"
   ]
 }
