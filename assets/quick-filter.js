@@ -54,6 +54,15 @@
         handleLoadMore();
       });
     });
+
+    // Re-apply filter whenever the theme adds products to the grid
+    // (e.g. infinite scroll or load-more web component firing after our applyFilter call).
+    const grid = document.querySelector(SELECTORS.grid);
+    if (grid) {
+      new MutationObserver(() => {
+        if (activeFilter !== 'all') applyFilter(activeFilter);
+      }).observe(grid, { childList: true });
+    }
   }
 
   // ─── filtering ──────────────────────────────────────────────────────────────
@@ -141,10 +150,15 @@
         const id = /** @type {HTMLElement} */ (item).dataset.productId;
         if (!id || existing.has(id)) return; // skip duplicates
         existing.add(id);
+        // Pre-apply filter before inserting so the item is never briefly visible.
+        const group = (item.dataset.filterGroup || '').trim();
+        if (activeFilter !== 'all' && group !== activeFilter) {
+          item.classList.add(CLASSES.hidden);
+        }
         grid.appendChild(item);
       });
 
-      // Apply filter immediately so newly appended items show/hide correctly.
+      // Full pass to catch anything the pre-filter missed.
       applyFilter(activeFilter);
 
       // Early-exit if we already have everything we need.
