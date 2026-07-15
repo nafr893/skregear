@@ -331,7 +331,7 @@
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
             "gap": 72,
-            "width": "fill",
+            "width": "fit-content",
             "custom_width": 100,
             "width_mobile": "fill",
             "custom_width_mobile": 100,
@@ -766,7 +766,7 @@
         "gradient_direction": "to top",
         "padding-block-start": 0,
         "padding-block-end": 0,
-        "visibility": "both"
+        "visibility": "desktop_only"
       }
     },
     "section_GWdNbz": {
@@ -1310,7 +1310,7 @@
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
                 "background": true,
-                "background_color": "#DE541E",
+                "background_color": "#de541e",
                 "corner_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
