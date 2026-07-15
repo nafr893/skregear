@@ -889,11 +889,100 @@
           },
           "blocks": {}
         },
+        "group_J8JfJn": {
+          "type": "group",
+          "name": "t:names.group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 18,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0,
+            "visibility": "both"
+          },
+          "blocks": {
+            "text_VVpgDP": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<h3>REACH OUT TO OUR TEAM:</h3>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h4",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-primary)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "visibility": "both"
+              },
+              "blocks": {}
+            },
+            "button_NAn3CQ": {
+              "type": "button",
+              "name": "t:names.button",
+              "settings": {
+                "label": "CONTACT US",
+                "link": "shopify://pages/contact-us",
+                "open_in_new_tab": false,
+                "style_class": "button",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_VVpgDP",
+            "button_NAn3CQ"
+          ]
+        },
         "text_FrNwjx": {
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<h3><a href=\"/pages/contact-us\" title=\"Contact us\">CONTACT US AT:</a></h3><h3><a href=\"/pages/contact-us\" title=\"Contact us\">SKREGEAR.COM </a></h3><h3>OR CALL: 435-295-4197</h3>",
+            "text": "<h3>OR CALL: 435-295-4197</h3>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
@@ -920,6 +1009,7 @@
       "block_order": [
         "group_wcr3fE",
         "text_8CerTD",
+        "group_J8JfJn",
         "text_FrNwjx"
       ],
       "name": "t:names.custom_section",
