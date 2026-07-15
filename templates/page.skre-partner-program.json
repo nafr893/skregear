@@ -902,7 +902,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><strong>Dealer cost pricing </strong>on all SKRE gear purchased for your banquet or<br/>fundraiser.</p>",
+                    "text": "<p><strong>Dealer cost pricing </strong>on all SKRE gear purchased for your banquet or fundraiser.</p>",
                     "width": "fit-content",
                     "max_width": "none",
                     "alignment": "left",
