@@ -337,7 +337,7 @@
         "layout_type": "grid",
         "product_card_size": "medium",
         "mobile_product_card_size": "small",
-        "enable_load_more": true,
+        "enable_load_more": false,
         "load_more_per_page": 16,
         "enable_infinite_scroll": true,
         "products_per_page": 24,
