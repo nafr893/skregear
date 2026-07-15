@@ -885,7 +885,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><strong>Dealer cost pricing</strong><br/>on all SKRE gear<br/>purchased for<br/>your banquet or<br/>fundraiser</p>",
+                    "text": "<p><strong>Dealer cost pricing </strong>on all SKRE gear purchased for your banquet or fundraiser.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -958,7 +958,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><strong>Dollar-for-dollar<br/>gift card match:</strong><br/>SKRE matches your<br/>purchase amount in<br/>gift cards for your<br/>members</p>",
+                    "text": "<p><strong>Dollar-for-dollar gift card match: </strong>SKRE matches your purchase amount in gift cards for your members.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1031,7 +1031,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><strong>No expiration on<br/>the offer:</strong> partner<br/>whenever the timing<br/>is right for your<br/>event</p>",
+                    "text": "<p><strong>No expiration on the offer:</strong> partner whenever the timing is right for your event.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1104,7 +1104,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><strong>Full gear lineup<br/>available: </strong>layering<br/>systems, camo,<br/>accessories, and<br/>more</p>",
+                    "text": "<p><strong>Full gear lineup available: </strong>layering systems, camo, accessories, and more.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1177,7 +1177,7 @@
                   "type": "text",
                   "name": "t:names.text",
                   "settings": {
-                    "text": "<p><strong>Built for your<br/>members:</strong> premium<br/>performance gear<br/>priced for working<br/>hunters, not trophy<br/>collectors</p>",
+                    "text": "<p><strong>Built for your members:</strong> premium performance gear priced for working hunters, not trophy collectors.</p>",
                     "width": "fit-content",
                     "max_width": "normal",
                     "alignment": "left",
@@ -1484,7 +1484,7 @@
         "overlay_color": "#00000026",
         "overlay_style": "solid",
         "gradient_direction": "to top",
-        "padding-block-start": 40,
+        "padding-block-start": 42,
         "padding-block-end": 42,
         "visibility": "both"
       }
