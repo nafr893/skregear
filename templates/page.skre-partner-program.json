@@ -355,7 +355,7 @@
             "height": "fit",
             "custom_height": 100,
             "inherit_color_scheme": false,
-            "color_scheme": "scheme-4",
+            "color_scheme": "scheme-f4550dba-9b7a-4d90-8c97-966ce8d85fd9",
             "background_media": "none",
             "video_position": "cover",
             "background_image_position": "cover",
@@ -373,7 +373,7 @@
             "padding-block-start": 18,
             "padding-block-end": 18,
             "padding-inline-start": 32,
-            "padding-inline-end": 24,
+            "padding-inline-end": 32,
             "visibility": "both"
           },
           "blocks": {
