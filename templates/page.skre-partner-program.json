@@ -372,7 +372,7 @@
             "placeholder": "",
             "padding-block-start": 18,
             "padding-block-end": 18,
-            "padding-inline-start": 24,
+            "padding-inline-start": 32,
             "padding-inline-end": 24,
             "visibility": "both"
           },
