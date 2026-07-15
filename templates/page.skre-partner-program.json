@@ -893,7 +893,7 @@
           "type": "text",
           "name": "t:names.text",
           "settings": {
-            "text": "<h3>CONTACT US AT:</h3><h3>SKREGEAR.COM </h3><h3>OR CALL: 435-295-4197</h3>",
+            "text": "<h3><a href=\"/pages/contact-us\" title=\"Contact us\">CONTACT US AT:</a></h3><h3><a href=\"/pages/contact-us\" title=\"Contact us\">SKREGEAR.COM </a></h3><h3>OR CALL: 435-295-4197</h3>",
             "width": "fit-content",
             "max_width": "normal",
             "alignment": "left",
