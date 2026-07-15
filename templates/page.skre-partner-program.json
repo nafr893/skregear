@@ -934,7 +934,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<h3>REACH OUT TO OUR TEAM:</h3>",
+                "text": "<h3>REACH OUT TO OUR TEAM</h3>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
