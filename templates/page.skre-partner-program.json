@@ -371,7 +371,7 @@
             "open_in_new_tab": false,
             "placeholder": "",
             "padding-block-start": 18,
-            "padding-block-end": 18,
+            "padding-block-end": 60,
             "padding-inline-start": 32,
             "padding-inline-end": 32,
             "visibility": "both"
