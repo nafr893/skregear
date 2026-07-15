@@ -57,7 +57,7 @@
             "background_color": "#00000026",
             "corner_radius": 0,
             "padding-block-start": 0,
-            "padding-block-end": 32,
+            "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0,
             "visibility": "both"
@@ -89,7 +89,7 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/IMG_8188.webp",
+        "image_1": "shopify://shop_images/DSC00902.webp",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": false,
