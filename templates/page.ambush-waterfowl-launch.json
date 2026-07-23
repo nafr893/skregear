@@ -925,7 +925,7 @@
                       "settings": {
                         "icon": "price_tag",
                         "image_upload": "shopify://shop_images/Waterfowl_ICon_a414a6b1-204f-49ed-9a74-5acec51a14d5.png",
-                        "width": 100,
+                        "width": 50,
                         "link": "",
                         "open_in_new_tab": false
                       },
@@ -1157,7 +1157,7 @@
                       "settings": {
                         "icon": "price_tag",
                         "image_upload": "shopify://shop_images/Waterproof_icon_2ebd28b8-50ed-464b-9e6a-1a61c8b9b842.png",
-                        "width": 100,
+                        "width": 50,
                         "link": "",
                         "open_in_new_tab": false
                       },
