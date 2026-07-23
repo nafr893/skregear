@@ -763,7 +763,7 @@
               "settings": {
                 "text": "<p>The same hardware trusted across serious marine and tactical gear, chosen here because a wader lives or dies by its ability to keep water out. The waterproofing is carried through the teeth, tape, and stitch line so there's no weak point for water to creep in. The corrosion-resistant build shrugs off mud, grit, and repeated wet-dry cycles without seizing. It pulls clean on day one hundred just like day one.</p>",
                 "width": "fit-content",
-                "max_width": "normal",
+                "max_width": "none",
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
@@ -995,7 +995,7 @@
               "settings": {
                 "text": "<p>A tightly woven fabric that delivers the durability you need without the dead weight that fights you on a long walk in. The dense oxford weave resists abrasion from brush, briars, and submerged timber, standing up to the punishment of hard hunts season after season. The waterproof coating locks out every drop. Tough enough to trust in nasty cover, light enough to move in all day.</p>",
                 "width": "fit-content",
-                "max_width": "normal",
+                "max_width": "none",
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
@@ -1271,7 +1271,7 @@
               "type": "_product-card-gallery",
               "name": "t:names.product_card_media",
               "settings": {
-                "image_ratio": "adapt",
+                "image_ratio": "square",
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
