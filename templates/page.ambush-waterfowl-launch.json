@@ -1209,7 +1209,7 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h2>FINISH THE KIT</h2>",
+                "text": "<h2>AMBUSH ACCESSORIES</h2>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "center",
