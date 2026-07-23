@@ -135,7 +135,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h1>AMBUSH WATERFOWL COLLECTION</h1>",
+                "text": "<h1>AMBUSH <br/>WATERFOWL <br/>COLLECTION</h1>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
