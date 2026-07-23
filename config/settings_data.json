@@ -179,11 +179,6 @@
           "mobile_bottom_margin": 46
         }
       },
-      "7570552984445421165": {
-        "type": "shopify://apps/yotpo-product-reviews/blocks/settings/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
-        "disabled": false,
-        "settings": {}
-      },
       "8257630261509358238": {
         "type": "shopify://apps/yotpo-subscriptions/blocks/app-embed-block/ef25e582-ada5-4bb0-b4e7-f94e97ab1bb4",
         "disabled": false,
@@ -259,6 +254,11 @@
       "6143736321357441667": {
         "type": "shopify://apps/tidio-live-chat-chatbots/blocks/app-embed/1002274d-fb18-4939-98f6-5f05a8deeadc",
         "disabled": true,
+        "settings": {}
+      },
+      "7570552984445421165": {
+        "type": "shopify://apps/yotpo-product-reviews/blocks/settings/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
+        "disabled": false,
         "settings": {}
       }
     },
@@ -538,7 +538,7 @@
       },
       "scheme-f961edf3-797a-48db-a484-1d2b2ea2218c": {
         "settings": {
-          "background": "#E6E6E3",
+          "background": "#e6e6e3",
           "foreground_heading": "#000000",
           "foreground": "#000000cf",
           "primary": "#000000cf",
@@ -578,8 +578,8 @@
       "scheme-a898d993-076c-452c-9320-e74805e94925": {
         "settings": {
           "background": "#ffffff",
-          "foreground_heading": "#FFFFFF",
-          "foreground": "#FFFFFF",
+          "foreground_heading": "#ffffff",
+          "foreground": "#ffffff",
           "primary": "#000000cf",
           "primary_hover": "#000000",
           "border": "#d9d9d9",
