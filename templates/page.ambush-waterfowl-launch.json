@@ -1179,6 +1179,20 @@
               },
               "blocks": {}
             },
+            "review_N4ACcQ": {
+              "type": "review",
+              "name": "t:names.product_review_stars",
+              "settings": {
+                "anchor_link": "{{ closest.product.metafields.reviews.rating | metafield_text }}",
+                "stars_style": "shaded",
+                "show_number": true,
+                "rating_color": "primary",
+                "type_preset": "paragraph",
+                "width": "100%",
+                "alignment": "left"
+              },
+              "blocks": {}
+            },
             "product_title_cHaNic": {
               "type": "product-title",
               "name": "t:names.product_title",
@@ -1230,6 +1244,7 @@
           },
           "block_order": [
             "product_card_gallery_mPzAJ8",
+            "review_N4ACcQ",
             "product_title_cHaNic",
             "price_jWrgWn"
           ]
