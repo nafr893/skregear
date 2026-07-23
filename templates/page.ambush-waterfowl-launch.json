@@ -438,6 +438,20 @@
               },
               "blocks": {}
             },
+            "review_CGrmUC": {
+              "type": "review",
+              "name": "t:names.product_review_stars",
+              "settings": {
+                "anchor_link": "",
+                "stars_style": "shaded",
+                "show_number": true,
+                "rating_color": "primary",
+                "type_preset": "paragraph",
+                "width": "100%",
+                "alignment": "left"
+              },
+              "blocks": {}
+            },
             "price_dg39ML": {
               "type": "price",
               "name": "t:names.product_price",
@@ -465,13 +479,14 @@
           "block_order": [
             "product_card_gallery_aTpgbQ",
             "product_title_BymDHT",
+            "review_CGrmUC",
             "price_dg39ML"
           ]
         }
       },
       "name": "t:names.products_carousel",
       "settings": {
-        "collection": "featured-waterfowl",
+        "collection": "base-layer-tops",
         "layout_type": "carousel",
         "carousel_on_mobile": false,
         "max_products": 6,
