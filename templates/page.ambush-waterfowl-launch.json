@@ -1176,12 +1176,12 @@
           "name": "t:names.header",
           "static": true,
           "settings": {
-            "content_direction": "row",
+            "content_direction": "column",
             "vertical_on_mobile": false,
             "horizontal_alignment": "space-between",
             "vertical_alignment": "flex-end",
             "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
+            "horizontal_alignment_flex_direction_column": "center",
             "vertical_alignment_flex_direction_column": "center",
             "gap": 12,
             "width": "fill",
@@ -1231,6 +1231,33 @@
               },
               "blocks": {}
             },
+            "text_Vj7hfR": {
+              "type": "text",
+              "name": "t:names.text",
+              "settings": {
+                "text": "<p>Layer up or add storage for a complete waterfowl system.</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0,
+                "visibility": "both"
+              },
+              "blocks": {}
+            },
             "product_list_button_9Ug97c": {
               "type": "_product-list-button",
               "name": "t:names.product_list_button",
@@ -1248,6 +1275,7 @@
           },
           "block_order": [
             "product_list_text_pQhKHH",
+            "text_Vj7hfR",
             "product_list_button_9Ug97c"
           ]
         },
