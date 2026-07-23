@@ -1064,7 +1064,7 @@
         "text_4dNqUx": {
           "type": "text",
           "settings": {
-            "text": "<h2>EXPLORE<br/>THE WADER</h2>",
+            "text": "<h2>AMBUSH<br/>WADER</h2>",
             "width": "fit-content",
             "max_width": "narrow",
             "alignment": "left",
@@ -1117,7 +1117,7 @@
           "type": "button",
           "name": "t:names.button",
           "settings": {
-            "label": "Shop Ambush Wader",
+            "label": "EXPLORE THE Ambush Wader",
             "link": "https://skre.ca/products/ambush-wader",
             "open_in_new_tab": false,
             "style_class": "button",
