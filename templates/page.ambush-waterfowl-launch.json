@@ -1590,6 +1590,20 @@
               },
               "blocks": {}
             },
+            "review_wV3pQa": {
+              "type": "review",
+              "name": "t:names.product_review_stars",
+              "settings": {
+                "anchor_link": "",
+                "stars_style": "shaded",
+                "show_number": true,
+                "rating_color": "primary",
+                "type_preset": "paragraph",
+                "width": "100%",
+                "alignment": "left"
+              },
+              "blocks": {}
+            },
             "price_BtnCmE": {
               "type": "price",
               "name": "t:names.product_price",
@@ -1617,13 +1631,14 @@
           "block_order": [
             "product_card_gallery_gXHXBz",
             "product_title_KtKPJH",
+            "review_wV3pQa",
             "price_BtnCmE"
           ]
         }
       },
       "name": "t:names.products_carousel",
       "settings": {
-        "collection": "waterfowl-accessories",
+        "collection": "alaska-big-game",
         "layout_type": "carousel",
         "carousel_on_mobile": false,
         "max_products": 6,
