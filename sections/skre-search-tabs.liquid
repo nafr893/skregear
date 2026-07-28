@@ -619,6 +619,51 @@
     opacity: 0.45;
     cursor: wait;
   }
+
+  /* ── Predictive product cards ─────────────────────────── */
+  .skre-search-card {
+    display: block;
+    text-decoration: none;
+    color: var(--color-foreground);
+  }
+
+  .skre-search-card__img {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background-color: rgb(var(--color-foreground-rgb) / 0.05);
+    margin-block-end: 0.5rem;
+  }
+
+  .skre-search-card__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .skre-search-card:hover .skre-search-card__img img {
+    transform: scale(1.03);
+  }
+
+  .skre-search-card__img-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(var(--color-foreground-rgb) / 0.08);
+  }
+
+  .skre-search-card__title {
+    font-size: var(--font-size--sm);
+    font-family: var(--font-heading--family);
+    margin: 0 0 0.2rem;
+    line-height: 1.3;
+  }
+
+  .skre-search-card__price {
+    font-size: var(--font-size--sm);
+    color: rgb(var(--color-foreground-rgb) / 0.7);
+    margin: 0;
+  }
 {% endstylesheet %}
 
 <script>
@@ -641,6 +686,55 @@
       url.searchParams.set('_typefix', '1');
       window.location.replace(url.toString());
       return;
+    }
+
+    /* ── Load products from Predictive Search API ─────────
+       The standard search Liquid object and the predictive search API
+       use different engines and return different results for the same query.
+       Fetching from the same endpoint the modal uses guarantees matching results.
+    ── */
+    var searchQ = url.searchParams.get('q');
+    if (searchQ) {
+      var apiUrl = new URL('/search/suggest.json', location.origin);
+      apiUrl.searchParams.set('q', searchQ);
+      apiUrl.searchParams.set('resources[type]', 'product');
+      apiUrl.searchParams.set('resources[limit]', '50');
+      apiUrl.searchParams.set('resources[options][fields]', 'title,tag,product_type,body,vendor,variants.title');
+      apiUrl.searchParams.set('resources[options][unavailable_products]', 'last');
+
+      fetch(apiUrl.toString())
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          var products = (data.resources && data.resources.results && data.resources.results.products) || [];
+          var panel = document.getElementById('panel-products');
+          if (!panel) return;
+
+          if (products.length === 0) {
+            panel.innerHTML = '<p class="skre-search-results__empty">No products found for “' + searchQ + '”.</p>';
+            return;
+          }
+
+          var html = '<ul class="skre-search-results__product-grid list-unstyled">';
+          products.forEach(function (product) {
+            var imgUrl = product.featured_image && product.featured_image.url
+              ? product.featured_image.url.split('?')[0] + '?width=400'
+              : '';
+            var imgHtml = imgUrl
+              ? '<img src="' + imgUrl + '" alt="' + (product.featured_image.alt || '').replace(/"/g, '&quot;') + '" loading="lazy">'
+              : '<div class="skre-search-card__img-placeholder"></div>';
+            var price = product.price ? ('$' + (product.price / 100).toFixed(2)) : '';
+            html += '<li class="skre-search-results__product-item">'
+              + '<a href="' + product.url + '" class="skre-search-card">'
+              + '<div class="skre-search-card__img">' + imgHtml + '</div>'
+              + '<p class="skre-search-card__title">' + product.title + '</p>'
+              + (price ? '<p class="skre-search-card__price">' + price + '</p>' : '')
+              + '</a>'
+              + '</li>';
+          });
+          html += '</ul>';
+          panel.innerHTML = html;
+        })
+        .catch(function () { /* keep server-side render on failure */ });
     }
 
     /* ── Tab switching ────────────────────────────────────── */
