@@ -50,6 +50,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&display=swap" rel="stylesheet">
  
     <script src="https://cdn-widgetsrepository.yotpo.com/v1/loader/CEiZlUjyDEXQp3ComSN0UQ" async></script>
+    
   </head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}{% if article.blog.handle != blank %} blog-{{ article.blog.handle }}{% endif %}"{% if settings.default_size_value != blank %} data-default-size="{{ settings.default_size_value | escape }}"{% endif %}>
@@ -57,7 +58,8 @@
     <div id="header-group">
       {% sections 'header-group' %}
     </div>
-
+   
+    
     <script>
       // Inline header height and menu style calculations to prevent layout shift
       // Note: Updates in calculateHeaderGroupHeight(), updateTransparentHeaderOffset() and setHeaderMenuStyle() utilities.js should be kept in sync with this function
