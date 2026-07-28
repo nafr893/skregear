@@ -1036,17 +1036,8 @@
             "group_yqJU4e",
             "group_GYcrii"
           ]
-        },
-        "a7790d5a-f622-4c3f-b7d9-b48c0276dc3f": {
-          "type": "shopify://apps/yotpo-product-reviews/blocks/star-rating/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
-          "settings": {
-            "product": "{{product}}"
-          }
         }
       },
-      "block_order": [
-        "a7790d5a-f622-4c3f-b7d9-b48c0276dc3f"
-      ],
       "settings": {
         "content_width": "content-center-aligned",
         "desktop_media_position": "left",
