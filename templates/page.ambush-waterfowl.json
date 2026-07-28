@@ -89,10 +89,22 @@
         "button_color": "#7b5842",
         "button_text_color": "#ffffff"
       }
+    },
+    "custom_liquid_6EGb8W": {
+      "type": "custom-liquid",
+      "name": "t:names.custom_liquid",
+      "settings": {
+        "custom_liquid": "<!-- Event snippet for Waterfowl Sign-up conversion page\nIn your html page, add the snippet and call gtag_report_conversion when someone clicks on the chosen link or button. -->\n<script>\nfunction gtag_report_conversion(url) {\n  var callback = function () {\n    if (typeof(url) != 'undefined') {\n      window.location = url;\n    }\n  };\n  gtag('event', 'conversion', {\n      'send_to': 'AW-848924733/Sd_zCOOB9tAcEL2g5pQD',\n      'event_callback': callback\n  });\n  return false;\n}\n</script>",
+        "color_scheme": "",
+        "section_width": "page-width",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
     }
   },
   "order": [
     "main",
-    "skre_launch_page_QeUr7K"
+    "skre_launch_page_QeUr7K",
+    "custom_liquid_6EGb8W"
   ]
 }
