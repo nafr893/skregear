@@ -13,6 +13,13 @@
     assign rating_count = product.metafields.yotpo.reviews_count
   endif
 
+  if rating == blank
+    assign bottomline = product.metafields.yotpo.preloaded_bottomline.value.bottomline
+    assign rating = bottomline.averageScore
+    assign scale_max = 5
+    assign rating_count = bottomline.totalReviews
+  endif
+
   if request.visual_preview_mode and product == blank
     assign product = collections.all.products.first
     assign rating = product.metafields.reviews.rating.value | default: 4
