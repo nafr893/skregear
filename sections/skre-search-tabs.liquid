@@ -722,7 +722,7 @@
             var imgHtml = imgUrl
               ? '<img src="' + imgUrl + '" alt="' + (product.featured_image.alt || '').replace(/"/g, '&quot;') + '" loading="lazy">'
               : '<div class="skre-search-card__img-placeholder"></div>';
-            var price = product.price ? ('$' + (product.price / 100).toFixed(2)) : '';
+            var price = product.price ? ('$' + parseFloat(product.price).toFixed(2)) : '';
             html += '<li class="skre-search-results__product-item">'
               + '<a href="' + product.url + '" class="skre-search-card">'
               + '<div class="skre-search-card__img">' + imgHtml + '</div>'
