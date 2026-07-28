@@ -7,6 +7,12 @@
   assign scale_max = product.metafields.reviews.rating.value.scale_max
   assign rating_count = product.metafields.reviews.rating_count
 
+  if rating == blank
+    assign rating = product.metafields.yotpo.reviews_average
+    assign scale_max = 5
+    assign rating_count = product.metafields.yotpo.reviews_count
+  endif
+
   if request.visual_preview_mode and product == blank
     assign product = collections.all.products.first
     assign rating = product.metafields.reviews.rating.value | default: 4
