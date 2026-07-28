@@ -71,7 +71,7 @@
             "user_marker_color": "#000000",
             "store_marker_color": "#87ceeb",
             "distance_unit": "mi",
-            "initial_zoom": 5,
+            "initial_zoom": 4,
             "map_theme": "default",
             "google_maps_language": "en",
             "display_title": true,
