@@ -65,12 +65,12 @@
         "sc_store_locator_map_map_P3H96A": {
           "type": "shopify://apps/sc-store-locator-map/blocks/map/4ca379c6-722c-49d3-b6ec-a7fe7c1061a5",
           "settings": {
-            "map_layout": "",
+            "map_layout": "layout_5",
             "show_on_map_btn_txt": "VIEW ON MAP",
             "user_marker_text": "You're here",
             "user_marker_color": "#000000",
             "store_marker_color": "#87ceeb",
-            "distance_unit": "km",
+            "distance_unit": "mi",
             "initial_zoom": 5,
             "map_theme": "default",
             "google_maps_language": "en",
