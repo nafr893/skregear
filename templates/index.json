@@ -190,11 +190,11 @@
           "name": "Sale",
           "settings": {
             "label": "Pursuit",
-            "collection_1": "east-coast-big-game",
+            "collection_1": "waterfowl",
             "collection_2": "flatlands-forest-big-game",
             "collection_3": "mountain-west-big-game",
             "collection_4": "northern-territories-big-game",
-            "collection_5": "",
+            "collection_5": "east-coast-big-game",
             "collection_6": "",
             "collection_7": "",
             "collection_8": ""
