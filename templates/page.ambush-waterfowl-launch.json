@@ -241,7 +241,7 @@
                 "video": "shopify://files/videos/skregear_workingman_final_30sechorizontal (Original).mp4",
                 "video_url": "https://www.youtube.com/watch?v=UJniutH1QRg",
                 "video_autoplay": false,
-                "video_loop": true,
+                "video_loop": false,
                 "alt": "",
                 "custom_width": 100,
                 "custom_width_mobile": 100,
