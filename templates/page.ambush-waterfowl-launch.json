@@ -637,6 +637,20 @@
               },
               "blocks": {}
             },
+            "swatches_NezgyK": {
+              "type": "swatches",
+              "name": "t:names.swatches",
+              "settings": {
+                "product_swatches_alignment": "flex-start",
+                "product_swatches_alignment_mobile": "flex-start",
+                "hide_padding": false,
+                "product_swatches_padding_top": 4,
+                "product_swatches_padding_bottom": 0,
+                "product_swatches_padding_left": 0,
+                "product_swatches_padding_right": 0
+              },
+              "blocks": {}
+            },
             "product_title_hUjRXj": {
               "type": "product-title",
               "name": "t:names.product_title",
@@ -644,14 +658,14 @@
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
-                "type_preset": "paragraph",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
+                "type_preset": "custom",
+                "font": "var(--font-heading--family)",
+                "font_size": "0.875rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "color": "var(--color-foreground)",
+                "color": "var(--color-foreground-heading)",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -683,11 +697,11 @@
                 "show_sale_price_first": true,
                 "show_installments": false,
                 "show_tax_info": false,
-                "type_preset": "h6",
+                "type_preset": "custom",
                 "width": "100%",
                 "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
+                "font": "var(--font-heading--family)",
+                "font_size": "0.75rem",
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
@@ -702,6 +716,7 @@
           },
           "block_order": [
             "product_card_gallery_gDUFL3",
+            "swatches_NezgyK",
             "product_title_hUjRXj",
             "review_bJFnt7",
             "price_7RVRc6"
