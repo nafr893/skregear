@@ -747,7 +747,41 @@
       }
     }
   }
+  video.hero__media {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  video.hero__media.skre-hero-loaded {
+    opacity: 1;
+  }
 {% endstylesheet %}
+
+<script>
+  (function () {
+    function revealHeroVideo(vid) {
+      vid.classList.add('skre-hero-loaded');
+    }
+
+    function watchHeroVideos() {
+      document.querySelectorAll('video.hero__media').forEach(function (vid) {
+        if (vid.readyState >= 1) {
+          revealHeroVideo(vid);
+        } else {
+          vid.addEventListener('loadedmetadata', function () { revealHeroVideo(vid); }, { once: true });
+          vid.addEventListener('canplay', function () { revealHeroVideo(vid); }, { once: true });
+          setTimeout(function () { revealHeroVideo(vid); }, 3000);
+        }
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', watchHeroVideos);
+    } else {
+      watchHeroVideos();
+    }
+  })();
+</script>
 
 {% schema %}
 {
