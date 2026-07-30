@@ -57,7 +57,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>MAD TRAPPER HOODIE</strong></p>",
+                "text": "<p><strong>THE ALL NEW</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -84,7 +84,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h1>SERIOUS GEAR FOR WORKING CLASS HUNTERS</h1>",
+                "text": "<h1>AMBUSH<br/>WATERFOWL<br/>COLLECTION</h1>",
                 "width": "fit-content",
                 "max_width": "none",
                 "alignment": "left",
@@ -118,7 +118,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "Shop Now",
-            "link": "shopify://products/mad-trapper-hoodie",
+            "link": "shopify://pages/ambush-waterfowl-collection",
             "open_in_new_tab": false,
             "style_class": "button",
             "width": "fit-content",
@@ -136,12 +136,12 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/DSC05057.webp",
+        "image_1": "shopify://shop_images/Waterfowl_Launch_HEro.png",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": true,
         "media_type_1_mobile": "image",
-        "image_1_mobile": "shopify://shop_images/DSC05057.webp",
+        "image_1_mobile": "shopify://shop_images/DSC06053.jpg",
         "media_type_2_mobile": "image",
         "link": "",
         "open_in_new_tab": false,
@@ -190,7 +190,7 @@
           "name": "Sale",
           "settings": {
             "label": "Pursuit",
-            "collection_1": "western-big-game",
+            "collection_1": "waterfowl",
             "collection_2": "midwest-big-game",
             "collection_3": "northeast-big-game",
             "collection_4": "alaska-big-game",
