@@ -35,7 +35,55 @@
   .placeholder-video {
     aspect-ratio: 5 / 3;
   }
+
+  deferred-media > video,
+  deferred-media > iframe {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  deferred-media.skre-media-loaded > video,
+  deferred-media.skre-media-loaded > iframe {
+    opacity: 1;
+  }
 {% endstylesheet %}
+
+<script>
+  (function () {
+    function reveal(dm) {
+      dm.classList.add('skre-media-loaded');
+    }
+
+    function watch(dm) {
+      var vid = dm.querySelector(':scope > video');
+      var frm = dm.querySelector(':scope > iframe');
+      if (vid) {
+        if (vid.readyState >= 1) {
+          reveal(dm);
+        } else {
+          vid.addEventListener('loadedmetadata', function () { reveal(dm); }, { once: true });
+          vid.addEventListener('canplay', function () { reveal(dm); }, { once: true });
+          setTimeout(function () { reveal(dm); }, 3000);
+        }
+      } else if (frm) {
+        frm.addEventListener('load', function () { reveal(dm); }, { once: true });
+        setTimeout(function () { reveal(dm); }, 3000);
+      } else {
+        reveal(dm);
+      }
+    }
+
+    function init() {
+      document.querySelectorAll('deferred-media').forEach(watch);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
 
 {% schema %}
 {
