@@ -470,12 +470,11 @@
             "visibility": "both"
           },
           "blocks": {
-            "video_8yJr8H": {
+            "video_KimnEi": {
               "type": "video",
               "name": "t:names.video",
               "settings": {
                 "source": "url",
-                "video": "shopify://files/videos/skregear_workingman_final_30sechorizontal (Original).mp4",
                 "video_url": "https://www.youtube.com/watch?v=UJniutH1QRg",
                 "video_autoplay": false,
                 "video_loop": true,
@@ -496,7 +495,7 @@
             }
           },
           "block_order": [
-            "video_8yJr8H"
+            "video_KimnEi"
           ]
         }
       },
