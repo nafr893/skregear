@@ -57,7 +57,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>LIMITED TIME ONLY</strong></p>",
+                "text": "<p><strong>25% to 50% OFF</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
