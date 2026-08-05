@@ -118,7 +118,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "Shop Now",
-            "link": "shopify://pages/ambush-waterfowl-collection",
+            "link": "shopify://collections/shop",
             "open_in_new_tab": false,
             "style_class": "button",
             "width": "fit-content",
