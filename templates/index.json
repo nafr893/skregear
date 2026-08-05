@@ -57,7 +57,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>THE ALL NEW</strong></p>",
+                "text": "<p><strong>25%-50% OFF</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -84,7 +84,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h1>AMBUSH<br/>WATERFOWL<br/>COLLECTION</h1>",
+                "text": "<h1>KICK OFF THE<br/> SEASON SALE</h1>",
                 "width": "fit-content",
                 "max_width": "none",
                 "alignment": "left",
