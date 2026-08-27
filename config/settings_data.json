@@ -260,6 +260,11 @@
         "type": "shopify://apps/yotpo-product-reviews/blocks/settings/eb7dfd7d-db44-4334-bc49-c893b51b36cf",
         "disabled": false,
         "settings": {}
+      },
+      "9674181886073616913": {
+        "type": "shopify://apps/mida-fraud-ip-blocker/blocks/blocker-script/09aab972-8c77-47b1-a9a0-4712e9f2405d",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
