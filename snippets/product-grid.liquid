@@ -121,8 +121,10 @@
       {%- assign _pg_fetched = paginate.current_offset | plus: paginate.page_size -%}
       {%- assign _pg_displayed = _pg_fetched | at_most: paginate.items -%}
       {%- assign _pg_needs_lm_init = false -%}
-      {%- if load_more_mode and (paginate.next or _pg_displayed > _pg_mobile_limit) -%}
-        {%- assign _pg_needs_lm_init = true -%}
+      {%- if load_more_mode -%}
+        {%- if paginate.next or _pg_displayed > _pg_mobile_limit -%}
+          {%- assign _pg_needs_lm_init = true -%}
+        {%- endif -%}
       {%- endif -%}
       <ul
         class="product-grid product-grid--{{ section.id }} product-grid--{{ section.settings.layout_type }}{% if section.settings.mobile_product_card_size == 'large' %} product-grid-mobile--large{% endif %}{% if _pg_needs_lm_init %} product-grid--lm-init{% endif %}"
