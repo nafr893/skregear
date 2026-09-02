@@ -24,7 +24,6 @@
     type="module"
   ></script>
 {%- endif -%}
-<script src="{{ 'skre-bg-detect.js' | asset_url }}" defer></script>
 {%- liquid
   assign selected_product = closest.product
   assign selected_variant_media = selected_product.selected_or_first_available_variant.featured_media
@@ -275,10 +274,6 @@
       height: 100%;
     }
 
-    /* White-background images switch to contain (set by JS bg detector) */
-    .product-media-container.skre-bg-white .product-media__image {
-      object-fit: contain !important;
-    }
 
     /* 3D Models (no object-fit support, just sizing) */
     .media-fit-cover model-viewer {
