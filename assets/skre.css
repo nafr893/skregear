@@ -664,6 +664,13 @@ input.search-input::placeholder,
     height: auto;
     overflow: visible;
   }
+  .media-gallery--two-column .media-gallery__grid .product-media-container:only-child .product-media {
+    aspect-ratio: auto;
+    overflow: visible;
+  }
+  .media-gallery--two-column .media-gallery__grid .product-media-container:only-child .product-media > * {
+    overflow: visible;
+  }
   .media-gallery--two-column .media-gallery__grid .product-media-container:only-child .product-media__image {
     object-fit: contain !important;
     width: 100%;
