@@ -656,10 +656,11 @@ input.search-input::placeholder,
   }
 }
 
-/* ── Product media grid: single image should stay in one column ── */
+/* ── Product media grid: single image should stay in one column at its natural ratio ── */
 @media screen and (min-width: 750px) {
   .media-gallery--two-column .media-gallery__grid .product-media-container:only-child {
     grid-column: span 1;
+    aspect-ratio: var(--media-preview-ratio);
   }
 }
 
