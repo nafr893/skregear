@@ -37,6 +37,9 @@
     endif
     assign focal_point_style = '--focal-point: ' | append: media.presentation.focal_point | append: ';'
   %}
+  {%- if media.preview_image != blank -%}
+    {%- assign skre_bg_src = media.preview_image | image_url: width: 30 -%}
+  {%- endif -%}
   {{
     media.preview_image
     | image_url: width: 3840
@@ -48,7 +51,7 @@
       class: 'product-media__image',
       ref: ref_image_to_transition,
       data_max_resolution: high_res_url,
-      data_bg_src: media.preview_image | image_url: width: 30,
+      data_bg_src: skre_bg_src,
       fetchpriority: fetch_priority,
       style: focal_point_style,
       ref: image_ref
