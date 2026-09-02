@@ -660,23 +660,15 @@ input.search-input::placeholder,
 @media screen and (min-width: 750px) {
   .media-gallery--two-column .media-gallery__grid .product-media-container:only-child {
     grid-column: span 1;
-    aspect-ratio: auto;
-    height: auto;
-    overflow: visible;
   }
   .media-gallery--two-column .media-gallery__grid .product-media-container:only-child .product-media {
-    aspect-ratio: auto;
-    overflow: visible;
-  }
-  .media-gallery--two-column .media-gallery__grid .product-media-container:only-child .product-media > * {
-    overflow: visible;
+    aspect-ratio: auto !important;
+    overflow: visible !important;
   }
   .media-gallery--two-column .media-gallery__grid .product-media-container:only-child .product-media__image {
     object-fit: contain !important;
-    width: 100%;
-    height: auto;
-    aspect-ratio: auto;
-    position: static;
+    width: 100% !important;
+    height: auto !important;
   }
 }
 
