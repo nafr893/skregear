@@ -656,11 +656,20 @@ input.search-input::placeholder,
   }
 }
 
-/* ── Product media grid: single image should stay in one column at its natural ratio ── */
+/* ── Product media grid: single image stays in one column, fully uncropped ── */
 @media screen and (min-width: 750px) {
   .media-gallery--two-column .media-gallery__grid .product-media-container:only-child {
     grid-column: span 1;
-    aspect-ratio: var(--media-preview-ratio);
+    aspect-ratio: auto;
+    height: auto;
+    overflow: visible;
+  }
+  .media-gallery--two-column .media-gallery__grid .product-media-container:only-child .product-media__image {
+    object-fit: contain !important;
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    position: static;
   }
 }
 
