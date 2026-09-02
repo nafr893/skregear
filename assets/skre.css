@@ -656,6 +656,13 @@ input.search-input::placeholder,
   }
 }
 
+/* ── Product media grid: single image should stay in one column ── */
+@media screen and (min-width: 750px) {
+  .media-gallery--two-column .media-gallery__grid .product-media-container:only-child {
+    grid-column: span 1;
+  }
+}
+
 .skre-gallery-toggle {
   display: none;
 }
