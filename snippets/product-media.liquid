@@ -25,7 +25,7 @@
 %}
 
 <div
-  class="product-media"
+  class="product-media{% if skre_is_png %} skre-media-png{% endif %}"
   style="--ratio: {{ media.aspect_ratio }}"
   data-media-id="{{ media.id }}"
 >
@@ -37,8 +37,10 @@
     endif
     assign focal_point_style = '--focal-point: ' | append: media.presentation.focal_point | append: ';'
   %}
-  {%- if media.preview_image != blank -%}
-    {%- assign skre_bg_src = media.preview_image | image_url: width: 30 -%}
+  {%- assign skre_src_lower = media.preview_image.src | downcase -%}
+  {%- assign skre_is_png = false -%}
+  {%- if skre_src_lower contains '.png' -%}
+    {%- assign skre_is_png = true -%}
   {%- endif -%}
   {{
     media.preview_image
@@ -51,7 +53,6 @@
       class: 'product-media__image',
       ref: ref_image_to_transition,
       data_max_resolution: high_res_url,
-      data_bg_src: skre_bg_src,
       fetchpriority: fetch_priority,
       style: focal_point_style,
       ref: image_ref
@@ -149,6 +150,10 @@
 
   .product-media__image {
     object-position: var(--focal-point, center center);
+  }
+
+  .skre-media-png .product-media__image {
+    object-fit: contain !important;
   }
 
   /*** Media border-radius feature ****/
