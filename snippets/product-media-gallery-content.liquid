@@ -24,6 +24,7 @@
     type="module"
   ></script>
 {%- endif -%}
+<script src="{{ 'skre-bg-detect.js' | asset_url }}" defer></script>
 {%- liquid
   assign selected_product = closest.product
   assign selected_variant_media = selected_product.selected_or_first_available_variant.featured_media
@@ -264,14 +265,19 @@
 
   {% unless block_settings.aspect_ratio == 'adapt' and block_settings.constrain_to_viewport %}
     .media-fit-cover {
-      --product-media-fit: contain;
+      --product-media-fit: cover;
     }
 
-    /* Media fit for all media elements - default to contain */
+    /* Media fit for all media elements - default to cover */
     .media-fit-cover :is(img, video, iframe, .deferred-media__poster-image) {
-      object-fit: contain;
+      object-fit: cover;
       width: 100%;
       height: 100%;
+    }
+
+    /* White-background images switch to contain (set by JS bg detector) */
+    .product-media-container.skre-bg-white .product-media__image {
+      object-fit: contain !important;
     }
 
     /* 3D Models (no object-fit support, just sizing) */
