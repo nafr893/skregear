@@ -24,6 +24,7 @@
     type="module"
   ></script>
 {%- endif -%}
+<script src="{{ 'skre-bg-detect.js' | asset_url }}" defer></script>
 {%- liquid
   assign selected_product = closest.product
   assign selected_variant_media = selected_product.selected_or_first_available_variant.featured_media

@@ -1,42 +1,37 @@
 (function () {
-  var THRESHOLD = 230; // min RGB value to count as near-white
-  var SAMPLE_SIZE = 3; // px to average at each corner
+  var ALPHA_THRESHOLD = 240; // corner pixel alpha below this = transparent background
 
-  function cornerIsWhite(ctx, x, y, w, h) {
+  function cornersAreTransparent(ctx, w, h) {
     try {
-      var data = ctx.getImageData(x, y, w, h).data;
-      var total = data.length / 4;
-      var whites = 0;
-      for (var i = 0; i < data.length; i += 4) {
-        if (data[i] >= THRESHOLD && data[i + 1] >= THRESHOLD && data[i + 2] >= THRESHOLD) whites++;
+      var s = Math.min(3, w, h);
+      var corners = [
+        ctx.getImageData(0, 0, s, s),
+        ctx.getImageData(w - s, 0, s, s),
+        ctx.getImageData(0, h - s, s, s),
+        ctx.getImageData(w - s, h - s, s, s),
+      ];
+      for (var c = 0; c < corners.length; c++) {
+        var d = corners[c].data;
+        for (var i = 3; i < d.length; i += 4) {
+          if (d[i] < ALPHA_THRESHOLD) return true;
+        }
       }
-      return whites / total >= 0.8;
-    } catch (e) {
-      return false;
-    }
+    } catch (e) { /* tainted canvas — skip */ }
+    return false;
   }
 
-  function checkTiny(tiny, container) {
-    var canvas = document.createElement('canvas');
+  function check(tiny, container) {
     var w = tiny.naturalWidth;
     var h = tiny.naturalHeight;
     if (!w || !h) return;
+    var canvas = document.createElement('canvas');
     canvas.width = w;
     canvas.height = h;
     var ctx = canvas.getContext('2d');
-    try {
-      ctx.drawImage(tiny, 0, 0);
-    } catch (e) {
-      return; // tainted canvas — skip
+    try { ctx.drawImage(tiny, 0, 0); } catch (e) { return; }
+    if (cornersAreTransparent(ctx, w, h)) {
+      container.classList.add('skre-transparent-bg');
     }
-    var s = Math.min(SAMPLE_SIZE, w, h);
-    var allWhite =
-      cornerIsWhite(ctx, 0, 0, s, s) &&
-      cornerIsWhite(ctx, w - s, 0, s, s) &&
-      cornerIsWhite(ctx, 0, h - s, s, s) &&
-      cornerIsWhite(ctx, w - s, h - s, s, s);
-
-    if (allWhite) container.classList.add('skre-bg-white');
   }
 
   function detect() {
@@ -44,10 +39,9 @@
       var container = img.closest('.product-media-container');
       if (!container || container.dataset.bgChecked) return;
       container.dataset.bgChecked = '1';
-
       var tiny = new Image();
       tiny.crossOrigin = 'anonymous';
-      tiny.onload = function () { checkTiny(tiny, container); };
+      tiny.onload = function () { check(tiny, container); };
       tiny.src = img.dataset.bgSrc;
     });
   }
@@ -57,7 +51,7 @@
   } else {
     detect();
   }
-
-  // Re-run when variant changes swap the gallery
-  document.addEventListener('variant:update', function () { setTimeout(detect, 50); });
+  document.addEventListener('variant:update', function () {
+    setTimeout(detect, 50);
+  });
 })();
