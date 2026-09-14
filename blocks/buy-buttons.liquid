@@ -1,6 +1,5 @@
-
+{% # import schema from '../schemas/blocks/buy-buttons.js' %}
 {% liquid
-  assign block_settings = block.settings
   assign product = closest.product
   if request.visual_preview_mode and product == blank
     assign product = collections.all.products.first
@@ -14,20 +13,22 @@
     assign inventory_managed = true
   endif
 
-  assign can_add_to_cart = false
-  assign add_to_cart_text = 'products.product.unavailable' | t
+  if variant.quantity_rule.min > variant.inventory_quantity and inventory_managed and inventory_policy == 'deny'
+    assign quantity_rule_soldout = true
+  endif
 
-  if variant
-    if variant.quantity_rule.min > variant.inventory_quantity and inventory_managed and inventory_policy == 'deny'
-      assign quantity_rule_soldout = true
-    endif
-
-    if variant.available
+  if inventory_managed
+    if inventory_quantity <= 0 and inventory_policy == 'deny' or quantity_rule_soldout
+      assign can_add_to_cart = false
+      assign add_to_cart_text = 'Notify Me'
+    else
       assign can_add_to_cart = true
       assign add_to_cart_text = 'products.product.add_to_cart' | t
-    elsif inventory_managed and inventory_quantity <= 0 and inventory_policy == 'deny' or quantity_rule_soldout
-      assign can_add_to_cart = false
-      assign add_to_cart_text = 'products.product.sold_out' | t
+    endif
+  else
+    if closest.product.selected_or_first_available_variant != null
+      assign can_add_to_cart = true
+      assign add_to_cart_text = 'products.product.add_to_cart' | t
     else
       assign can_add_to_cart = false
       assign add_to_cart_text = 'products.product.unavailable' | t
@@ -40,14 +41,13 @@
   {{ block.shopify_attributes }}
 >
   {%- if product != blank -%}
-    {%- assign product_form_id = 'BuyButtons-ProductForm-' | append: section.id -%}
+    {%- assign product_form_id = 'BuyButtons-ProductForm-' | append: block.id -%}
     <product-form-component
       data-section-id="{{ section.id }}"
       data-product-id="{{ product.id }}"
       data-product-url="{{ product.url }}"
       on:submit="/handleSubmit"
       data-quantity-default="{% if product.selected_or_first_available_variant.quantity_rule.min %}{{ product.selected_or_first_available_variant.quantity_rule.min }}{% else %}1{% endif %}"
-      data-quantity-error-max="{{ 'products.product.quantity_error_max' | t }}"
     >
       <div
         class="visually-hidden"
@@ -56,185 +56,47 @@
         aria-atomic="true"
         ref="liveRegion"
       ></div>
-      {%- form 'product', product, id: product_form_id, data-type: 'add-to-cart-form' -%}
+      {%- form 'product', product, id: product_form_id, novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
         <input
           type="hidden"
           name="id"
           ref="variantId"
           value="{{ product.selected_or_first_available_variant.id }}"
         >
-        {%- if block_settings.gift_card_form and product.gift_card? -%}
-          {%- render 'gift-card-recipient-form', product: product, form: form, section: section, block: block -%}
-          <span class="buy-buttons-block__bar">
-        {%- endif -%}
         <div
-          class="product-form-buttons spacing-style{% if block_settings.stacking %} product-form-buttons--stacked{% endif %}"
-          style="{% render 'spacing-style', settings: block_settings %}"
-          ref="productFormButtons"
+          class="product-form-buttons spacing-style{% if block.settings.stacking %} product-form-buttons--stacked{% endif %}"
+          style="{% render 'spacing-style', settings: block.settings %}"
         >
-          {%- unless block_settings.gift_card_form and product.gift_card? -%}
-            <span
-              class="product-form-text__error hidden"
-              ref="addToCartTextError"
-            >
-              <span class="svg-wrapper">
-                {{- 'icon-error.svg' | inline_asset_content -}}
-              </span>
-            </span>
-          {%- endunless -%}
-
-          {%- liquid
-            assign has_quantity_rules = false
-            if variant.quantity_rule.min > 1 or variant.quantity_rule.increment > 1 or variant.quantity_rule.max != null
-              assign has_quantity_rules = true
-            endif
-          -%}
-
-          {%- if has_quantity_rules -%}
-            {%- assign cart_quantity = cart | item_count_for_variant: variant.id -%}
-            <div
-              class="quantity-label"
-              ref="quantityLabel"
-            >
-              {{ 'products.product.quantity' | t }}
-              <span
-                class="quantity-label__cart-count{% if cart_quantity == 0 %} hidden{% endif %}"
-                ref="quantityLabelCartCount"
-                >({{ cart_quantity }}
-                {{ 'products.product.in_cart' | t }})</span
-              >
-            </div>
-          {%- endif -%}
-
           {% content_for 'block', type: 'quantity', id: 'quantity' %}
 
-          {%- if has_quantity_rules -%}
-            <div
-              class="quantity-rules"
-              ref="quantityRules"
-            >
-              {%- if variant.quantity_rule.increment > 1 -%}
-                <span class="quantity-rules__item">
-                  {{ 'products.product.quantity_increments' | t: increment: variant.quantity_rule.increment }}
-                </span>
-              {%- endif -%}
-              {%- if variant.quantity_rule.min > 1 -%}
-                <span class="quantity-rules__item">
-                  {{ 'products.product.quantity_minimum' | t: minimum: variant.quantity_rule.min }}
-                </span>
-              {%- endif -%}
-              {%- if variant.quantity_rule.max != null -%}
-                <span class="quantity-rules__item">
-                  {{ 'products.product.quantity_maximum' | t: maximum: variant.quantity_rule.max }}
-                </span>
-              {%- endif -%}
-            </div>
-          {%- endif -%}
-
-          {%- if product.quantity_price_breaks_configured? and variant.quantity_price_breaks.size > 0 -%}
-            {%- liquid
-              assign use_currency = settings.currency_code_enabled_product_pages
-            -%}
-            <volume-pricing
-              class="volume-pricing"
-              data-section-id="{{ section.id }}"
-              ref="volumePricing"
-            >
-              <span class="volume-pricing__title">{{ 'content.volume_pricing' | t }}</span>
-              <div class="volume-pricing__table">
-                <div class="volume-pricing__row volume-pricing__row--even">
-                  <span>{{ variant.quantity_rule.min }}+</span>
-                  <span>
-                    {%- if use_currency -%}
-                      {{- variant.price | money_with_currency | strip -}}
-                    {%- else -%}
-                      {{- variant.price | money | strip -}}
-                    {%- endif -%}
-                    /{{ 'content.each_abbreviation' | t -}}
-                  </span>
-                </div>
-                {%- for price_break in variant.quantity_price_breaks limit: 2 -%}
-                  {%- liquid
-                    assign row_index = forloop.index
-                    if row_index == 1
-                      assign row_class = 'volume-pricing__row volume-pricing__row--odd'
-                    else
-                      assign row_class = 'volume-pricing__row volume-pricing__row--even'
-                    endif
-                  -%}
-                  <div class="{{ row_class }}">
-                    <span>{{ price_break.minimum_quantity }}+</span>
-                    <span>
-                      {%- if use_currency -%}
-                        {{- price_break.price | money_with_currency | strip -}}
-                      {%- else -%}
-                        {{- price_break.price | money | strip -}}
-                      {%- endif -%}
-                      /{{ 'content.each_abbreviation' | t -}}
-                    </span>
-                  </div>
-                {%- endfor -%}
-
-                {%- if variant.quantity_price_breaks.size > 2 -%}
-                  <div class="volume-pricing__collapsible-wrapper">
-                    {%- for price_break in variant.quantity_price_breaks offset: 2 -%}
-                      {%- liquid
-                        assign collapsed_index = forloop.index
-                        assign total_index = collapsed_index | plus: 2
-                        assign modulo_result = total_index | modulo: 2
-                        if modulo_result == 1
-                          assign row_class = 'volume-pricing__row volume-pricing__row--odd'
-                        else
-                          assign row_class = 'volume-pricing__row volume-pricing__row--even'
-                        endif
-                      -%}
-                      <div class="{{ row_class }}">
-                        <span>{{ price_break.minimum_quantity }}+</span>
-                        <span>
-                          {%- if use_currency -%}
-                            {{- price_break.price | money_with_currency | strip -}}
-                          {%- else -%}
-                            {{- price_break.price | money | strip -}}
-                          {%- endif -%}
-                          /{{ 'content.each_abbreviation' | t -}}
-                        </span>
-                      </div>
-                    {%- endfor -%}
-                  </div>
-
-                  <button
-                    type="button"
-                    class="volume-pricing__toggle button-unstyled"
-                    ref="volumePricingToggle"
-                    on:click="/toggleExpanded"
-                  >
-                    <span class="volume-pricing__toggle-text">
-                      <span class="volume-pricing__show-more">+ {{ 'actions.show_more' | t }}</span>
-                      <span class="volume-pricing__show-less">- {{ 'actions.show_less' | t }}</span>
-                    </span>
-                  </button>
-                {%- endif -%}
-              </div>
-            </volume-pricing>
-          {%- endif -%}
           {% content_for 'block',
             type: 'add-to-cart',
             id: 'add-to-cart',
             can_add_to_cart: can_add_to_cart,
             add_to_cart_text: add_to_cart_text
           %}
-
+          <span
+            class="product-form-text__error hidden"
+            ref="addToCartTextError"
+          >
+            <span class="svg-wrapper product-form-icon--error">
+              {{- 'icon-error.svg' | inline_asset_content -}}
+            </span>
+          </span>
           {% content_for 'block',
             type: 'accelerated-checkout',
             id: 'accelerated-checkout',
-            can_add_to_cart: can_add_to_cart,
-            form_obj: form
+            can_add_to_cart: can_add_to_cart
           %}
         </div>
-        {%- if block_settings.gift_card_form and product.gift_card? -%}
-          </span>
-        {%- endif -%}
       {%- endform -%}
+
+      <div
+        class="notify-me-overlay"
+        id="notify-me-overlay-{{ block.id }}"
+        {% if can_add_to_cart %}style="display:none;"{% endif %}
+      ></div>
+
     </product-form-component>
   {%- else -%}
     <div class="product-form-buttons">
@@ -250,7 +112,138 @@
   {%- endif -%}
 </span>
 
-{% if block_settings.show_pickup_availability %}
+{% comment %} Klaviyo Back in Stock Modal {% endcomment %}
+<div class="klaviyo-notify-modal" id="klaviyo-modal-{{ block.id }}" aria-hidden="true" style="display:none;">
+  <div class="klaviyo-notify-modal__overlay" id="klaviyo-overlay-{{ block.id }}"></div>
+  <div class="klaviyo-notify-modal__content" role="dialog" aria-modal="true" aria-labelledby="klaviyo-title-{{ block.id }}">
+    <button type="button" class="klaviyo-notify-modal__close" id="klaviyo-close-{{ block.id }}" aria-label="Close">&#215;</button>
+    <h3 class="klaviyo-notify-modal__title" id="klaviyo-title-{{ block.id }}">Notify Me When Available</h3>
+    <p class="klaviyo-notify-modal__subtitle">Enter your email and we'll let you know when this item is back in stock.</p>
+    <div id="klaviyo-notify-form-{{ block.id }}">
+      <input
+        type="email"
+        class="klaviyo-notify-modal__input"
+        id="klaviyo-email-{{ block.id }}"
+        placeholder="Email address"
+        autocomplete="email"
+        required
+      >
+      <button type="button" class="button klaviyo-notify-modal__submit" id="klaviyo-submit-{{ block.id }}">
+        Sign Up
+      </button>
+    </div>
+    <div id="klaviyo-notify-success-{{ block.id }}" style="display:none;">
+      <p class="klaviyo-notify-modal__success">You're in! We'll email you when this is back in stock.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var KLAVIYO_KEY = 'SGui4C';
+  var bid = '{{ block.id }}';
+
+  var notifyOverlay = document.getElementById('notify-me-overlay-' + bid);
+  var modal         = document.getElementById('klaviyo-modal-' + bid);
+  var modalOverlay  = document.getElementById('klaviyo-overlay-' + bid);
+  var closeBtn      = document.getElementById('klaviyo-close-' + bid);
+  var submitBtn     = document.getElementById('klaviyo-submit-' + bid);
+  var emailInput    = document.getElementById('klaviyo-email-' + bid);
+  var formDiv       = document.getElementById('klaviyo-notify-form-' + bid);
+  var successDiv    = document.getElementById('klaviyo-notify-success-' + bid);
+
+  // Use the buy-buttons span as root — getElementById on the <form> returns null in this theme.
+  var buyBlock = document.querySelector('.buy-buttons-block--' + bid);
+
+  function getAtcButton() {
+    // Re-query every call: after variant:update the theme calls morph() which
+    // replaces the button element, making any cached reference stale.
+    return buyBlock ? buyBlock.querySelector('button[name="add"]') : null;
+  }
+
+  function syncState() {
+    var btn = getAtcButton();
+    if (!btn) return;
+    if (btn.disabled) {
+      if (notifyOverlay) notifyOverlay.style.display = 'block';
+      btn.style.opacity = '1';
+      btn.style.filter = 'none';
+      var textEl = btn.querySelector('.add-to-cart-text__content');
+      if (textEl) textEl.textContent = 'Notify Me';
+    } else {
+      if (notifyOverlay) notifyOverlay.style.display = 'none';
+      btn.style.opacity = '';
+      btn.style.filter = '';
+    }
+  }
+
+  syncState();
+  // Re-run after every variant switch — morph() settles ~50ms after variant:update
+  document.addEventListener('variant:update', function () { setTimeout(syncState, 50); });
+
+  // Open / close modal
+  function openModal() {
+    if (!modal) return;
+    modal.style.display = 'flex';
+    modal.removeAttribute('aria-hidden');
+    document.body.style.overflow = 'hidden';
+    if (emailInput) emailInput.focus();
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  if (notifyOverlay) notifyOverlay.addEventListener('click', openModal);
+  if (closeBtn)      closeBtn.addEventListener('click', closeModal);
+  if (modalOverlay)  modalOverlay.addEventListener('click', closeModal);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal && modal.style.display === 'flex') closeModal();
+  });
+
+  // Submit to Klaviyo Back in Stock API
+  if (submitBtn) {
+    submitBtn.addEventListener('click', function () {
+      var email = emailInput ? emailInput.value.trim() : '';
+      if (!email || !emailInput.checkValidity()) { emailInput.reportValidity(); return; }
+
+      var variantInput = buyBlock ? buyBlock.querySelector('input[name="id"]') : null;
+      var variantId = variantInput ? variantInput.value : null;
+      if (!variantId) { console.error('[Klaviyo BIS] variant ID not found'); return; }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Signing up…';
+
+      fetch('https://a.klaviyo.com/onsite/components/back-in-stock/subscribe', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          a: KLAVIYO_KEY,
+          email: email,
+          variant: variantId,
+          platform: 'shopify'
+        }).toString()
+      })
+      .then(function () {
+        if (formDiv) formDiv.style.display = 'none';
+        if (successDiv) successDiv.style.display = 'block';
+      })
+      .catch(function (err) {
+        console.error('Klaviyo BIS network error:', err);
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign Up';
+        alert('Something went wrong. Please try again.');
+      });
+    });
+  }
+})();
+</script>
+
+{% if block.settings.show_pickup_availability %}
   <script
     src="{{ 'local-pickup.js' | asset_url }}"
     type="module"
@@ -268,7 +261,7 @@
     data-section-id="{{ section.id }}"
     data-product-url="{{ closest.product.url }}"
     data-variant-id="{{ closest.product.selected_or_first_available_variant.id }}"
-    style="{% render 'spacing-style', settings: block_settings %}"
+    style="{% render 'spacing-style', settings: block.settings %}"
     ref="localPickupButton"
   >
     {% if can_add_to_cart %}
@@ -308,28 +301,18 @@
           ref="dialog"
           class="dialog-modal dialog-drawer pickup-location__dialog color-{{ settings.drawer_color_scheme }}"
           scroll-lock
-          aria-labelledby="pickup-dialog-heading"
-          data-testid="pickup-location-dialog"
         >
-          <h2
-            id="pickup-dialog-heading"
-            class="visually-hidden"
-          >
-            {{ 'actions.view_store_information' | t }}
-          </h2>
           <div class="pickup-availability__dialog-row pickup-availability__header-container">
             <div class="pickup-availability__column">
               <h4 class="pickup-location__h4">{{ closest.product.title }}</h4>
-              {% unless closest.product.has_only_default_variant %}
-                <p class="pickup-location__text-sm">
-                  {{ closest.product.selected_or_first_available_variant.title }}
-                </p>
-              {% endunless %}
+              <p class="pickup-location__text-sm">
+                {{ closest.product.selected_or_first_available_variant.title }}
+              </p>
             </div>
             <button
               ref="closeButton"
               on:click="/closeDialog"
-              class="button button-unstyled close-button pickup-location__close-button"
+              class="button button-unstyled pickup-location__close-button"
               aria-label="{{ 'actions.close_dialog' | t }}"
             >
               <span class="svg-wrapper">
@@ -364,7 +347,281 @@
   </local-pickup>
 {% endif %}
 
-{% render 'buy-buttons-styles' %}
+{% stylesheet %}
+  .buy-buttons-block {
+    width: 100%;
+  }
+
+  .product-form-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(var(--gap-sm) / 2);
+
+    @media screen and (min-width: 750px) {
+      gap: var(--gap-sm);
+    }
+  }
+
+  .product-form-buttons > *:not(.quantity-selector) {
+    flex: 1;
+    min-width: 185px;
+  }
+
+  .product-form-buttons--stacked > *:not(.quantity-selector) {
+    flex-basis: 51%; /* Force the buttons to be on separate rows */
+  }
+
+  .quantity-selector {
+    flex-grow: 0;
+  }
+
+  .product-form-buttons button {
+    width: 100%;
+    padding-inline: var(--padding-4xl);
+    padding-block: var(--padding-lg);
+  }
+
+  .add-to-cart-button {
+    text-transform: var(--button-text-case-primary);
+  }
+
+  .add-to-cart-button.button-secondary {
+    text-transform: var(--button-text-case-secondary);
+  }
+
+  .product-form-buttons .shopify-payment-button__button {
+    width: 100%;
+    min-height: var(--minimum-touch-target);
+  }
+
+  .quantity-selector,
+  .add-to-cart-button {
+    height: var(--height-buy-buttons);
+  }
+
+  .product__pickup-availabilities {
+    width: 100%;
+  }
+
+  .pickup-availability__column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .pickup-availability__row {
+    display: flex;
+    gap: var(--padding-xs);
+  }
+
+  .pickup-availability__dialog-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .pickup-availability__header-container {
+    padding-block-end: var(--padding-2xl);
+  }
+
+  .pickup-location__wrapper {
+    display: flex;
+    flex-direction: column;
+    padding-block: var(--padding-2xl);
+    border-top: 1px solid var(--color-border);
+    gap: var(--padding-xs);
+  }
+
+  .pickup-location__address-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-md);
+  }
+
+  .pickup-location__dialog {
+    padding: var(--padding-2xl);
+    position: fixed;
+    border-radius: 0;
+    width: var(--sidebar-width);
+    max-width: 95vw;
+    height: 100%;
+    margin: 0 0 0 auto;
+    border: var(--style-border-drawer);
+    box-shadow: var(--shadow-drawer);
+    background-color: var(--color-background);
+  }
+
+  .pickup-location__dialog:modal {
+    max-height: 100dvh;
+  }
+
+  .pickup-location__text-sm {
+    font-size: var(--font-size--sm);
+    margin: 0;
+  }
+
+  .pickup-location__text-xs {
+    font-size: var(--font-size--xs);
+    margin: 0;
+  }
+
+  .product-form-text__error {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--gap-xs);
+  }
+
+  .pickup-location__button {
+    width: fit-content;
+    color: var(--color-primary);
+    font-size: var(--font-size--xs);
+    font-family: var(--font-body--family);
+    padding: 0;
+    cursor: pointer;
+    margin-block: var(--margin-xs);
+  }
+
+  .pickup-location__button:hover {
+    color: var(--color-primary-hover);
+  }
+
+  .pickup-location__h4 {
+    margin: 0;
+  }
+
+  .pickup-location__text-bold {
+    font-size: var(--font-size--md);
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .pickup-location__availability-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-xs);
+    font-family: var(--font-paragraph--family);
+  }
+
+  .pickup-location__address {
+    font-style: normal;
+  }
+
+  .pickup-location__close-button {
+    position: absolute;
+    top: calc(var(--padding-2xl) - (var(--icon-size-xs) / 2));
+    right: calc(var(--padding-2xl) - var(--icon-size-xs));
+    height: var(--minimum-touch-target);
+    width: var(--minimum-touch-target);
+  }
+
+  .pickup-location__close-button svg {
+    width: var(--icon-size-xs);
+    height: var(--icon-size-xs);
+  }
+
+  /* Invisible overlay that captures clicks on the disabled Notify Me button */
+  .notify-me-overlay {
+    position: absolute;
+    inset: 0;
+    cursor: pointer !important;
+    z-index: 100;
+    pointer-events: auto !important;
+  }
+
+  product-form-component {
+    position: relative;
+    display: block;
+  }
+
+  /* When notify overlay is active (no display:none), force button to full color */
+  product-form-component:has(.notify-me-overlay:not([style*="none"])) .add-to-cart-button[disabled] {
+    opacity: 1;
+    filter: none;
+  }
+
+  /* Klaviyo Back in Stock Modal */
+  .klaviyo-notify-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .klaviyo-notify-modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .klaviyo-notify-modal__content {
+    position: relative;
+    background: var(--color-background);
+    color: rgb(var(--color-foreground));
+    padding: 2rem;
+    max-width: 420px;
+    width: calc(100% - 2rem);
+    border-radius: var(--style-border-radius-inputs, 4px);
+    z-index: 1;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  }
+
+  .klaviyo-notify-modal__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    color: rgb(var(--color-foreground));
+    padding: 0.25rem 0.5rem;
+  }
+
+  .klaviyo-notify-modal__title {
+    margin: 0 0 0.4rem;
+    font-size: 1.2rem;
+  }
+
+  .klaviyo-notify-modal__subtitle {
+    font-size: 0.8rem;
+    margin: 0 0 1.2rem;
+    opacity: 0.65;
+  }
+
+  .klaviyo-notify-modal__input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+    border: 0.1rem solid #d9d9d9;
+    border-radius: var(--style-border-radius-inputs, 4px);
+    background-color: #f9f9f9;
+    color: rgb(var(--color-foreground));
+    margin-bottom: 0.75rem;
+    outline: none;
+  }
+
+  .klaviyo-notify-modal__input:focus {
+    border-color: #999;
+  }
+
+  .klaviyo-notify-modal__submit {
+    width: 100%;
+    padding-block: var(--padding-lg);
+  }
+
+  .klaviyo-notify-modal__success {
+    font-size: 0.9rem;
+    color: #2a7a2a;
+    text-align: center;
+    padding: 0.5rem 0 0;
+    margin: 0;
+  }
+{% endstylesheet %}
 
 {% schema %}
 {
@@ -386,16 +643,6 @@
       "id": "show_pickup_availability",
       "label": "t:settings.show_pickup_availability",
       "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "gift_card_form",
-      "label": "t:settings.gift_card_form",
-      "default": true
-    },
-    {
-      "type": "paragraph",
-      "content": "t:content.gift_card_form_description"
     },
     {
       "type": "header",
