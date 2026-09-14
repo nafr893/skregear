@@ -143,9 +143,6 @@
   var KLAVIYO_KEY = 'Xy393m';
   var bid = '{{ block.id }}';
 
-  // Use the buy-buttons span as root for all DOM lookups.
-  // Avoid getElementById on the <form> — it is fragile across Shopify themes.
-  var buyBlock      = document.querySelector('.buy-buttons-block--' + bid);
   var notifyOverlay = document.getElementById('notify-me-overlay-' + bid);
   var modal         = document.getElementById('klaviyo-modal-' + bid);
   var modalOverlay  = document.getElementById('klaviyo-overlay-' + bid);
@@ -155,37 +152,29 @@
   var formDiv       = document.getElementById('klaviyo-notify-form-' + bid);
   var successDiv    = document.getElementById('klaviyo-notify-success-' + bid);
 
-  function getAtcButton() {
-    // Re-query each call: after variant:update the theme calls morph() which
-    // replaces the button element entirely, making any cached reference stale.
-    return buyBlock ? buyBlock.querySelector('button[name="add"]') : null;
-  }
+  var productForm = document.getElementById('BuyButtons-ProductForm-' + bid);
+  var atcButton   = productForm ? productForm.querySelector('button[name="add"]') : null;
 
-  function getVariantId() {
-    var input = buyBlock ? buyBlock.querySelector('input[name="id"]') : null;
-    return input ? input.value : null;
-  }
-
+  // Sync overlay visibility + button text with ATC disabled state (variant switches)
   function syncState() {
-    var btn = getAtcButton();
-    if (!btn) return;
-    if (btn.disabled) {
+    if (!atcButton) return;
+    if (atcButton.disabled) {
       if (notifyOverlay) notifyOverlay.style.display = 'block';
-      btn.style.opacity = '1';
-      btn.style.filter = 'none';
-      var textEl = btn.querySelector('.add-to-cart-text__content');
+      atcButton.style.opacity = '1';
+      atcButton.style.filter = 'none';
+      var textEl = atcButton.querySelector('.add-to-cart-text__content');
       if (textEl) textEl.textContent = 'Notify Me';
     } else {
       if (notifyOverlay) notifyOverlay.style.display = 'none';
-      btn.style.opacity = '';
-      btn.style.filter = '';
+      atcButton.style.opacity = '';
+      atcButton.style.filter = '';
     }
   }
 
-  // Initial state on page load
-  syncState();
-  // Re-run after every variant switch — morph() fires ~50ms after variant:update
-  document.addEventListener('variant:update', function () { setTimeout(syncState, 50); });
+  if (atcButton) {
+    new MutationObserver(syncState).observe(atcButton, { attributes: true, attributeFilter: ['disabled'] });
+    syncState(); // handle initial page-load state
+  }
 
   // Open / close modal
   function openModal() {
@@ -216,8 +205,9 @@
       var email = emailInput ? emailInput.value.trim() : '';
       if (!email || !emailInput.checkValidity()) { emailInput.reportValidity(); return; }
 
-      var variantId = getVariantId();
-      if (!variantId) { console.error('[Klaviyo BIS] variant ID not found'); return; }
+      var variantInput = productForm ? productForm.querySelector('input[name="id"]') : null;
+      var variantId = variantInput ? variantInput.value : null;
+      if (!variantId) return;
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'Signing up…';
