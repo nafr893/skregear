@@ -143,6 +143,8 @@
   var KLAVIYO_KEY = 'WBSwHe';
   var bid = '{{ block.id }}';
 
+  // Use the buy-buttons span as root — avoids fragile getElementById on the <form>
+  var buyBlock      = document.querySelector('.buy-buttons-block--' + bid);
   var notifyOverlay = document.getElementById('notify-me-overlay-' + bid);
   var modal         = document.getElementById('klaviyo-modal-' + bid);
   var modalOverlay  = document.getElementById('klaviyo-overlay-' + bid);
@@ -152,8 +154,12 @@
   var formDiv       = document.getElementById('klaviyo-notify-form-' + bid);
   var successDiv    = document.getElementById('klaviyo-notify-success-' + bid);
 
-  var productForm = document.getElementById('BuyButtons-ProductForm-' + bid);
-  var atcButton   = productForm ? productForm.querySelector('button[name="add"]') : null;
+  var atcButton = buyBlock ? buyBlock.querySelector('button[name="add"]') : null;
+
+  function getVariantId() {
+    var input = buyBlock ? buyBlock.querySelector('input[name="id"]') : null;
+    return input ? input.value : null;
+  }
 
   // Sync overlay visibility + button text with ATC disabled state (variant switches)
   function syncState() {
@@ -205,9 +211,8 @@
       var email = emailInput ? emailInput.value.trim() : '';
       if (!email || !emailInput.checkValidity()) { emailInput.reportValidity(); return; }
 
-      var variantInput = productForm ? productForm.querySelector('input[name="id"]') : null;
-      var variantId = variantInput ? variantInput.value : null;
-      if (!variantId) return;
+      var variantId = getVariantId();
+      if (!variantId) { console.error('[Klaviyo BIS] variant ID not found'); return; }
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'Signing up…';
