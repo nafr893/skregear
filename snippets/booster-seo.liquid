@@ -202,7 +202,46 @@ Title and Description
   {%- assign booster_desc = "[shopify_seo_description]" -%}
 {%- endif -%}
 
-{%- unless booster_title == blank -%}
+{%- comment -%}
+  Multi-market safety net. On a NON-primary storefront locale, Booster must not
+  replace the theme's native (Translate & Adapt) SEO title/description with its
+  own single-language value -- doing so overwrites the merchant's translation
+  (the exact bug multilingual stores hit). We detect the shop's primary locale
+  and whether the current request is on a secondary market; the title and
+  description blocks below then defer to page_title / page_description there, so
+  Shopify's native per-locale translation is served untouched. The primary
+  market keeps Booster's optimized meta. Per-shop opt-out via the
+  disable_native_meta_fallback config flag (absent/false = feature on).
+  strict2-safe: only standard loops/filters, no bracketed dynamic lookups.
+{%- endcomment -%}
+{%- assign ba_secondary_market = false -%}
+{%- unless booster_config.disable_native_meta_fallback -%}
+  {%- assign ba_primary_locale = '' -%}
+  {%- for ba_loc in shop.published_locales -%}
+    {%- if ba_loc.primary -%}{%- assign ba_primary_locale = ba_loc.iso_code -%}{%- endif -%}
+  {%- endfor -%}
+  {%- if ba_primary_locale != '' and request.locale.iso_code != ba_primary_locale -%}
+    {%- assign ba_secondary_market = true -%}
+  {%- endif -%}
+{%- endunless -%}
+
+{%- comment -%}booster:title:start{%- endcomment -%}
+{%- comment -%}
+  Booster's snippet is injected first in <head>, so the <title> it emits is the
+  one Google uses. When meta optimization is ON (booster_title present) we ALWAYS
+  emit our optimized title: gating it would throw away the optimization the
+  merchant pays for and let the theme's title win, a regression. We gate ONLY the
+  non-optimized emissions (secondary-market passthrough and the meta-off
+  page_title fallback), which merely echo the theme's own title and would
+  otherwise add a redundant duplicate. booster_config.theme_has_native_title is
+  set server-side from a stable homepage check; absent/false means "emit as
+  before". A residual duplicate under meta-ON is resolved by removing the THEME's
+  tag, not ours.
+{%- endcomment -%}
+{%- if ba_secondary_market -%}
+  {%- comment -%} Secondary market: serve the native translated title untouched, unless the theme already emits its own. {%- endcomment -%}
+  {%- unless booster_config.theme_has_native_title -%}<title>{{ page_title | escape_once }}</title>{%- endunless -%}
+{%- elsif booster_title != blank -%}
   {%- assign booster_title = booster_title | replace: "[title]", booster_item.title -%}
   {%- if baType == 'product' -%}
     {%- assign formatted_price = product.variants[0].price | money -%}
@@ -217,6 +256,8 @@ Title and Description
   {%- assign booster_title = booster_title | replace : "[shopify_seo_title]", page_title -%}
   <title>{{ booster_title | escape_once }}</title>
 {%- else -%}
+  {%- comment -%} No Booster-managed title (meta off): emit the default page_title only when the theme is not already outputting its own, else we duplicate it. {%- endcomment -%}
+  {%- unless booster_config.theme_has_native_title -%}
   <title>{{ page_title -}}
   {%- if current_tags -%} –
   {%- assign meta_tags = current_tags | join: ', ' -%}
@@ -228,7 +269,9 @@ Title and Description
   {%- if translated_page contains 'translation missing' or translated_page contains 'I18n Error' -%} {{ current_page }}{%- else -%} {{ translated_page }}{%- endif -%}
   {%- endif -%}
   </title>
-{%- endunless -%}
+  {%- endunless -%}
+{%- endif -%}
+{%- comment -%}booster:title:end{%- endcomment -%}
 
 {%- unless booster_config.google_verification_meta_tag == blank -%}
   {%- if booster_config.google_verification_meta_tag contains '<meta' -%}
@@ -238,7 +281,17 @@ Title and Description
   {%- endif -%}
 {%- endunless -%}
 
-{%- unless booster_desc == blank -%}
+{%- comment -%}booster:desc:start{%- endcomment -%}
+{%- comment -%}
+  Same policy for the meta description: when meta is ON we always emit the
+  Booster-optimized description (it wins, first in <head>); we gate only the
+  non-optimized secondary-market and fallback emissions so they don't duplicate
+  the theme's own description.
+{%- endcomment -%}
+{%- if ba_secondary_market -%}
+  {%- comment -%} Secondary market: serve the native translated description untouched, unless the theme already emits its own. {%- endcomment -%}
+  {%- unless booster_config.theme_has_native_desc -%}<meta name="description" content="{{ page_description | strip | strip_newlines | escape_once }}" />{%- endunless -%}
+{%- elsif booster_desc != blank -%}
   {%- assign formatted_price = product.variants[0].price | money -%}
   {%- assign booster_desc = booster_desc | replace: "[description]", booster_item.description -%}
   {%- assign booster_desc = booster_desc | replace : "[price]", formatted_price -%}
@@ -252,8 +305,10 @@ Title and Description
   {%- assign booster_desc = booster_desc | replace : "[shopify_seo_description]", page_description | strip | strip_newlines | escape_once -%}
   <meta name="description" content="{{ booster_desc | strip | strip_newlines | escape_once }}" />
 {%- else -%}
-  <meta name="description" content="{{ page_description | strip | strip_newlines | escape_once }}" />
-{%- endunless -%}
+  {%- comment -%} No Booster-managed description (meta off): emit the default only when the theme is not already outputting its own. {%- endcomment -%}
+  {%- unless booster_config.theme_has_native_desc -%}<meta name="description" content="{{ page_description | strip | strip_newlines | escape_once }}" />{%- endunless -%}
+{%- endif -%}
+{%- comment -%}booster:desc:end{%- endcomment -%}
 
 {%- if item_config and item_config.block_via_noindex == true -%}
 <meta name="robots" content="noindex">
@@ -837,5 +892,54 @@ Collection (CollectionPage + ItemList) and Breadcrumb Schema Markup
 
   http.send(data);
 </script>
+{%- endif -%}
+
+{%- comment -%}
+FAQ (FAQPage) Schema Markup. Booster does NOT author FAQ content; it marks up an
+FAQ list the store already maintains in a metafield, so the merchant's Q&A can
+feed AI answer engines (ChatGPT, Perplexity, Google AI Overviews) as machine-
+readable Q&A. Reads
+`custom.faqs` on the current product / collection / page / article -- a list
+(metaobject list or JSON) whose entries each expose `question` and `answer`.
+Fully safe: if the metafield is absent or the shape doesn't match, it emits
+nothing (no empty or malformed FAQPage). Gated on google_snippets_enabled like
+all other Booster schema.
+{%- endcomment -%}
+{%- if booster_config.google_snippets_enabled -%}
+  {%- assign booster_faqs = blank -%}
+  {%- if template.name == 'product' or template == 'product' -%}
+    {%- assign booster_faqs = product.metafields.custom.faqs.value -%}
+  {%- elsif template.name == 'collection' or template == 'collection' -%}
+    {%- assign booster_faqs = collection.metafields.custom.faqs.value -%}
+  {%- elsif template.name == 'page' or template == 'page' -%}
+    {%- assign booster_faqs = page.metafields.custom.faqs.value -%}
+  {%- elsif template.name == 'article' or template == 'article' -%}
+    {%- assign booster_faqs = article.metafields.custom.faqs.value -%}
+  {%- endif -%}
+  {%- if booster_faqs != blank and booster_faqs.size > 0 -%}
+    {%- assign booster_faq_count = 0 -%}
+    {%- for faq in booster_faqs -%}{%- if faq.question != blank and faq.answer != blank -%}{%- assign booster_faq_count = booster_faq_count | plus: 1 -%}{%- endif -%}{%- endfor -%}
+    {%- if booster_faq_count > 0 -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {%- assign booster_faq_i = 0 -%}
+      {%- for faq in booster_faqs -%}
+        {%- if faq.question != blank and faq.answer != blank -%}
+          {%- assign booster_faq_i = booster_faq_i | plus: 1 -%}
+          {
+            "@type": "Question",
+            "name": {{ faq.question | strip_html | json }},
+            "acceptedAnswer": {"@type": "Answer","text": {{ faq.answer | strip_html | json }}}
+          }{%- unless booster_faq_i == booster_faq_count -%},{%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+    ]
+  }
+</script>
+    {%- endif -%}
+  {%- endif -%}
 {%- endif -%}
 <!-- end of Booster Apps SEO -->
