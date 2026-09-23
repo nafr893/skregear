@@ -265,6 +265,16 @@
         "type": "shopify://apps/mida-fraud-ip-blocker/blocks/blocker-script/09aab972-8c77-47b1-a9a0-4712e9f2405d",
         "disabled": false,
         "settings": {}
+      },
+      "3459299451397308315": {
+        "type": "shopify://apps/easy-stock-buffer/blocks/sold-out-display/019f8df0-ff5d-7ccc-a463-54b8353faa5d",
+        "disabled": false,
+        "settings": {
+          "sold_out_label": "",
+          "dim_button": true,
+          "hide_dynamic_checkout": true,
+          "grey_options": true
+        }
       }
     },
     "color_schemes": {
