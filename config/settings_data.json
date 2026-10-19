@@ -266,14 +266,11 @@
         "disabled": false,
         "settings": {}
       },
-      "3459299451397308315": {
-        "type": "shopify://apps/easy-stock-buffer/blocks/sold-out-display/019f8df0-ff5d-7ccc-a463-54b8353faa5d",
+      "10605408327587305396": {
+        "type": "shopify://apps/eg-auto-add-to-cart/blocks/app-embed/0f7d4f74-1e89-4820-aec4-6564d7e535d2",
         "disabled": false,
         "settings": {
-          "sold_out_label": "",
-          "dim_button": true,
-          "hide_dynamic_checkout": true,
-          "grey_options": true
+          "version": "v3"
         }
       }
     },
