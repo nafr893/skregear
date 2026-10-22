@@ -280,31 +280,6 @@
                   {% render 'cart-products' %}
                 </scroll-hint>
 
-                {%- if cart.item_count > 0 -%}
-                <div class="skre-rfy" data-product-id="{{ cart.items.first.product_id }}">
-                  <details class="skre-rfy__details">
-                    <summary class="skre-rfy__summary">
-                      <span class="skre-rfy__label">Recommended For You</span>
-                      <span class="skre-rfy__icon skre-rfy__icon--open">
-                        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                        </svg>
-                      </span>
-                      <span class="skre-rfy__icon skre-rfy__icon--close">
-                        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                        </svg>
-                      </span>
-                    </summary>
-                    <div class="skre-rfy__content">
-                      <div class="skre-rfy__track" role="list" aria-label="Recommended products">
-                        <div class="skre-rfy__loading">Loading…</div>
-                      </div>
-                    </div>
-                  </details>
-                </div>
-                {%- endif -%}
-
                 <div
                   class="cart-drawer__summary"
                 >
@@ -893,20 +868,15 @@ padding-bottom: .125rem;
     background: #2C4A21;
   }
 
-  /* Push skre-rfy + summary to the bottom by letting items fill remaining space */
-  scroll-hint.cart-drawer__items {
-    flex: 1 1 auto;
+  /* Remove mask when accordion is open so products aren't faded */
+  .cart-drawer__summary:has(.skre-rfy__details[open]) {
+    mask-image: none;
   }
 
   /* Recommended For You accordion */
   .skre-rfy {
+    width: 100%;
     flex-shrink: 0;
-    background-color: var(--color-background);
-    padding-inline: var(--cart-drawer-padding);
-
-    @media screen and (min-width: 750px) {
-      padding-inline: var(--cart-drawer-padding-desktop);
-    }
   }
 
   .skre-rfy__details {
@@ -918,7 +888,6 @@ padding-bottom: .125rem;
     align-items: center;
     justify-content: space-between;
     padding-block: var(--padding-sm);
-    border-block-start: 1px solid var(--color-border);
     cursor: pointer;
     list-style: none;
     font-size: var(--font-size--sm);
@@ -926,6 +895,10 @@ padding-bottom: .125rem;
     letter-spacing: 0.04em;
     color: var(--color-foreground);
     user-select: none;
+  }
+
+  .skre-rfy__details[open] .skre-rfy__summary {
+    border-block-end: 1px solid var(--color-border);
   }
 
   .skre-rfy__summary::-webkit-details-marker { display: none; }
@@ -939,7 +912,6 @@ padding-bottom: .125rem;
 
   .skre-rfy__content {
     padding-block: var(--padding-sm) var(--padding-xs);
-    border-block-start: 1px solid var(--color-border);
   }
 
   .skre-rfy__track {

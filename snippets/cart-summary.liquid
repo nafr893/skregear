@@ -5,6 +5,31 @@
   @param {string} [section_id] - The section ID for cart discount component.
 {%- enddoc -%}
 
+{%- if cart.item_count > 0 -%}
+<div class="skre-rfy" data-product-id="{{ cart.items.first.product_id }}">
+  <details class="skre-rfy__details">
+    <summary class="skre-rfy__summary">
+      <span class="skre-rfy__label">Recommended For You</span>
+      <span class="skre-rfy__icon skre-rfy__icon--open">
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="skre-rfy__icon skre-rfy__icon--close">
+        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </span>
+    </summary>
+    <div class="skre-rfy__content">
+      <div class="skre-rfy__track" role="list" aria-label="Recommended products">
+        <div class="skre-rfy__loading">Loading…</div>
+      </div>
+    </div>
+  </details>
+</div>
+{%- endif -%}
+
 <div class="cart-totals">
   {% # We need to keep this node in place to allow morphing to work properly # %}
   <div class="cart-totals__original-container cart-primary-typography">
