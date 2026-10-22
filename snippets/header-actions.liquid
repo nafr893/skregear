@@ -968,7 +968,12 @@ padding-bottom: .125rem;
     gap: var(--gap-2xs);
   }
 
-  .skre-rfy__card:hover .skre-rfy__card-title { text-decoration: underline; }
+  .skre-rfy__card-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .skre-rfy__card-link:hover .skre-rfy__card-title { text-decoration: underline; }
 
   .skre-rfy__card-img {
     width: 120px;
@@ -1010,6 +1015,40 @@ padding-bottom: .125rem;
     color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
   }
 
+  .skre-rfy__atc {
+    display: block;
+    width: 100%;
+    margin-block-start: var(--gap-2xs);
+    padding-block: 6px;
+    font-size: var(--font-size--xs);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-align: center;
+    text-decoration: none;
+    color: var(--color-foreground);
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--style-border-radius-buttons-primary, 4px);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .skre-rfy__atc:hover:not(:disabled) {
+    background: var(--color-foreground);
+    color: var(--color-background);
+  }
+
+  .skre-rfy__atc--added {
+    background: var(--color-foreground);
+    color: var(--color-background);
+    border-color: var(--color-foreground);
+  }
+
+  .skre-rfy__atc--unavailable {
+    opacity: 0.4;
+    cursor: default;
+  }
+
   .skre-rfy__loading,
   .skre-rfy__empty {
     font-size: var(--font-size--xs);
@@ -1036,22 +1075,76 @@ padding-bottom: .125rem;
     }
 
     function buildCard(p) {
-      var img   = p.images && p.images[0] ? p.images[0] : '';
-      var price = p.variants && p.variants[0] ? p.variants[0].price : 0;
-      var card  = document.createElement('a');
+      var img        = p.images && p.images[0] ? p.images[0] : '';
+      var firstVar   = p.variants && p.variants[0];
+      var price      = firstVar ? firstVar.price : 0;
+      var variantId  = firstVar ? firstVar.id : null;
+      var singleVar  = p.variants && p.variants.length === 1;
+      var available  = firstVar && firstVar.available;
+
+      var btnHtml;
+      if (!available) {
+        btnHtml = '<button class="skre-rfy__atc skre-rfy__atc--unavailable" disabled>Sold Out</button>';
+      } else if (singleVar) {
+        btnHtml = '<button class="skre-rfy__atc" data-variant-id="' + variantId + '">Add</button>';
+      } else {
+        btnHtml = '<a class="skre-rfy__atc skre-rfy__atc--select" href="' + p.url + '">Select</a>';
+      }
+
+      var card = document.createElement('div');
       card.className = 'skre-rfy__card';
-      card.href      = p.url;
       card.setAttribute('role', 'listitem');
       card.innerHTML =
-        '<div class="skre-rfy__card-img">' +
-          (img ? '<img src="' + img + '" alt="' + p.title.replace(/"/g, '&quot;') + '" loading="lazy" width="120" height="120">' : '') +
-        '</div>' +
+        '<a class="skre-rfy__card-link" href="' + p.url + '">' +
+          '<div class="skre-rfy__card-img">' +
+            (img ? '<img src="' + img + '" alt="' + p.title.replace(/"/g, '&quot;') + '" loading="lazy" width="120" height="120">' : '') +
+          '</div>' +
+        '</a>' +
         '<div class="skre-rfy__card-body">' +
-          '<p class="skre-rfy__card-title">' + p.title + '</p>' +
+          '<a class="skre-rfy__card-link" href="' + p.url + '">' +
+            '<p class="skre-rfy__card-title">' + p.title + '</p>' +
+          '</a>' +
           '<p class="skre-rfy__card-price">' + money(price) + '</p>' +
+          btnHtml +
         '</div>';
       return card;
     }
+
+    function quickAdd(btn) {
+      var variantId = btn.dataset.variantId;
+      if (!variantId || btn.disabled) return;
+      btn.disabled = true;
+      btn.textContent = '…';
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: parseInt(variantId, 10), quantity: 1 })
+      })
+      .then(function () { return fetch('/cart.js'); })
+      .then(function (r) { return r.json(); })
+      .then(function (cart) {
+        btn.textContent = 'Added ✓';
+        btn.classList.add('skre-rfy__atc--added');
+        document.dispatchEvent(new CustomEvent('cart:update', {
+          bubbles: true,
+          detail: { resource: cart, data: { itemCount: cart.item_count } }
+        }));
+        setTimeout(function () {
+          btn.disabled = false;
+          btn.textContent = 'Add';
+          btn.classList.remove('skre-rfy__atc--added');
+        }, 2000);
+      })
+      .catch(function () {
+        btn.disabled = false;
+        btn.textContent = 'Add';
+      });
+    }
+
+    track.addEventListener('click', function (e) {
+      var btn = e.target.closest('.skre-rfy__atc[data-variant-id]');
+      if (btn) { e.preventDefault(); quickAdd(btn); }
+    });
 
     function loadRecs() {
       if (loaded || !productId) return;
