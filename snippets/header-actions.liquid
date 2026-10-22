@@ -280,6 +280,31 @@
                   {% render 'cart-products' %}
                 </scroll-hint>
 
+                {%- if cart.item_count > 0 -%}
+                <div class="skre-rfy" data-product-id="{{ cart.items.first.product_id }}">
+                  <details class="skre-rfy__details">
+                    <summary class="skre-rfy__summary">
+                      <span class="skre-rfy__label">Recommended For You</span>
+                      <span class="skre-rfy__icon skre-rfy__icon--open">
+                        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                      </span>
+                      <span class="skre-rfy__icon skre-rfy__icon--close">
+                        <svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                        </svg>
+                      </span>
+                    </summary>
+                    <div class="skre-rfy__content">
+                      <div class="skre-rfy__track" role="list" aria-label="Recommended products">
+                        <div class="skre-rfy__loading">Loading…</div>
+                      </div>
+                    </div>
+                  </details>
+                </div>
+                {%- endif -%}
+
                 <div
                   class="cart-drawer__summary"
                 >
@@ -867,4 +892,192 @@ padding-bottom: .125rem;
   .free-shipping-bar__fill--complete {
     background: #2C4A21;
   }
+
+  /* Recommended For You accordion */
+  .skre-rfy {
+    flex-shrink: 0;
+    background-color: var(--color-background);
+    padding-inline: var(--cart-drawer-padding);
+
+    @media screen and (min-width: 750px) {
+      padding-inline: var(--cart-drawer-padding-desktop);
+    }
+  }
+
+  /* Expand upward: flex column-reverse so content appears above the header */
+  .skre-rfy__details {
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .skre-rfy__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: var(--padding-sm);
+    border-block-start: 1px solid var(--color-border);
+    cursor: pointer;
+    list-style: none;
+    font-size: var(--font-size--sm);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--color-foreground);
+    user-select: none;
+  }
+
+  .skre-rfy__summary::-webkit-details-marker { display: none; }
+
+  .skre-rfy__icon { display: flex; align-items: center; }
+
+  /* Show + when closed, − when open */
+  .skre-rfy__icon--close { display: none; }
+  .skre-rfy__details[open] .skre-rfy__icon--open { display: none; }
+  .skre-rfy__details[open] .skre-rfy__icon--close { display: flex; }
+
+  .skre-rfy__content {
+    padding-block: var(--padding-sm) var(--padding-xs);
+    border-block-start: 1px solid var(--color-border);
+  }
+
+  .skre-rfy__track {
+    display: flex;
+    gap: var(--gap-sm);
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-block-end: var(--padding-xs);
+  }
+
+  .skre-rfy__track::-webkit-scrollbar { display: none; }
+
+  .skre-rfy__card {
+    flex: 0 0 120px;
+    scroll-snap-align: start;
+    text-decoration: none;
+    color: var(--color-foreground);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-2xs);
+  }
+
+  .skre-rfy__card:hover .skre-rfy__card-title { text-decoration: underline; }
+
+  .skre-rfy__card-img {
+    width: 120px;
+    height: 120px;
+    border-radius: var(--style-border-radius-inputs, 4px);
+    overflow: hidden;
+    background: rgb(var(--color-foreground-rgb) / 0.06);
+    flex-shrink: 0;
+  }
+
+  .skre-rfy__card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .skre-rfy__card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .skre-rfy__card-title {
+    font-size: var(--font-size--xs);
+    font-weight: 500;
+    margin: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.3;
+  }
+
+  .skre-rfy__card-price {
+    font-size: var(--font-size--xs);
+    font-weight: 600;
+    margin: 0;
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+  }
+
+  .skre-rfy__loading,
+  .skre-rfy__empty {
+    font-size: var(--font-size--xs);
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+    margin: 0;
+    padding-block: var(--padding-xs);
+  }
 {% endstylesheet %}
+
+<script>
+(function () {
+  function initRfy() {
+    var container = document.querySelector('.skre-rfy');
+    if (!container || container.dataset.rfyInit) return;
+    container.dataset.rfyInit = '1';
+
+    var details   = container.querySelector('.skre-rfy__details');
+    var track     = container.querySelector('.skre-rfy__track');
+    var productId = container.dataset.productId;
+    var loaded    = false;
+
+    function money(cents) {
+      return '$' + (cents / 100).toFixed(2);
+    }
+
+    function buildCard(p) {
+      var img   = p.images && p.images[0] ? p.images[0] : '';
+      var price = p.variants && p.variants[0] ? p.variants[0].price : 0;
+      var card  = document.createElement('a');
+      card.className = 'skre-rfy__card';
+      card.href      = p.url;
+      card.setAttribute('role', 'listitem');
+      card.innerHTML =
+        '<div class="skre-rfy__card-img">' +
+          (img ? '<img src="' + img + '" alt="' + p.title.replace(/"/g, '&quot;') + '" loading="lazy" width="120" height="120">' : '') +
+        '</div>' +
+        '<div class="skre-rfy__card-body">' +
+          '<p class="skre-rfy__card-title">' + p.title + '</p>' +
+          '<p class="skre-rfy__card-price">' + money(price) + '</p>' +
+        '</div>';
+      return card;
+    }
+
+    function loadRecs() {
+      if (loaded || !productId) return;
+      fetch('/recommendations/products.json?product_id=' + productId + '&limit=8&intent=related')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          loaded = true;
+          track.innerHTML = '';
+          var products = (data.products || []).filter(function (p) { return p.available; });
+          if (products.length === 0) {
+            track.innerHTML = '<p class="skre-rfy__empty">No recommendations found.</p>';
+            return;
+          }
+          products.forEach(function (p) { track.appendChild(buildCard(p)); });
+        })
+        .catch(function () {
+          track.innerHTML = '<p class="skre-rfy__empty">Could not load recommendations.</p>';
+        });
+    }
+
+    details.addEventListener('toggle', function () {
+      if (details.open) loadRecs();
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRfy);
+  } else {
+    initRfy();
+  }
+
+  document.addEventListener('shopify:section:load', initRfy);
+})();
+</script>
