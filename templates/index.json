@@ -57,7 +57,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>HARDSCRABBLE SERIES</strong></p>",
+                "text": "<p><strong>AMBUSH WATERFOWL SERIES</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -84,7 +84,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h1>LAYERING BUILT<br/>FOR COLD WEATHER</h1>",
+                "text": "<h1>$200+ FREE GEAR<br/>WITH ANY WADERS</h1>",
                 "width": "fit-content",
                 "max_width": "none",
                 "alignment": "left",
@@ -136,7 +136,7 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/Hardscrabble_Hero_Banner_10-22.png",
+        "image_1": "shopify://shop_images/Ambush_Wader_Hero_Image.png",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": true,
