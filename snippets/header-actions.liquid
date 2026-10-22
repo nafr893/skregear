@@ -867,4 +867,289 @@ padding-bottom: .125rem;
   .free-shipping-bar__fill--complete {
     background: #2C4A21;
   }
+
+  /* Remove mask when accordion is open so products aren't faded */
+  .cart-drawer__summary:has(.skre-rfy__details[open]) {
+    mask-image: none;
+  }
+
+  /* Recommended For You accordion */
+  .skre-rfy {
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  .skre-rfy__details {
+    width: 100%;
+  }
+
+  .skre-rfy__summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: var(--padding-sm);
+    cursor: pointer;
+    list-style: none;
+    font-size: var(--font-size--sm);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--color-foreground);
+    user-select: none;
+  }
+
+  .skre-rfy__details[open] .skre-rfy__summary {
+    border-block-end: 1px solid var(--color-border);
+  }
+
+  .skre-rfy__summary::-webkit-details-marker { display: none; }
+
+  .skre-rfy__icon { display: flex; align-items: center; }
+
+  /* Show + when closed, − when open */
+  .skre-rfy__icon--close { display: none; }
+  .skre-rfy__details[open] .skre-rfy__icon--open { display: none; }
+  .skre-rfy__details[open] .skre-rfy__icon--close { display: flex; }
+
+  .skre-rfy__content {
+    padding-block: var(--padding-sm) var(--padding-xs);
+  }
+
+  .skre-rfy__track {
+    display: flex;
+    gap: var(--gap-sm);
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-block-end: var(--padding-xs);
+  }
+
+  .skre-rfy__track::-webkit-scrollbar { display: none; }
+
+  .skre-rfy__card {
+    flex: 0 0 120px;
+    scroll-snap-align: start;
+    text-decoration: none;
+    color: var(--color-foreground);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-2xs);
+  }
+
+  .skre-rfy__card-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .skre-rfy__card-link:hover .skre-rfy__card-title { text-decoration: underline; }
+
+  .skre-rfy__card-img {
+    width: 120px;
+    height: 120px;
+    border-radius: var(--style-border-radius-inputs, 4px);
+    overflow: hidden;
+    background: rgb(var(--color-foreground-rgb) / 0.06);
+    flex-shrink: 0;
+  }
+
+  .skre-rfy__card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .skre-rfy__card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .skre-rfy__card-title {
+    font-size: var(--font-size--xs);
+    font-weight: 500;
+    margin: 0;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.3;
+  }
+
+  .skre-rfy__card-price {
+    font-size: var(--font-size--xs);
+    font-weight: 600;
+    margin: 0;
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+  }
+
+  .skre-rfy__atc {
+    display: block;
+    width: 100%;
+    margin-block-start: var(--gap-2xs);
+    padding-block: 6px;
+    font-size: var(--font-size--xs);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-align: center;
+    text-decoration: none;
+    color: var(--color-foreground);
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--style-border-radius-buttons-primary, 4px);
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .skre-rfy__atc:hover:not(:disabled) {
+    background: var(--color-foreground);
+    color: var(--color-background);
+  }
+
+  .skre-rfy__atc--added {
+    background: var(--color-foreground);
+    color: var(--color-background);
+    border-color: var(--color-foreground);
+  }
+
+  .skre-rfy__atc--unavailable {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  .skre-rfy__loading,
+  .skre-rfy__empty {
+    font-size: var(--font-size--xs);
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-subdued-text));
+    margin: 0;
+    padding-block: var(--padding-xs);
+  }
 {% endstylesheet %}
+
+<script>
+(function () {
+  function initRfy() {
+    var container = document.querySelector('.skre-rfy');
+    if (!container || container.dataset.rfyInit) return;
+    container.dataset.rfyInit = '1';
+
+    var details   = container.querySelector('.skre-rfy__details');
+    var track     = container.querySelector('.skre-rfy__track');
+    var productId = container.dataset.productId;
+    var loaded    = false;
+
+    function money(cents) {
+      return '$' + (cents / 100).toFixed(2);
+    }
+
+    function buildCard(p) {
+      var img        = p.images && p.images[0] ? p.images[0] : '';
+      var firstVar   = p.variants && p.variants[0];
+      var price      = firstVar ? firstVar.price : 0;
+      var variantId  = firstVar ? firstVar.id : null;
+      var singleVar  = p.variants && p.variants.length === 1;
+      var available  = firstVar && firstVar.available;
+
+      var btnHtml;
+      if (!available) {
+        btnHtml = '<button class="skre-rfy__atc skre-rfy__atc--unavailable" disabled>Sold Out</button>';
+      } else if (singleVar) {
+        btnHtml = '<button class="skre-rfy__atc" data-variant-id="' + variantId + '">Add</button>';
+      } else {
+        btnHtml = '<a class="skre-rfy__atc skre-rfy__atc--select" href="' + p.url + '">Select</a>';
+      }
+
+      var card = document.createElement('div');
+      card.className = 'skre-rfy__card';
+      card.setAttribute('role', 'listitem');
+      card.innerHTML =
+        '<a class="skre-rfy__card-link" href="' + p.url + '">' +
+          '<div class="skre-rfy__card-img">' +
+            (img ? '<img src="' + img + '" alt="' + p.title.replace(/"/g, '&quot;') + '" loading="lazy" width="120" height="120">' : '') +
+          '</div>' +
+        '</a>' +
+        '<div class="skre-rfy__card-body">' +
+          '<a class="skre-rfy__card-link" href="' + p.url + '">' +
+            '<p class="skre-rfy__card-title">' + p.title + '</p>' +
+          '</a>' +
+          '<p class="skre-rfy__card-price">' + money(price) + '</p>' +
+          btnHtml +
+        '</div>';
+      return card;
+    }
+
+    function quickAdd(btn) {
+      var variantId = btn.dataset.variantId;
+      if (!variantId || btn.disabled) return;
+      btn.disabled = true;
+      btn.textContent = '…';
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: parseInt(variantId, 10), quantity: 1 })
+      })
+      .then(function () { return fetch('/cart.js'); })
+      .then(function (r) { return r.json(); })
+      .then(function (cart) {
+        btn.textContent = 'Added ✓';
+        btn.classList.add('skre-rfy__atc--added');
+        document.dispatchEvent(new CustomEvent('cart:update', {
+          bubbles: true,
+          detail: { resource: cart, data: { itemCount: cart.item_count } }
+        }));
+        setTimeout(function () {
+          btn.disabled = false;
+          btn.textContent = 'Add';
+          btn.classList.remove('skre-rfy__atc--added');
+        }, 2000);
+      })
+      .catch(function () {
+        btn.disabled = false;
+        btn.textContent = 'Add';
+      });
+    }
+
+    track.addEventListener('click', function (e) {
+      var btn = e.target.closest('.skre-rfy__atc[data-variant-id]');
+      if (btn) { e.preventDefault(); quickAdd(btn); }
+    });
+
+    function loadRecs() {
+      if (loaded || !productId) return;
+      fetch('/recommendations/products.json?product_id=' + productId + '&limit=8&intent=related')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          loaded = true;
+          track.innerHTML = '';
+          var products = (data.products || []).filter(function (p) { return p.available; });
+          if (products.length === 0) {
+            track.innerHTML = '<p class="skre-rfy__empty">No recommendations found.</p>';
+            return;
+          }
+          products.forEach(function (p) { track.appendChild(buildCard(p)); });
+        })
+        .catch(function () {
+          track.innerHTML = '<p class="skre-rfy__empty">Could not load recommendations.</p>';
+        });
+    }
+
+    details.addEventListener('toggle', function () {
+      if (details.open) loadRecs();
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initRfy);
+  } else {
+    initRfy();
+  }
+
+  document.addEventListener('shopify:section:load', initRfy);
+
+  // Re-init after cart morphs (add, remove, quantity change all fire cart:update)
+  document.addEventListener('cart:update', function () {
+    requestAnimationFrame(function () { initRfy(); });
+  });
+})();
+</script>
