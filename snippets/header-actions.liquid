@@ -1146,5 +1146,11 @@ padding-bottom: .125rem;
   }
 
   document.addEventListener('shopify:section:load', initRfy);
+
+  // Re-init after cart morphs (add, remove, quantity change all fire cart:update)
+  document.addEventListener('cart:update', function () {
+    // Wait one frame for the morph to finish replacing DOM nodes
+    requestAnimationFrame(function () { initRfy(); });
+  });
 })();
 </script>
