@@ -57,7 +57,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>HARDSCRABBLE SERIES</strong></p>",
+                "text": "<p><strong>AMBUSH WATERFOWL SERIES</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -84,7 +84,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h1>LAYERING BUILT<br/>FOR COLD WEATHER</h1>",
+                "text": "<h1>$200+ FREE GEAR<br/>WITH ANY WADERS</h1>",
                 "width": "fit-content",
                 "max_width": "none",
                 "alignment": "left",
@@ -118,7 +118,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "Shop Now",
-            "link": "shopify://collections/hardscrabble-series",
+            "link": "shopify://products/ambush-wader",
             "open_in_new_tab": false,
             "style_class": "button",
             "width": "fit-content",
@@ -136,7 +136,7 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/KRISTYLEE_2024_MWL_418.webp",
+        "image_1": "shopify://shop_images/Waterfowl_SKRE_Banner_10-22.png",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": true,
@@ -176,12 +176,12 @@
           "settings": {
             "label": "Gear",
             "collection_1": "jackets-vests",
-            "collection_2": "base-layer-tops",
-            "collection_3": "sotfshell-bottoms",
-            "collection_4": "accessories",
+            "collection_2": "pants-bottoms",
+            "collection_3": "accessories",
+            "collection_4": "waterfowl",
             "collection_5": "womens-gear",
             "collection_6": "packs-bags-equipment",
-            "collection_7": "button-ups",
+            "collection_7": "waterproof",
             "collection_8": ""
           }
         },
