@@ -67,6 +67,7 @@
     "cart_price_font": "secondary",
     "auto_open_cart_drawer": true,
     "enable_free_shipping_bar": true,
+    "free_shipping_threshold": 250,
     "show_cart_note": false,
     "show_add_discount_code": false,
     "show_installments": false,
