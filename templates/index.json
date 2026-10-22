@@ -57,7 +57,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>FOR HUNTERS WHO DO THE WORK</strong></p>",
+                "text": "<p><strong>HARDSCRABBLE SERIES</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -84,11 +84,11 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h1>REAL PERFORMANCE,<br/>BACKED BY A TRUE LIFETIME WARRANTY.</h1>",
+                "text": "<h1>LAYERING BUILT<br/>FOR COLD WEATHER</h1>",
                 "width": "fit-content",
                 "max_width": "none",
                 "alignment": "left",
-                "type_preset": "h2",
+                "type_preset": "h1",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
                 "line_height": "normal",
@@ -118,7 +118,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "Shop Now",
-            "link": "shopify://collections/shop",
+            "link": "shopify://collections/hardscrabble-series",
             "open_in_new_tab": false,
             "style_class": "button",
             "width": "fit-content",
@@ -136,7 +136,7 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/DSC04510_3ae2a088-d873-4f7b-b40d-06f49472d858.webp",
+        "image_1": "shopify://shop_images/KRISTYLEE_2024_MWL_418.webp",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": true,
