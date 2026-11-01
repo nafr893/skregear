@@ -118,7 +118,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "Shop Now",
-            "link": "shopify://collections/ptarmigan-series",
+            "link": "shopify://collections/jackets-vests",
             "open_in_new_tab": false,
             "style_class": "button",
             "width": "fit-content",
