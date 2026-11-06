@@ -111,6 +111,21 @@
         "visibility": "both"
       }
     },
+    "skre_sort_toolbar_4Aqdfa": {
+      "type": "skre-sort-toolbar",
+      "name": "Sort Toolbar",
+      "settings": {
+        "section_width": "page-width",
+        "show_filter": true,
+        "filter_label": "Filter",
+        "sort_label": "Sort By",
+        "breadcrumb_parent_label": "Shop",
+        "breadcrumb_parent_url": "",
+        "padding-block-start": 8,
+        "padding-block-end": 8,
+        "visibility": "both"
+      }
+    },
     "main": {
       "type": "main-collection",
       "blocks": {
@@ -456,6 +471,7 @@
   },
   "order": [
     "section",
+    "skre_sort_toolbar_4Aqdfa",
     "main",
     "collection_list_8Ng978"
   ]
