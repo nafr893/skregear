@@ -161,5 +161,11 @@
     {% endif %}
 
     <script src="{{ 'skre.js' | asset_url }}" defer></script>
+    <script>
+      // Safari bfcache fix: reload if page is restored from cache snapshot
+      window.addEventListener('pageshow', function(e) {
+        if (e.persisted) window.location.reload();
+      });
+    </script>
   </body>
 </html>
