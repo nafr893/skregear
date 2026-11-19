@@ -263,16 +263,18 @@
         "disabled": true,
         "settings": {}
       },
-      "7735469494667817498": {
-        "type": "shopify://apps/cookiefy-privacy-policy/blocks/rcc-widget/73038c83-bed0-4085-8aae-bb5c3539c0c6",
-        "disabled": false,
-        "settings": {}
-      },
       "10605408327587305396": {
         "type": "shopify://apps/eg-auto-add-to-cart/blocks/app-embed/0f7d4f74-1e89-4820-aec4-6564d7e535d2",
         "disabled": false,
         "settings": {
           "version": "v3"
+        }
+      },
+      "7735469494667817498": {
+        "type": "shopify://apps/cookiefy-privacy-policy/blocks/rcc-widget/73038c83-bed0-4085-8aae-bb5c3539c0c6",
+        "disabled": true,
+        "settings": {
+          "blocking_enabled": false
         }
       }
     },
