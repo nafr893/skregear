@@ -118,7 +118,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "Shop Now",
-            "link": "shopify://collections/shop",
+            "link": "shopify://products/ptarmigan-850-down-jacket-pro",
             "open_in_new_tab": false,
             "style_class": "button",
             "width": "fit-content",
