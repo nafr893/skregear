@@ -57,7 +57,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>PTARMIGAN PRO</strong></p>",
+                "text": "<p><strong>BLACK FRIDAY IS ON!</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -84,7 +84,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h1>THE BEST JUST GOT BETTER</h1>",
+                "text": "<h1>SAVE UP TO 40% SITEWIDE</h1>",
                 "width": "fit-content",
                 "max_width": "none",
                 "alignment": "left",
