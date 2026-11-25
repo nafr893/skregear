@@ -57,7 +57,7 @@
               "type": "text",
               "name": "t:names.text",
               "settings": {
-                "text": "<p><strong>BLACK FRIDAY SALE</strong></p>",
+                "text": "<p><strong>PTARMIGAN PRO</strong></p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -84,7 +84,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h1>SAVE UP TO 40% OFF SITE WIDE</h1>",
+                "text": "<h1>THE BEST JUST GOT BETTER</h1>",
                 "width": "fit-content",
                 "max_width": "none",
                 "alignment": "left",
@@ -118,7 +118,7 @@
           "name": "t:names.button",
           "settings": {
             "label": "Shop Now",
-            "link": "shopify://collections/all-products",
+            "link": "shopify://products/ptarmigan-850-down-jacket-pro",
             "open_in_new_tab": false,
             "style_class": "button",
             "width": "fit-content",
@@ -136,12 +136,12 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
-        "image_1": "shopify://shop_images/DSC09877.jpg",
+        "image_1": "shopify://shop_images/DSC01994.jpg",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": true,
         "media_type_1_mobile": "image",
-        "image_1_mobile": "shopify://shop_images/DSC09877.jpg",
+        "image_1_mobile": "shopify://shop_images/DSC01994.jpg",
         "media_type_2_mobile": "image",
         "link": "",
         "open_in_new_tab": false,
