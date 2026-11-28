@@ -14,13 +14,27 @@
     "header_announcements_9jGBFp": {
       "type": "header-announcements",
       "blocks": {
+        "announcement_6zm8Xe": {
+          "type": "_announcement",
+          "name": "t:names.announcement",
+          "settings": {
+            "text": "DUE TO HIGH DEMAND: EXPECT SHIPPING DELAYS ON BRANDED GEAR",
+            "link": "",
+            "font": "var(--font-subheading--family)",
+            "font_size": "0.875rem",
+            "weight": "",
+            "letter_spacing": "normal",
+            "case": "none"
+          },
+          "blocks": {}
+        },
         "announcement_BxgCk9": {
           "type": "_announcement",
           "settings": {
             "text": "FREE SHIPPING OVER $250",
             "link": "",
             "font": "var(--font-subheading--family)",
-            "font_size": "0.75rem",
+            "font_size": "0.875rem",
             "weight": "",
             "letter_spacing": "normal",
             "case": "none"
@@ -29,6 +43,7 @@
         }
       },
       "block_order": [
+        "announcement_6zm8Xe",
         "announcement_BxgCk9"
       ],
       "name": "t:names.announcement_bar",
