@@ -18,7 +18,7 @@
           "type": "_announcement",
           "name": "t:names.announcement",
           "settings": {
-            "text": "DUE TO HIGH DEMAND: EXPECT SHIPPING DELAYS ON BRANDED GEAR",
+            "text": "DUE TO HIGH DEMAND: EXPECT SHIPPING DELAYS ON T-SHIRTS & HOODIES",
             "link": "",
             "font": "var(--font-subheading--family)",
             "font_size": "0.875rem",
